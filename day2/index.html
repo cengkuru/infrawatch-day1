@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InfraWatch &middot; Day 2 visuals</title>
+  <style>
+    :root{ --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6; --surface:#F8F8F8;
+      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:12px;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; --mono:"SFMono-Regular",Consolas,monospace; }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red); display:flex; align-items:center; justify-content:space-between; padding:13px 24px;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    /* DAY NAV */
+    .daynav{display:flex; gap:0; background:#222; border-bottom:1px solid #000;}
+    .daynav a{flex:1; text-align:center; text-decoration:none; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; font-size:.74rem; font-weight:700; padding:11px 8px; color:#9aa; border-bottom:3px solid transparent; transition:color .12s, border-color .12s, background .12s;}
+    .daynav a:hover{color:#fff; background:#2d2d2d;}
+    .daynav a.active{color:#fff; border-bottom-color:var(--cost-red); background:#2d2d2d;}
+    .daynav a .d{display:block; font-size:.62rem; color:#788; font-weight:600; letter-spacing:.04em;}
+    .daynav a.active .d{color:#c98;}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
+    .wrap{max-width:760px; margin:0 auto; padding:30px 20px 60px;}
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
+    h1{font-size:clamp(1.7rem,4vw,2.4rem); line-height:1.1; font-weight:800; margin:6px 0 8px;}
+    .sub{color:var(--cost-mid); margin:0 0 22px; font-size:1.05rem;}
+    a.card{display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--cost-light); border-left:5px solid var(--cost-red);
+      border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; margin-bottom:14px; transition:transform .12s, box-shadow .12s;}
+    a.card:hover{transform:translateY(-2px); box-shadow:0 22px 50px rgba(45,45,45,.16);}
+    a.card h3{margin:0 0 4px; font-size:1.15rem;}
+    a.card p{margin:0; color:var(--cost-mid); font-size:.92rem;}
+    a.card .go{font-family:var(--mono); font-size:.72rem; color:var(--cost-red); font-weight:700; margin-top:8px; display:inline-block;}
+    a.card .hrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+    .tag{font-family:var(--mono); font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:20px;}
+    .tag.ready{background:#eef6f0; color:#2F7A46; border:1px solid #cfe6d5;}
+    .tag.wip{background:#fff4d6; color:#7a5a12; border:1px solid #ecd9a0;}
+    a.card.wip{border-left-color:#c9c9d2; opacity:.92;}
+    a.card.wip h3{color:var(--cost-mid);}
+    a.card.wip .go{color:#7a5a12;}
+    .sectionlabel{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.06em; color:var(--cost-mid); margin:22px 0 10px;}
+    .foot{margin-top:24px; color:var(--cost-mid); font-size:.8rem;} .foot strong{color:var(--cost-dark);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">InfraWatch &middot; Day 2 visuals</span><span class="ctx">CIPE &middot; CoST</span></div>
+  <nav class="daynav">
+    <a href="../"><span class="d">2 Jun</span>Day 1</a>
+    <a class="active" href="./"><span class="d">3 Jun</span>Day 2</a>
+  </nav>
+  <div class="draftbar">Working drafts, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+  <main class="wrap">
+    <p class="label">Nairobi workshop &middot; Day 2</p>
+    <h1>Day 2: does disclosure predict value?</h1>
+    <p class="sub">Yesterday's discussions, taken one step further. The case studies and the NPV toolkit, turned into something you can poke at. Tap one to open it. They work best in landscape on a phone.</p>
+
+    <p class="sectionlabel">Still in progress &middot; play, poke, tell me what is wrong</p>
+    <a class="card wip" href="disclosure-vs-npv-correlation.html">
+      <div class="hrow"><h3>Does disclosure predict value?</h3><span class="tag wip">In progress</span></div>
+      <p>Ten projects plotted: how much each disclosed against the CoST IDS data points, versus its NPV verdict. The honest answer is that the question partly answers itself.</p>
+      <span class="go">Open &rarr;</span></a>
+
+    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day 2, 3 Jun 2026. InfraWatch is a CIPE methodology; its disclosure leg maps to the CoST IDS, alongside PEA and the NPV toolkit (IEA-Kenya). Working drafts by Michael Cengkuru. Tell me where I have you wrong.</p>
+  </main>
+</body>
+</html>

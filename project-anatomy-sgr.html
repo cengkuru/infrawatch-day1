@@ -68,7 +68,7 @@
   <main class="wrap">
     <p class="label">Day-1 &middot; the Nairobi Standard Gauge Railway</p>
     <h1>The top is public. The bottom is locked. Tap to dig.</h1>
-    <p class="sub">A project is five questions deep. The first three are on the record. The last two are blacked out, tap a dark bar to reveal what it hides, and the CoST field that would clear it.</p>
+    <p class="sub">Five questions deep. The first three are on the record, the last two are blacked out. <b>Tap a dark bar</b> to reveal what it hides, and the disclosure field that would clear it.</p>
 
     <div class="meter"><span>Public</span><div class="track"></div><span>Hidden</span></div>
 
@@ -89,11 +89,11 @@
       {q:"What does it really cost?", h:"The loan terms", state:"dark",
         v:"Interest rate, repayment schedule, and a sovereign guarantee on the full amount.",
         illu:"illustrative: e.g. ~3.6% over 15 years, guarantee on 100% of principal",
-        ids:"CoST: Preparation + Implementation"},
+        ids:"IDS: Preparation + Implementation"},
       {q:"Was it worth it?", h:"The appraisal", state:"dark",
         v:"The cost-benefit analysis and feasibility study behind the decision to build.",
         illu:"illustrative: e.g. projected vs actual freight volumes, the break-even case",
-        ids:"CoST: Preparation"}
+        ids:"IDS: Preparation"}
     ];
     const stack=document.getElementById("stack");
     L.forEach((l,i)=>{ const d=document.createElement("div");
@@ -115,7 +115,7 @@
       const s=document.getElementById("scoreline");
       if(open===0) s.innerHTML='Two questions are still blacked out. <b>Tap them.</b>';
       else if(open<darks.length) s.innerHTML='One question still blacked out. <b>The deeper you go, the darker it gets.</b>';
-      else s.innerHTML='Both dark layers are exactly the financial and decision data the <b>CoST standard</b> is built to disclose. The room can see the top. The standard reveals the bottom.';
+      else s.innerHTML='Both dark layers are exactly the financial and decision data that <b>disclosure is built to surface.</b> The room can see the top. The right fields reveal the bottom.';
     }
   })();
   </script>

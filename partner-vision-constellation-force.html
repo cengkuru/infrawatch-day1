@@ -222,35 +222,66 @@
     // BEAT 2+ = converged (hub pulls to center, links pull partners in)
     function converged(){ return beat>=1; }
 
+    // ---- floaty / liquid physics -------------------------------------------
+    // Feel recipe: low damping so bubbles GLIDE and coast, soft springs that
+    // gently overshoot, light gravity so they drift in open space, eased
+    // repulsion (no hard snap), a faint ambient wobble so it breathes at rest,
+    // and a velocity clamp so flinging never goes chaotic.
+    const DAMP=0.955;        // velocity kept per frame (higher = more glide)
+    const VMAX=14;           // speed clamp so a fling stays graceful
+    let tms=0;
     function step(){
+      tms+=0.016;
       const cx=W/2/DPR, cy=H/2/DPR;
       const dragKin = drag ? neighborsOf(drag) : null;
+
+      // gentle centre pull (lighter than before, so they float rather than get yanked)
       if(converged()){
-        byId.transparency.vx+=(cx-byId.transparency.x)*0.02; byId.transparency.vy+=(cy-byId.transparency.y)*0.02;
+        byId.transparency.vx+=(cx-byId.transparency.x)*0.010; byId.transparency.vy+=(cy-byId.transparency.y)*0.010;
       } else {
-        // recognition beat: transparency drifts like any other node, no special center pull
-        byId.transparency.vx+=(cx-byId.transparency.x)*0.002; byId.transparency.vy+=(cy-byId.transparency.y)*0.002;
+        byId.transparency.vx+=(cx-byId.transparency.x)*0.0015; byId.transparency.vy+=(cy-byId.transparency.y)*0.0015;
       }
-      nodes.forEach(n=>{ if(n===drag||n.hub)return; n.vx+=(cx-n.x)*0.0010; n.vy+=(cy-n.y)*0.0010; });
+      nodes.forEach((n,idx)=>{ if(n===drag||n.hub)return;
+        n.vx+=(cx-n.x)*0.0005; n.vy+=(cy-n.y)*0.0005;
+        // ambient drift: tiny, per-node phase, makes them feel suspended in liquid
+        n.vx+=Math.sin(tms*0.6 + idx*1.7)*0.018;
+        n.vy+=Math.cos(tms*0.5 + idx*2.3)*0.018;
+      });
+
+      // eased repulsion: soft inverse-square, smooth separation cushion (no hard pop)
       for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
         const a=nodes[i],b=nodes[j]; let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||0.01;
-        const pad=28 + (a.kind==="theme"&&!a.hub?12:0) + (b.kind==="theme"&&!b.hub?12:0);
-        const minD=a.r+b.r+pad; let f=(a.r*b.r)*0.95/(d*d); if(d<minD)f+=(minD-d)*0.08;
+        const pad=26 + (a.kind==="theme"&&!a.hub?12:0) + (b.kind==="theme"&&!b.hub?12:0);
+        const minD=a.r+b.r+pad;
+        let f=(a.r*b.r)*0.7/(d*d);
+        if(d<minD){ const o=(minD-d)/minD; f+=o*o*2.4; } // squared cushion = gentle ease, not a snap
         const ux=dx/d,uy=dy/d; if(a!==drag){a.vx-=ux*f;a.vy-=uy*f;} if(b!==drag){b.vx+=ux*f;b.vy+=uy*f;}
       }
-      // link springs only pull once converged; in recognition they are loose so countries stay apart
-      const linkK = converged()?0.02:0.004;
+
+      // soft, springy links (lower k = gentle overshoot + settle = the bouncy float)
+      const linkK = converged()?0.013:0.003;
       links.forEach(l=>{ const a=l.a,b=l.b; let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||0.01;
-        let k=linkK; if(drag && (a===drag||b===drag)) k=0.10;
+        let k=linkK; if(drag && (a===drag||b===drag)) k=0.055; // dragged cluster clings, but eased
         const target=a.r+b.r+ (converged()?28:120),f=(d-target)*k,ux=dx/d,uy=dy/d;
         if(a!==drag){a.vx+=ux*f;a.vy+=uy*f;} if(b!==drag){b.vx-=ux*f;b.vy-=uy*f;} });
+
+      // while dragging, non-cluster bubbles ease away (smooth, not shoved)
       if(drag && dragKin){
         nodes.forEach(n=>{ if(n===drag||n.hub||dragKin.has(n.id))return;
           let dx=n.x-drag.x,dy=n.y-drag.y,d=Math.hypot(dx,dy)||0.01;
-          if(d<260){ const push=(260-d)*0.012; n.vx+=dx/d*push; n.vy+=dy/d*push; } });
+          if(d<250){ const o=(250-d)/250; const push=o*o*3.2; n.vx+=dx/d*push; n.vy+=dy/d*push; } });
       }
-      nodes.forEach(n=>{ if(n===drag)return; n.vx*=0.88; n.vy*=0.88; n.x+=n.vx; n.y+=n.vy;
-        n.x=Math.max(n.r+4,Math.min(W/DPR-n.r-4,n.x)); n.y=Math.max(n.r+4,Math.min(H/DPR-n.r-4,n.y)); });
+
+      // integrate: high glide, soft wall bounce, speed clamp
+      nodes.forEach(n=>{ if(n===drag)return;
+        n.vx*=DAMP; n.vy*=DAMP;
+        const sp=Math.hypot(n.vx,n.vy); if(sp>VMAX){ n.vx=n.vx/sp*VMAX; n.vy=n.vy/sp*VMAX; }
+        n.x+=n.vx; n.y+=n.vy;
+        // cushioned walls: bounce softly instead of hard-clamping (keeps the float)
+        const lo=n.r+4, hiX=W/DPR-n.r-4, hiY=H/DPR-n.r-4;
+        if(n.x<lo){ n.x=lo; n.vx=Math.abs(n.vx)*0.5; } else if(n.x>hiX){ n.x=hiX; n.vx=-Math.abs(n.vx)*0.5; }
+        if(n.y<lo){ n.y=lo; n.vy=Math.abs(n.vy)*0.5; } else if(n.y>hiY){ n.y=hiY; n.vy=-Math.abs(n.vy)*0.5; }
+      });
     }
 
     function visible(n){ if(active==="ALL")return true; if(n.kind==="partner")return n.country===active; return n.members.includes(active); }

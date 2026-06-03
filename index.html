@@ -31,6 +31,13 @@
     a.card.wip h3{color:var(--cost-mid);}
     a.card.wip .go{color:#7a5a12;}
     .sectionlabel{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.06em; color:var(--cost-mid); margin:22px 0 10px;}
+    .qrpanel{display:flex; align-items:center; gap:20px; background:var(--cost-dark); color:#fff; border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:20px 22px; margin:6px 0 26px;}
+    .qrpanel img{width:128px; height:128px; background:#fff; border-radius:10px; padding:8px; flex:0 0 auto;}
+    .qrpanel .qt{font-size:1.15rem; font-weight:800; margin:0 0 4px;}
+    .qrpanel .qs{font-size:.9rem; color:#cfcfd6; margin:0;}
+    .qrpanel .qu{font-family:var(--mono); font-size:.72rem; color:#9aa; margin:8px 0 0; word-break:break-all;}
+    @media (max-width:520px){ .qrpanel{flex-direction:column; text-align:center;} }
     .foot{margin-top:24px; color:var(--cost-mid); font-size:.8rem;} .foot strong{color:var(--cost-dark);}
   </style>
 </head>
@@ -41,6 +48,15 @@
     <p class="label">Nairobi workshop &middot; Day 1</p>
     <h1>Follow along on your own device.</h1>
     <p class="sub">Quick interactive sketches from yesterday's discussions. Tap one to open it. They work best in landscape on a phone.</p>
+
+    <div class="qrpanel">
+      <img src="qr.png" alt="QR code to this page">
+      <div>
+        <p class="qt">Scan to follow on your phone</p>
+        <p class="qs">Point your camera at the code to open this page on your own device.</p>
+        <p class="qu">cengkuru.github.io/infrawatch-day1</p>
+      </div>
+    </div>
 
     <p class="sectionlabel">Ready to present</p>
     <a class="card" href="partner-vision-constellation-force.html">

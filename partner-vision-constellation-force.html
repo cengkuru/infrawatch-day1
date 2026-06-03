@@ -68,6 +68,8 @@
     .side .bigq{font-size:1.7rem; line-height:1.12; font-weight:800; letter-spacing:-.01em; margin:4px 0 6px; text-wrap:balance;}
     .side .strat{font-size:.78rem; font-weight:700; color:var(--cost-dark); margin:0 0 8px; opacity:.7;}
     .side .subq{font-size:.92rem; color:var(--cost-mid); margin:0 0 4px;}
+    .side .numline{margin:8px 0 0; font-size:.9rem; font-weight:600; color:var(--cost-dark); background:#fdeef0; border-left:3px solid var(--cost-red); border-radius:6px; padding:7px 10px;}
+    .side .numline .numk{display:block; font-family:var(--mono); font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--cost-red); margin-bottom:2px;}
     .side .idsline{margin-top:6px; font-size:.84rem; font-weight:700; color:var(--ok,#2F7A46);
       background:color-mix(in srgb,#2F7A46 8%,white); border-radius:6px; padding:6px 9px; display:none;}
     body.showcost .side .idsline{display:block;}
@@ -176,29 +178,34 @@
     const C={
       kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",strat:"Published appraisals",
         quote:"Show us before you build.",sub:"Can't see the appraisal yet.",
+        number:"% of projects with a published appraisal before approval",
         change:"“Show us before you build.” A trusted appraisal, public, before the concrete is poured.",role:"Build the method; evidence + public participation",win:"Project appraisals are public",
         gap:"What they can't see yet: project appraisals and feasibility studies",
-        ids:"Maps to the CoST IDS, the Preparation phase",conf:"hi"},
+        ids:"NPV tests it, IDS discloses it (Preparation)",conf:"hi"},
       ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",strat:"Local value capture",
         quote:"Show us who benefits.",sub:"Can't see who owns the resource yet.",
+        number:"% of resource projects with disclosed beneficial owners",
         change:"“Show us who benefits.” Who owns the resource, on what terms, and whether the value reaches our people.",role:"Research + advocacy; Growth Diagnostic + Resource Reform",win:"Resource wealth benefits Ghanaians",
         gap:"What they can't see yet: who owns the resource and on what terms",
-        ids:"Maps to the CoST IDS, Identification + Preparation",conf:"hi"},
+        ids:"PEA traces the value, IDS + BO disclose the owner",conf:"hi"},
       nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",strat:"Economic scrutiny",
         quote:"Show us the numbers.",sub:"Can't see the cost-benefit case yet.",
+        number:"% of projects with a cost-benefit test on the record",
         change:"“Show us the numbers.” The cost-benefit case behind each project, so debt does not arrive dressed as development.",role:"Open data + dashboards; track influence; train media",win:"Cost-benefit tests become mandatory",
         gap:"What they can't see yet: the cost-benefit case behind each project",
-        ids:"Maps to the CoST IDS, the Preparation phase",conf:"hi"},
+        ids:"NPV runs the numbers, IDS discloses the inputs",conf:"hi"},
       ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",strat:"Quality of investment",
         quote:"Show us the quality.",sub:"Can't see the real terms yet.",
+        number:"% of FDI projects with disclosed terms and a quality score",
         change:"“Show us the quality.” Investment is not enough, show us whether it is good, responsible, and worth the trade-offs.",role:"Investment-climate work; capacity; close info gaps",win:"Responsible investment pays",
         gap:"What they can't see yet: the real terms and quality of incoming foreign investment",
-        ids:"Maps to the CoST IDS, Preparation (funding sources)",conf:"lo"},
+        ids:"NPV weighs quality, PEA reads the terms",conf:"lo"},
       drc:{label:"DRC",org:"CDHD",c:"#E7298A",strat:"Citizen oversight",
         quote:"Show us the delivery.",sub:"Can't see how it's delivered yet.",
+        number:"% of projects with delivery data citizens can check",
         change:"“Show us the delivery.” What actually happens during execution, where citizens feel the project.",role:"Citizen watchdog; inform public to pressure duty-bearers",win:"Delivery becomes accountable",
         gap:"What they can't see yet: how the project is actually being delivered",
-        ids:"Maps to the CoST IDS, the Implementation phase",conf:"lo"}
+        ids:"PEA powers oversight, IDS discloses delivery (Implementation)",conf:"lo"}
     };
     const ORDER=["kenya","ghana","nigeria","ethiopia","drc"];
     const THEMES={
@@ -359,15 +366,31 @@
     window.addEventListener("touchend",()=>{ drag=null; });
 
     function select(n){ selected=n; renderSide(); }
+    // The resting panel changes with the story beat, so beat 4 (One number) does not
+    // strand beat-3 content. A pinned selection always wins over the beat default.
+    function beatDefaultPanel(){
+      if(beat===3){
+        const rows=ORDER.map(c=>"<b style='color:"+C[c].c+"'>"+C[c].label+":</b> "+C[c].number).join("<br>");
+        return '<p class="k">The one number</p><h3>From a wish to a metric</h3>'+
+          '<p>Each demand becomes a single figure a government cannot wave away:</p>'+
+          '<dd>'+rows+'</dd>'+
+          '<p style="margin-top:10px;font-weight:700;color:var(--cost-dark)">Name the number, and the change is measurable.</p>';
+      }
+      if(beat===2){
+        return '<p class="k">Already named</p><h3>Pick a partner</h3><p>Drag or tap a country to see which proven tools, NPV, PEA, disclosure standards, already name its ask. No new method required.</p>';
+      }
+      return '<p class="k">Tap a bubble</p><h3>Read one partner</h3><p>Click any country to pin its vision here, and a soft halo shows the priorities it holds. Drag to untangle.</p>';
+    }
     function renderSide(){
       const s=document.getElementById("side");
-      if(!selected){ s.innerHTML='<p class="k">Tap a bubble</p><h3>Read one partner</h3><p>Click any country to pin its vision here, and a soft halo shows the priorities it holds. Drag to untangle.</p>'; return; }
+      if(!selected){ s.innerHTML=beatDefaultPanel(); return; }
       if(selected.kind==="partner"){ const c=selected.country, d=C[c];
         s.innerHTML='<p class="k" style="color:'+d.c+'">'+d.label+' <span class="org">&middot; '+d.org+'</span></p>'+
           '<p class="bigq" style="color:'+d.c+'">&ldquo;'+d.quote+'&rdquo;</p>'+
           '<p class="strat">'+d.strat+'</p>'+
           '<p class="subq">'+d.sub+'</p>'+
           '<dd class="idsline">&#10003; '+d.ids+'</dd>'+
+          (beat>=3 ? '<p class="numline"><span class="numk">The one number</span>'+d.number+'</p>' : '')+
           '<span class="conf '+d.conf+'">'+(d.conf==="hi"?"confirmed":"verify with partner")+'</span>';
       } else { const t=THEMES[selected.id]; const n=t.members.length;
         let head, sub;
@@ -376,7 +399,7 @@
         else { head="Same word, "+n+" different aims"; sub="These "+n+" partners use the same word, but each wants something different by it:"; }
         s.innerHTML='<p class="k">Shared priority</p><h3>'+t.label+'</h3><p>'+sub+'</p>'+
           '<dd>'+t.members.map(m=>"<b style='color:"+C[m].c+"'>"+C[m].label+":</b> "+C[m].strat.toLowerCase()).join("<br>")+'</dd>'+
-          '<div class="idsline">&#10003; Maps to the CoST IDS: '+t.phase+'</div>'+
+          '<div class="idsline">&#10003; In the disclosure standard: '+t.phase+'</div>'+
           '<p style="margin-top:10px;font-weight:700;color:var(--cost-dark)">'+head+'.</p>';
       }
     }
@@ -431,6 +454,7 @@
       setTimeout(()=>{ h1.innerHTML=BEATS[beat].h; lesson.innerHTML=BEATS[beat].l; h1.style.opacity=1; lesson.style.opacity=1; }, 160);
       document.body.classList.toggle("showcost", beat>=2);
       document.body.classList.toggle("showday2", beat>=3);
+      renderSide(); // refresh the panel so it matches the new beat (resting default or the one-number line)
       document.getElementById("back").disabled = beat===0;
       const nx=document.getElementById("next"); nx.disabled = beat===3; nx.textContent = beat===3 ? "Done" : "Next →";
       document.getElementById("storyprogress").textContent = (beat+1)+" / 4";

@@ -29,9 +29,14 @@
     .beats{display:flex; align-items:center; gap:8px; margin:0 0 14px; flex-wrap:wrap;}
     .beats .step{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:6px 12px; font:inherit; font-weight:700; font-size:.8rem; color:var(--cost-mid); cursor:pointer;}
     .beats .step[aria-current="true"]{background:var(--cost-red); color:#fff; border-color:var(--cost-red);}
-    .beats .nav{margin-left:auto; display:inline-flex; gap:6px;}
-    .beats .nav button{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:6px 14px; font:inherit; font-weight:700; cursor:pointer; color:var(--cost-dark);}
-    .beats .keyhint{font-size:.72rem; color:var(--cost-mid); font-family:var(--mono);}
+    /* story navigation, sits BELOW the visual */
+    .storynav{display:flex; align-items:center; gap:14px; justify-content:center; margin:16px 0 6px;}
+    .storynav button{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:9px 22px; font:inherit; font-weight:800; cursor:pointer; color:var(--cost-dark); min-width:104px;}
+    .storynav button:hover{border-color:var(--cost-mid);}
+    .storynav button:disabled{opacity:.4; cursor:not-allowed;}
+    .storynav button#next{background:var(--cost-red); color:#fff; border-color:var(--cost-red);}
+    .storynav-mid{font-family:var(--mono); font-size:.74rem; color:var(--cost-mid); min-width:84px; text-align:center;}
+    .keyhint{font-family:var(--mono); font-size:.7rem; color:var(--cost-mid); text-align:center; margin:0 0 4px; opacity:.75;}
 
     .toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px;}
     .seg{display:inline-flex; border:2px solid var(--cost-light); border-radius:30px; overflow:hidden; background:#fff;}
@@ -108,9 +113,7 @@
       <button class="step" data-b="1">One demand</button>
       <button class="step" data-b="2">One name</button>
       <button class="step" data-b="3">One number</button>
-      <span class="nav"><button id="back">&larr; Back</button><button id="next">Next &rarr;</button></span>
     </div>
-    <p class="keyhint" style="font-family:var(--mono);font-size:.72rem;color:var(--cost-mid);margin:0 0 12px;">Use the arrow keys, or Space, to move through the story. Drag bubbles any time. Click a country to read its vision.</p>
 
     <div class="toolbar">
       <div class="seg" role="group" aria-label="View">
@@ -131,6 +134,14 @@
       <div class="side" id="side"></div>
     </div>
     <div class="legend" id="legend"></div>
+
+    <!-- story controls live BELOW the visual, like slide navigation -->
+    <div class="storynav">
+      <button id="back">&larr; Back</button>
+      <span class="storynav-mid" id="storyprogress"></span>
+      <button id="next">Next &rarr;</button>
+    </div>
+    <p class="keyhint">Arrow keys or Space move through the story. Drag bubbles any time, click a country to read its vision.</p>
 
     <div class="gridwrap" id="gridView" style="display:none;">
       <table class="mx" id="mx"></table>
@@ -380,6 +391,8 @@
       document.body.classList.toggle("showcost", beat>=2);
       document.body.classList.toggle("showday2", beat>=3);
       document.getElementById("back").disabled = beat===0;
+      const nx=document.getElementById("next"); nx.disabled = beat===3; nx.textContent = beat===3 ? "Done" : "Next →";
+      document.getElementById("storyprogress").textContent = (beat+1)+" / 4";
     }
     function go(b){ beat=Math.max(0,Math.min(3,b)); renderBeat(); }
     document.getElementById("next").onclick=()=>go(beat+1);

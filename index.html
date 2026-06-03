@@ -12,6 +12,12 @@
     body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
     .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red); display:flex; align-items:center; justify-content:space-between; padding:13px 24px;}
     .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    .daynav{display:flex; gap:0; background:#222; border-bottom:1px solid #000;}
+    .daynav a{flex:1; text-align:center; text-decoration:none; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; font-size:.74rem; font-weight:700; padding:11px 8px; color:#9aa; border-bottom:3px solid transparent; transition:color .12s, border-color .12s, background .12s;}
+    .daynav a:hover{color:#fff; background:#2d2d2d;}
+    .daynav a.active{color:#fff; border-bottom-color:var(--cost-red); background:#2d2d2d;}
+    .daynav a .d{display:block; font-size:.62rem; color:#788; font-weight:600; letter-spacing:.04em;}
+    .daynav a.active .d{color:#c98;}
     .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
     .wrap{max-width:760px; margin:0 auto; padding:30px 20px 60px;}
     .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
@@ -42,7 +48,11 @@
   </style>
 </head>
 <body>
-  <div class="brandbar"><span class="brand">InfraWatch &middot; Day 1 visuals</span><span class="ctx">CoST</span></div>
+  <div class="brandbar"><span class="brand">InfraWatch &middot; Day 1 visuals</span><span class="ctx">CIPE &middot; CoST</span></div>
+  <nav class="daynav">
+    <a class="active" href="./"><span class="d">2 Jun</span>Day 1</a>
+    <a href="day2/"><span class="d">3 Jun</span>Day 2</a>
+  </nav>
   <div class="draftbar">Working drafts, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
   <main class="wrap">
     <p class="label">Nairobi workshop &middot; Day 1</p>

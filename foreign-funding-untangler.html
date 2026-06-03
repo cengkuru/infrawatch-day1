@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What counts as foreign-funded? · InfraWatch</title>
+  <style>
+    :root{
+      --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6;
+      --cost-white:#FFFFFF; --cost-blue:#0071BC; --surface:#F8F8F8;
+      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:10px;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      --c-kenya:#0071BC; --c-ghana:#1B9E77; --c-nigeria:#7570B3; --c-ethiopia:#D95F02; --c-drc:#E7298A;
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 24px;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
+    .wrap{max-width:1180px; margin:0 auto; padding:24px 18px 46px;}
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
+    h1{font-size:clamp(1.7rem,3.6vw,2.5rem); line-height:1.07; font-weight:800; margin:5px 0 8px; letter-spacing:-.01em;}
+    .lesson{font-size:clamp(1rem,1.7vw,1.18rem); color:var(--cost-mid); margin:0 0 14px; max-width:70ch;} .lesson b{color:var(--cost-dark);}
+
+    .toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px;}
+    .pill{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--cost-light); border-radius:30px; padding:5px 11px;
+      background:#fff; cursor:pointer; font-size:.82rem; font-weight:600; color:var(--cost-mid); user-select:none;}
+    .pill .dot{width:10px; height:10px; border-radius:50%; background:var(--accent,var(--cost-mid));}
+    .pill[aria-pressed="true"]{color:var(--cost-dark); border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); background:color-mix(in srgb,var(--accent) 9%,white);}
+    .pill.all .dot{background:var(--cost-red);} .pill.all{font-weight:700;}
+    .btn{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:6px 12px; font:inherit; font-weight:600; color:var(--cost-mid); cursor:pointer;}
+    .hint{color:var(--cost-mid); font-size:.84rem; margin-left:auto;}
+
+    .colheads{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:6px 2px 0; }
+    .colheads .ch{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.04em; color:var(--cost-mid); text-align:center;}
+    .colheads .ch b{display:block; color:var(--cost-dark); font-size:.82rem; font-family:var(--sans); text-transform:none; margin-top:2px;}
+    .stage{background:#fff; border:1px solid var(--cost-light); border-radius:var(--radius); box-shadow:var(--shadow); position:relative; overflow:hidden; margin-top:6px;}
+    canvas{display:block; width:100%; height:auto; cursor:grab; touch-action:none;} canvas.grabbing{cursor:grabbing;}
+    .tip{position:absolute; pointer-events:none; background:var(--cost-dark); color:#fff; font-size:12px; padding:7px 10px; border-radius:6px; max-width:240px; box-shadow:0 6px 18px rgba(0,0,0,.25); opacity:0; transition:opacity .1s; z-index:5;} .tip b{display:block;}
+
+    .insight{margin-top:16px; padding:14px 18px; background:#fff; border:1px solid var(--cost-light); border-left:4px solid var(--cost-red); border-radius:var(--radius);}
+    .insight .k{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.05em; color:var(--cost-red); margin:0 0 5px;}
+    .insight p{margin:0; font-size:1rem; color:var(--cost-dark);} .insight p b{color:var(--cost-red);}
+    .foot{margin-top:14px; color:var(--cost-mid); font-size:.78rem;} .foot strong{color:var(--cost-dark);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">What counts as foreign-funded?</span><span class="ctx">CoST &middot; InfraWatch</span></div>
+  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+  <main class="wrap">
+    <p class="label">Day-1 &middot; Ria's funding-definition exercise</p>
+    <h1>The same project. Five different ways to count it.</h1>
+    <p class="lesson">Follow a thread left to right: a <b>funding type</b> flows to the <b>source behind it</b>, then to <b>how each country's law decides it is "foreign-funded."</b> Drag the bubbles. The catch: one Chinese-financed railway counts as foreign-funded in one country and slips through the net in another, so five honest datasets will not line up.</p>
+
+    <div class="toolbar">
+      <button class="pill all" data-c="ALL" aria-pressed="true"><span class="dot"></span> All countries</button>
+      <button class="pill" data-c="kenya" style="--accent:var(--c-kenya)" aria-pressed="false"><span class="dot"></span> Kenya</button>
+      <button class="pill" data-c="ghana" style="--accent:var(--c-ghana)" aria-pressed="false"><span class="dot"></span> Ghana</button>
+      <button class="pill" data-c="nigeria" style="--accent:var(--c-nigeria)" aria-pressed="false"><span class="dot"></span> Nigeria</button>
+      <button class="pill" data-c="ethiopia" style="--accent:var(--c-ethiopia)" aria-pressed="false"><span class="dot"></span> Ethiopia</button>
+      <button class="pill" data-c="drc" style="--accent:var(--c-drc)" aria-pressed="false"><span class="dot"></span> DRC</button>
+      <button class="btn" id="reset">Reset</button>
+      <span class="hint">Hover a bubble to read it. Drag to move it.</span>
+    </div>
+
+    <div class="colheads">
+      <div class="ch">Funding type <b>the instrument on paper</b></div>
+      <div class="ch">Source <b>who actually puts up the money</b></div>
+      <div class="ch">Counts as foreign when... <b>what each country's law says</b></div>
+    </div>
+    <div class="stage"><canvas id="cv" width="1080" height="600"></canvas><div class="tip" id="tip"></div></div>
+
+    <div class="insight">
+      <p class="k">The pattern</p>
+      <p id="ahatext">A sovereign loan that builds a railway is the same instrument everywhere. But Kenya logs it through the public-debt register while Ghana captures it mainly when a foreign entity holds an ownership stake. <b>Same railway, in one dataset and invisible in the next.</b> The fix is not to harmonise the laws, it is one shared, OC4IDS-anchored definition every country can map up to.</p>
+    </div>
+
+    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day-1 funding-definition exercise, 2 Jun 2026. Definition rows are first-pass field notes, not legal citations. Verify against statute before external use.</p>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+    const cv=document.getElementById("cv"), ctx=cv.getContext("2d"), tip=document.getElementById("tip");
+    const DPR=Math.min(window.devicePixelRatio||1,2); let W,H;
+    function fit(){ const r=cv.getBoundingClientRect(); const cssH=Math.max(440,r.width*0.55);
+      W=cv.width=Math.round(r.width*DPR); H=cv.height=Math.round(cssH*DPR); cv.style.height=cssH+"px"; }
+
+    const COUNTRY={kenya:{label:"Kenya",c:"#0071BC"},ghana:{label:"Ghana",c:"#1B9E77"},nigeria:{label:"Nigeria",c:"#7570B3"},ethiopia:{label:"Ethiopia",c:"#D95F02"},drc:{label:"DRC",c:"#E7298A"}};
+    // column 1 funding types
+    const MOD=[
+      {id:"loan",label:"Sovereign loan"},{id:"epc",label:"EPC + finance"},
+      {id:"conc",label:"Concession / PPP"},{id:"equity",label:"Equity stake"},{id:"grant",label:"Grant / aid"}
+    ];
+    // column 2 sources
+    const SRC=[
+      {id:"exim",label:"Export-import bank"},{id:"soe",label:"Foreign SOE"},
+      {id:"cpriv",label:"Private concessionaire"},{id:"mdb",label:"MDB / donor"}
+    ];
+    // column 3 country definitions
+    const DEF=[
+      {id:"d_kenya",country:"kenya",label:"Kenya",rule:"Counted mainly through the public-debt register and PPP pipeline. Anchored on whether the state borrows, not who owns the asset."},
+      {id:"d_ghana",country:"ghana",label:"Ghana",rule:"Captured mostly where a foreign entity holds equity or ownership, plus resource value-capture concerns. A pure loan can fall outside the frame."},
+      {id:"d_nigeria",country:"nigeria",label:"Nigeria",rule:"Framed as FDI and PPP flows. Tracks the volume of foreign money; strong on quantity, weaker on a single legal threshold."},
+      {id:"d_ethiopia",country:"ethiopia",label:"Ethiopia",rule:"Defined through the investment-promotion / FDI regime, sorting quality productive FDI from short-term capital. Investment-climate led."},
+      {id:"d_drc",country:"drc",label:"DRC",rule:"Centres on disclosure of foreign ownership, often via the mining lens. Capture of pure infrastructure finance is partial. (Lower confidence.)"}
+    ];
+    // links modality->source (country-coded) and source->definition
+    const MS=[["loan","exim","kenya"],["loan","exim","ghana"],["loan","mdb","nigeria"],["loan","exim","ethiopia"],
+      ["epc","soe","kenya"],["epc","soe","ethiopia"],["epc","exim","ghana"],
+      ["conc","cpriv","kenya"],["conc","cpriv","nigeria"],
+      ["equity","soe","ghana"],["equity","soe","drc"],["equity","cpriv","nigeria"],
+      ["grant","mdb","drc"],["grant","mdb","ethiopia"]];
+    const SD=[["exim","d_kenya","kenya"],["soe","d_kenya","kenya"],["cpriv","d_kenya","kenya"],
+      ["exim","d_ghana","ghana"],["soe","d_ghana","ghana"],
+      ["mdb","d_nigeria","nigeria"],["cpriv","d_nigeria","nigeria"],
+      ["soe","d_ethiopia","ethiopia"],["exim","d_ethiopia","ethiopia"],["mdb","d_ethiopia","ethiopia"],
+      ["soe","d_drc","drc"],["mdb","d_drc","drc"]];
+
+    const nodes=[], byId={};
+    function place(arr,colFrac,kind){ arr.forEach((it,i)=>{ const y=(i+1)/(arr.length+1);
+      const n={id:it.id,kind:kind,label:it.label,rule:it.rule,country:it.country,r:kind==="def"?34:30,
+        x:colFrac, y:y, vx:0,vy:0, col:colFrac}; nodes.push(n); byId[it.id]=n; }); }
+    // store target column as fraction; set real coords in fit-based init
+    place(MOD,0.13,"mod"); place(SRC,0.5,"src"); place(DEF,0.87,"def");
+    const links=[];
+    MS.forEach(([a,b,c])=>links.push({a:byId[a],b:byId[b],country:c}));
+    SD.forEach(([a,b,c])=>links.push({a:byId[a],b:byId[b],country:c}));
+
+    let active="ALL", hover=null, drag=null, inited=false;
+    function initPos(){ nodes.forEach(n=>{ n.x=n.col*(W/DPR); n.y=n.y*(H/DPR); }); inited=true; }
+
+    function step(){
+      // hold columns horizontally, spread vertically, light repulsion within column
+      nodes.forEach(n=>{ if(n===drag)return; n.vx+=((n.col*(W/DPR))-n.x)*0.04; });
+      for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){ const a=nodes[i],b=nodes[j];
+        if(Math.abs(a.col-b.col)>0.01) continue; // only repel within same column
+        let dy=b.y-a.y, d=Math.abs(dy)||0.01; const minD=a.r+b.r+22;
+        if(d<minD){ const f=(minD-d)*0.05*(dy<0?-1:1); if(a!==drag)a.vy-=f; if(b!==drag)b.vy+=f; } }
+      nodes.forEach(n=>{ if(n===drag)return; n.vx*=0.8; n.vy*=0.8; n.x+=n.vx; n.y+=n.vy;
+        n.y=Math.max(n.r+6,Math.min(H/DPR-n.r-6,n.y)); });
+    }
+    function vis(n){ if(active==="ALL")return true; if(n.kind==="def")return n.country===active;
+      return links.some(l=>(l.a===n||l.b===n)&&l.country===active); }
+    function linkVis(l){ if(active!=="ALL"&&l.country!==active)return false;
+      if(hover){ return l.a===hover||l.b===hover; } return true; }
+
+    function curve(x1,y1,x2,y2){ const mx=(x1+x2)/2; return [x1,y1,mx,y1,mx,y2,x2,y2]; }
+    function draw(){
+      ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W/DPR,H/DPR);
+      links.forEach(l=>{ const v=linkVis(l)&&vis(l.a)&&vis(l.b); const c=COUNTRY[l.country].c;
+        const p=curve(l.a.x,l.a.y,l.b.x,l.b.y);
+        ctx.beginPath(); ctx.moveTo(p[0],p[1]); ctx.bezierCurveTo(p[2],p[3],p[4],p[5],p[6],p[7]);
+        ctx.strokeStyle=c; ctx.globalAlpha=v?0.55:0.05; ctx.lineWidth=v?2.4:1.2;
+        const lo=(l.country==="drc"); ctx.setLineDash(lo?[4,5]:[]); ctx.stroke(); ctx.setLineDash([]); });
+      ctx.globalAlpha=1;
+      nodes.forEach(n=>{ const v=vis(n); ctx.globalAlpha=v?1:0.14;
+        ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        if(n.kind==="def"){ ctx.fillStyle=COUNTRY[n.country].c; ctx.fill(); ctx.fillStyle="#fff"; }
+        else if(n.kind==="mod"){ ctx.fillStyle="#2D2D2D"; ctx.fill(); ctx.fillStyle="#fff"; }
+        else { ctx.fillStyle="#EDEDF2"; ctx.fill(); ctx.lineWidth=1.5; ctx.strokeStyle="#D2D2DC"; ctx.stroke(); ctx.fillStyle="#3A3A45"; }
+        ctx.globalAlpha=v?1:0.25; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.font="700 11px Inter,sans-serif";
+        wrap(n.label,n.x,n.y,n.r*1.7,12);
+      });
+      ctx.globalAlpha=1;
+    }
+    function wrap(text,x,y,maxw,lh){ const words=text.split(" "); let line="",lines=[];
+      words.forEach(w=>{ const t=line?line+" "+w:w; if(ctx.measureText(t).width>maxw&&line){lines.push(line);line=w;}else line=t; });
+      if(line)lines.push(line); const s=y-(lines.length-1)*lh/2; lines.forEach((ln,i)=>ctx.fillText(ln,x,s+i*lh)); }
+    function loop(){ if(!inited&&W) initPos(); step(); draw(); requestAnimationFrame(loop); }
+
+    function pos(e){ const r=cv.getBoundingClientRect(); const p=("touches"in e)?e.touches[0]:e; return {x:p.clientX-r.left,y:p.clientY-r.top}; }
+    function hit(mx,my){ for(let i=nodes.length-1;i>=0;i--){ const n=nodes[i]; if((mx-n.x)**2+(my-n.y)**2<=n.r*n.r)return n; } return null; }
+    cv.addEventListener("mousemove",e=>{ const m=pos(e); if(drag){ drag.x=m.x; drag.y=m.y; drag.vx=0; drag.vy=0; return; }
+      const n=hit(m.x,m.y); hover=n;
+      if(n&&n.kind==="def"){ const r=cv.getBoundingClientRect(); tip.innerHTML="<b>"+n.label+" counts it as foreign when...</b>"+n.rule;
+        tip.style.left=Math.min(n.x-110,r.width-250)+"px"; tip.style.top=(n.y+n.r+8)+"px"; tip.style.opacity=1; }
+      else if(n){ const r=cv.getBoundingClientRect(); tip.innerHTML="<b>"+n.label+"</b>"+(n.kind==="mod"?"a funding instrument":"who puts up the money");
+        tip.style.left=Math.min(n.x-60,r.width-200)+"px"; tip.style.top=(n.y+n.r+8)+"px"; tip.style.opacity=1; }
+      else tip.style.opacity=0;
+    });
+    cv.addEventListener("mousedown",e=>{ const m=pos(e); const n=hit(m.x,m.y); if(n){ drag=n; cv.classList.add("grabbing"); } });
+    window.addEventListener("mouseup",()=>{ if(drag){ drag=null; cv.classList.remove("grabbing"); } });
+    cv.addEventListener("mouseleave",()=>{ hover=null; tip.style.opacity=0; });
+    cv.addEventListener("touchstart",e=>{ const m=pos(e); const n=hit(m.x,m.y); if(n){ drag=n; e.preventDefault(); } },{passive:false});
+    cv.addEventListener("touchmove",e=>{ if(drag){ const m=pos(e); drag.x=m.x; drag.y=m.y; drag.vx=0; drag.vy=0; e.preventDefault(); } },{passive:false});
+    window.addEventListener("touchend",()=>{ drag=null; });
+
+    document.querySelectorAll(".pill").forEach(p=>p.addEventListener("click",()=>{
+      document.querySelectorAll(".pill").forEach(x=>x.setAttribute("aria-pressed","false"));
+      p.setAttribute("aria-pressed","true"); active=p.dataset.c;
+      const a=document.getElementById("ahatext");
+      if(active==="ALL"){ a.innerHTML='A sovereign loan that builds a railway is the same instrument everywhere. But Kenya logs it through the public-debt register while Ghana captures it mainly when a foreign entity holds an ownership stake. <b>Same railway, in one dataset and invisible in the next.</b> The fix is not to harmonise the laws, it is one shared, OC4IDS-anchored definition every country can map up to.'; }
+      else { const d=DEF.find(x=>x.country===active); a.innerHTML='<b>'+COUNTRY[active].label+':</b> '+d.rule+' <b style="color:var(--cost-red)">Watch which projects its definition would miss.</b>'; }
+    }));
+    document.getElementById("reset").onclick=()=>{ inited=false; };
+
+    fit(); loop(); window.addEventListener("resize",()=>{ fit(); inited=false; });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What goes dark, and the field that clears it · InfraWatch</title>
+  <style>
+    :root{
+      --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6;
+      --cost-white:#FFFFFF; --cost-blue:#0071BC; --surface:#F8F8F8;
+      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:10px; --ok:#2F7A46; --warn:#A96200;
+      --redact:#15151b;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 24px;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
+    .wrap{max-width:1060px; margin:0 auto; padding:24px 18px 46px;}
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
+    h1{font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.08; font-weight:800; margin:5px 0 8px; letter-spacing:-.01em;}
+    .sub{font-size:1.02rem; color:var(--cost-mid); margin:0 0 16px; max-width:60ch;}
+
+    .row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;}
+    .chip{border:2px solid var(--cost-light); background:#fff; border-radius:30px; padding:8px 15px; font:inherit; font-weight:700; cursor:pointer; color:var(--cost-mid);}
+    .chip[aria-pressed="true"]{background:var(--cost-dark); color:#fff; border-color:var(--cost-dark);}
+    .seg{margin-left:auto; display:inline-flex; border:2px solid var(--cost-light); border-radius:30px; overflow:hidden; background:#fff;}
+    .seg button{border:none; background:#fff; padding:7px 14px; font:inherit; font-weight:700; cursor:pointer; color:var(--cost-mid);}
+    .seg button[aria-pressed="true"]{background:var(--cost-red); color:#fff;} .seg button:first-child{border-right:1px solid var(--cost-light);}
+
+    /* ---- single chain ---- */
+    .chain{display:grid; grid-template-columns:1fr 30px 1.15fr 30px 1fr; align-items:center; gap:6px;}
+    @media (max-width:760px){ .chain{grid-template-columns:1fr;} .arrow{transform:rotate(90deg); height:26px;} }
+    .arrow{display:flex; align-items:center; justify-content:center; color:#c4c4cc; font-size:1.5rem; font-weight:800;}
+    .box{border:1px solid var(--cost-light); border-radius:var(--radius); background:#fff; box-shadow:var(--shadow); padding:16px; min-height:140px;}
+    .box .t{font-family:var(--mono); font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--cost-mid);}
+    .box h3{margin:6px 0 0; font-size:1.12rem;}
+    .box.mod{border-top:4px solid var(--cost-dark);}
+    .box.risk{border-top:4px solid var(--warn); display:flex; flex-direction:column;}
+    .box.risk h3{color:var(--warn);}
+    .box.field{border-top:4px solid var(--cost-light); transition:border-color .3s, box-shadow .3s;}
+    .box.field.lit{border-top-color:var(--ok); box-shadow:0 0 0 2px color-mix(in srgb,var(--ok) 30%,white), var(--shadow);}
+    .box.field h3{color:#bbb; transition:color .3s;} .box.field.lit h3{color:var(--ok);}
+
+    /* the redacted bar = the hidden thing */
+    .redact{margin-top:12px; border-radius:8px; background:var(--redact); color:#fff; padding:12px 14px; cursor:pointer; position:relative; user-select:none;
+      display:flex; align-items:center; gap:10px; transition:background .3s;}
+    .redact .bars{flex:1; display:flex; flex-direction:column; gap:5px;}
+    .redact .bar{height:10px; border-radius:3px; background:repeating-linear-gradient(90deg,#3a3a44 0 14px,#15151b 14px 18px);}
+    .redact .bar.b2{width:70%;} .redact .bar.b3{width:85%;}
+    .redact .lock{font-size:1.1rem;}
+    .redact .reveal{display:none; font-size:.92rem; font-weight:600; line-height:1.35;}
+    .redact.open{background:#fff; color:var(--cost-dark); border:1px solid var(--cost-light); cursor:default;}
+    .redact.open .bars,.redact.open .lock{display:none;} .redact.open .reveal{display:block;}
+    .redact .tap{position:absolute; right:12px; bottom:8px; font-size:.64rem; font-family:var(--mono); color:#9aa; text-transform:uppercase;}
+    .redact.open .tap{display:none;}
+    .field .ph{margin-top:10px; font-size:.82rem; font-weight:700; color:#aaa; transition:color .3s;}
+    .field.lit .ph{color:var(--ok);}
+    .field .body{font-size:.9rem; color:var(--cost-mid); margin-top:6px; min-height:1px;}
+
+    /* ---- matrix ---- */
+    .mx{width:100%; border-collapse:collapse; box-shadow:var(--shadow); background:#fff; border-radius:var(--radius); overflow:hidden;}
+    .mx th,.mx td{border-bottom:1px solid var(--cost-light); padding:12px 14px; text-align:left; vertical-align:middle; font-size:.9rem;}
+    .mx thead th{background:var(--cost-dark); color:#fff; font-size:.72rem; text-transform:uppercase; letter-spacing:.03em;}
+    .mx td.m{font-weight:800;}
+    .mx .rb{display:inline-flex; align-items:center; gap:8px; background:var(--redact); color:#fff; border-radius:6px; padding:6px 10px; cursor:pointer; font-size:.82rem;}
+    .mx .rb .bar{width:60px; height:9px; border-radius:3px; background:repeating-linear-gradient(90deg,#3a3a44 0 12px,#15151b 12px 16px);}
+    .mx .rb.open{background:#eef6f0; color:var(--ok); font-weight:700;} .mx .rb.open .bar{display:none;}
+    .mx td.fld{color:#bbb; font-weight:700;} .mx tr.done td.fld{color:var(--ok);}
+    .mx tr.done td.fld::before{content:"\2713 "; }
+
+    .insight{margin-top:18px; padding:14px 18px; background:#fff; border:1px solid var(--cost-light); border-left:4px solid var(--cost-red); border-radius:var(--radius);}
+    .insight .k{font-family:var(--mono); text-transform:uppercase; font-size:.66rem; font-weight:800; letter-spacing:.05em; color:var(--cost-red); margin:0 0 5px;}
+    .insight p{margin:0; font-size:1rem; color:var(--cost-dark);} .insight p b{color:var(--cost-red);}
+    .foot{margin-top:14px; color:var(--cost-mid); font-size:.76rem;} .foot strong{color:var(--cost-dark);}
+    .view{display:none;} .view.on{display:block;}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">What Each Funding Type Hides</span><span class="ctx">CoST &middot; InfraWatch</span></div>
+  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> Revealed values are illustrative.</div>
+  <main class="wrap">
+    <p class="label">Day-1 &middot; foreign-funded infrastructure</p>
+    <h1>Every funding type hides something. Click to see what.</h1>
+    <p class="sub">Pick how a project is paid for. One thing goes dark. Tap the black bar to reveal it, and watch the CoST field that clears it light up.</p>
+
+    <div class="row">
+      <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      <div class="seg" role="group" aria-label="View">
+        <button data-view="chain" aria-pressed="true">One at a time</button>
+        <button data-view="matrix" aria-pressed="false">See all</button>
+      </div>
+    </div>
+
+    <!-- CHAIN -->
+    <section class="view on" id="v-chain">
+      <div class="chain">
+        <div class="box mod"><div class="t">Funding type</div><h3 id="mod-h"></h3></div>
+        <div class="arrow">&rarr;</div>
+        <div class="box risk"><div class="t">What goes dark</div><h3 id="risk-h"></h3>
+          <div class="redact" id="redact">
+            <span class="lock">&#128274;</span>
+            <div class="bars"><div class="bar"></div><div class="bar b2"></div><div class="bar b3"></div></div>
+            <div class="reveal" id="reveal"></div>
+            <span class="tap">tap to reveal</span>
+          </div>
+        </div>
+        <div class="arrow">&rarr;</div>
+        <div class="box field" id="field"><div class="t">The field that clears it</div><h3 id="field-h"></h3>
+          <div class="body" id="field-b"></div><div class="ph" id="field-ph"></div></div>
+      </div>
+    </section>
+
+    <!-- MATRIX -->
+    <section class="view" id="v-matrix">
+      <table class="mx" id="mx"></table>
+    </section>
+
+    <div class="insight">
+      <p class="k">The pattern</p>
+      <p>Different money, different blind spot, but every blind spot has a field already named in the standard. <b>The funding type tells you, in advance, which data point to demand.</b></p>
+    </div>
+    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day-1, 2 Jun 2026. Revealed values are illustrative of the disclosure pattern; field labels shown at CoST phase level, confirm against IDS v2.0 before external use.</p>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+    const DATA=[
+      {id:"loan",  mod:"Sovereign loan", risk:"Hidden debt", reveal:"Interest rate, repayment schedule, and the sovereign guarantee, the true cost to the treasury.",
+        field:"Loan terms & guarantee", body:"Publish the financing terms and the real liability appears.", ph:"CoST: Preparation + Implementation"},
+      {id:"equity",mod:"Equity stake", risk:"Hidden ownership", reveal:"Who actually owns and profits from the asset, including resource value leaving the country.",
+        field:"Beneficial ownership", body:"Publish the real owners and you see who captures the value.", ph:"CoST: Identification"},
+      {id:"conc",  mod:"Concession / PPP", risk:"Hidden future bill", reveal:"Availability payments and guarantees that fall due years later, off today's budget.",
+        field:"Contract terms & cost", body:"Publish the contract and the long-term obligation is visible.", ph:"CoST: Procurement"},
+      {id:"epc",   mod:"EPC + finance", risk:"Hidden mark-up", reveal:"The price, bundled so it cannot be tested against the market, where over-pricing hides.",
+        field:"Cost estimate & price", body:"Publish the breakdown and the price can be benchmarked.", ph:"CoST: Preparation + Procurement"},
+      {id:"grant", mod:"Grant / aid", risk:"Hidden conditions", reveal:"Tied conditions and supplier requirements that quietly erode the value of the money.",
+        field:"Funding source & conditions", body:"Publish the source and its strings and the real terms show.", ph:"CoST: Preparation"}
+    ];
+
+    // chips
+    const chips=document.getElementById("chips");
+    DATA.forEach((d,i)=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.i=i; b.setAttribute("aria-pressed",i===0?"true":"false"); b.textContent=d.mod; chips.appendChild(b); });
+
+    const redact=document.getElementById("redact"), fieldBox=document.getElementById("field");
+    let cur=0;
+    function show(i){ cur=i; const d=DATA[i];
+      document.querySelectorAll(".chip").forEach((c,j)=>c.setAttribute("aria-pressed",j===i?"true":"false"));
+      document.getElementById("mod-h").textContent=d.mod;
+      document.getElementById("risk-h").textContent=d.risk;
+      document.getElementById("reveal").textContent=d.reveal;
+      document.getElementById("field-h").textContent=d.field;
+      document.getElementById("field-b").textContent=d.body;
+      document.getElementById("field-ph").textContent="✓ "+d.ph;
+      // reset to redacted + unlit
+      redact.classList.remove("open"); fieldBox.classList.remove("lit");
+    }
+    redact.addEventListener("click",()=>{ if(redact.classList.contains("open"))return;
+      redact.classList.add("open"); setTimeout(()=>fieldBox.classList.add("lit"),180); });
+    chips.addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(b) show(+b.dataset.i); });
+
+    // matrix
+    (function(){ let h='<thead><tr><th>Funding type</th><th>What goes dark</th><th>The field that clears it</th></tr></thead><tbody>';
+      DATA.forEach((d,i)=>{ h+='<tr data-i="'+i+'"><td class="m">'+d.mod+'</td>'+
+        '<td><span class="rb" data-i="'+i+'"><span class="bar"></span><span class="rev">'+d.risk+'</span></span></td>'+
+        '<td class="fld">'+d.field+' <span style="color:#aaa;font-weight:500;font-size:.78rem">('+d.ph.replace("CoST: ","")+')</span></td></tr>'; });
+      h+='</tbody>'; document.getElementById("mx").innerHTML=h;
+      document.getElementById("mx").addEventListener("click",e=>{ const rb=e.target.closest(".rb"); if(!rb)return;
+        if(rb.classList.contains("open"))return; rb.classList.add("open");
+        rb.querySelector(".rev").textContent=DATA[+rb.dataset.i].risk;
+        rb.closest("tr").classList.add("done"); });
+    })();
+
+    document.querySelector(".seg").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b)return;
+      [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+      const v=b.dataset.view;
+      document.getElementById("v-chain").classList.toggle("on",v==="chain");
+      document.getElementById("v-matrix").classList.toggle("on",v==="matrix");
+    });
+
+    show(0);
+  })();
+  </script>
+</body>
+</html>

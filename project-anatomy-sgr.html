@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anatomy of a Project · InfraWatch</title>
+  <style>
+    :root{
+      --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6;
+      --cost-white:#FFFFFF; --cost-blue:#0071BC; --surface:#F8F8F8;
+      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:10px; --ok:#2F7A46; --redact:#15151b;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 24px;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
+    .wrap{max-width:880px; margin:0 auto; padding:24px 18px 46px;}
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
+    h1{font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.08; font-weight:800; margin:5px 0 8px; letter-spacing:-.01em;}
+    .sub{font-size:1.02rem; color:var(--cost-mid); margin:0 0 18px; max-width:58ch;}
+
+    .stack{display:flex; flex-direction:column; gap:9px;}
+    .layer{border:1px solid var(--cost-light); border-radius:var(--radius); background:#fff; box-shadow:var(--shadow); padding:14px 16px;
+      display:flex; align-items:center; gap:14px;}
+    .layer .num{font-family:var(--mono); font-weight:800; font-size:.8rem; color:#c8c8d0; width:20px; flex:0 0 auto; text-align:center;}
+    .layer .q{font-family:var(--mono); font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--cost-mid);}
+    .layer h3{margin:2px 0 0; font-size:1.06rem;}
+    .layer .col{flex:1; min-width:0;}
+    .layer .seen{font-size:.92rem; color:var(--cost-mid); margin-top:2px;}
+    .layer .tag{font-size:.62rem; font-weight:800; text-transform:uppercase; padding:3px 9px; border-radius:20px; flex:0 0 auto;}
+    .layer .tag.ok{background:#eef6f0; color:var(--ok);}
+
+    /* depth gradient: deeper = darker frame */
+    .layer.d1{} .layer.d2{} .layer.d3{}
+    .layer.dark{background:var(--redact); border-color:var(--redact); cursor:pointer;}
+    .layer.dark .num{color:#55555f;} .layer.dark .q{color:#8a8a95;} .layer.dark h3{color:#fff;}
+    .layer.dark .tag.locked{background:#3a0c11; color:#ff8a93;}
+    .layer.dark .bars{display:flex; flex-direction:column; gap:5px; margin-top:8px;}
+    .layer.dark .bar{height:11px; border-radius:3px; background:repeating-linear-gradient(90deg,#3a3a44 0 16px,#15151b 16px 20px);}
+    .layer.dark .bar.b2{width:72%;} .layer.dark .bar.b3{width:88%;}
+    .layer.dark .reveal{display:none;}
+    .layer.dark .tapcue{font-size:.6rem; font-family:var(--mono); color:#8a8a95; text-transform:uppercase; margin-top:6px;}
+
+    .layer.dark.open{background:#fff; border-color:var(--ok); cursor:default; box-shadow:0 0 0 2px color-mix(in srgb,var(--ok) 28%,white), var(--shadow);}
+    .layer.dark.open .num{color:#c8c8d0;} .layer.dark.open .q{color:var(--cost-mid);} .layer.dark.open h3{color:var(--cost-dark);}
+    .layer.dark.open .bars,.layer.dark.open .tapcue{display:none;}
+    .layer.dark.open .reveal{display:block; margin-top:6px;}
+    .layer.dark.open .reveal .v{font-size:.94rem; font-weight:600; color:var(--cost-dark);}
+    .layer.dark.open .reveal .ids{margin-top:7px; font-size:.82rem; font-weight:700; color:var(--ok); background:#eef6f0; border-radius:6px; padding:5px 9px; display:inline-block;}
+    .layer.dark.open .reveal .illu{font-size:.66rem; color:#999; font-style:italic; margin-top:4px;}
+    .layer.dark.open .tag.locked{background:#eef6f0; color:var(--ok);}
+
+    .meter{display:flex; align-items:center; gap:10px; margin:0 0 14px; font-size:.82rem; color:var(--cost-mid);}
+    .meter .track{flex:1; height:8px; border-radius:6px; background:linear-gradient(90deg,#fff,#15151b); border:1px solid var(--cost-light);}
+    .scoreline{margin-top:16px; padding:13px 18px; background:#fff; border:1px solid var(--cost-light); border-left:4px solid var(--cost-red); border-radius:var(--radius); font-size:1rem;}
+    .scoreline b{color:var(--cost-red);}
+    .foot{margin-top:14px; color:var(--cost-mid); font-size:.76rem;} .foot strong{color:var(--cost-dark);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Anatomy of a Project</span><span class="ctx">CoST &middot; InfraWatch</span></div>
+  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> Revealed figures are illustrative.</div>
+  <main class="wrap">
+    <p class="label">Day-1 &middot; the Nairobi Standard Gauge Railway</p>
+    <h1>The top is public. The bottom is locked. Tap to dig.</h1>
+    <p class="sub">A project is five questions deep. The first three are on the record. The last two are blacked out, tap a dark bar to reveal what it hides, and the CoST field that would clear it.</p>
+
+    <div class="meter"><span>Public</span><div class="track"></div><span>Hidden</span></div>
+
+    <div class="stack" id="stack"></div>
+
+    <div class="scoreline" id="scoreline">Two questions are still blacked out. <b>Tap them.</b></div>
+
+    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day-1, 2 Jun 2026. Revealed figures are <em>illustrative</em> of the disclosure pattern, not the audited SGR record; field labels at CoST phase level. Confirm specifics before external use.</p>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+    const L=[
+      {q:"What is it?", h:"A railway, Mombasa to Nairobi", seen:"Stations, trains, ridership. Announced, opened, photographed.", state:"seen"},
+      {q:"How is it paid for?", h:"A sovereign loan", seen:"A foreign export-import bank lends; the state borrows and guarantees.", state:"seen"},
+      {q:"Who decides?", h:"Treasury, the railway, the lender", seen:"The high-power actors and the people who carry the cost barely overlap.", state:"seen"},
+      {q:"What does it really cost?", h:"The loan terms", state:"dark",
+        v:"Interest rate, repayment schedule, and a sovereign guarantee on the full amount.",
+        illu:"illustrative: e.g. ~3.6% over 15 years, guarantee on 100% of principal",
+        ids:"CoST: Preparation + Implementation"},
+      {q:"Was it worth it?", h:"The appraisal", state:"dark",
+        v:"The cost-benefit analysis and feasibility study behind the decision to build.",
+        illu:"illustrative: e.g. projected vs actual freight volumes, the break-even case",
+        ids:"CoST: Preparation"}
+    ];
+    const stack=document.getElementById("stack");
+    L.forEach((l,i)=>{ const d=document.createElement("div");
+      d.className="layer "+(l.state==="dark"?"dark":"d"+(i+1)); d.dataset.i=i;
+      if(l.state==="seen"){
+        d.innerHTML='<span class="num">'+(i+1)+'</span><div class="col"><div class="q">'+l.q+'</div><h3>'+l.h+'</h3><div class="seen">'+l.seen+'</div></div><span class="tag ok">on the record</span>';
+      } else {
+        d.innerHTML='<span class="num">'+(i+1)+'</span><div class="col"><div class="q">'+l.q+'</div><h3>'+l.h+'</h3>'+
+          '<div class="bars"><div class="bar"></div><div class="bar b2"></div><div class="bar b3"></div></div>'+
+          '<div class="tapcue">&#128274; tap to reveal</div>'+
+          '<div class="reveal"><div class="v">'+l.v+'</div><div class="illu">'+l.illu+'</div><div class="ids">&#10003; '+l.ids+'</div></div>'+
+          '</div><span class="tag locked">hidden</span>';
+        d.addEventListener("click",()=>{ if(d.classList.contains("open"))return; d.classList.add("open");
+          d.querySelector(".tag.locked").textContent="now visible"; checkDone(); });
+      }
+      stack.appendChild(d);
+    });
+    function checkDone(){ const darks=[...stack.querySelectorAll(".layer.dark")]; const open=darks.filter(d=>d.classList.contains("open")).length;
+      const s=document.getElementById("scoreline");
+      if(open===0) s.innerHTML='Two questions are still blacked out. <b>Tap them.</b>';
+      else if(open<darks.length) s.innerHTML='One question still blacked out. <b>The deeper you go, the darker it gets.</b>';
+      else s.innerHTML='Both dark layers are exactly the financial and decision data the <b>CoST standard</b> is built to disclose. The room can see the top. The standard reveals the bottom.';
+    }
+  })();
+  </script>
+</body>
+</html>

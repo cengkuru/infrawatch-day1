@@ -64,6 +64,10 @@
     .side p{margin:0 0 8px; font-size:.88rem; color:var(--cost-mid);}
     .side dt{font-size:.68rem; font-weight:800; text-transform:uppercase; color:var(--cost-dark); margin-top:9px; letter-spacing:.04em;}
     .side dd{margin:1px 0 0; font-size:.9rem;}
+    /* hero-quote panel: one big demand readable from the back of the room */
+    .side .bigq{font-size:1.7rem; line-height:1.12; font-weight:800; letter-spacing:-.01em; margin:4px 0 6px; text-wrap:balance;}
+    .side .strat{font-size:.78rem; font-weight:700; color:var(--cost-dark); margin:0 0 8px; opacity:.7;}
+    .side .subq{font-size:.92rem; color:var(--cost-mid); margin:0 0 4px;}
     .side .idsline{margin-top:6px; font-size:.84rem; font-weight:700; color:var(--ok,#2F7A46);
       background:color-mix(in srgb,#2F7A46 8%,white); border-radius:6px; padding:6px 9px; display:none;}
     body.showcost .side .idsline{display:block;}
@@ -171,25 +175,30 @@
 
     const C={
       kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",strat:"Published appraisals",
+        quote:"Show us before you build.",sub:"Can't see the appraisal yet.",
         change:"“Show us before you build.” A trusted appraisal, public, before the concrete is poured.",role:"Build the method; evidence + public participation",win:"Project appraisals are public",
         gap:"What they can't see yet: project appraisals and feasibility studies",
-        ids:"Already named in the CoST standard, the Preparation phase",conf:"hi"},
+        ids:"Maps to the CoST IDS, the Preparation phase",conf:"hi"},
       ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",strat:"Local value capture",
+        quote:"Show us who benefits.",sub:"Can't see who owns the resource yet.",
         change:"“Show us who benefits.” Who owns the resource, on what terms, and whether the value reaches our people.",role:"Research + advocacy; Growth Diagnostic + Resource Reform",win:"Resource wealth benefits Ghanaians",
         gap:"What they can't see yet: who owns the resource and on what terms",
-        ids:"Already named in the CoST standard, Identification + Preparation",conf:"hi"},
+        ids:"Maps to the CoST IDS, Identification + Preparation",conf:"hi"},
       nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",strat:"Economic scrutiny",
+        quote:"Show us the numbers.",sub:"Can't see the cost-benefit case yet.",
         change:"“Show us the numbers.” The cost-benefit case behind each project, so debt does not arrive dressed as development.",role:"Open data + dashboards; track influence; train media",win:"Cost-benefit tests become mandatory",
         gap:"What they can't see yet: the cost-benefit case behind each project",
-        ids:"Already named in the CoST standard, the Preparation phase",conf:"hi"},
+        ids:"Maps to the CoST IDS, the Preparation phase",conf:"hi"},
       ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",strat:"Quality of investment",
+        quote:"Show us the quality.",sub:"Can't see the real terms yet.",
         change:"“Show us the quality.” Investment is not enough, show us whether it is good, responsible, and worth the trade-offs.",role:"Investment-climate work; capacity; close info gaps",win:"Responsible investment pays",
         gap:"What they can't see yet: the real terms and quality of incoming foreign investment",
-        ids:"Already named in the CoST standard, Preparation (funding sources)",conf:"lo"},
+        ids:"Maps to the CoST IDS, Preparation (funding sources)",conf:"lo"},
       drc:{label:"DRC",org:"CDHD",c:"#E7298A",strat:"Citizen oversight",
+        quote:"Show us the delivery.",sub:"Can't see how it's delivered yet.",
         change:"“Show us the delivery.” What actually happens during execution, where citizens feel the project.",role:"Citizen watchdog; inform public to pressure duty-bearers",win:"Delivery becomes accountable",
         gap:"What they can't see yet: how the project is actually being delivered",
-        ids:"Already named in the CoST standard, the Implementation phase",conf:"lo"}
+        ids:"Maps to the CoST IDS, the Implementation phase",conf:"lo"}
     };
     const ORDER=["kenya","ghana","nigeria","ethiopia","drc"];
     const THEMES={
@@ -354,9 +363,10 @@
       const s=document.getElementById("side");
       if(!selected){ s.innerHTML='<p class="k">Tap a bubble</p><h3>Read one partner</h3><p>Click any country to pin its vision here, and a soft halo shows the priorities it holds. Drag to untangle.</p>'; return; }
       if(selected.kind==="partner"){ const c=selected.country, d=C[c];
-        s.innerHTML='<p class="k" style="color:'+d.c+'">'+d.label+' <span class="org">&middot; '+d.org+'</span></p><h3>'+d.strat+'</h3>'+
-          '<dt>Change wanted</dt><dd>'+d.change+'</dd><dt>Role</dt><dd>'+d.role+'</dd><dt>What success looks like</dt><dd>'+d.win+'</dd>'+
-          '<dd style="margin-top:10px;font-weight:700;color:'+d.c+'">'+d.gap+'</dd>'+
+        s.innerHTML='<p class="k" style="color:'+d.c+'">'+d.label+' <span class="org">&middot; '+d.org+'</span></p>'+
+          '<p class="bigq" style="color:'+d.c+'">&ldquo;'+d.quote+'&rdquo;</p>'+
+          '<p class="strat">'+d.strat+'</p>'+
+          '<p class="subq">'+d.sub+'</p>'+
           '<dd class="idsline">&#10003; '+d.ids+'</dd>'+
           '<span class="conf '+d.conf+'">'+(d.conf==="hi"?"confirmed":"verify with partner")+'</span>';
       } else { const t=THEMES[selected.id]; const n=t.members.length;
@@ -366,7 +376,7 @@
         else { head="Same word, "+n+" different aims"; sub="These "+n+" partners use the same word, but each wants something different by it:"; }
         s.innerHTML='<p class="k">Shared priority</p><h3>'+t.label+'</h3><p>'+sub+'</p>'+
           '<dd>'+t.members.map(m=>"<b style='color:"+C[m].c+"'>"+C[m].label+":</b> "+C[m].strat.toLowerCase()).join("<br>")+'</dd>'+
-          '<div class="idsline">&#10003; In the CoST standard: '+t.phase+'</div>'+
+          '<div class="idsline">&#10003; Maps to the CoST IDS: '+t.phase+'</div>'+
           '<p style="margin-top:10px;font-weight:700;color:var(--cost-dark)">'+head+'.</p>';
       }
     }
@@ -409,8 +419,8 @@
         l:"Kenya: show us before you build. Ghana: show us who benefits. Nigeria: show us the numbers. Ethiopia: show us the quality. DRC: show us the delivery. Different words, one demand: <b>do not ask citizens to trust what they cannot see.</b> Click any country to hear its own words." },
       { h:"Look again. You came with one ask, in five accents.",
         l:"Pull back and the five visions are all orbiting the same centre. This is not five agendas competing. It is one demand for disclosure, spoken five ways, and that shared centre is <b>your</b> leverage, not anyone else's." },
-      { h:"And it already has a name.",
-        l:"Not one of these needs a new method. The vocabulary already exists, so the coalition can skip the fight over definitions and go straight to the ask. Drag a country to see the priorities it is already naming." },
+      { h:"And the language already exists.",
+        l:"None of these needs inventing from scratch. Proven tools already name them, disclosure standards, political-economy analysis, NPV, so the coalition can skip the fight over definitions and go straight to the ask. Drag a country to see what it is already naming." },
       { h:"So today comes down to one number.",
         l:"You can each name the change you want. Today turns that into something a government cannot wave away: the single number that would prove it moved." }
     ];

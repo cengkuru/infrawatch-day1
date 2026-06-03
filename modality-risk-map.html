@@ -86,7 +86,7 @@
   <main class="wrap">
     <p class="label">Day-1 &middot; foreign-funded infrastructure</p>
     <h1>Every funding type hides something. Click to see what.</h1>
-    <p class="sub">Pick how a project is paid for. One thing goes dark. Tap the black bar to reveal it, and watch the CoST field that clears it light up.</p>
+    <p class="sub">Pick how a project is paid for. One thing goes dark. Tap the black bar to reveal it, and watch the disclosure field that clears it light up.</p>
 
     <div class="row">
       <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
@@ -122,7 +122,7 @@
 
     <div class="insight">
       <p class="k">The pattern</p>
-      <p>Different money, different blind spot, but every blind spot has a field already named in the standard. <b>The funding type tells you, in advance, which data point to demand.</b></p>
+      <p>Different money, different blind spot, but each one has a disclosure field that already names it. <b>The funding type tells you, in advance, which data point to demand.</b></p>
     </div>
     <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day-1, 2 Jun 2026. Revealed values are illustrative of the disclosure pattern; field labels shown at CoST phase level, confirm against IDS v2.0 before external use.</p>
   </main>
@@ -132,15 +132,15 @@
     "use strict";
     const DATA=[
       {id:"loan",  mod:"Sovereign loan", risk:"Hidden debt", reveal:"Interest rate, repayment schedule, and the sovereign guarantee, the true cost to the treasury.",
-        field:"Loan terms & guarantee", body:"Publish the financing terms and the real liability appears.", ph:"CoST: Preparation + Implementation"},
+        field:"Loan terms & guarantee", body:"Publish the financing terms and the real liability appears.", ph:"IDS: Preparation + Implementation"},
       {id:"equity",mod:"Equity stake", risk:"Hidden ownership", reveal:"Who actually owns and profits from the asset, including resource value leaving the country.",
-        field:"Beneficial ownership", body:"Publish the real owners and you see who captures the value.", ph:"CoST: Identification"},
+        field:"Beneficial ownership", body:"Publish the real owners and you see who captures the value.", ph:"IDS: Identification"},
       {id:"conc",  mod:"Concession / PPP", risk:"Hidden future bill", reveal:"Availability payments and guarantees that fall due years later, off today's budget.",
-        field:"Contract terms & cost", body:"Publish the contract and the long-term obligation is visible.", ph:"CoST: Procurement"},
+        field:"Contract terms & cost", body:"Publish the contract and the long-term obligation is visible.", ph:"IDS: Procurement"},
       {id:"epc",   mod:"EPC + finance", risk:"Hidden mark-up", reveal:"The price, bundled so it cannot be tested against the market, where over-pricing hides.",
-        field:"Cost estimate & price", body:"Publish the breakdown and the price can be benchmarked.", ph:"CoST: Preparation + Procurement"},
+        field:"Cost estimate & price", body:"Publish the breakdown and the price can be benchmarked.", ph:"IDS: Preparation + Procurement"},
       {id:"grant", mod:"Grant / aid", risk:"Hidden conditions", reveal:"Tied conditions and supplier requirements that quietly erode the value of the money.",
-        field:"Funding source & conditions", body:"Publish the source and its strings and the real terms show.", ph:"CoST: Preparation"}
+        field:"Funding source & conditions", body:"Publish the source and its strings and the real terms show.", ph:"IDS: Preparation"}
     ];
 
     // chips
@@ -168,7 +168,7 @@
     (function(){ let h='<thead><tr><th>Funding type</th><th>What goes dark</th><th>The field that clears it</th></tr></thead><tbody>';
       DATA.forEach((d,i)=>{ h+='<tr data-i="'+i+'"><td class="m">'+d.mod+'</td>'+
         '<td><span class="rb" data-i="'+i+'"><span class="bar"></span><span class="rev">'+d.risk+'</span></span></td>'+
-        '<td class="fld">'+d.field+' <span style="color:#aaa;font-weight:500;font-size:.78rem">('+d.ph.replace("CoST: ","")+')</span></td></tr>'; });
+        '<td class="fld">'+d.field+' <span style="color:#aaa;font-weight:500;font-size:.78rem">('+d.ph.replace("IDS: ","")+')</span></td></tr>'; });
       h+='</tbody>'; document.getElementById("mx").innerHTML=h;
       document.getElementById("mx").addEventListener("click",e=>{ const rb=e.target.closest(".rb"); if(!rb)return;
         if(rb.classList.contains("open"))return; rb.classList.add("open");

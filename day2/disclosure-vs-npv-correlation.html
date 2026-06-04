@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>No Terms, No Test — can the public test the deal?</title>
-  <meta name="description" content="Disclosure does not make a deal good. It is what lets anyone test whether it is. An interactive look at ten infrastructure projects.">
+  <title>No Terms, No Test — can a project's value be assessed?</title>
+  <meta name="description" content="Transparency does not make a project good value-for-money. It is what lets anyone assess whether it is. An interactive look at ten infrastructure projects.">
   <style>
     :root{
       --red:#BE1E2D; --dark:#2D2D2D; --mid:#5A5A5A; --light:#E6E6E6;
@@ -45,21 +45,33 @@
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    /* STICKY STAGE: chart pins while captions scroll past */
+    /* STICKY STAGE: the chart is the hero; it pins and performs while captions defer */
     .story{position:relative;margin:1rem 0 2rem;}
-    .stage{position:sticky;top:0;height:100vh;max-height:680px;display:flex;align-items:center;justify-content:center;}
-    .stage-inner{width:100%;max-width:760px;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.2rem 1rem;}
+    .stage{position:sticky;top:0;height:100vh;max-height:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .stage-inner{width:100%;max-width:780px;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.4rem 1.4rem 1.1rem;}
     svg{width:100%;height:auto;display:block;}
 
-    .steps{position:relative;z-index:2;pointer-events:none;}
-    .step{min-height:88vh;display:flex;align-items:flex-end;padding-bottom:6vh;}
-    .step:first-child{min-height:46vh;}
-    .step:last-child{min-height:70vh;}
-    .stepcard{pointer-events:auto;background:rgba(45,45,45,.95);color:#fff;border-left:5px solid var(--red);border-radius:var(--radius);padding:1.1rem 1.3rem;max-width:30rem;margin:0 auto;box-shadow:0 12px 32px rgba(0,0,0,.3);}
-    .stepcard h3{margin:0 0 .4rem;font-size:1.1rem;}
-    .stepcard p{margin:.3rem 0 0;font-size:.94rem;color:#e8e8e8;}
-    .stepcard strong{color:#fff;}
-    .stepcard .kicker{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:#ff9aa3;margin:0 0 .35rem;}
+    /* Single deferential caption, fixed in a quiet lower band, only the ACTIVE one shows.
+       It floats below the chart, never on top of it. Light, glassy, recedes. */
+    .caption-rail{position:sticky;bottom:0;height:0;z-index:3;pointer-events:none;}
+    .caption{position:absolute;left:50%;bottom:1rem;transform:translate(-50%,12px);width:min(33rem,90vw);
+      background:rgba(255,255,255,.82);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+      border:1px solid rgba(45,45,45,.08);border-radius:14px;padding:1rem 1.25rem;
+      box-shadow:0 10px 40px rgba(45,45,45,.13);opacity:0;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);}
+    .caption.show{opacity:1;transform:translate(-50%,0);}
+    .caption .kicker{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:0 0 .3rem;}
+    .caption h3{margin:0 0 .3rem;font-size:1.02rem;font-weight:800;color:var(--dark);letter-spacing:-.01em;}
+    .caption p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.5;}
+    .caption strong{color:var(--dark);}
+
+    /* invisible scroll-tracks that drive the stage; no visible card here anymore */
+    .steps{position:relative;z-index:1;pointer-events:none;}
+    .step{min-height:92vh;}
+    .step:first-child{min-height:50vh;}
+    .step:last-child{min-height:86vh;}
+
+    /* confetti canvas overlays the stage, never intercepts clicks */
+    #confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;}
 
     /* glyph + label classes */
     .dot-label{font-size:11px;font-weight:600;fill:var(--dark);font-family:var(--sans);}
@@ -142,9 +154,11 @@
     /* RESPONSIVE */
     @media (max-width:680px){
       .counts{grid-template-columns:1fr;}
-      .stage{max-height:540px;height:88vh;}
-      .stepcard{max-width:100%;margin-left:0;}
-      .step{min-height:70vh;}
+      .stage{max-height:none;height:92vh;justify-content:flex-start;padding-top:2vh;}
+      .stage-inner{padding:.9rem .8rem .7rem;}
+      .caption{bottom:1rem;width:94vw;padding:.75rem .9rem;border-radius:12px;}
+      .caption h3{font-size:.94rem;} .caption p{font-size:.82rem;line-height:1.45;}
+      .caption .kicker{font-size:.58rem;}
       .controls{flex-direction:column;align-items:stretch;}
     }
     @media (prefers-reduced-motion:reduce){
@@ -155,34 +169,28 @@
 <body>
   <div class="brandbar">
     <a href="./">&larr; InfraWatch · Day 2</a>
-    <span class="label">CIPE · CoST IDS × IEA-Kenya NPV · teaching sample</span>
+    <span class="label">CIPE · CoST IDS × IEA-Kenya NPV</span>
   </div>
 
   <div class="wrap">
     <!-- ============ HERO ============ -->
     <section class="hero">
-      <h1>You cannot value a deal you are <span class="accent">not allowed to see</span>.</h1>
-      <p class="lede">Making an infrastructure deal public does not make it a good deal. But it is the only thing that lets anyone test whether it is. Here are ten flagship projects. Watch which ones can even be judged.</p>
+      <h1>You cannot assess a project you are <span class="accent">not allowed to see</span>.</h1>
+      <p class="lede">Publishing a project's financing does not make it good value-for-money. But it is the only thing that lets anyone assess whether it is. Here are ten flagship projects. Watch which ones can even be judged.</p>
 
       <div class="counts" aria-label="Summary of ten projects">
         <div class="count green">
           <div class="big">6</div>
-          <div class="cap">could be <strong>tested</strong> &mdash; value worked out from terms that were actually published</div>
+          <div class="cap">could be <strong>assessed</strong> &mdash; value worked out from financing terms that were actually published</div>
         </div>
         <div class="count amber">
           <div class="big">3</div>
-          <div class="cap">judged <strong>only by failure</strong> &mdash; terms hidden, so we know the cost only because it leaked out later</div>
+          <div class="cap">judged <strong>only by what happened</strong> &mdash; terms withheld, so the cost surfaced only after the project ran</div>
         </div>
         <div class="count red">
           <div class="big">1</div>
-          <div class="cap"><strong>cannot be judged at all</strong> &mdash; terms never published, so there is nothing to test (NASENI)</div>
+          <div class="cap"><strong>cannot be judged at all</strong> &mdash; terms never published, so there is nothing to assess (NASENI)</div>
         </div>
-      </div>
-      <p class="counts-note">10 flagship projects · a teaching sample, not statistical proof</p>
-
-      <div class="export" style="margin-top:1.2rem;">
-        <button class="btn primary" id="copyHero">Copy the headline</button>
-        <span class="copied" id="heroCopied" hidden>Copied</span>
       </div>
 
       <div class="scrollcue">scroll to see it &darr;</div>
@@ -194,18 +202,18 @@
     <div class="story">
       <div class="stage">
         <div class="stage-inner">
-          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects plotted by how much of the deal is public. Projects whose terms are hidden stay fogged with a question mark and cannot be assigned a value. Toggling the funder view shows that openness tracks the lender, not the deal quality. Sankofa is public yet harmful; NASENI is never testable.">
+          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects plotted by how much of each project's financing is published. Projects whose terms are withheld stay fogged with a question mark and cannot be assessed. Toggling the funder view shows that transparency tracks the funder, not the project's value. Sankofa is fully disclosed yet harmful; NASENI can never be assessed.">
             <!-- axis -->
             <line id="axisLine" x1="70" y1="400" x2="715" y2="400" stroke="#2D2D2D" stroke-width="2"/>
-            <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#5A5A5A">hidden</text>
-            <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the deal is public</text>
-            <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">open</text>
+            <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#5A5A5A">withheld</text>
+            <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the project's financing is published</text>
+            <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">disclosed</text>
             <text x="392" y="442" text-anchor="middle" class="axis-tick" fill="#5A5A5A">mapped to the CoST IDS</text>
 
             <!-- threshold line (fog gate) -->
             <g id="thresholdG">
               <line id="threshLine" x1="240" y1="40" x2="240" y2="392" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="5 4"/>
-              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#BE1E2D">below: too little to test</text>
+              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#BE1E2D">left of here: too little to assess</text>
             </g>
 
             <!-- panel labels (hidden until funder split) -->
@@ -216,71 +224,58 @@
             <g id="dots"></g>
 
             <!-- burned-in caveat -->
-            <text x="392" y="456" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BE1E2D" font-family="var(--sans)">10 projects, hand-scored. A teaching example, not proof.</text>
+            <text x="392" y="456" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BE1E2D" font-family="var(--sans)">Ten flagship projects. An illustration of the method, not a statistical claim.</text>
           </svg>
+        </div>
+        <!-- confetti lands here at the final step; canvas sits over the stage -->
+        <canvas id="confetti" aria-hidden="true"></canvas>
+        <!-- ONE deferential caption, swapped by scroll position; floats below the chart -->
+        <div class="caption-rail">
+          <div class="caption" id="caption" aria-live="polite">
+            <p class="kicker" id="capKicker"></p>
+            <h3 id="capTitle"></h3>
+            <p id="capBody"></p>
+          </div>
         </div>
       </div>
 
-      <div class="steps">
-        <div class="step" data-stage="0">
-          <div class="stepcard">
-            <p class="kicker">what the eye wants to see</p>
-            <h3>"Open deals look like better deals."</h3>
-            <p>Each dot is a project, placed by how much of its deal is public. It is tempting to read a slope here: more open, more worthwhile. Hold that thought.</p>
-          </div>
-        </div>
-        <div class="step" data-stage="1">
-          <div class="stepcard">
-            <p class="kicker">the wall, not a nuisance</p>
-            <h3>Hidden terms cannot be tested at all.</h3>
-            <p>Drag the slider below, or watch: the projects whose terms were never published stay <strong>fogged with a "?"</strong>. No amount of analysis resolves them. <strong>NASENI never clears.</strong> Opacity is not missing data. It is a wall you cannot see past.</p>
-          </div>
-        </div>
-        <div class="step" data-stage="2">
-          <div class="stepcard">
-            <p class="kicker">the slope was a lie</p>
-            <h3>It is mostly about who lent the money.</h3>
-            <p>Turn on <strong>"show who paid."</strong> The dots split: World Bank money sits open on the right, Chinese money sits hidden on the left. The slope was never about openness. It was two lenders behaving in two ways.</p>
-          </div>
-        </div>
-        <div class="step" data-stage="3">
-          <div class="stepcard">
-            <p class="kicker">the two that carry the lesson</p>
-            <h3>Sankofa and NASENI.</h3>
-            <p><strong>Sankofa</strong> is fully public &mdash; and still harmful. Openness let people see the trap; it did not stop them walking in. <strong>NASENI</strong> is hidden &mdash; so it cannot be judged at all. Disclosure does not fix a deal. It is the entry ticket to test one.</p>
-          </div>
-        </div>
+      <!-- invisible scroll tracks: presence in viewport drives the stage + caption -->
+      <div class="steps" aria-hidden="true">
+        <div class="step" data-stage="0"></div>
+        <div class="step" data-stage="1"></div>
+        <div class="step" data-stage="2"></div>
+        <div class="step" data-stage="3"></div>
       </div>
     </div>
 
     <!-- LIVE CONTROLS -->
     <div class="controls" aria-label="Interactive controls">
       <div class="ctl">
-        <label for="thresh">Disclosure threshold &mdash; drag to raise the bar for "testable"</label>
+        <label for="thresh">Transparency threshold &mdash; drag to raise the bar for "can be assessed"</label>
         <input type="range" id="thresh" min="0" max="100" value="20" aria-describedby="threshHint">
-        <span class="hint" id="threshHint">Projects left of the line do not have enough published to compute value. NASENI never clears.</span>
+        <span class="hint" id="threshHint">Projects left of the line have too little published to work out value. NASENI never clears.</span>
       </div>
       <div class="ctl" style="flex:0 1 auto;">
-        <label class="toggle"><input type="checkbox" id="funder" role="switch"> Show who paid</label>
-        <span class="hint">Splits the dots by lender. Watch the slope dissolve.</span>
+        <label class="toggle"><input type="checkbox" id="funder" role="switch"> Show the funder</label>
+        <span class="hint">Splits the projects by who financed them. Watch the slope dissolve.</span>
       </div>
     </div>
 
     <!-- ============ PROOF CARDS ============ -->
     <h2><span class="num">01</span>The two exceptions are the whole argument</h2>
-    <p class="lead">A small sample cannot prove that openness causes good deals. But two projects need no sample at all to prove what disclosure is <em>for</em>.</p>
+    <p class="lead">A small sample cannot prove that transparency causes good value-for-money. But two projects need no sample at all to show what transparency is <em>for</em>.</p>
     <div class="proof">
       <div class="pcard warn">
         <div class="ic">&#9888;&#65039;</div>
         <h4>Sankofa gas</h4>
-        <p class="sub">Public · measurable · still harmful</p>
-        <p>The terms were public, including a clause locking Ghana into paying for gas it does not use (about $250m a year). The deal could be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
+        <p class="sub">Disclosed · measurable · still harmful</p>
+        <p>The financing terms were public, including a clause locking Ghana into paying for gas it does not use (about $250m a year). The project's value could be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
       </div>
       <div class="pcard dark">
         <div class="ic">&#128274;</div>
         <h4>NASENI solar</h4>
-        <p class="sub">Hidden · untestable</p>
-        <p>The financing terms were never published anywhere official. So no one &mdash; expert or citizen &mdash; can say whether it is a good deal. <strong>Secrecy is not a footnote. It is a shield against the test.</strong></p>
+        <p class="sub">Withheld · cannot be assessed</p>
+        <p>The financing terms were never published anywhere official. So no one &mdash; expert or citizen &mdash; can say whether it is good value-for-money. <strong>Withholding terms is not a footnote. It is a shield against assessment.</strong></p>
       </div>
     </div>
 
@@ -288,29 +283,28 @@
     <div class="takeaway">
       <h3>What this actually says</h3>
       <ol>
-        <li><strong>Disclosure does not guarantee a good deal.</strong> Sankofa was fully visible and still harmful.</li>
-        <li><strong>Opacity hides the test.</strong> NASENI cannot be judged because its terms are not public. No terms, no test.</li>
-        <li><strong>The funder is doing the work.</strong> The apparent link between openness and value is mostly lender behaviour, not disclosure on its own.</li>
+        <li><strong>Transparency does not guarantee good value-for-money.</strong> Sankofa was fully disclosed and still harmful.</li>
+        <li><strong>Withholding terms blocks the assessment.</strong> NASENI cannot be judged because its financing is not public. No terms, no test.</li>
+        <li><strong>The funder is doing the work.</strong> The apparent link between transparency and value is mostly funder behaviour, not transparency on its own.</li>
       </ol>
     </div>
 
     <!-- ============ STAKEHOLDER LENSES ============ -->
     <h2><span class="num">02</span>What it means, depending on where you sit</h2>
     <div class="who">
-      <div class="wcard"><h5>Government</h5><p>Publish financing terms before you commit, not after a project fails. A deal you can show is a deal you can defend.</p></div>
-      <div class="wcard"><h5>Funders &amp; multilaterals</h5><p>Lender practice shapes both transparency and whether value can be assessed at all. Better publication shrinks fiscal blind spots.</p></div>
-      <div class="wcard"><h5>Civil society &amp; media</h5><p>Ask for the financing terms. Without them, nobody can honestly say whether the project is worth it.</p></div>
-      <div class="wcard"><h5>CIPE · CoST · IEA-Kenya</h5><p>The two InfraWatch legs compose into one method: disclosure (CoST IDS) is what makes the value test (NPV) runnable. Scaling it needs measured disclosure and agreement-grade cash flows.</p></div>
+      <div class="wcard"><h5>Government</h5><p>Publish financing terms before you commit, not after a project fails. A project you can show is a project you can defend.</p></div>
+      <div class="wcard"><h5>Funders &amp; multilaterals</h5><p>Funder practice shapes both transparency and whether value can be assessed at all. Better publication shrinks fiscal blind spots.</p></div>
+      <div class="wcard"><h5>Civil society &amp; media</h5><p>Ask for the financing terms. Without them, nobody can honestly say whether the project is good value-for-money.</p></div>
+      <div class="wcard"><h5>CIPE · CoST · IEA-Kenya</h5><p>The two InfraWatch legs compose into one method: transparency (CoST IDS) is what makes the value assessment (NPV) runnable. Scaling it needs measured disclosure and agreement-grade cash flows.</p></div>
     </div>
 
-    <!-- ============ COMMS / EXPORT ============ -->
-    <h2><span class="num">03</span>For the comms team</h2>
-    <p class="lead">Every state of the chart is a standalone asset. Grab the line, grab the caption, grab the data.</p>
+    <!-- ============ SHARE / EXPORT ============ -->
+    <h2><span class="num">03</span>Share this</h2>
     <div class="export">
-      <a class="btn primary" id="dlSlide" download="no-terms-no-test.svg">Download chart (SVG)</a>
-      <button class="btn" id="copyCaption">Copy social caption</button>
-      <button class="btn" id="copyLine">Copy the one-liner</button>
-      <a class="btn" href="#evidence">Jump to evidence table</a>
+      <a class="btn primary" id="dlSlide" download="no-terms-no-test.svg">Download chart</a>
+      <button class="btn" id="copyCaption">Copy caption</button>
+      <button class="btn" id="copyLine">Copy the headline</button>
+      <a class="btn" href="#evidence">See the evidence</a>
       <span class="copied" id="commsCopied" hidden>Copied</span>
     </div>
 
@@ -323,7 +317,7 @@
         <p><strong>How it would be made rigorous.</strong></p>
         <ol>
           <li><strong>Measured disclosure, not hand-coded.</strong> Pull real IDS scores from a live portal (the Ghana OC4IDS portal covers STMA, 28 projects with genuine disclosure data) instead of coding headline megaprojects by judgement.</li>
-          <li><strong>Hold the funder fixed.</strong> Compare projects with the same lender and varying disclosure, so the funder confound is held constant. This is exactly what the "show who paid" split makes visible.</li>
+          <li><strong>Hold the funder fixed.</strong> Compare projects with the same funder and varying disclosure, so the funder confound is held constant. This is exactly what the "show the funder" split makes visible.</li>
           <li><strong>Value from the agreements.</strong> Real cash flows from the loan agreements, discount rate = government long-term bond at signing, social value capped 15%. Mark computed vs estimated so the gap stays visible.</li>
         </ol>
         <p><strong>Method, in full.</strong> InfraWatch, developed by CIPE (Center for International Private Enterprise), NPV toolkit led by IEA-Kenya. Three legs: a transparency assessment that maps to the CoST IDS, political-economy analysis (PEA), and net present value (NPV). This probe uses the disclosure and NPV legs. Disclosure = analyst coding of CoST IDS data-point coverage from reported records. Value = the 16-step NPV toolkit applied to reported terms where they exist, and an outcome-based verdict where they do not. Inputs from the Nairobi Day-2 case studies (AidData + press; treat as reported, confirm against loan agreements). The NASENI 85% figure is officially attributed but not officially published. n=10.</p>
@@ -334,7 +328,7 @@
     <details class="drawer" id="evidence">
       <summary>Evidence table &mdash; every project, every cell tagged</summary>
       <div class="drawer-body">
-        <p>Openness shown as a band (not a false-precision number). Verdict tagged by method: <span class="tag c">computed</span> = value from public terms · <span class="tag o">outcome</span> = judged by results because terms were hidden. Funder is the confound, not the cause.</p>
+        <p>Transparency shown as a band (not a false-precision number). Verdict tagged by method: <span class="tag c">computed</span> = value from published terms · <span class="tag o">outcome</span> = judged by results because terms were withheld. Funder is the confound, not the cause.</p>
         <div class="tablewrap">
           <table>
             <thead><tr><th>Project</th><th>Funder</th><th>Disclosure</th><th>What's public</th><th>Verdict</th><th>Method &amp; basis</th></tr></thead>
@@ -466,19 +460,41 @@
       });
     }
 
+    // ---- captions: one deferential line per stage, swapped on scroll ----
+    var CAPS=[
+      {k:"what the eye wants to see", t:"“More transparent projects look better.”",
+       b:"Each dot is a project, placed by how much of its financing is published. Tempting to read a slope: more disclosed, better value. Hold that thought."},
+      {k:"the wall, not a nuisance", t:"Withheld terms cannot be assessed.",
+       b:"Projects whose financing was never published stay fogged with a <strong>?</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> Opacity is a wall, not missing data."},
+      {k:"the slope was an illusion", t:"It comes down to the funder.",
+       b:"Split the projects by who financed them and the slope is gone. World Bank sits disclosed; Chinese-financed sits withheld. Two funders, two behaviours."},
+      {k:"the two that carry the lesson", t:"Sankofa and NASENI.",
+       b:"<strong>Sankofa</strong> was fully disclosed and still harmful. <strong>NASENI</strong> was withheld, so it cannot be judged at all. Transparency does not fix a project. It is the entry ticket to assess one."}
+    ];
+    var capEl=document.getElementById("caption"),
+        capK=document.getElementById("capKicker"),
+        capT=document.getElementById("capTitle"),
+        capB=document.getElementById("capBody");
+    var curStage=-1, confettiFired=false;
+    function setStage(s){
+      if(s===curStage) return; curStage=s;
+      // swap caption with a soft fade
+      capEl.classList.remove("show");
+      setTimeout(function(){
+        capK.textContent=CAPS[s].k; capT.innerHTML=CAPS[s].t; capB.innerHTML=CAPS[s].b;
+        capEl.classList.add("show");
+      }, 180);
+      if(s===0){ state.funder=false; state.spotlight=false; slider.value=20; state.threshold=20; }
+      if(s===1){ state.funder=false; state.spotlight=false; slider.value=55; state.threshold=55; }
+      if(s===2){ state.funder=true;  state.spotlight=false; }
+      if(s===3){ state.funder=true;  state.spotlight=true; if(!confettiFired){ confettiFired=true; fireConfetti(); } }
+      render();
+    }
+
     // ---- scroll stages drive state ----
     var steps=document.querySelectorAll(".step");
     var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.isIntersecting){
-          var s=parseInt(e.target.getAttribute("data-stage"),10);
-          if(s===0){ state.funder=false; state.spotlight=false; slider.value=20; state.threshold=20; }
-          if(s===1){ state.funder=false; state.spotlight=false; slider.value=55; state.threshold=55; }
-          if(s===2){ state.funder=true;  state.spotlight=false; }
-          if(s===3){ state.funder=true;  state.spotlight=true; }
-          render();
-        }
-      });
+      es.forEach(function(e){ if(e.isIntersecting){ setStage(parseInt(e.target.getAttribute("data-stage"),10)); } });
     },{threshold:.6});
     steps.forEach(function(s){io.observe(s);});
 
@@ -487,13 +503,11 @@
     funderToggle.addEventListener("change",function(){ state.funder=funderToggle.checked; render(); });
 
     // ---- export / copy ----
-    var HEAD="You cannot value a deal you are not allowed to see.";
-    var CAPTION="Of 10 flagship infrastructure deals, value could be tested for only 6. For 3 we knew the cost only after failure leaked out. For 1, the terms were never published, so it cannot be judged at all. Disclosure does not make a deal good. It makes value testable. #InfraWatch";
-    var LINE="Disclosure does not make a deal good. It is what lets anyone test whether it is.";
+    var CAPTION="Of 10 flagship infrastructure projects, value could be assessed for only 6. For 3 we knew the cost only after the project ran. For 1, the financing terms were never published, so it cannot be judged at all. Transparency does not make a project good value-for-money. It makes value assessable. #InfraWatch";
+    var LINE="Transparency does not make a project good value-for-money. It is what lets anyone assess whether it is.";
     function copy(text, el){
       navigator.clipboard.writeText(text).then(function(){ el.hidden=false; setTimeout(function(){el.hidden=true;},1800); });
     }
-    document.getElementById("copyHero").addEventListener("click",function(){copy(HEAD,document.getElementById("heroCopied"));});
     document.getElementById("copyCaption").addEventListener("click",function(){copy(CAPTION,document.getElementById("commsCopied"));});
     document.getElementById("copyLine").addEventListener("click",function(){copy(LINE,document.getElementById("commsCopied"));});
 
@@ -504,6 +518,49 @@
       var blob=new Blob(['<?xml version="1.0"?>\n'+s],{type:"image/svg+xml"});
       this.href=URL.createObjectURL(blob);
     });
+
+    // ---- confetti: restrained payoff when the final insight lands ----
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function fireConfetti(){
+      if(reduceMotion) return;
+      var cv=document.getElementById("confetti");
+      var stage=cv.parentNode, rect=stage.getBoundingClientRect();
+      var dpr=Math.min(window.devicePixelRatio||1, 2);
+      cv.width=rect.width*dpr; cv.height=rect.height*dpr;
+      var ctx=cv.getContext("2d"); ctx.scale(dpr,dpr);
+      var W=rect.width, H=rect.height;
+      var COLORS=["#BE1E2D","#0071BC","#1B7A3D","#C77F00","#2D2D2D"];
+      var bits=[], N=90;
+      for(var i=0;i<N;i++){
+        bits.push({
+          x:W*0.5+(Math.random()-0.5)*W*0.35, y:H*0.42,
+          vx:(Math.random()-0.5)*7, vy:-(4+Math.random()*7),
+          g:0.16+Math.random()*0.06, w:5+Math.random()*5, h:3+Math.random()*4,
+          rot:Math.random()*6.28, vr:(Math.random()-0.5)*0.3,
+          c:COLORS[(i*7)%COLORS.length], life:0
+        });
+      }
+      var start=null, DUR=2200;
+      function frame(ts){
+        if(start===null) start=ts;
+        var t=ts-start;
+        ctx.clearRect(0,0,W,H);
+        var alive=false;
+        for(var i=0;i<bits.length;i++){
+          var b=bits[i];
+          b.vy+=b.g; b.x+=b.vx; b.y+=b.vy; b.rot+=b.vr; b.life=t;
+          var fade=Math.max(0, 1-(t/DUR));
+          if(b.y<H+20 && fade>0){
+            alive=true;
+            ctx.save(); ctx.globalAlpha=fade; ctx.translate(b.x,b.y); ctx.rotate(b.rot);
+            ctx.fillStyle=b.c; ctx.fillRect(-b.w/2,-b.h/2,b.w,b.h); ctx.restore();
+          }
+        }
+        if(alive && t<DUR){ requestAnimationFrame(frame); }
+        else { ctx.clearRect(0,0,W,H); }
+      }
+      requestAnimationFrame(frame);
+    }
 
     render();
   })();

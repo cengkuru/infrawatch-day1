@@ -69,6 +69,7 @@
     .v-green{background:var(--green);}
     .v-amber{background:var(--amber);}
     .v-red{background:var(--red);}
+    .v-grey{background:transparent;border:1.5px dashed var(--cost-mid);width:9px;height:9px;}
     .tablewrap{overflow-x:auto;border:1px solid var(--cost-light);border-radius:var(--radius);}
 
     /* NARRATION */
@@ -137,10 +138,10 @@
           <line x1="405" y1="40" x2="405" y2="470" stroke="#5A5A5A" stroke-width="1" stroke-dasharray="4 4"/>
           <line x1="90" y1="255" x2="720" y2="255" stroke="#5A5A5A" stroke-width="1" stroke-dasharray="4 4"/>
 
-          <text x="168" y="490" text-anchor="middle" class="axis-tick">UNKNOWN</text>
-          <text x="326" y="490" text-anchor="middle" class="axis-tick">LOW</text>
-          <text x="484" y="490" text-anchor="middle" class="axis-tick">MEDIUM</text>
-          <text x="642" y="490" text-anchor="middle" class="axis-tick">HIGH</text>
+          <text x="168" y="490" text-anchor="middle" class="axis-tick" fill="#5A5A5A" font-weight="700">UNKNOWN</text>
+          <text x="326" y="490" text-anchor="middle" class="axis-tick" fill="#BE1E2D" font-weight="700">LOW</text>
+          <text x="484" y="490" text-anchor="middle" class="axis-tick" fill="#C77F00" font-weight="700">MEDIUM</text>
+          <text x="642" y="490" text-anchor="middle" class="axis-tick" fill="#1B7A3D" font-weight="700">HIGH</text>
           <text x="405" y="512" text-anchor="middle" class="axis-title">How much of the deal is public (mapped to the CoST IDS)</text>
 
           <text x="82" y="150" text-anchor="end" class="axis-tick">Worthwhile</text>
@@ -240,16 +241,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Azura-Edo IPP (NG)</td><td>World Bank</td><td>High</td><td>Open tender, 16 lenders, contract terms</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on disclosed terms, commercial PPA</td></tr>
-          <tr><td>NEP mini-grids (NG)</td><td>World Bank</td><td>High</td><td>Open tender, full contractor disclosure</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on WB+AfDB disclosed terms</td></tr>
-          <tr><td>Accra interchange (GH)</td><td>Non-Chinese</td><td>Medium</td><td>Post-RTI; ~$445m attributed; partial terms</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cash flow, urban beneficiary</td></tr>
-          <tr><td>Sankofa gas (GH)</td><td>Non-Chinese</td><td>Medium</td><td>WB-guaranteed; take-or-pay clause public</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-estimated">computed</span></td><td>NPV registers ~$250m/yr unused-gas poison from disclosed terms</td></tr>
-          <tr><td>GERD transmission (ET)</td><td>Home + Chinese</td><td>Low</td><td>Self-reported; substations ~$1.2bn PRC</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from 9yr idle substations; terms self-reported, no full NPV</td></tr>
-          <tr><td>Bui hydro (GH)</td><td>Chinese</td><td>Low</td><td>Blended EXIM $270m@2% + commercial; collateral</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cocoa-collateral terms</td></tr>
-          <tr><td>Zungeru hydro (NG)</td><td>Chinese</td><td>Low</td><td>EXIM $984m, 2.5%/20yr via PBC; direct award</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partly-public terms; delay + security cost</td></tr>
-          <tr><td>SGR (KE)</td><td>Chinese</td><td>Low</td><td>Sovereign guarantee known; full terms confidential</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: loan ~5% of GDP, documented debt-service strain on Kenya Railways; no full NPV (terms confidential)</td></tr>
-          <tr><td>Addis LRT (ET)</td><td>Chinese</td><td>Low</td><td>85% EXIM known; no competitive tender</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: 8/41 trains running, O&amp;M &gt; benefit (white elephant); no full NPV</td></tr>
-          <tr><td>NASENI solar (NG)</td><td>Chinese</td><td>Unknown</td><td>85% attributed but NOT officially published</td><td><span class="verdict v-red"></span>Not computable</td><td>Terms undisclosed; neither NPV nor outcome verdict possible</td></tr>
+          <tr><td>Azura-Edo IPP (NG)</td><td>World Bank</td><td><span class="verdict v-green"></span>High</td><td>Open tender, 16 lenders, contract terms</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on disclosed terms, commercial PPA</td></tr>
+          <tr><td>NEP mini-grids (NG)</td><td>World Bank</td><td><span class="verdict v-green"></span>High</td><td>Open tender, full contractor disclosure</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on WB+AfDB disclosed terms</td></tr>
+          <tr><td>Accra interchange (GH)</td><td>Non-Chinese</td><td><span class="verdict v-amber"></span>Medium</td><td>Post-RTI; ~$445m attributed; partial terms</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cash flow, urban beneficiary</td></tr>
+          <tr><td>Sankofa gas (GH)</td><td>Non-Chinese</td><td><span class="verdict v-amber"></span>Medium</td><td>WB-guaranteed; take-or-pay clause public</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-estimated">computed</span></td><td>NPV registers ~$250m/yr unused-gas poison from disclosed terms</td></tr>
+          <tr><td>GERD transmission (ET)</td><td>Home + Chinese</td><td><span class="verdict v-red"></span>Low</td><td>Self-reported; substations ~$1.2bn PRC</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from 9yr idle substations; terms self-reported, no full NPV</td></tr>
+          <tr><td>Bui hydro (GH)</td><td>Chinese</td><td><span class="verdict v-red"></span>Low</td><td>Blended EXIM $270m@2% + commercial; collateral</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cocoa-collateral terms</td></tr>
+          <tr><td>Zungeru hydro (NG)</td><td>Chinese</td><td><span class="verdict v-red"></span>Low</td><td>EXIM $984m, 2.5%/20yr via PBC; direct award</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partly-public terms; delay + security cost</td></tr>
+          <tr><td>SGR (KE)</td><td>Chinese</td><td><span class="verdict v-red"></span>Low</td><td>Sovereign guarantee known; full terms confidential</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: loan ~5% of GDP, documented debt-service strain on Kenya Railways; no full NPV (terms confidential)</td></tr>
+          <tr><td>Addis LRT (ET)</td><td>Chinese</td><td><span class="verdict v-red"></span>Low</td><td>85% EXIM known; no competitive tender</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: 8/41 trains running, O&amp;M &gt; benefit (white elephant); no full NPV</td></tr>
+          <tr><td>NASENI solar (NG)</td><td>Chinese</td><td><span class="verdict v-grey"></span>Unknown</td><td>85% attributed but NOT officially published</td><td><span class="verdict v-red"></span>Not computable</td><td>Terms undisclosed; neither NPV nor outcome verdict possible</td></tr>
         </tbody>
       </table>
     </div>

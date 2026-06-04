@@ -3,204 +3,865 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anatomy of a project: the file you are allowed to read</title>
-  <meta name="description" content="The Nairobi SGR as a project file. The first pages are public; the pages that decide whether it was worth it are stamped confidential. A document-closeup visual essay from InfraWatch Nairobi, Day 1.">
+  <title>Can the public prove the SGR was worth it?</title>
+  <meta name="description" content="An InfraWatch visual essay that turns the Nairobi SGR disclosure problem into a public-value proof test.">
   <style>
     :root{
-      --brand:#28496A; --brand-deep:#142334; --red:#BE1E2D; --amber:#C77F00; --green:#1B7A3D;
-      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --paper:#fbfaf7;
+      --cost-red:#BE1E2D;
+      --cost-dark:#2D2D2D;
+      --cost-mid:#5A5A5A;
+      --cost-light:#E6E6E6;
+      --cost-blue:#0071BC;
+      --ok:#1B7A3D;
+      --warn:#C77F00;
+      --ink:#171717;
+      --muted:#5D6975;
+      --paper:#FFFFFF;
+      --field:#F7F8FA;
+      --line:#DDE3EA;
+      --charcoal:#111418;
+      --radius:8px;
+      --shadow:0 24px 70px rgba(17,20,24,.14);
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
-      --serif:Georgia,"Times New Roman",serif; --mono:"SFMono-Regular",Consolas,monospace;
+      --serif:Georgia,"Times New Roman",serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
     }
-    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;}
-    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
-    .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
-    .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
-    .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
-    .hero{padding:3rem 0 1.4rem;}
-    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
-    .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:17ch;}
-    h1 .accent{color:var(--brand);}
-    .lede{font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--mid);max-width:54ch;margin:0;}
-    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
-    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-
-    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
-    .doccol{position:sticky;top:3vh;}
-    .docframe{background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:0 16px 44px rgba(20,35,52,.12);padding:1rem;overflow:hidden;}
-    .docview{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--light);background:#eee;border-radius:8px;}
-    .page{position:absolute;inset:0;background:var(--paper);transition:transform 1.2s cubic-bezier(.2,.7,.2,1);will-change:transform;padding:6% 7%;font-family:var(--serif);}
-    .page .doctitle{font-family:var(--sans);font-weight:800;font-size:clamp(.62rem,1.7vw,1rem);color:var(--dark);text-align:center;margin:0 0 .2em;}
-    .page .docmeta{font-family:var(--mono);font-size:.48rem;color:var(--mid);text-align:center;margin:0 0 1.1em;letter-spacing:.04em;}
-    .qrow{margin:0 0 .85em;}
-    .qrow .q{font-family:var(--sans);font-weight:800;font-size:clamp(.5rem,1.35vw,.78rem);color:var(--dark);margin:0 0 .15em;}
-    .qrow .a{font-size:clamp(.44rem,1.2vw,.7rem);color:#3a3a3a;margin:0;line-height:1.45;}
-    .qrow.locked{position:relative;background:#1E2A38;border-radius:4px;padding:.5em .7em;color:#fff;}
-    .qrow.locked .q{color:#fff;} .qrow.locked .a{color:#9fb0c4;}
-    .qrow.locked .stamp{position:absolute;right:.5em;top:50%;transform:translateY(-50%) rotate(-12deg);
-      border:2px solid #ff6b76;color:#ff6b76;font-family:var(--mono);font-weight:800;font-size:clamp(.42rem,1.1vw,.62rem);
-      text-transform:uppercase;letter-spacing:.06em;padding:.1em .35em;border-radius:3px;opacity:.92;}
-    .qrow .tag{font-family:var(--mono);font-size:.42rem;color:#7fd6a0;text-transform:uppercase;letter-spacing:.04em;display:block;margin-top:.25em;}
-    .scenecap{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
-
-    .anncol{position:relative;}
-    .ann{min-height:88vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;}
-    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.25rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
-    .ann.on .anncard{opacity:1;transform:translateX(0);}
-    .anncard.locked{border-left-color:var(--dark);}
-    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
-    .anncard.locked .kicker{color:var(--dark);}
-    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;color:var(--dark);}
-    .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
-    .anncard strong{color:var(--dark);}
-    .anncard .state{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem;padding:.12rem .4rem;border-radius:4px;}
-    .anncard .state.public{background:#eef6f0;color:#1B7A3D;}
-    .anncard .state.locked{background:#1E2A38;color:#fff;}
-    .anncard .field{display:block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--green);margin-top:.5rem;}
-
-    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
-    h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
-    .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
-    .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
-    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
-    .tk-line strong{color:#fff;font-weight:800;}
-    details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
-    details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
-    details.drawer>summary::-webkit-details-marker{display:none;}
-    details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
-    details.drawer[open]>summary::before{transform:rotate(90deg);}
-    .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
-    .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
-    footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
-
-    @media (max-width:860px){
-      .story{grid-template-columns:1fr;gap:0;}
-      .doccol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
-      .docview{aspect-ratio:4/3;}
-      .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
-      .ann:first-child{min-height:26vh;}
-      .anncard{transform:translateY(20px);} .ann.on .anncard{transform:translateY(0);}
+    body{
+      min-width:320px;
+      background:var(--field);
+      color:var(--ink);
+      font-family:var(--sans);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .page{transition:none;} }
+    a{color:inherit;}
+    button{font:inherit;}
+    .brandbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:14px 24px;
+      background:var(--cost-dark);
+      color:#fff;
+      border-bottom:5px solid var(--cost-red);
+    }
+    .brandbar a{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+    }
+    .brandbar .ctx{
+      font-family:var(--mono);
+      font-size:.68rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#D9D9D9;
+      text-align:right;
+    }
+    .hero{
+      background:var(--paper);
+      border-bottom:1px solid var(--line);
+    }
+    .hero-inner{
+      max-width:1180px;
+      min-height:calc(100vh - 60px);
+      margin:0 auto;
+      padding:72px 24px 88px;
+      display:grid;
+      grid-template-columns:minmax(0, .95fr) minmax(360px, 1.05fr);
+      gap:54px;
+      align-items:center;
+    }
+    .eyebrow,
+    .kicker,
+    .metric-label,
+    .row-status,
+    .field-code,
+    .tiny-label{
+      font-family:var(--mono);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:800;
+    }
+    .eyebrow{
+      color:var(--cost-red);
+      font-size:.76rem;
+      margin:0 0 18px;
+    }
+    h1{
+      max-width:11ch;
+      margin:0 0 22px;
+      font-family:var(--serif);
+      font-size:4.7rem;
+      line-height:.98;
+      font-weight:700;
+    }
+    .lede{
+      max-width:58ch;
+      margin:0;
+      color:var(--muted);
+      font-size:1.2rem;
+    }
+    .lede strong{color:var(--ink);}
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:30px;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid var(--ink);
+      border-radius:999px;
+      background:var(--ink);
+      color:#fff;
+      padding:12px 18px;
+      font-weight:800;
+      cursor:pointer;
+      transition:transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+    .btn:hover{transform:translateY(-1px);}
+    .btn:active{transform:translateY(0) scale(.98);}
+    .btn.secondary{
+      background:#fff;
+      color:var(--ink);
+      border-color:var(--line);
+    }
+    .btn:focus-visible,
+    a:focus-visible{
+      outline:3px solid color-mix(in srgb,var(--cost-blue) 55%,white);
+      outline-offset:3px;
+    }
+    .proof-card{
+      position:relative;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .proof-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(90deg,rgba(190,30,45,.09),transparent 28%),
+        repeating-linear-gradient(0deg,transparent 0 31px,rgba(17,20,24,.035) 31px 32px);
+      opacity:.7;
+    }
+    .proof-card > *{position:relative;}
+    .panel-head{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 20px 14px;
+      border-bottom:1px solid var(--line);
+    }
+    .kicker{
+      margin:0;
+      color:var(--cost-red);
+      font-size:.7rem;
+    }
+    .panel-title{
+      margin:3px 0 0;
+      font-size:1.1rem;
+      font-weight:850;
+    }
+    .status-pill{
+      align-self:flex-start;
+      white-space:nowrap;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      background:#fff;
+      color:var(--muted);
+      font-family:var(--mono);
+      font-size:.68rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    html[data-proof="failed"] .status-pill{
+      border-color:#F0C5CA;
+      color:var(--cost-red);
+      background:#FFF5F6;
+    }
+    .formula{
+      padding:22px 20px 18px;
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:10px;
+      align-items:stretch;
+    }
+    .token{
+      min-height:108px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.9);
+    }
+    .token .tiny-label{
+      color:var(--muted);
+      font-size:.6rem;
+    }
+    .token strong{
+      font-size:1rem;
+      line-height:1.15;
+    }
+    .token.known{border-color:#CBE2D1;}
+    .token.partial{border-color:#F1D19B;}
+    .token.missing{
+      background:var(--charcoal);
+      color:#fff;
+      border-color:var(--charcoal);
+    }
+    .token.missing .tiny-label{color:#AEB6C0;}
+    .token .signal{
+      width:100%;
+      height:7px;
+      border-radius:999px;
+      background:var(--ok);
+    }
+    .token.partial .signal{background:var(--warn);}
+    .token.missing .signal{
+      background:repeating-linear-gradient(90deg,#FF7A86 0 8px,transparent 8px 13px);
+    }
+    .verdict{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+      padding:18px 20px 20px;
+      border-top:1px solid var(--line);
+      background:rgba(255,255,255,.84);
+    }
+    .verdict p{
+      margin:0;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+    .verdict strong{color:var(--ink);}
+    .score{
+      position:relative;
+      width:112px;
+      height:112px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:
+        conic-gradient(var(--cost-red) 0 43%,#ECEFF3 43% 100%);
+      font-family:var(--mono);
+      font-weight:900;
+      color:var(--cost-red);
+    }
+    .score::before{
+      content:"";
+      position:absolute;
+      inset:14px;
+      border-radius:50%;
+      background:#fff;
+    }
+    .score span{
+      position:relative;
+      z-index:1;
+    }
+    .proof-section{
+      max-width:1180px;
+      margin:0 auto;
+      padding:72px 24px 42px;
+    }
+    .proof-grid{
+      display:grid;
+      grid-template-columns:minmax(420px,.95fr) minmax(0,1fr);
+      gap:44px;
+      align-items:start;
+    }
+    .instrument{
+      position:sticky;
+      top:92px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:0 18px 50px rgba(17,20,24,.10);
+      overflow:hidden;
+    }
+    .instrument-head{
+      padding:18px 18px 14px;
+      border-bottom:1px solid var(--line);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:start;
+    }
+    .instrument-head h2{
+      margin:4px 0 0;
+      font-size:1.35rem;
+      line-height:1.15;
+    }
+    .route-figure{
+      border-bottom:1px solid var(--line);
+      background:#FDFDFE;
+    }
+    .route-figure svg{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .metric-strip{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      border-bottom:1px solid var(--line);
+    }
+    .metric{
+      padding:13px 14px;
+      border-right:1px solid var(--line);
+    }
+    .metric:last-child{border-right:0;}
+    .metric-label{
+      display:block;
+      color:var(--muted);
+      font-size:.58rem;
+      margin-bottom:3px;
+    }
+    .metric strong{
+      display:block;
+      font-size:1.35rem;
+      line-height:1;
+    }
+    .evidence-list{
+      display:grid;
+      gap:0;
+    }
+    .evidence-row{
+      display:grid;
+      grid-template-columns:94px 1fr;
+      gap:14px;
+      padding:15px 16px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+      transition:background .2s ease, opacity .2s ease, transform .2s ease;
+    }
+    .evidence-row:last-child{border-bottom:0;}
+    .evidence-row h3{
+      margin:0 0 3px;
+      font-size:.98rem;
+      line-height:1.2;
+    }
+    .evidence-row p{
+      margin:0;
+      color:var(--muted);
+      font-size:.86rem;
+    }
+    .row-status{
+      align-self:start;
+      justify-self:start;
+      border-radius:999px;
+      padding:5px 8px;
+      font-size:.58rem;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+    }
+    .evidence-row.available .row-status{
+      color:var(--ok);
+      background:#F0F8F2;
+      border-color:#CBE2D1;
+    }
+    .evidence-row.partial .row-status{
+      color:#8B5600;
+      background:#FFF8EA;
+      border-color:#F1D19B;
+    }
+    .evidence-row.missing{
+      background:#111418;
+      color:#fff;
+    }
+    .evidence-row.missing h3{color:#fff;}
+    .evidence-row.missing p{color:#C6CDD6;}
+    .evidence-row.missing .row-status{
+      color:#FF9AA4;
+      background:#2B0C11;
+      border-color:#5E1A23;
+    }
+    .field-code{
+      display:none;
+      margin-top:8px;
+      color:#BDE6C6;
+      font-size:.62rem;
+      line-height:1.45;
+    }
+    html.show-asks .field-code,
+    .evidence-row.focused .field-code{display:block;}
+    .evidence-row.checked{transform:translateX(0);}
+    .evidence-row.focused{
+      box-shadow:inset 4px 0 0 var(--cost-red);
+      background:#FFF8F9;
+    }
+    .evidence-row.focused.missing{
+      background:#111418;
+      box-shadow:inset 4px 0 0 #FF7380;
+    }
+    .chapters{
+      display:grid;
+      gap:38vh;
+      padding:8vh 0 22vh;
+    }
+    .chapter{
+      min-height:52vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      border-top:1px solid var(--line);
+      padding-top:28px;
+    }
+    .chapter h2{
+      margin:0 0 14px;
+      font-size:2rem;
+      line-height:1.1;
+    }
+    .chapter p{
+      margin:0 0 12px;
+      max-width:58ch;
+      color:var(--muted);
+      font-size:1.04rem;
+    }
+    .chapter strong{color:var(--ink);}
+    .note{
+      max-width:52ch;
+      padding:12px 14px;
+      border-left:4px solid var(--cost-red);
+      background:#fff;
+      color:var(--cost-mid);
+      font-size:.92rem;
+    }
+    .answer{
+      background:var(--cost-dark);
+      color:#fff;
+      padding:72px 24px;
+    }
+    .answer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:.75fr 1fr;
+      gap:46px;
+      align-items:start;
+    }
+    .answer h2{
+      margin:0 0 16px;
+      font-family:var(--serif);
+      font-size:3.1rem;
+      line-height:1.02;
+      font-weight:700;
+    }
+    .answer p{
+      margin:0;
+      color:#DFE4EA;
+      font-size:1.06rem;
+    }
+    .ask-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .ask{
+      min-height:154px;
+      padding:16px;
+      background:#fff;
+      color:var(--ink);
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.22);
+    }
+    .ask .tiny-label{
+      color:var(--cost-red);
+      font-size:.6rem;
+    }
+    .ask h3{
+      margin:7px 0 8px;
+      font-size:1.05rem;
+      line-height:1.2;
+    }
+    .ask p{
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    details.source{
+      max-width:1180px;
+      margin:34px auto 0;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+    }
+    details.source summary{
+      cursor:pointer;
+      padding:16px 18px;
+      font-weight:800;
+    }
+    .source-body{
+      border-top:1px solid var(--line);
+      padding:0 18px 18px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .source-body p{margin:14px 0 0;}
+    footer{
+      max-width:1180px;
+      margin:0 auto;
+      padding:24px;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+    @media (max-width:980px){
+      .hero-inner,
+      .proof-grid,
+      .answer-inner{
+        grid-template-columns:1fr;
+      }
+      .hero-inner{
+        min-height:auto;
+        padding-top:54px;
+      }
+      h1{font-size:3.6rem;}
+      .instrument{position:relative;top:auto;}
+      .chapters{gap:24px;padding:24px 0 40px;}
+      .chapter{min-height:auto;}
+    }
+    @media (max-width:700px){
+      .brandbar{
+        position:relative;
+        align-items:flex-start;
+        padding:13px 16px;
+      }
+      .brandbar .ctx{font-size:.6rem;}
+      .hero-inner,
+      .proof-section,
+      .answer{
+        padding-left:16px;
+        padding-right:16px;
+      }
+      h1{font-size:2.65rem;}
+      .lede{font-size:1.05rem;}
+      .formula{grid-template-columns:1fr;}
+      .token{min-height:auto;}
+      .verdict,
+      .instrument-head,
+      .evidence-row{
+        grid-template-columns:1fr;
+      }
+      .metric-strip,
+      .ask-grid{
+        grid-template-columns:1fr;
+      }
+      .metric{border-right:0;border-bottom:1px solid var(--line);}
+      .metric:last-child{border-bottom:0;}
+      .chapter h2{font-size:1.55rem;}
+      .answer h2{font-size:2.25rem;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto;}
+      *,
+      *::before,
+      *::after{
+        animation-duration:.001ms !important;
+        transition-duration:.001ms !important;
+      }
+    }
   </style>
 </head>
-<body>
-  <div class="brandbar"><a href="./day1/">&larr; InfraWatch &middot; Day 1</a><span class="label">CIPE &middot; the Nairobi SGR</span></div>
-
-  <div class="wrap">
-    <section class="hero">
-      <p class="hook">Picture the project as a file. The first pages, what it is, how it is paid for, who decided, are open. Turn to the pages that decide whether it was a good idea, and they are stamped confidential. <b>The easy questions are on the record. The ones that matter are sealed.</b></p>
-      <h1>The file you are <span class="accent">allowed to read</span>.</h1>
-      <p class="lede">Five questions about the Nairobi Standard Gauge Railway, on one page. The camera reads down it. Watch where the page goes black.</p>
-      <div class="scrollcue">read the file &darr;</div>
-    </section>
+<body data-stage="start">
+  <div class="brandbar">
+    <a href="./day1/">InfraWatch / Day 1</a>
+    <span class="ctx">CIPE / CoST / Nairobi SGR</span>
   </div>
 
-  <div class="wrap">
-    <div class="story">
-      <div class="doccol">
-        <div class="docframe">
-          <div class="docview">
-            <div class="page" id="page">
-              <p class="doctitle">PROJECT FILE: NAIROBI SGR</p>
-              <p class="docmeta">illustrative dossier · not the audited record</p>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Public-value proof test</p>
+          <h1>Can the public prove the railway was worth it?</h1>
+          <p class="lede">Do not start with a file. Start with a claim: <strong>public money built public value.</strong> Then try to prove it using only the record a citizen can inspect.</p>
+          <div class="actions">
+            <button class="btn" data-run-proof>Run the public test</button>
+            <a class="btn secondary" href="#disclosure-ask">See the missing records</a>
+          </div>
+        </div>
 
-              <div class="qrow"><p class="q">1. What is it?</p><p class="a">A railway, Mombasa to Nairobi. Stations, trains, ridership. Announced, opened, photographed.</p></div>
-              <div class="qrow"><p class="q">2. How is it paid for?</p><p class="a">A sovereign loan. A foreign export-import bank lends; the state borrows and guarantees.</p></div>
-              <div class="qrow"><p class="q">3. Who decides?</p><p class="a">Treasury, the railway, the lender. The high-power actors and the people who carry the cost barely overlap.</p></div>
-
-              <div class="qrow locked" id="lk1"><span class="stamp">confidential</span>
-                <p class="q">4. What does it really cost?</p>
-                <p class="a">Interest rate, repayment schedule, and a sovereign guarantee on the full amount. [withheld]</p>
-                <span class="tag">unlocks with: loan terms &amp; guarantee (IDS prep + impl)</span></div>
-              <div class="qrow locked" id="lk2"><span class="stamp">confidential</span>
-                <p class="q">5. Was it worth it?</p>
-                <p class="a">The cost-benefit analysis and feasibility study behind the decision to build. [withheld]</p>
-                <span class="tag">unlocks with: the appraisal (IDS preparation)</span></div>
+        <section class="proof-card" aria-label="Public-value proof equation">
+          <div class="panel-head">
+            <div>
+              <p class="kicker">The calculation</p>
+              <p class="panel-title">A public-value case needs five parts.</p>
+            </div>
+            <span class="status-pill" id="top-status">Ready</span>
+          </div>
+          <div class="formula">
+            <div class="token known">
+              <span class="tiny-label">Known</span>
+              <strong>What was built</strong>
+              <span class="signal" aria-hidden="true"></span>
+            </div>
+            <div class="token known">
+              <span class="tiny-label">Known</span>
+              <strong>Who carried it</strong>
+              <span class="signal" aria-hidden="true"></span>
+            </div>
+            <div class="token missing">
+              <span class="tiny-label">Missing</span>
+              <strong>What it really cost</strong>
+              <span class="signal" aria-hidden="true"></span>
+            </div>
+            <div class="token missing">
+              <span class="tiny-label">Missing</span>
+              <strong>Why it beat alternatives</strong>
+              <span class="signal" aria-hidden="true"></span>
+            </div>
+            <div class="token partial">
+              <span class="tiny-label">Partial</span>
+              <strong>What happened after opening</strong>
+              <span class="signal" aria-hidden="true"></span>
             </div>
           </div>
-          <p class="scenecap" id="scenecap">the project file, full page</p>
+          <div class="verdict">
+            <p id="top-verdict"><strong>Before the test:</strong> the public record can describe the SGR, but it cannot yet prove value for money.</p>
+            <div class="score" aria-label="Three of seven evidence groups are available"><span>3/7</span></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="proof-section" id="proof-lab">
+      <div class="proof-grid">
+        <aside class="instrument" aria-label="Public record evidence instrument">
+          <div class="instrument-head">
+            <div>
+              <p class="kicker">Evidence instrument</p>
+              <h2>Try to complete the proof.</h2>
+            </div>
+            <button class="btn secondary" data-toggle-asks>Show asks</button>
+          </div>
+
+          <figure class="route-figure" aria-label="Illustrative route and disclosure breakpoint">
+            <svg viewBox="0 0 620 230" role="img">
+              <title>Mombasa to Nairobi route with the proof breaking at the missing records</title>
+              <rect x="0" y="0" width="620" height="230" fill="#fff"/>
+              <path d="M70 154 C 160 90, 278 84, 388 108 S 508 128, 552 72" fill="none" stroke="#D5DDE6" stroke-width="18" stroke-linecap="round"/>
+              <path d="M70 154 C 160 90, 278 84, 388 108" fill="none" stroke="#1B7A3D" stroke-width="18" stroke-linecap="round"/>
+              <path d="M388 108 C 448 122, 508 128, 552 72" fill="none" stroke="#BE1E2D" stroke-width="18" stroke-linecap="round" stroke-dasharray="2 28"/>
+              <circle cx="70" cy="154" r="14" fill="#fff" stroke="#1B7A3D" stroke-width="5"/>
+              <circle cx="388" cy="108" r="16" fill="#fff" stroke="#BE1E2D" stroke-width="5"/>
+              <circle cx="552" cy="72" r="14" fill="#fff" stroke="#2D2D2D" stroke-width="5"/>
+              <text x="70" y="190" text-anchor="middle" font-family="monospace" font-size="13" font-weight="800" fill="#5D6975">MOMBASA</text>
+              <text x="552" y="108" text-anchor="middle" font-family="monospace" font-size="13" font-weight="800" fill="#5D6975">NAIROBI</text>
+              <text x="388" y="52" text-anchor="middle" font-family="monospace" font-size="13" font-weight="900" fill="#BE1E2D">PROOF BREAK</text>
+              <text x="388" y="72" text-anchor="middle" font-family="monospace" font-size="12" fill="#5D6975">terms + appraisal missing</text>
+              <line x1="388" y1="83" x2="388" y2="92" stroke="#BE1E2D" stroke-width="2"/>
+            </svg>
+          </figure>
+
+          <div class="metric-strip" aria-label="Evidence count">
+            <div class="metric"><span class="metric-label">Available</span><strong>3</strong></div>
+            <div class="metric"><span class="metric-label">Partial</span><strong>1</strong></div>
+            <div class="metric"><span class="metric-label">Missing</span><strong>3</strong></div>
+          </div>
+
+          <div class="evidence-list">
+            <article class="evidence-row available" data-focus="describe">
+              <span class="row-status">Available</span>
+              <div>
+                <h3>Project identity</h3>
+                <p>The public record can name the railway, route, implementing actors, and basic project story.</p>
+                <span class="field-code">No special ask: this is the surface layer.</span>
+              </div>
+            </article>
+            <article class="evidence-row available" data-focus="describe">
+              <span class="row-status">Available</span>
+              <div>
+                <h3>Funding structure</h3>
+                <p>The record can say this is a sovereign borrowing story, not a private investment story.</p>
+                <span class="field-code">Keep the financing model explicit in the project profile.</span>
+              </div>
+            </article>
+            <article class="evidence-row available" data-focus="describe">
+              <span class="row-status">Available</span>
+              <div>
+                <h3>Decision actors</h3>
+                <p>Treasury, the railway institution, and the lender can be identified at a high level.</p>
+                <span class="field-code">Add accountable public authority and procuring entity references.</span>
+              </div>
+            </article>
+            <article class="evidence-row missing" data-focus="cost">
+              <span class="row-status">Missing</span>
+              <div>
+                <h3>Loan price</h3>
+                <p>Interest, fees, grace period, maturity, and repayment schedule are needed before cost can be tested.</p>
+                <span class="field-code">Disclosure ask: loan agreement, repayment schedule, and financing terms.</span>
+              </div>
+            </article>
+            <article class="evidence-row missing" data-focus="cost">
+              <span class="row-status">Missing</span>
+              <div>
+                <h3>Guarantee exposure</h3>
+                <p>A sovereign guarantee changes who carries downside risk. Without the terms, fiscal exposure is opaque.</p>
+                <span class="field-code">Disclosure ask: guarantee instrument, contingent liability terms, and fiscal risk note.</span>
+              </div>
+            </article>
+            <article class="evidence-row missing" data-focus="value">
+              <span class="row-status">Missing</span>
+              <div>
+                <h3>Appraisal case</h3>
+                <p>The value claim depends on the feasibility study, alternatives analysis, and expected benefits.</p>
+                <span class="field-code">Disclosure ask: feasibility study, cost-benefit appraisal, assumptions, and alternatives.</span>
+              </div>
+            </article>
+            <article class="evidence-row partial" data-focus="value">
+              <span class="row-status">Partial</span>
+              <div>
+                <h3>Actual performance</h3>
+                <p>Operations data can be discussed, but it cannot prove value without the original appraisal baseline.</p>
+                <span class="field-code">Disclosure ask: actual ridership, revenue, operating cost, and comparison to appraisal assumptions.</span>
+              </div>
+            </article>
+          </div>
+        </aside>
+
+        <div class="chapters">
+          <article class="chapter" data-stage="describe">
+            <p class="eyebrow">Step 1</p>
+            <h2>The public record can describe the project.</h2>
+            <p>You can usually tell what was built, where it runs, which institutions were involved, and that public finance sits underneath it. That is useful, but it is not a value-for-money proof.</p>
+            <p class="note">A description answers "what is this?" It does not answer "should this have been built on these terms?"</p>
+          </article>
+
+          <article class="chapter" data-stage="cost">
+            <p class="eyebrow">Step 2</p>
+            <h2>The calculation breaks when cost becomes real.</h2>
+            <p>A project cost is not only a headline capital amount. The public needs the price of borrowing, repayment timing, fees, and guarantee exposure. Those records determine who carries the bill when the optimistic version fails.</p>
+            <p class="note">This is where the story stops being about "transparency" in general and becomes about loan terms and fiscal risk.</p>
+          </article>
+
+          <article class="chapter" data-stage="value">
+            <p class="eyebrow">Step 3</p>
+            <h2>The value claim breaks at the appraisal.</h2>
+            <p>Even if the route is visible and the railway is operating, the public cannot judge whether the decision was justified without the expected benefits, alternatives, assumptions, and baseline used before approval.</p>
+            <p class="note">Without the appraisal, actual performance has no public benchmark. The record can report activity, but not prove worth.</p>
+          </article>
+
+          <article class="chapter" data-stage="ask">
+            <p class="eyebrow">Step 4</p>
+            <h2>The stronger ask is not "more openness." It is the missing proof.</h2>
+            <p>The public-value test produces a sharper disclosure demand: publish the records that let citizens calculate cost, identify risk, and compare expected benefits with actual results.</p>
+            <p class="note">That is the narrative turn: secrecy matters most where it prevents judgment, not where it merely leaves a blank page.</p>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="anncol">
-        <div class="ann" data-stage="0"><div class="anncard">
-          <p class="kicker">the whole file</p><h3>Five questions, top to bottom.</h3>
-          <p>Everything you might ask about the railway, on one page. The first three answers are in plain type. The last two are in black boxes. Read down and the page changes character.</p>
-        </div></div>
-        <div class="ann" data-stage="1"><div class="anncard">
-          <p class="kicker">on the record</p><h3>What it is, who paid, who decided.</h3>
-          <p class="state public">public</p>
-          <p>A railway, a sovereign loan, a treasury-railway-lender triangle. The surface of the project is fully readable. And already a tell: the deciders and the people who carry the cost barely overlap.</p>
-        </div></div>
-        <div class="ann" data-stage="2"><div class="anncard locked">
-          <p class="kicker">the page goes black</p><h3>What does it really cost?</h3>
-          <p class="state locked">&#128274; confidential</p>
-          <p>The interest rate, the repayment schedule, the guarantee on the full amount. The question a citizen most needs answered, and it is stamped and sealed.</p>
-          <span class="field">unlocks with: loan terms &amp; guarantee (CoST IDS, prep + impl)</span>
-        </div></div>
-        <div class="ann" data-stage="3"><div class="anncard locked">
-          <p class="kicker">the deepest, the darkest</p><h3>Was it worth it?</h3>
-          <p class="state locked">&#128274; confidential</p>
-          <p>The cost-benefit case behind the decision to build, projected against what actually happened. The single most important question, and the most completely withheld.</p>
-          <span class="field">unlocks with: the appraisal (CoST IDS, preparation)</span>
-        </div></div>
+    <section class="answer" id="disclosure-ask">
+      <div class="answer-inner">
+        <div>
+          <p class="eyebrow">The Day 1 finding</p>
+          <h2>Transparency runs out exactly where judgment begins.</h2>
+          <p>The public can identify the SGR. It cannot complete the proof that the investment was priced well, risked responsibly, and chosen over better alternatives.</p>
+        </div>
+        <div class="ask-grid">
+          <article class="ask">
+            <span class="tiny-label">Cost proof</span>
+            <h3>Publish the financing terms.</h3>
+            <p>Interest rate, fees, maturity, grace period, repayment schedule, and currency exposure.</p>
+          </article>
+          <article class="ask">
+            <span class="tiny-label">Risk proof</span>
+            <h3>Publish the guarantee exposure.</h3>
+            <p>The instrument, trigger conditions, contingent liability treatment, and who carries downside risk.</p>
+          </article>
+          <article class="ask">
+            <span class="tiny-label">Value proof</span>
+            <h3>Publish the appraisal.</h3>
+            <p>Feasibility study, cost-benefit analysis, expected benefits, assumptions, and alternatives.</p>
+          </article>
+          <article class="ask">
+            <span class="tiny-label">Reality check</span>
+            <h3>Compare promises to actuals.</h3>
+            <p>Ridership, revenue, operating cost, maintenance burden, and public subsidy against the original baseline.</p>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="takeaway">
-      <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
-      <p class="tk-line"><strong>Transparency is not missing at random. It runs out exactly where it matters most.</strong> The questions you can answer about the SGR are the easy ones. The two that decide whether it was a good idea, what it cost and whether it was worth it, are the two stamped confidential.</p>
-    </div>
-
-    <details class="drawer">
-      <summary>Where this comes from</summary>
-      <div class="drawer-body">
-        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026), the Nairobi Standard Gauge Railway as a worked example. The dossier here is illustrative of the disclosure pattern, not the audited SGR record; the [withheld] entries stand in for terms not in the public record. Field labels shown at CoST phase level. Confirm against the CoST IDS v2.0 before external use.</p>
-        <p><strong>The point.</strong> The two sealed questions each name the CoST IDS field that would open them. The importance of the question and the darkness of the record move together, and the standard already says which field to demand.</p>
+    <details class="source">
+      <summary>Source and caveat</summary>
+      <div class="source-body">
+        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1, 2 Jun 2026, using the Nairobi Standard Gauge Railway as the worked example.</p>
+        <p><strong>Caveat.</strong> This essay is an illustrative public-value proof model, not an audited SGR record. It avoids inventing missing loan terms, guarantee details, or appraisal figures. Field labels are written at record-family level and should be checked against the applicable CoST IDS / OC4IDS publication model before external release.</p>
       </div>
     </details>
+  </main>
 
-    <footer>
-      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026, Nairobi SGR worked example. Illustrative dossier, not the audited record; confirm fields against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
-    </footer>
-  </div>
+  <footer>
+    <p>Working visual by Michael Cengkuru, CoST. InfraWatch Nairobi Day 1. Not for circulation until the evidence packet and standard field mapping are confirmed.</p>
+  </footer>
 
   <script>
   (function(){
     "use strict";
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var page=document.getElementById("page"), scenecap=document.getElementById("scenecap");
-    // poses measured against the rendered page (transform-origin centred on the target row)
-    // oy values measured from the rendered page (transform-origin centres the target row)
-    var POSE=[
-      {s:1,    ox:50, oy:16, cap:"the project file, full page"},
-      {s:1.6,  ox:44, oy:24, cap:"pages 1 to 3: on the record"},
-      {s:2.2,  ox:46, oy:45, cap:"page 4: cost, sealed"},
-      {s:2.2,  ox:46, oy:58, cap:"page 5: was it worth it, sealed"}
-    ];
-    function setStage(s){
-      var p=POSE[s]; if(!p) return;
-      page.style.transformOrigin=p.ox+"% "+p.oy+"%";
-      page.style.transform="scale("+(reduceMotion?1:p.s)+")";
-      scenecap.textContent=p.cap;
+    var root=document.documentElement;
+    var status=document.getElementById("top-status");
+    var verdict=document.getElementById("top-verdict");
+    var rows=[].slice.call(document.querySelectorAll(".evidence-row"));
+    var runButtons=[].slice.call(document.querySelectorAll("[data-run-proof]"));
+    var askButton=document.querySelector("[data-toggle-asks]");
+    var chapters=[].slice.call(document.querySelectorAll(".chapter"));
+
+    function setFocus(stage){
+      document.body.dataset.stage=stage;
+      rows.forEach(function(row){
+        row.classList.toggle("focused", row.dataset.focus===stage || stage==="ask" && row.classList.contains("missing"));
+      });
     }
-    var ratios={}, cur=-1;
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ ratios[e.target.dataset.stage]=e.isIntersecting?e.intersectionRatio:0;
-        if(e.isIntersecting) e.target.classList.add("on"); });
-      var best=-1,bestR=0; for(var k in ratios) if(ratios[k]>bestR){bestR=ratios[k];best=+k;}
-      if(best>=0 && bestR>0.2 && best!==cur){ cur=best; setStage(best); }
-    },{threshold:[0,.25,.5,.75,1]});
-    document.querySelectorAll(".ann").forEach(function(a){ io.observe(a); });
-    setStage(0);
-    if(document.querySelector(".ann")) document.querySelector(".ann").classList.add("on");
+
+    function runProof(){
+      root.dataset.proof="failed";
+      status.textContent="Fails proof";
+      verdict.innerHTML="<strong>After the test:</strong> 3 evidence groups are available, 1 is partial, and 3 are missing. The missing records are exactly the records needed to prove value.";
+      rows.forEach(function(row,index){
+        setTimeout(function(){ row.classList.add("checked"); }, index*120);
+      });
+      setFocus("cost");
+      document.getElementById("proof-lab").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+
+    runButtons.forEach(function(button){ button.addEventListener("click", runProof); });
+    if(askButton){
+      askButton.addEventListener("click", function(){
+        root.classList.toggle("show-asks");
+        askButton.textContent=root.classList.contains("show-asks") ? "Hide asks" : "Show asks";
+      });
+    }
+
+    if("IntersectionObserver" in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting) setFocus(entry.target.dataset.stage);
+        });
+      },{threshold:.55});
+      chapters.forEach(function(chapter){ io.observe(chapter); });
+    } else {
+      setFocus("describe");
+    }
   })();
   </script>
 </body>

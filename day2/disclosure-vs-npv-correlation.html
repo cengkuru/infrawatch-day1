@@ -30,6 +30,8 @@
 
     /* HERO */
     .hero{padding:3rem 0 1.5rem;}
+    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:52ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
+    .hook b{color:var(--dark);font-weight:800;}
     h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:16ch;}
     h1 .accent{color:var(--brand);}
     .lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--mid);max-width:54ch;margin:0 0 1.5rem;}
@@ -73,13 +75,6 @@
     .anncard.warn{border-left-color:var(--red);}
     .anncard.dark{border-left-color:var(--dark);}
     .anncard .ic{font-size:1.4rem;line-height:1;margin-bottom:.3rem;}
-
-    /* LIVE LEADER: one SVG overlay spanning the whole story; draws from the active
-       dot's real position to the active annotation card, recomputed on scroll/stage/resize. */
-    #leader{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6;overflow:visible;opacity:0;transition:opacity .35s ease;}
-    #leader.show{opacity:1;}
-    #leaderPath{fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-dasharray:6 5;}
-    #leaderTip{fill:var(--brand);}
 
     /* glyph + label classes */
     .dot-label{font-size:11px;font-weight:600;fill:var(--dark);font-family:var(--sans);}
@@ -157,7 +152,6 @@
       .ann:last-child{min-height:70vh;}
       .anncard{transform:translateY(20px);}
       .ann.on .anncard{transform:translateY(0);}
-      #leader{display:none;}
       .lens{grid-template-columns:1fr;gap:.3rem;}
       .lens-who{border-left:none;padding-left:0;}
     }
@@ -179,6 +173,7 @@
   <div class="wrap">
     <!-- ============ HERO ============ -->
     <section class="hero">
+      <p class="hook">In 2023, Nigeria announced a <b>$2 billion</b> solar manufacturing project with Chinese partners. Three years on, the financing terms have never been published. So nobody &mdash; not a minister, not an auditor, not a citizen &mdash; can say whether it was worth it.</p>
       <h1>You cannot assess a project you are <span class="accent">not allowed to see</span>.</h1>
       <p class="lede">Publishing a project's financing does not make it good value-for-money. But it is the only thing that lets anyone assess whether it is. Here are ten flagship projects. Watch which ones can even be judged.</p>
 
@@ -224,33 +219,30 @@
         </div>
       </div>
 
-      <!-- RIGHT: annotations reveal one at a time as you scroll; a live leader line points back to the dot -->
-      <!-- one leader-line overlay spanning the whole story; JS draws from the active dot to the active card -->
-      <svg id="leader" aria-hidden="true"><path id="leaderPath" d=""/><circle id="leaderTip" r="3.5"/></svg>
-
+      <!-- RIGHT: annotations reveal one at a time; the camera flies the chart to each subject in sync -->
       <div class="anncol">
-        <div class="ann" data-stage="0" data-target="">
+        <div class="ann" data-stage="0">
           <div class="anncard">
             <p class="kicker">start here</p>
             <h3>Ten projects, one line.</h3>
             <p>Each dot is a project, placed by how much of its financing is public &mdash; <strong>withheld</strong> on the left, <strong>disclosed</strong> on the right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. It is tempting to read a slope. Hold that thought.</p>
           </div>
         </div>
-        <div class="ann" data-stage="1" data-target="naseni">
+        <div class="ann" data-stage="1">
           <div class="anncard">
             <p class="kicker">the wall</p>
             <h3>Withheld terms can't be assessed.</h3>
             <p>Projects whose financing was never published <strong>fog over with a "?"</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> A lack of transparency is not missing data &mdash; it is a wall you cannot see past.</p>
           </div>
         </div>
-        <div class="ann" data-stage="2" data-target="split">
+        <div class="ann" data-stage="2">
           <div class="anncard">
             <p class="kicker">the slope was an illusion</p>
             <h3>It comes down to the funder.</h3>
             <p>Split the projects by who financed them and the slope is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours &mdash; transparency was just riding along.</p>
           </div>
         </div>
-        <div class="ann" data-stage="3" data-target="sankofa">
+        <div class="ann" data-stage="3">
           <div class="anncard warn">
             <p class="kicker">exception one</p>
             <h3>Sankofa: disclosed, yet harmful.</h3>
@@ -258,7 +250,7 @@
             <p>Its terms were public &mdash; including a clause locking Ghana into paying for gas it does not use (about $250m a year). The value <em>could</em> be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
           </div>
         </div>
-        <div class="ann" data-stage="4" data-target="naseni">
+        <div class="ann" data-stage="4">
           <div class="anncard dark">
             <p class="kicker">exception two</p>
             <h3>NASENI: withheld, so unjudgeable.</h3>
@@ -344,6 +336,7 @@
   <script>
   (function(){
     "use strict";
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // ---- project data (x = disclosure 0..100; funder; verdict; jitter row) ----
     // verdict: g/a/r = green/amber/red ; null = not computable (fog forever)
     // row = vertical slot (0..4) in the single-axis view; prow = vertical slot within its funder pool
@@ -442,74 +435,75 @@
       });
     }
 
-    // ---- scroll stages drive everything; reveal the matching annotation ----
+    // ================= CAMERA: the viewBox is the lens. We fly it to each subject. =================
+    var viz=document.getElementById("viz");
+    var FULL=[0,0,760,460];                 // wide establishing shot
+    var camCur=FULL.slice(), camAnim=null;
+    function setVB(v){ viz.setAttribute("viewBox", v[0]+" "+v[1]+" "+v[2]+" "+v[3]);
+      // counter-scale labels/strokes so they stay legible as we zoom in
+      var k = v[2]/FULL[2]; // <1 when zoomed in
+      var lbl = Math.max(8, Math.min(13, 11*Math.pow(k,0.7)));
+      document.querySelectorAll('.dot-label').forEach(function(t){ t.style.fontSize=lbl+"px"; });
+    }
+    function easeIO(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+    function cameraTo(target, dur){
+      if(reduceMotion){ camCur=target.slice(); setVB(camCur); return; }
+      var from=camCur.slice(), start=null;
+      if(camAnim) cancelAnimationFrame(camAnim);
+      function step(ts){
+        if(start===null) start=ts;
+        var t=Math.min(1,(ts-start)/dur), e=easeIO(t);
+        for(var i=0;i<4;i++) camCur[i]=from[i]+(target[i]-from[i])*e;
+        setVB(camCur);
+        if(t<1) camAnim=requestAnimationFrame(step); else { camCur=target.slice(); camAnim=null; }
+      }
+      camAnim=requestAnimationFrame(step);
+    }
+    // frame a point (cx,cy in scene coords) at a given zoom width
+    function frameOn(cx,cy,w){ var h=w*(FULL[3]/FULL[2]); return [cx-w/2, cy-h/2, w, h]; }
+
+    // ---- scroll stages drive data state AND the camera ----
     var anns=document.querySelectorAll(".ann");
     var curStage=-1, confettiFired=false;
-    var activeAnn=null;
+    function camForStage(s){
+      // positions use the post-transition layout; for split stages dots live in two pools
+      if(s===0) return FULL.slice();
+      if(s===1) return [30,40,420,300];                 // push toward the withheld/left + fog gate
+      if(s===2) return FULL.slice();                    // pull back to see both pools split
+      if(s===3){ var k=nodes["sankofa"]; return frameOn(575,235,300); } // fly into Sankofa (right pool pos)
+      if(s===4){ return frameOn(135,250,300); }         // fly to NASENI (left pool pos)
+      return FULL.slice();
+    }
     function setStage(s){
-      if(s===curStage) return; curStage=s;
+      if(s===curStage) return;
+      var prev=curStage; curStage=s;
       if(s===0){ state.showFog=false; state.funder=false; state.focus=null; }
       if(s===1){ state.showFog=true;  state.funder=false; state.focus=null; }
       if(s===2){ state.showFog=false; state.funder=true;  state.focus=null; }
       if(s===3){ state.showFog=false; state.funder=true;  state.focus="sankofa"; }
       if(s===4){ state.showFog=false; state.funder=true;  state.focus="naseni";
-                 if(!confettiFired){ confettiFired=true; fireConfetti(); } }
+                 if(!confettiFired){ confettiFired=true; setTimeout(fireConfetti,500); } }
       render();
-      // let the dot transition settle, then redraw the leader to the new positions
-      setTimeout(drawLeader, 720);
+      // if the dots are re-laying-out (entering/leaving split), let them settle before flying in
+      var relayout = (s>=2)!==(prev>=2);
+      setTimeout(function(){ if(curStage===s) cameraTo(camForStage(s), 1100); }, relayout?740:30);
     }
+    // track intersection ratios; the stage in view is the MOST-centered annotation.
+    // (reacting to each crossing causes last-writer-wins races between adjacent stages.)
+    var ratios={};
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){
-        if(e.isIntersecting){
-          e.target.classList.add("on");
-          activeAnn=e.target;
-          setStage(parseInt(e.target.getAttribute("data-stage"),10));
-        }
+        var st=e.target.getAttribute("data-stage");
+        ratios[st]=e.isIntersecting?e.intersectionRatio:0;
+        if(e.isIntersecting) e.target.classList.add("on");
       });
-    },{threshold:.55});
+      // pick the winner
+      var best=-1, bestR=0;
+      Object.keys(ratios).forEach(function(k){ if(ratios[k]>bestR){ bestR=ratios[k]; best=parseInt(k,10); } });
+      if(best>=0 && bestR>0.2) setStage(best);
+    },{threshold:[0,.25,.5,.75,1]});
     anns.forEach(function(a){io.observe(a);});
-
-    // ---- LIVE LEADER LINE: from the active dot's real position to the active annotation ----
-    var storyEl=document.querySelector(".story"),
-        leaderSvg=document.getElementById("leader"),
-        leaderPath=document.getElementById("leaderPath"),
-        leaderTip=document.getElementById("leaderTip");
-    function centerOf(id){
-      var n=nodes[id]; if(!n) return null;
-      var r=n.body.getBoundingClientRect();
-      return {x:r.left+r.width/2, y:r.top+r.height/2};
-    }
-    function drawLeader(){
-      if(!activeAnn){ leaderSvg.classList.remove("show"); return; }
-      var target=activeAnn.getAttribute("data-target");
-      var card=activeAnn.querySelector(".anncard");
-      if(!target || !card){ leaderSvg.classList.remove("show"); return; }
-      // source point on the chart (client coords)
-      var src=null;
-      if(target==="split"){
-        var a=centerOf("addis"), z=centerOf("nep");
-        if(a&&z) src={x:(a.x+z.x)/2, y:(a.y+z.y)/2};
-      } else { src=centerOf(target); }
-      if(!src){ leaderSvg.classList.remove("show"); return; }
-      // destination: left-middle of the card
-      var cr=card.getBoundingClientRect();
-      var dst={x:cr.left, y:cr.top+Math.min(cr.height/2, 46)};
-      // convert both to story-relative coords
-      var sb=storyEl.getBoundingClientRect();
-      var sx0=src.x-sb.left, sy0=src.y-sb.top, dx0=dst.x-sb.left, dy0=dst.y-sb.top;
-      // only draw if the card is reasonably in view and to the right of the source
-      if(dx0-sx0 < 30){ leaderSvg.classList.remove("show"); return; }
-      var midx=(sx0+dx0)/2;
-      var d="M "+sx0+" "+sy0+" C "+midx+" "+sy0+", "+midx+" "+dy0+", "+(dx0-6)+" "+dy0;
-      leaderPath.setAttribute("d", d);
-      leaderTip.setAttribute("cx", sx0); leaderTip.setAttribute("cy", sy0);
-      leaderSvg.classList.add("show");
-    }
-    var leaderTick=false;
-    function scheduleLeader(){ if(leaderTick) return; leaderTick=true;
-      requestAnimationFrame(function(){ leaderTick=false; drawLeader(); }); }
-    window.addEventListener("scroll", scheduleLeader, {passive:true});
-    window.addEventListener("resize", function(){ scheduleLeader(); });
+    window.addEventListener("resize", function(){ setVB(camCur); });
 
     // ---- export / copy ----
     var CAPTION="Of 10 flagship infrastructure projects, value could be assessed for only 6. For 3 we knew the cost only after the project ran. For 1, the financing terms were never published, so it cannot be judged at all. Transparency does not make a project good value-for-money. It makes value assessable. #InfraWatch";
@@ -529,7 +523,6 @@
     });
 
     // ---- confetti: restrained payoff when the final insight lands ----
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function fireConfetti(){
       if(reduceMotion) return;
       var cv=document.getElementById("confetti");

@@ -52,6 +52,10 @@
     .case-head .realtag{margin-left:auto;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:#cfe0f0;background:rgba(127,168,214,.12);border:1px solid #2a4256;border-radius:99px;padding:.35rem .7rem .35rem .4rem;white-space:nowrap;}
     .case-head .realtag .flag{font-size:.6rem;font-weight:800;letter-spacing:.06em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.18rem .42rem;}
     .case .human{margin:0 0 1.2rem;font-size:.98rem;line-height:1.55;color:#dfe8f2;border-left:3px solid #3a5571;padding-left:.9rem;}
+    /* "from the room": context only someone present would have */
+    .case .egg{margin:1.2rem 0 0;padding:.9rem 1rem;background:rgba(159,214,179,.06);border:1px solid #28463a;border-radius:10px;font-size:.86rem;line-height:1.55;color:#bcd6c6;font-style:italic;}
+    .case .egg .eggmark{display:inline-block;font-style:normal;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.16rem .5rem;margin-right:.6rem;vertical-align:middle;}
+    .case .egg .eggwho{display:block;margin-top:.5rem;font-style:normal;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:#6f9a82;}
     @media (max-width:600px){ .case-head{flex-wrap:wrap;} .case-head .realtag{margin-left:0;margin-top:.5rem;} }
 
     /* the three-part diagnostic, all visible in one view */
@@ -175,8 +179,8 @@
   <section class="light-sec">
     <div class="wrap">
       <div class="takeaway">
-        <p class="tk-eyebrow">The point, in one breath</p>
-        <p class="tk-line"><strong>A funding structure is a prediction engine.</strong> It tells you which fact will disappear before you read a single document, and the one record that brings it back into the light.</p>
+        <p class="tk-eyebrow">The doctrine this room named, in its own words</p>
+        <p class="tk-line"><strong>A comparison is worthless without a narrative, and a narrative is worthless until the data is humanized.</strong> A funding structure is a prediction engine: it tells you which fact will disappear, and the one record that brings it back. The number only matters once a citizen can feel it.</p>
       </div>
 
       <h3 class="cardh"><span class="num">&rarr;</span>The disclosure triage card</h3>
@@ -216,6 +220,7 @@
       { ft:"Sovereign loan", pn:"A national railway",
         real:"Kenya · the SGR", country:"KE",
         human:"Our running example. ~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
+        egg:"“By the time your six-year-old reaches university, this is what was taken from them.”", eggwho:"Kwame's set-piece on humanizing the number, Day 2 afternoon",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round"><line x1="10" y1="40" x2="44" y2="40"/><line x1="14" y1="30" x2="14" y2="40"/><line x1="27" y1="30" x2="27" y2="40"/><line x1="40" y1="30" x2="40" y2="40"/><line x1="9" y1="30" x2="45" y2="30"/><line x1="9" y1="22" x2="45" y2="22"/></svg>',
         hidden:"the real debt", hiddenNote:"The project is announced; the liability it loads onto the treasury, the interest and the sovereign guarantee, stays out of view.",
         wrong:"the announced cost", wrongNote:"A sticker price is not a loan book.",
@@ -223,6 +228,7 @@
       { ft:"Equity stake", pn:"A gas project",
         real:"Ghana · Sankofa / OCTP gas", country:"GH",
         human:"A take-or-pay clause means the public keeps paying for gas it never uses, on terms set by an ownership split it cannot see.",
+        egg:"Ghana's own line: “a desperate mood for attraction... fertile ground for corrosive capital.” Resources sold below market price to attract the financier, pricing never disclosed.", eggwho:"IEA-Ghana, Day 2 case study",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="22" width="20" height="22"/><rect x="33" y="14" width="12" height="30"/><path d="M35 14 q4 -9 8 0"/></svg>',
         hidden:"who really gains", hiddenNote:"You can know exactly what was paid and still not know who sits behind the stake, and who the value flows to.",
         wrong:"the contract price", wrongNote:"Price and ownership are different questions.",
@@ -230,6 +236,7 @@
       { ft:"PPP / concession", pn:"A tolled expressway",
         real:"Kenya · the Nairobi Expressway", country:"KE",
         human:"A PPP meant to move demand risk off the public balance sheet. Without big toll rises it needs public subsidy, so it did the opposite of what it promised.",
+        egg:"The room's own caution: PPP capacity is the thinnest leg across every partner. Most do far more sovereign-loan and concession financing, so the future contingent liabilities in a PPP are the least understood, and the least disclosed.", eggwho:"Ria, on where the gap is widest",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44 L24 18 H30 L46 44"/><rect x="20" y="10" width="14" height="8" rx="2"/></svg>',
         hidden:"the long-term bill", hiddenNote:"The guarantees and contingent liabilities run for decades, not one budget year.",
         wrong:"the project budget", wrongNote:"This year is not the whole story.",
@@ -237,6 +244,7 @@
       { ft:"EPC + finance", pn:"A solar-cell plant",
         real:"Nigeria · the NASENI solar plant", country:"NG",
         human:"The financing figure was attributed to the agency's own CEO at launch, yet it appears on no official NASENI document. The missing record is the finding.",
+        egg:"Dataphyte's own frustration: it is hard to find a truly apple-to-apple comparator, because the disclosure is so thin there is nothing to compare against. The thinness is the result.", eggwho:"Dataphyte, Nigeria, Day 2",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="34" height="26" rx="2"/><line x1="10" y1="22" x2="44" y2="22"/><line x1="10" y1="30" x2="44" y2="30"/><line x1="21" y1="14" x2="21" y2="40"/><line x1="33" y1="14" x2="33" y2="40"/></svg>',
         hidden:"the buried mark-up", hiddenNote:"Build and finance are bundled into one number, with nothing to compare it to.",
         wrong:"the total contract value", wrongNote:"A lump sum cannot be benchmarked.",
@@ -244,6 +252,7 @@
       { ft:"Concessional loan", pn:"A light-rail line",
         real:"Ethiopia · Addis Ababa Light Rail", country:"ET",
         human:"Built on an 85% China EXIM loan with no competitive tender. Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
+        egg:"Michael's intervention the room remembered: GERD is ~95% domestic-funded, so Ethiopia dodged the foreign chokehold and landed in a domestic-debt one, and now it reports on its own disclosure. “Dodging foreign funding does not dodge the chokehold.”", eggwho:"Michael, Day 2 synthesis",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="12" width="26" height="28" rx="4"/><line x1="14" y1="30" x2="40" y2="30"/><circle cx="21" cy="44" r="3"/><circle cx="33" cy="44" r="3"/><line x1="20" y1="18" x2="34" y2="18"/></svg>',
         hidden:"the real terms", hiddenNote:"Concessional rates can hide tied conditions, no competitive tender, and what was actually delivered for the money.",
         wrong:"the headline interest rate", wrongNote:"A low rate is not a good deal if half the trains never run.",
@@ -280,6 +289,7 @@
               '<div class="reccontent"><span class="dot"></span><span class="rrec">'+c.rec+'</span>'+
                 '<span class="rnote">'+c.recNote+'</span></div></div>'+
           '</div>'+
+          (c.egg ? '<p class="egg"><span class="eggmark">from the room</span>'+c.egg+'<span class="eggwho">'+c.eggwho+'</span></p>' : '')+
         '</div>';
       track.appendChild(slide);
       // progress chip

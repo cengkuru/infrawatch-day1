@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Same outside, different secret: a disclosure diagnostic</title>
-  <meta name="description" content="One funding structure, one blind spot, one record to demand. A diagnostic deck of five flagship project types from InfraWatch Nairobi, Day 2.">
+  <title>The project you picked already tells us what to ask for</title>
+  <meta name="description" content="Five projects your group brought into the room. Each one, financed differently, hides a different fact and points to a different record to demand. InfraWatch Nairobi, Day 2.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --night:#0c1622; --green:#1B7A3D; --green-glow:#3fd07a;
@@ -14,96 +14,85 @@
       --mono:"SFMono-Regular",Consolas,monospace;
     }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
-    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--night);line-height:1.55;-webkit-font-smoothing:antialiased;}
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
 
     /* HERO */
-    .hero{background:var(--brand-deep);color:#fff;padding:3rem 1.3rem 2.4rem;text-align:center;}
-    .hero .inner{max-width:760px;margin:0 auto;}
-    .hero .kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:#7fa8d6;margin:0 0 1rem;}
-    .hero h1{font-size:clamp(2rem,5.4vw,3.1rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0 auto 1rem;max-width:18ch;}
+    .hero{min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:3rem 1.4rem;}
+    .hero .inner{max-width:680px;}
+    .hero .kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:#7fa8d6;margin:0 0 1.4rem;}
+    .hero h1{font-size:clamp(2.1rem,5.6vw,3.4rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin:0 auto 1.4rem;color:#fff;}
     .hero h1 .accent{color:#9fd6b3;}
-    .hero p{font-size:clamp(1.02rem,2.2vw,1.24rem);color:#cdddec;max-width:52ch;margin:0 auto;}
+    .hero p{font-size:clamp(1.05rem,2.3vw,1.26rem);color:#bcd0e4;max-width:50ch;margin:0 auto;}
     .hero p b{color:#fff;font-weight:700;}
+    .hero .cue{margin-top:2.6rem;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#5a7798;animation:bob 2s ease-in-out infinite;}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-    /* ===== HORIZONTAL CASE DECK ===== */
-    .deck-sec{background:var(--night);padding:1.6rem 0 2.4rem;}
-    .deckwrap{max-width:1080px;margin:0 auto;padding:0 1.2rem;}
-    .deck-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;}
-    .deck-progress{display:flex;gap:.4rem;flex:1;}
-    .pchip{flex:1;height:6px;border-radius:99px;background:#22384f;cursor:pointer;transition:background .2s;border:none;padding:0;}
-    .pchip.done{background:#3a5571;} .pchip.cur{background:var(--green-glow);}
-    .deck-count{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#7fa8d6;white-space:nowrap;}
+    /* STICKY CASE HEADER: always know which case you are in */
+    .casehead{position:sticky;top:0;z-index:20;background:rgba(12,22,34,.86);backdrop-filter:blur(10px);border-bottom:1px solid #1c2e42;
+      padding:.7rem 1.4rem;display:flex;align-items:center;gap:.7rem;opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;}
+    .casehead.show{opacity:1;transform:none;}
+    .casehead .flag{font-family:var(--mono);font-size:.6rem;font-weight:800;letter-spacing:.06em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.2rem .5rem;}
+    .casehead .nm{font-weight:800;color:#fff;font-size:.98rem;letter-spacing:-.01em;}
+    .casehead .ft{margin-left:auto;font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#7fa0c4;}
+    .casehead .ct{font-family:var(--mono);font-size:.62rem;color:#5a7798;}
 
-    .viewport{position:relative;overflow:hidden;border-radius:18px;}
-    .track{display:flex;transition:transform .45s cubic-bezier(.3,.7,.2,1);}
-    .slide{flex:0 0 100%;}
-    .case{background:linear-gradient(180deg,#0e1c2c,#0a1320);border:1px solid #22384f;border-radius:18px;padding:1.6rem 1.7rem 1.8rem;min-height:430px;display:flex;flex-direction:column;}
+    /* BEATS: one idea per viewport, maximal whitespace, fade-in on center */
+    .beat{min-height:92vh;display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem;}
+    .beat .b{max-width:620px;width:100%;opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s;}
+    .beat.on .b{opacity:1;transform:none;}
+    .beat .eyebrow{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 1rem;}
 
-    /* ENTRY POINT: the real project leads */
-    .case-head{display:flex;align-items:center;gap:1rem;border-bottom:1px solid #1c2e42;padding-bottom:1rem;margin-bottom:1rem;}
-    .case-head .glyph{width:50px;height:50px;flex:0 0 auto;}
-    .case-head .glyph svg{width:100%;height:100%;display:block;}
-    .case-head .ht{margin:0;display:flex;flex-direction:column;min-width:0;}
-    .case-head .proj{font-size:1.34rem;font-weight:800;color:#fff;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:.55rem;}
-    .case-head .proj .flag{font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.06em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.2rem .5rem;}
-    .case-head .projsub{font-size:.82rem;color:#7fa0c4;margin-top:.2rem;}
-    .case-head .ftbadge{margin-left:auto;font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#cfe0f0;background:rgba(127,168,214,.12);border:1px solid #2a4256;border-radius:99px;padding:.35rem .7rem;white-space:nowrap;}
-    .case .human{margin:0 0 1.1rem;font-size:.98rem;line-height:1.55;color:#dfe8f2;border-left:3px solid #3a5571;padding-left:.9rem;}
+    /* beat: the project named (the entry point, almost empty) */
+    .b-open{text-align:center;}
+    .b-open .glyph{width:64px;height:64px;margin:0 auto 1.6rem;}
+    .b-open .glyph svg{width:100%;height:100%;}
+    .b-open .flag{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.06em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.25rem .6rem;margin-bottom:1rem;}
+    .b-open h2{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:800;color:#fff;letter-spacing:-.02em;margin:0 0 .5rem;line-height:1.05;}
+    .b-open .sub{font-size:1rem;color:#7fa0c4;margin:0 0 1.1rem;}
+    .b-open .ft{display:inline-block;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;border:1px solid #2a4256;border-radius:99px;padding:.35rem .8rem;}
 
-    /* the diagnostic: hidden -> wrong ask -> record (record VISIBLE) */
-    .triplet{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:.9rem;margin-bottom:1.1rem;}
-    .cell{background:#0a1320;border:1px solid #1c2e42;border-radius:12px;padding:.9rem 1rem;display:flex;flex-direction:column;}
-    .cell .lab{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;margin:0 0 .5rem;}
-    .cell.hide .lab{color:#f0b860;} .cell.wrong .lab{color:#e0848c;} .cell.rec .lab{color:#7fc89c;}
-    .cell .big{font-size:1.02rem;font-weight:800;line-height:1.2;color:#fff;margin:0;}
-    .cell.rec{border-color:#2f6b48;background:#0c1d14;}
-    .wrong .big{color:#e8b9bd;}
-    .wrong .xmark{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;font-family:var(--mono);font-size:.68rem;color:#e0848c;}
-    .wrong .xmark .x{width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.6rem;}
-    .recvis{margin:0;font-family:var(--mono);font-size:.92rem;font-weight:700;color:#9fe6bb;letter-spacing:.2px;line-height:1.3;}
-    .recvis .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3fd07a;margin-right:.45rem;vertical-align:middle;}
-    .whybtn{margin-top:.7rem;align-self:flex-start;background:none;border:none;padding:0;cursor:pointer;font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6f9a82;transition:color .15s;}
-    .whybtn:hover{color:#9fe6bb;}
-    .why2{margin-top:.6rem;font-size:.82rem;line-height:1.5;color:#bcd6c6;border-top:1px dashed #2f4a3a;padding-top:.6rem;}
-    .why2.show{animation:pop .35s ease;}
-    @keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+    /* beat: a single idea, big and quiet */
+    .b-idea .eyebrow.hide{color:#f0b860;} .b-idea .eyebrow.wrong{color:#e0848c;} .b-idea .eyebrow.rec{color:#7fc89c;}
+    .b-idea h3{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#fff;margin:0 0 1rem;}
+    .b-idea h3 .em{color:#f0b860;} .b-idea h3 .rd{color:#9fe6bb;}
+    .b-idea p{font-size:clamp(1.05rem,2.3vw,1.22rem);line-height:1.6;color:#bcd0e4;margin:0;}
+    .b-idea p strong{color:#fff;}
+    .b-idea .xmark{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-family:var(--mono);font-size:.74rem;color:#e0848c;}
+    .b-idea .xmark .x{width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.66rem;}
+    .b-idea .recpill{display:inline-block;margin-top:1.2rem;font-family:var(--mono);font-size:1rem;font-weight:700;color:#9fe6bb;background:rgba(63,208,122,.08);border:1px solid #2f6b48;border-radius:10px;padding:.7rem 1rem;}
+    .b-idea .recpill .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3fd07a;margin-right:.5rem;vertical-align:middle;}
 
-    /* FROM THE ROOM: presenter, why, source, and the person who said it */
-    .room{margin-top:auto;border-top:1px solid #1c2e42;padding-top:1rem;display:grid;grid-template-columns:1.3fr 1fr;gap:1.1rem;}
-    .roommeta{display:flex;flex-direction:column;gap:.5rem;}
-    .roommeta .rm{font-size:.83rem;line-height:1.45;color:#bcd0e4;}
-    .roommeta .rm b{display:block;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#6f8aa6;margin-bottom:.1rem;}
-    .roommeta .rm.src{font-size:.74rem;color:#7fa0c4;} .roommeta .rm.src i{color:#9fd6b3;font-style:normal;}
-    .quote{background:rgba(159,214,179,.06);border:1px solid #28463a;border-radius:12px;padding:.9rem 1rem;display:flex;gap:.8rem;align-items:flex-start;}
-    /* the person bubble: initials now, photo slot ready (background-image swaps in) */
-    .bubble{width:42px;height:42px;flex:0 0 auto;border-radius:50%;background:#1b3a2a;border:2px solid #3fd07a;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;}
-    .bubble span{font-family:var(--mono);font-size:.78rem;font-weight:800;color:#9fe6bb;}
-    .bubble[style*="url"] span{display:none;}
-    .qbody{min-width:0;}
-    .qtext{margin:0 0 .4rem;font-size:.86rem;line-height:1.5;color:#dfeee6;font-style:italic;}
-    .qattr{margin:0;font-family:var(--mono);font-size:.64rem;letter-spacing:.03em;color:#7fc89c;}
-    .qattr span{color:#6f9a82;}
-    @media (max-width:600px){ .case-head{flex-wrap:wrap;} .case-head .ftbadge{margin-left:0;margin-top:.5rem;} .room{grid-template-columns:1fr;} }
+    /* beat: from the room (the voice) */
+    .b-room .eyebrow{color:#7fc89c;}
+    .b-room .quote{display:flex;gap:1.1rem;align-items:flex-start;}
+    .b-room .bubble{width:56px;height:56px;flex:0 0 auto;border-radius:50%;background:#1b3a2a;border:2px solid #3fd07a;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:center;}
+    .b-room .bubble span{font-family:var(--mono);font-size:1rem;font-weight:800;color:#9fe6bb;}
+    .b-room .bubble[style*="url"] span{display:none;}
+    .b-room .qtext{font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.4;color:#eaf4ee;font-weight:500;font-style:italic;margin:0 0 .8rem;}
+    .b-room .qattr{margin:0;font-family:var(--mono);font-size:.72rem;letter-spacing:.03em;color:#7fc89c;}
+    .b-room .qattr span{color:#6f9a82;display:block;margin-top:.2rem;}
+    .b-room .meta{margin-top:1.8rem;border-top:1px solid #1c2e42;padding-top:1.1rem;display:flex;flex-direction:column;gap:.5rem;}
+    .b-room .meta .rm{font-size:.84rem;color:#9fb4cc;line-height:1.45;}
+    .b-room .meta .rm b{font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#6f8aa6;margin-right:.5rem;}
+    .b-room .meta .rm.src{font-size:.74rem;color:#7fa0c4;} .b-room .meta .rm.src i{color:#9fd6b3;font-style:normal;}
 
-    /* nav */
-    .deck-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.1rem;gap:1rem;}
-    .navbtn{background:rgba(255,255,255,.06);border:1px solid #2a4256;color:#cfe0f0;border-radius:99px;padding:.6rem 1.2rem;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:.5rem;}
-    .navbtn:hover:not(:disabled){background:rgba(255,255,255,.14);color:#fff;border-color:#3a5571;}
-    .navbtn:disabled{opacity:.3;cursor:not-allowed;}
-    .deck-hint{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#5a7798;text-align:center;}
+    /* thin progress rail on the side */
+    .rail{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:.5rem;}
+    .rail button{width:8px;height:8px;padding:0;border:none;border-radius:50%;background:#2a4256;cursor:pointer;transition:.2s;}
+    .rail button.on{background:#9fd6b3;transform:scale(1.4);}
+    @media (max-width:620px){ .rail{display:none;} }
 
     /* THESIS + TRIAGE (light) */
-    .light-sec{background:var(--surface);}
+    .light-sec{background:var(--surface);color:var(--dark);}
     .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem;}
     .takeaway{background:var(--brand-deep);color:#fff;border-radius:16px;padding:2.4rem 2.2rem;margin:3rem 0 2.4rem;}
     .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .8rem;}
     .tk-line{margin:0;font-size:clamp(1.15rem,2.6vw,1.48rem);line-height:1.45;color:#eaf0f6;font-weight:500;}
     .tk-line strong{color:#fff;font-weight:800;}
-
-    h3.cardh{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.4rem 0 .4rem;}
+    h3.cardh{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.4rem 0 .4rem;color:var(--dark);}
     h3.cardh .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
     .triage{border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);background:var(--white);}
@@ -111,13 +100,12 @@
     .triage .th .t{font-weight:800;font-size:1.08rem;} .triage .th .s{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.25rem;}
     .trow{display:grid;grid-template-columns:1fr auto 1.3fr;gap:.7rem;align-items:center;padding:.9rem 1.3rem;border-bottom:1px solid var(--light);}
     .trow:last-child{border-bottom:none;}
-    .trow .money{font-weight:700;font-size:.94rem;} .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.76rem;}
+    .trow .money{font-weight:700;font-size:.94rem;color:var(--dark);} .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.76rem;}
     .trow .ar{color:var(--brand);font-family:var(--mono);font-size:.8rem;}
     .trow .rec{color:var(--green);font-weight:700;font-size:.9rem;font-family:var(--mono);}
     @media (max-width:560px){ .trow{grid-template-columns:1fr;gap:.25rem;} .trow .ar{display:none;} }
-
     details.drawer{margin:1.8rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
-    details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
+    details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;color:var(--dark);}
     details.drawer>summary::-webkit-details-marker{display:none;}
     details.drawer>summary::before{content:"\25B8";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
@@ -125,58 +113,36 @@
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
     footer{margin:2.6rem auto 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);max-width:760px;}
 
-    /* MOBILE: deck stacks vertically; each card keeps hidden + record together */
-    @media (max-width:720px){
-      .viewport{overflow:visible;}
-      .track{display:block;transform:none !important;}
-      .slide{margin-bottom:1rem;}
-      .case{min-height:auto;}
-      .triplet{grid-template-columns:1fr;}
-      .cell{min-height:auto;}
-      .redbar,.recbtn,.reccontent,.wrong .xmark{margin-top:.8rem;}
-      .deck-nav{display:none;} .deck-progress{display:none;}
-      .deck-count{display:none;}
-      .deck-mobilehint{display:block;}
+    @media (prefers-reduced-motion:reduce){
+      .hero .cue{animation:none;}
+      .beat .b{opacity:1;transform:none;} .casehead{opacity:1;transform:none;}
     }
-    .deck-mobilehint{display:none;text-align:center;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#5a7798;margin-bottom:1rem;}
-
-    @media (prefers-reduced-motion:reduce){ .track{transition:none;} .reccontent.show{animation:none;} }
   </style>
 </head>
 <body>
-  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; disclosure diagnostic</span></div>
+  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; what the money hides</span></div>
 
   <!-- HERO -->
   <section class="hero">
     <div class="inner">
-      <p class="kick">Day 2 &middot; reading a project by its money</p>
-      <h1>The project you picked already tells us <span class="accent">what to ask for.</span></h1>
-      <p>Five projects your group brought into the room, one from each country. <b>Same outside, different secret:</b> each one was financed differently, so each hides a different fact, and points to a different record to demand. Step through them.</p>
+      <p class="kick">Day 2 &middot; the projects your group brought</p>
+      <h1>Five projects. <span class="accent">Five secrets.</span></h1>
+      <p>One from each country, and from the outside they all look like infrastructure. <b>But each was financed differently, so each hides a different thing.</b> Find what disappears, and you find the one record that brings it back.</p>
+      <p class="cue">scroll &darr;</p>
     </div>
   </section>
 
-  <!-- HORIZONTAL CASE DECK -->
-  <section class="deck-sec">
-    <div class="deckwrap">
-      <p class="deck-mobilehint">five funding structures, scroll down</p>
-      <div class="deck-top">
-        <div class="deck-progress" id="progress" role="tablist" aria-label="funding structures"></div>
-        <span class="deck-count" id="count">01 / 05</span>
-      </div>
+  <!-- sticky header: updates to the case in view -->
+  <div class="casehead" id="casehead" aria-hidden="true">
+    <span class="flag" id="chFlag">KE</span>
+    <span class="nm" id="chName">The SGR</span>
+    <span class="ct" id="chCt">case 1 of 5</span>
+    <span class="ft" id="chFt">sovereign loan</span>
+  </div>
 
-      <div class="viewport">
-        <div class="track" id="track">
-          <!-- slides injected by JS -->
-        </div>
-      </div>
+  <main id="beats"><!-- beats injected by JS --></main>
 
-      <div class="deck-nav">
-        <button class="navbtn" id="prev" type="button" aria-label="previous funding structure">&larr; prev</button>
-        <span class="deck-hint">use arrow keys, or swipe</span>
-        <button class="navbtn" id="next" type="button" aria-label="next funding structure">next &rarr;</button>
-      </div>
-    </div>
-  </section>
+  <nav class="rail" id="rail" aria-label="jump to a case"></nav>
 
   <!-- THESIS + TRIAGE -->
   <section class="light-sec">
@@ -189,25 +155,25 @@
       <h3 class="cardh"><span class="num">&rarr;</span>The disclosure triage card</h3>
       <p class="lead">The whole diagnostic on one card. See the funding structure, ask for the record that reveals its blind spot. Screenshot it and take it into a real request.</p>
       <div class="triage">
-        <div class="th"><div class="t">See this money type, ask for this first</div><div class="s">funding structure &rarr; the record that reveals the blind spot</div></div>
+        <div class="th"><div class="t">See this money type, ask for this first</div><div class="s">the project &rarr; the record that reveals the blind spot</div></div>
         <div class="trow"><div class="money">Sovereign loan<small>Kenya, the SGR</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
-        <div class="trow"><div class="money">Equity stake<small>Ghana, Sankofa gas</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
+        <div class="trow"><div class="money">Equity / project finance<small>Ghana, Sankofa gas</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership + offtake</div></div>
         <div class="trow"><div class="money">PPP / concession<small>Kenya, Nairobi Expressway</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
-        <div class="trow"><div class="money">EPC + finance<small>Nigeria, NASENI solar</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
-        <div class="trow"><div class="money">Concessional loan<small>Ethiopia, Addis light rail</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
+        <div class="trow"><div class="money">EPC + finance<small>Nigeria, NASENI solar</small></div><div class="ar">reveals</div><div class="rec">itemised cost breakdown</div></div>
+        <div class="trow"><div class="money">Concessional loan<small>Ethiopia, Addis light rail</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tender</div></div>
       </div>
 
       <details class="drawer">
         <summary>Where this comes from, and where it maps</summary>
         <div class="drawer-body">
-          <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The blind-spot to record matches are illustrative of the disclosure pattern; confirm the exact field labels against the CoST IDS v2.0 before external use.</p>
+          <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The projects were presented by the country teams; the blind-spot to record matches are illustrative of the disclosure pattern. Confirm exact field labels against the CoST IDS v2.0, and figures against loan agreements, before external use.</p>
           <p><strong>The records, in CoST IDS terms.</strong> Loan terms and guarantee (Preparation, Implementation); beneficial ownership (Identification); contract terms and fiscal commitments (Procurement); cost estimate and price (Preparation, Procurement); funding source and conditions (Preparation).</p>
           <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that reveals it. A request to publish can be aimed precisely at the one fact the financing was always going to hide.</p>
         </div>
       </details>
 
       <footer>
-        <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Illustrative of the disclosure pattern; confirm records against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
+        <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Projects presented by IEA-Kenya, IEA-Ghana, Dataphyte and Stalwart; figures as reported, confirm against source. Working visual by Michael Cengkuru, CoST.</p>
       </footer>
     </div>
   </section>
@@ -217,179 +183,167 @@
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // caseMemory packet per slide: the REAL project the group brought is the ENTRY POINT;
-    // the funding type is the lesson it teaches. Figures "as reported" in session; confirm against
-    // source before external use. confidence: "verified" | "reported" | "attributed-unpublished".
+    // caseMemory: the real project leads; the funding type recedes. Figures "as reported".
     var CASES=[
       { country:"KE", project:"The SGR", projectFull:"Standard Gauge Railway",
-        presenter:"IEA-Kenya (host)", why:"Our running example across all three days, and the Day-3 site visit. A single project at roughly 5% of GDP, where the debt, not the railway, is the story.",
-        source:"Day 2 case study + Day 3 site visit · IEA-Kenya NPV evaluation",
-        confidence:"reported",
-        ft:"Sovereign loan", ftNote:"the state borrows and guarantees the loan itself",
-        human:"~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round"><line x1="10" y1="40" x2="44" y2="40"/><line x1="14" y1="30" x2="14" y2="40"/><line x1="27" y1="30" x2="27" y2="40"/><line x1="40" y1="30" x2="40" y2="40"/><line x1="9" y1="30" x2="45" y2="30"/><line x1="9" y1="22" x2="45" y2="22"/></svg>',
-        hidden:"the real debt", wrong:"the announced cost",
+        ft:"sovereign loan", ftNote:"the state borrows and guarantees the loan itself",
+        glyph:'<svg viewBox="0 0 64 64" fill="none" stroke="#9fd6b3" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="48" x2="52" y2="48"/><line x1="17" y1="36" x2="17" y2="48"/><line x1="32" y1="36" x2="32" y2="48"/><line x1="47" y1="36" x2="47" y2="48"/><line x1="11" y1="36" x2="53" y2="36"/><line x1="11" y1="26" x2="53" y2="26"/></svg>',
+        human:"The debt was the story, not the railway. ~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
+        hidden:"the real debt", hiddenNote:"The project is announced; the liability it loads onto the treasury, the interest and the sovereign guarantee, stays out of view.",
+        wrong:"the announced cost", wrongNote:"A sticker price is not a loan book.",
         rec:"loan terms + guarantee",
-        why2:"In the SGR case the issue was never the announced cost. It was the debt-service exposure and the contingent liability sitting in the loan agreement, not the press release.",
+        why:"In the SGR case the issue was never the announced cost. It was the debt-service exposure and the contingent liability, sitting in the loan agreement, not the press release.",
+        presenter:"IEA-Kenya (host)", mattered:"Our running example across all three days, and the Day-3 site visit.",
+        source:"Day 2 case study + Day 3 site visit", conf:"as reported, confirm at source",
         egg:"“By the time your six-year-old reaches university, this is what was taken from them.”",
-        eggwho:"Kwame", eggrole:"IEA-Kenya", eggctx:"his set-piece on humanizing the number, Day 2 afternoon", eggini:"KW" },
+        who:"Kwame", role:"IEA-Kenya", ctx:"his set-piece on humanizing the number, Day 2 afternoon", ini:"KW" },
 
-      { country:"GH", project:"Sankofa / OCTP gas", projectFull:"Sankofa Offshore Cape Three Points gas",
-        presenter:"IEA-Ghana", why:"Ghana brought it deliberately, post the 2019 Right to Information Act, against a backdrop of national bankruptcy. The problem was not only the gas. It was the public paying for gas it may never use, on terms it cannot inspect.",
-        source:"Day 2 case study · IEA-Ghana presentation (figures as reported)",
-        confidence:"reported",
-        ft:"Equity / project finance", ftNote:"investors split the ownership, with offtake obligations attached",
-        human:"A take-or-pay clause means the public keeps paying for gas it never uses, on terms set by an ownership split it cannot see.",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="22" width="20" height="22"/><rect x="33" y="14" width="12" height="30"/><path d="M35 14 q4 -9 8 0"/></svg>',
-        hidden:"who really gains", wrong:"the contract price",
+      { country:"GH", project:"Sankofa gas", projectFull:"Sankofa / OCTP offshore gas",
+        ft:"equity / project finance", ftNote:"investors split the ownership, with offtake obligations attached",
+        glyph:'<svg viewBox="0 0 64 64" fill="none" stroke="#9fd6b3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="26" width="24" height="26"/><rect x="39" y="16" width="14" height="36"/><path d="M41 16 q5 -10 10 0"/></svg>',
+        human:"The problem was not only the gas. A take-or-pay clause means the public keeps paying for gas it never uses, on terms set by an ownership split it cannot see.",
+        hidden:"who really gains", hiddenNote:"You can know exactly what was paid and still not know who sits behind the stake, and why the public pays for unused gas.",
+        wrong:"the contract price", wrongNote:"Price and ownership are different questions.",
         rec:"beneficial ownership + offtake terms",
-        why2:"Price and ownership are different questions. You can know exactly what was paid and still not know who sits behind the stake, or why the public pays for unused gas.",
+        why:"Brought deliberately, post Ghana's 2019 Right to Information Act, against a backdrop of national bankruptcy. The disclosure gap is the ownership and the offtake, not the headline price.",
+        presenter:"IEA-Ghana", mattered:"Ghana's own framing: a desperate mood for attraction, fertile ground for corrosive capital.",
+        source:"Day 2 case study, IEA-Ghana", conf:"as reported, confirm at source",
         egg:"“A desperate mood for attraction... fertile ground for corrosive capital.” Resources sold below market price to attract the financier, pricing never disclosed.",
-        eggwho:"IEA-Ghana", eggrole:"partner", eggctx:"their own framing of the country profile, Day 2", eggini:"GH" },
+        who:"IEA-Ghana", role:"partner team", ctx:"their own country-profile framing, Day 2", ini:"GH" },
 
       { country:"KE", project:"Nairobi Expressway", projectFull:"JKIA-Westlands tolled corridor",
-        presenter:"IEA-Kenya (host)", why:"A textbook poisoned chalice by structure. The PPP was meant to move demand risk off the public balance sheet, and it did the opposite.",
-        source:"Day 2 + Day 3 site visit · IEA-Kenya NPV evaluation",
-        confidence:"reported",
         ft:"PPP / concession", ftNote:"a private partner builds and operates for decades",
-        human:"Without large toll increases the corridor needs public subsidy, so the PPP that promised to reduce public exposure raised it instead.",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44 L24 18 H30 L46 44"/><rect x="20" y="10" width="14" height="8" rx="2"/></svg>',
-        hidden:"the long-term bill", wrong:"the project budget",
+        glyph:'<svg viewBox="0 0 64 64" fill="none" stroke="#9fd6b3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 52 L28 22 H36 L54 52"/><rect x="24" y="13" width="16" height="9" rx="2"/></svg>',
+        human:"A PPP meant to move demand risk off the public balance sheet. Without big toll rises it needs public subsidy, so it did the opposite of what it promised.",
+        hidden:"the long-term bill", hiddenNote:"The guarantees, availability payments and contingent liabilities run for decades, not one budget year.",
+        wrong:"the project budget", wrongNote:"This year is not the whole story.",
         rec:"contract + fiscal commitments",
-        why2:"This year is not the whole story. The guarantees, availability payments and contingent liabilities run for decades, and they live in the contract, not the budget line.",
+        why:"A textbook poisoned chalice by structure: the PPP that promised to reduce public exposure raised it instead. The long-term bill lives in the contract, not the budget line.",
+        presenter:"IEA-Kenya (host)", mattered:"The clean PPP exhibit, and the second stop on the Day-3 site visit.",
+        source:"Day 2 + Day 3 site visit", conf:"as reported, confirm at source",
         egg:"PPP capacity is the thinnest leg across every partner. Most do far more sovereign-loan and concession financing, so a PPP's future contingent liabilities are the least understood, and the least disclosed.",
-        eggwho:"Ria", eggrole:"CIPE Manila", eggctx:"on where the disclosure gap is widest, Day 2", eggini:"RO" },
+        who:"Ria", role:"CIPE Manila", ctx:"on where the disclosure gap is widest, Day 2", ini:"RO" },
 
-      { country:"NG", project:"NASENI solar plant", projectFull:"NASENI solar-cell plant, Nasarawa",
-        presenter:"Dataphyte (Nigeria)", why:"The cleanest disclosure finding in the room: the financing figure was attributed to the agency's own CEO at launch, yet it appears on no official NASENI document. The missing record is the result.",
-        source:"Day 2 case study · Dataphyte · figure attributed to NASENI CEO, NOT on any official document",
-        confidence:"attributed-unpublished",
+      { country:"NG", project:"NASENI solar", projectFull:"NASENI solar-cell plant, Nasarawa",
         ft:"EPC + finance", ftNote:"build and finance bundled into one deal",
+        glyph:'<svg viewBox="0 0 64 64" fill="none" stroke="#9fd6b3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="16" width="40" height="32" rx="2"/><line x1="12" y1="27" x2="52" y2="27"/><line x1="12" y1="37" x2="52" y2="37"/><line x1="25" y1="16" x2="25" y2="48"/><line x1="39" y1="16" x2="39" y2="48"/></svg>',
         human:"When the number lives only in a launch speech and not in a record, there is nothing to benchmark the price against. The thinness is the finding.",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="34" height="26" rx="2"/><line x1="10" y1="22" x2="44" y2="22"/><line x1="10" y1="30" x2="44" y2="30"/><line x1="21" y1="14" x2="21" y2="40"/><line x1="33" y1="14" x2="33" y2="40"/></svg>',
-        hidden:"the buried mark-up", wrong:"the total contract value",
+        hidden:"the buried mark-up", hiddenNote:"Build and finance rolled together hide the mark-up inside one number with nothing to compare it to.",
+        wrong:"the total contract value", wrongNote:"A lump sum cannot be benchmarked.",
         rec:"itemised cost breakdown",
-        why2:"A lump sum cannot be benchmarked. Build and finance rolled together hide the mark-up inside one number with nothing to compare it to.",
+        why:"The cleanest disclosure finding in the room: the financing figure was attributed to the agency's own CEO at launch, yet it appears on no official NASENI document.",
+        presenter:"Dataphyte (Nigeria)", mattered:"The missing record IS the result, not a side note.",
+        source:"Day 2 case study, Dataphyte", conf:"attributed at launch, not on any official document",
         egg:"It is hard to find a truly apple-to-apple comparator in Nigeria, because the disclosure is so thin there is nothing to compare against.",
-        eggwho:"Dataphyte", eggrole:"Nigeria", eggctx:"their own framing problem, Day 2", eggini:"DP" },
+        who:"Dataphyte", role:"Nigeria", ctx:"their own framing problem, Day 2", ini:"DP" },
 
       { country:"ET", project:"Addis Light Rail", projectFull:"Addis Ababa Light Rail",
-        presenter:"Stalwart (Ethiopia)", why:"The white elephant that runs at a loss. Built on an 85% China EXIM loan with no competitive tender, and the room's sharpest twist came when Michael flagged GERD beside it.",
-        source:"Day 2 case study · Stalwart presentation (figures as reported)",
-        confidence:"reported",
-        ft:"Concessional loan", ftNote:"a low headline rate, with conditions attached",
-        human:"Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="12" width="26" height="28" rx="4"/><line x1="14" y1="30" x2="40" y2="30"/><circle cx="21" cy="44" r="3"/><circle cx="33" cy="44" r="3"/><line x1="20" y1="18" x2="34" y2="18"/></svg>',
-        hidden:"the real terms", wrong:"the headline interest rate",
+        ft:"concessional loan", ftNote:"a low headline rate, with conditions attached",
+        glyph:'<svg viewBox="0 0 64 64" fill="none" stroke="#9fd6b3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="17" y="14" width="30" height="32" rx="4"/><line x1="17" y1="35" x2="47" y2="35"/><circle cx="25" cy="51" r="3"/><circle cx="39" cy="51" r="3"/><line x1="24" y1="22" x2="40" y2="22"/></svg>',
+        human:"The white elephant that runs at a loss. Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
+        hidden:"the real terms", hiddenNote:"Concessional rates can hide no competitive tender, tied conditions, and what was actually delivered for the money.",
+        wrong:"the headline interest rate", wrongNote:"A low rate is not a good deal if half the trains never run.",
         rec:"source + conditions + tender",
-        why2:"A low rate is not a good deal if half the trains never run. Concessional terms can hide no competitive tender, tied conditions, and what was actually delivered for the money.",
+        why:"Built on an 85% China EXIM loan with no competitive tender. The room's sharpest twist came when Michael flagged GERD beside it.",
+        presenter:"Stalwart (Ethiopia)", mattered:"The white-elephant exhibit, and the setup for the domestic-debt point.",
+        source:"Day 2 case study, Stalwart", conf:"as reported, confirm at source",
         egg:"“Dodging foreign funding does not dodge the chokehold.” GERD is ~95% domestic-funded, so Ethiopia dodged the foreign chokehold and landed in a domestic-debt one, and now reports on its own disclosure.",
-        eggwho:"Michael", eggrole:"CoST", eggctx:"his Day 2 synthesis intervention on GERD", eggini:"MC" }
+        who:"Michael", role:"CoST", ctx:"his Day 2 synthesis intervention on GERD", ini:"MC" }
     ];
 
-    var track=document.getElementById("track"),
-        progress=document.getElementById("progress"),
-        count=document.getElementById("count"),
-        prevBtn=document.getElementById("prev"),
-        nextBtn=document.getElementById("next");
-    var idx=0, N=CASES.length;
+    var beatsEl=document.getElementById("beats"), railEl=document.getElementById("rail");
+    var head=document.getElementById("casehead"),
+        chFlag=document.getElementById("chFlag"), chName=document.getElementById("chName"),
+        chCt=document.getElementById("chCt"), chFt=document.getElementById("chFt");
 
-    function pad(n){ return (n<10?"0":"")+n; }
-
-    // build slides
-    CASES.forEach(function(c,i){
-      var slide=document.createElement("div"); slide.className="slide"; slide.setAttribute("role","tabpanel");
-      var pid="panel-"+i, why2id="why2-"+i;
-      slide.setAttribute("id",pid);
-      slide.setAttribute("aria-labelledby","chip-"+i);
-      var confLabel = c.confidence==="attributed-unpublished" ? "attributed, not published"
-                    : c.confidence==="verified" ? "verified" : "as reported, confirm at source";
-      slide.innerHTML =
-        '<div class="case">'+
-          // ENTRY POINT: the real project the group brought
-          '<div class="case-head"><span class="glyph">'+c.glyph+'</span>'+
-            '<span class="ht"><span class="proj"><span class="flag">'+c.country+'</span>'+c.project+'</span>'+
-              '<span class="projsub">'+c.projectFull+'</span></span>'+
-            '<span class="ftbadge">'+c.ft+'</span></div>'+
-          '<p class="human">'+c.human+'</p>'+
-          // the diagnostic: hidden -> wrong ask -> record (record VISIBLE by default)
-          '<div class="triplet">'+
-            '<div class="cell hide"><p class="lab">what this structure hides</p>'+
-              '<p class="big">'+c.hidden+'</p></div>'+
-            '<div class="cell wrong"><p class="lab">the wrong ask</p>'+
-              '<p class="big">'+c.wrong+'</p><span class="xmark"><span class="x">&#10005;</span> stays dark</span></div>'+
-            '<div class="cell rec"><p class="lab">the record to demand</p>'+
-              '<p class="recvis"><span class="dot"></span>'+c.rec+'</p>'+
-              '<button class="whybtn" type="button" aria-expanded="false" aria-controls="'+why2id+'">show why, from this case &rarr;</button>'+
-              '<div class="why2" id="'+why2id+'" hidden>'+c.why2+'</div></div>'+
-          '</div>'+
-          // FROM THE ROOM: presenter, why it mattered, source, the person who said it
-          '<div class="room">'+
-            '<div class="roommeta">'+
-              '<span class="rm"><b>Presented by</b> '+c.presenter+'</span>'+
-              '<span class="rm"><b>Why it mattered</b> '+c.why+'</span>'+
-              '<span class="rm src"><b>Source</b> '+c.source+' &middot; <i>'+confLabel+'</i></span>'+
-            '</div>'+
-            (c.egg ? '<div class="quote">'+
-              '<div class="bubble" data-ini="'+c.eggini+'" title="'+c.eggwho+', '+c.eggrole+'"><span>'+c.eggini+'</span></div>'+
-              '<div class="qbody"><p class="qtext">'+c.egg+'</p>'+
-                '<p class="qattr">'+c.eggwho+' &middot; '+c.eggrole+' &middot; <span>'+c.eggctx+'</span></p></div>'+
-            '</div>' : '')+
-          '</div>'+
-        '</div>';
-      track.appendChild(slide);
-      // progress chip, wired to its panel for screen readers
-      var chip=document.createElement("button"); chip.className="pchip"; chip.type="button";
-      chip.id="chip-"+i;
-      chip.setAttribute("role","tab"); chip.setAttribute("aria-controls",pid);
-      chip.setAttribute("aria-label",c.country+", "+c.project+" ("+c.ft+")");
-      chip.addEventListener("click",function(){ go(i); });
-      progress.appendChild(chip);
-    });
-
-    // the record is visible by default; the tap reveals the EVIDENCE (the room's reasoning), not the answer
-    track.addEventListener("click",function(e){
-      var btn=e.target.closest(".whybtn"); if(!btn) return;
-      var why=document.getElementById(btn.getAttribute("aria-controls"));
-      var open=btn.getAttribute("aria-expanded")==="true";
-      btn.setAttribute("aria-expanded", open?"false":"true");
-      if(open){ why.hidden=true; btn.innerHTML='show why, from this case &rarr;'; }
-      else { why.hidden=false; why.classList.add("show"); btn.innerHTML='&darr; from the room'; }
-    });
-
-    function paint(){
-      track.style.transform = reduceMotion ? "none" : ("translateX("+(-idx*100)+"%)");
-      count.textContent = pad(idx+1)+" / "+pad(N);
-      [].forEach.call(progress.children,function(ch,i){
-        ch.className = "pchip" + (i<idx?" done":(i===idx?" cur":""));
-        ch.setAttribute("aria-selected", i===idx?"true":"false");
-      });
-      prevBtn.disabled = idx===0;
-      nextBtn.disabled = idx===N-1;
+    function mk(html,cls,caseIdx,isOpen){
+      var s=document.createElement("section");
+      s.className="beat "+cls; s.setAttribute("data-case",caseIdx);
+      if(isOpen) s.setAttribute("data-open","1");
+      s.innerHTML='<div class="b">'+html+'</div>';
+      beatsEl.appendChild(s); return s;
     }
-    function go(i){ idx=Math.max(0,Math.min(N-1,i)); paint(); }
 
-    prevBtn.addEventListener("click",function(){ go(idx-1); });
-    nextBtn.addEventListener("click",function(){ go(idx+1); });
+    CASES.forEach(function(c,i){
+      // STORY ARC per case: scene -> setup -> antagonist -> false move -> CLIMAX -> resolution.
+      // The record to demand is the climax, earned and held to the end, never given away up front.
 
-    // keyboard arrows
-    document.addEventListener("keydown",function(e){
-      if(e.key==="ArrowRight"){ go(idx+1); }
-      else if(e.key==="ArrowLeft"){ go(idx-1); }
+      // ACT 1, the scene: the project, named. Looks like any other piece of infrastructure.
+      mk('<span class="flag">'+c.country+'</span>'+
+         '<div class="glyph">'+c.glyph+'</div>'+
+         '<h2>'+c.project+'</h2><p class="sub">'+c.projectFull+'</p>'+
+         '<span class="ft">from the outside, just infrastructure</span>',
+         'b-open', i, true);
+      // ACT 1, the setup: how it was financed. The seed of the problem.
+      mk('<p class="eyebrow" style="color:#7fa8d6">but look at how it was financed</p>'+
+         '<h3>'+c.ft+'</h3><p>'+c.ftNote+'. '+c.human+'</p>',
+         'b-idea', i);
+      // ACT 2, the antagonist: what it hides. The secret the structure keeps.
+      mk('<p class="eyebrow hide">so here is the secret</p>'+
+         '<h3 class="em">'+c.hidden+'</h3><p>'+c.hiddenNote+'</p>',
+         'b-idea', i);
+      // ACT 2, the false move: the obvious ask fails. Tension rises.
+      mk('<p class="eyebrow wrong">you ask the obvious question</p>'+
+         '<h3>'+c.wrong+'</h3><p>'+c.wrongNote+'</p>'+
+         '<span class="xmark"><span class="x">&#10005;</span> and the secret stays buried</span>',
+         'b-idea', i);
+      // ACT 3, the CLIMAX: the one record that defeats it. The payoff, held to here.
+      mk('<p class="eyebrow rec">there is one record that breaks it open</p>'+
+         '<h3 class="rd">'+c.rec+'</h3><p>'+c.why+'</p>',
+         'b-idea', i);
+      // ACT 3, the resolution: the room's voice. What it means for people.
+      mk('<p class="eyebrow">from the room</p>'+
+         '<div class="quote"><div class="bubble" title="'+c.who+', '+c.role+'"><span>'+c.ini+'</span></div>'+
+           '<div><p class="qtext">'+c.egg+'</p>'+
+             '<p class="qattr">'+c.who+' &middot; '+c.role+'<span>'+c.ctx+'</span></p></div></div>'+
+         '<div class="meta"><span class="rm"><b>Presented by</b>'+c.presenter+'</span>'+
+           '<span class="rm"><b>Why it mattered</b>'+c.mattered+'</span>'+
+           '<span class="rm src"><b>Source</b>'+c.source+' &middot; <i>'+c.conf+'</i></span></div>',
+         'b-room', i);
+
+      // rail dot per case
+      var dot=document.createElement("button"); dot.type="button";
+      dot.setAttribute("aria-label","case "+(i+1)+", "+c.country+" "+c.project);
+      dot.addEventListener("click",function(){
+        var t=beatsEl.querySelector('.beat[data-case="'+i+'"][data-open]');
+        if(t) t.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
+      });
+      railEl.appendChild(dot);
     });
 
-    // swipe
-    var x0=null;
-    var vp=document.querySelector(".viewport");
-    vp.addEventListener("touchstart",function(e){ x0=e.touches[0].clientX; },{passive:true});
-    vp.addEventListener("touchend",function(e){
-      if(x0===null) return;
-      var dx=e.changedTouches[0].clientX-x0;
-      if(Math.abs(dx)>45){ go(dx<0?idx+1:idx-1); }
-      x0=null;
-    },{passive:true});
+    var beats=[].slice.call(beatsEl.querySelectorAll(".beat"));
+    var railDots=[].slice.call(railEl.children);
 
-    paint();
+    // fade beats in; update sticky header + rail to the most-centered beat's case
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio>.2) e.target.classList.add("on"); });
+      // most-centered beat drives the header
+      var best=null,bestR=0;
+      beats.forEach(function(b){ var r=b._r||0; });
+    },{threshold:[.2,.5,.75]});
+    beats.forEach(function(b){ io.observe(b); });
+
+    // separate observer to track the active case for the sticky header + rail
+    var headIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target._r = e.isIntersecting?e.intersectionRatio:0; });
+      var best=null,bestR=0;
+      beats.forEach(function(b){ var r=b._r||0; if(r>bestR){bestR=r;best=b;} });
+      if(best){
+        var ci=parseInt(best.getAttribute("data-case"),10);
+        var c=CASES[ci];
+        head.classList.add("show");
+        chFlag.textContent=c.country; chName.textContent=c.project;
+        chCt.textContent="case "+(ci+1)+" of "+CASES.length; chFt.textContent=c.ft;
+        railDots.forEach(function(d,i){ d.classList.toggle("on", i===ci); });
+      }
+    },{threshold:[0,.25,.5,.75,1]});
+    beats.forEach(function(b){ headIO.observe(b); });
+
+    // hide the sticky header while the hero is in view
+    var heroIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio>.5) head.classList.remove("show"); });
+    },{threshold:[.5]});
+    heroIO.observe(document.querySelector(".hero"));
   })();
   </script>
 </body>

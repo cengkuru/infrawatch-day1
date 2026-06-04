@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InfraWatch Nairobi — visual essays</title>
-  <meta name="description" content="Interactive visual essays from the InfraWatch Nairobi workshop. One question per piece, walked through, not just charted.">
+  <title>InfraWatch Nairobi — three days, one question</title>
+  <meta name="description" content="Three days of visual essays from the InfraWatch Nairobi workshop. From a deal you cannot see, to a value you can test, to a public that can finally speak.">
   <style>
     :root{
-      --brand:#28496A; --brand-deep:#142334;          /* CIPE navy */
-      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D; /* semantic */
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
-      --radius:12px; --shadow:0 16px 44px rgba(20,35,52,.12);
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
       --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
     }
@@ -21,133 +21,228 @@
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
     .brandbar .brand{font-weight:800;letter-spacing:.01em;}
     .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
-    .daynav{display:flex;background:var(--brand-deep);}
-    .daynav a{flex:1;text-align:center;text-decoration:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-size:.72rem;font-weight:700;padding:.7rem .5rem;color:#9fb0c4;border-bottom:3px solid transparent;transition:.12s;}
-    .daynav a:hover{color:#fff;background:rgba(255,255,255,.06);}
-    .daynav a.active{color:#fff;border-bottom-color:#fff;}
-    .daynav a .d{display:block;font-size:.6rem;color:#7d92aa;font-weight:600;}
 
-    .wrap{max-width:860px;margin:0 auto;padding:0 1.3rem;}
+    /* ===== STAGE: dark, cinematic hero that holds the animated journey ===== */
+    .stage{background:radial-gradient(1100px 520px at 50% -8%, #234063 0%, transparent 62%), linear-gradient(180deg, var(--brand-deep) 0%, #0e1a28 100%);
+      color:#fff;padding:2.6rem 1.2rem 3.2rem;position:relative;overflow:hidden;}
+    .stage-inner{max-width:1000px;margin:0 auto;position:relative;}
+    .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .7rem;text-align:center;}
+    .stage h1{font-size:clamp(1.8rem,4.6vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0 auto 1.4rem;text-align:center;max-width:18ch;}
+    .stage h1 .a1{color:#8aa6c4;} .stage h1 .a2{color:#cfe0d6;} .stage h1 .a3{color:#fff;}
 
-    /* HERO */
-    .hero{padding:3.2rem 0 1.4rem;}
-    .eyebrow{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.1em;color:var(--brand);font-weight:700;margin:0 0 .6rem;}
-    h1{font-size:clamp(2rem,5.5vw,3.3rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin:0 0 1rem;max-width:18ch;}
-    .lede{font-size:clamp(1.05rem,2.3vw,1.32rem);color:var(--mid);max-width:56ch;margin:0 0 1.2rem;}
+    .journey{width:100%;max-width:920px;margin:0 auto;display:block;}
+    .replay{display:block;margin:1.1rem auto 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#cfe0f0;
+      font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;padding:.45rem .9rem;border-radius:99px;cursor:pointer;transition:.15s;}
+    .replay:hover{background:rgba(255,255,255,.16);color:#fff;}
 
-    /* WHAT TO EXPECT */
-    .expect{background:var(--white);border:1px solid var(--light);border-radius:14px;padding:1.6rem 1.7rem;margin:1.6rem 0 2.4rem;box-shadow:var(--shadow);}
-    .expect h2{margin:0 0 .9rem;font-size:1.15rem;font-weight:800;color:var(--dark);}
-    .principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem 1.4rem;}
-    .principle .pk{font-family:var(--mono);text-transform:uppercase;font-size:.64rem;letter-spacing:.06em;color:var(--brand);font-weight:700;margin:0 0 .2rem;}
-    .principle p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.5;}
+    /* journey svg styles */
+    .spine{stroke:#3a516b;stroke-width:3;fill:none;stroke-linecap:round;}
+    .spine-fill{stroke:#7fa8d6;stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;}
+    .stationhit{cursor:pointer;}
+    .st-ring{fill:none;stroke-width:2.5;opacity:0;transition:opacity .4s;}
+    .st-num{font-family:var(--mono);font-size:13px;font-weight:800;fill:#fff;}
+    .st-title{font-size:14px;font-weight:800;fill:#fff;font-family:var(--sans);opacity:0;transition:opacity .5s;}
+    .st-sub{font-size:10px;fill:#9fb4cc;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;opacity:0;transition:opacity .5s;}
+    .stationhit:hover .st-title{fill:#cfe0f0;}
+    .enter-pill{font-family:var(--mono);font-size:9px;fill:#7fa8d6;text-transform:uppercase;letter-spacing:.08em;opacity:0;transition:opacity .4s;}
+    .stationhit:hover .enter-pill{fill:#cfe0f0;}
 
-    /* DAY SECTIONS */
-    .day{margin:2.6rem 0;}
-    .dayhead{display:flex;align-items:baseline;gap:.8rem;border-bottom:2px solid var(--brand);padding-bottom:.5rem;margin-bottom:1.1rem;flex-wrap:wrap;}
-    .dayhead .dno{font-family:var(--mono);font-weight:800;font-size:.8rem;letter-spacing:.06em;color:var(--brand);text-transform:uppercase;}
-    .dayhead h2{margin:0;font-size:1.5rem;font-weight:800;letter-spacing:-.01em;}
-    .dayhead .ddate{font-family:var(--mono);font-size:.72rem;color:var(--mid);margin-left:auto;}
-    .daylede{color:var(--mid);font-size:.96rem;margin:0 0 1.1rem;max-width:64ch;}
+    /* ===== arc legend line under the stage ===== */
+    .arcline{max-width:1000px;margin:0 auto;text-align:center;color:#bcd0e6;font-size:clamp(.95rem,2vw,1.15rem);padding:1.2rem 1.2rem 0;font-weight:500;}
+    .arcline b{color:#fff;font-weight:800;}
 
-    a.card{display:block;text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--light);border-left:5px solid var(--brand);
-      border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem 1.25rem;margin-bottom:.85rem;transition:transform .12s,box-shadow .12s;}
-    a.card:hover{transform:translateY(-2px);box-shadow:0 22px 50px rgba(20,35,52,.16);}
-    a.card .hrow{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
-    a.card h3{margin:0 0 .25rem;font-size:1.12rem;}
-    a.card p{margin:0;color:var(--mid);font-size:.9rem;}
-    a.card .go{font-family:var(--mono);font-size:.7rem;color:var(--brand);font-weight:700;margin-top:.5rem;display:inline-block;}
-    .tag{font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.18rem .5rem;border-radius:20px;}
-    .tag.ready{background:#eef6f0;color:#2F7A46;border:1px solid #cfe6d5;}
-    .tag.essay{background:#e9f0f7;color:#28496A;border:1px solid #cdddec;}
-    .tag.wip{background:#fff4d6;color:#7a5a12;border:1px solid #ecd9a0;}
-    a.card.wip{border-left-color:#c9c9d2;}
-    a.card.soon{border-left-color:#c9c9d2;opacity:.6;pointer-events:none;}
+    /* ===== day detail strip below ===== */
+    .wrap{max-width:920px;margin:0 auto;padding:0 1.2rem;}
+    .days{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:-2.4rem auto 0;position:relative;z-index:3;padding-bottom:.5rem;}
+    .daycol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.2rem 1rem;display:flex;flex-direction:column;}
+    .daycol .dtag{font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);}
+    .daycol .ddate{font-family:var(--mono);font-size:.62rem;color:var(--mid);float:right;}
+    .daycol h2{margin:.2rem 0 .35rem;font-size:1.18rem;font-weight:800;letter-spacing:-.01em;}
+    .daycol .dq{margin:0 0 .9rem;font-size:.88rem;color:var(--mid);flex:1;}
+    .daycol a.go{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--light);padding:.6rem 0 0;margin-top:.2rem;font-size:.86rem;font-weight:700;transition:color .12s;}
+    .daycol a.go:hover{color:var(--brand);}
+    .daycol a.go .sub{display:block;font-weight:400;color:var(--mid);font-size:.78rem;margin-top:.1rem;}
+    .daycol a.go .arr{color:var(--brand);font-family:var(--mono);font-size:.74rem;}
+    .daycol a.enter{margin-top:.7rem;text-align:center;background:var(--brand);color:#fff;text-decoration:none;border-radius:99px;padding:.5rem;font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;transition:.15s;}
+    .daycol a.enter:hover{background:var(--brand-deep);}
 
-    footer{margin:2.5rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.82rem;color:var(--mid);}
+    .micro{max-width:920px;margin:1.8rem auto 0;padding:0 1.2rem;color:var(--mid);font-size:.92rem;text-align:center;}
+    .micro b{color:var(--dark);}
+    footer{max-width:920px;margin:2.4rem auto 3.5rem;padding:1.3rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
     footer strong{color:var(--dark);}
-    @media (max-width:560px){ .dayhead .ddate{margin-left:0;width:100%;} }
+
+    @media (max-width:760px){
+      .days{grid-template-columns:1fr;margin-top:-1rem;}
+      .stage{padding-bottom:3rem;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto;}
+      .spine-fill{stroke-dashoffset:0;} .st-ring,.st-title,.st-sub,.enter-pill{opacity:1;}
+    }
   </style>
 </head>
 <body>
   <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
-  <nav class="daynav">
-    <a class="active" href="./"><span class="d">cover</span>Start</a>
-    <a href="day1/"><span class="d">2 Jun</span>Day 1</a>
-    <a href="day2/"><span class="d">3 Jun</span>Day 2</a>
-    <a href="day3/"><span class="d">4 Jun</span>Day 3</a>
-  </nav>
 
-  <main class="wrap">
-    <section class="hero">
-      <p class="eyebrow">Nairobi workshop &middot; 2&ndash;4 June 2026</p>
-      <h1>One question, walked through.</h1>
-      <p class="lede">These are not charts with captions. Each one is a short visual essay: a single question, taken apart in front of you, where the picture and the point never disagree. Built to be understood in the room and to survive being shared after it.</p>
-    </section>
+  <!-- ===================== ANIMATED JOURNEY HERO ===================== -->
+  <section class="stage">
+    <div class="stage-inner">
+      <p class="kicker">Nairobi workshop &middot; 2&ndash;4 June 2026</p>
+      <h1>From a deal you <span class="a1">cannot see</span>, to a value you <span class="a2">can test</span>, to a public that can <span class="a3">finally speak</span>.</h1>
 
-    <section class="expect">
-      <h2>What to expect from these visuals</h2>
-      <div class="principles">
-        <div class="principle"><p class="pk">One question each</p><p>Every piece answers a single question. No dashboards, no piles of metrics. If it cannot be said in one line, it is not on the page.</p></div>
-        <div class="principle"><p class="pk">The picture argues the point</p><p>The visual is chosen so its first reading is the finding. You should not need a paragraph telling you not to misread it.</p></div>
-        <div class="principle"><p class="pk">You are walked, not quizzed</p><p>Scroll and the visual moves with you, zooming to whatever the text is talking about. The work of reading the chart is done for you.</p></div>
-        <div class="principle"><p class="pk">Honest about its limits</p><p>Where the evidence is thin, the piece says so on the chart itself, so the caveat travels even in a screenshot.</p></div>
+      <svg class="journey" id="journey" viewBox="0 0 920 230" role="img" aria-label="A three-station journey across the three workshop days. Day 1 is a dim, sealed cluster you can barely see. Day 2 resolves into colour-coded verdicts that can be tested. Day 3 lights up a public that can speak. Each station links to that day's visuals.">
+        <!-- spine -->
+        <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
+        <path class="spine-fill" id="spineFill" d="M 130 120 L 460 120 L 790 120"/>
+
+        <!-- ===== STATION 1 : the room (dim, sealed) ===== -->
+        <a class="stationhit" id="hit1" href="day1/" aria-label="Day 1: reading the room">
+          <circle class="st-ring" id="ring1" cx="130" cy="120" r="40" stroke="#8aa6c4"/>
+          <!-- dim fogged dots -->
+          <g id="d1">
+            <circle cx="118" cy="108" r="6" fill="#54627a"/>
+            <circle cx="140" cy="114" r="6" fill="#54627a"/>
+            <circle cx="124" cy="130" r="6" fill="#54627a"/>
+            <circle cx="146" cy="132" r="6" fill="#54627a"/>
+            <!-- small lock -->
+            <g transform="translate(130,120)" opacity="0.9">
+              <rect x="-7" y="-2" width="14" height="12" rx="2" fill="none" stroke="#9fb4cc" stroke-width="2"/>
+              <path d="M-4 -2 v-4 a4 4 0 0 1 8 0 v4" fill="none" stroke="#9fb4cc" stroke-width="2"/>
+            </g>
+          </g>
+          <text class="st-num" x="130" y="66" text-anchor="middle" id="num1">1</text>
+          <text class="st-title" x="130" y="182" text-anchor="middle" id="t1">Reading the room</text>
+          <text class="st-sub" x="130" y="198" text-anchor="middle" id="s1">2 Jun · can't see the deal</text>
+          <text class="enter-pill" x="130" y="214" text-anchor="middle" id="e1">enter day 1 &rarr;</text>
+        </a>
+
+        <!-- ===== STATION 2 : testable (verdicts resolve) ===== -->
+        <a class="stationhit" id="hit2" href="day2/" aria-label="Day 2: can the value be tested">
+          <circle class="st-ring" id="ring2" cx="460" cy="120" r="40" stroke="#cfe0d6"/>
+          <g id="d2">
+            <circle cx="448" cy="108" r="6" fill="#1B7A3D"/>
+            <circle cx="470" cy="114" r="6" fill="#C77F00"/>
+            <circle cx="454" cy="130" r="6" fill="#BE1E2D"/>
+            <rect x="468" y="128" width="11" height="11" rx="2" fill="none" stroke="#9fb4cc" stroke-width="2" stroke-dasharray="3 2"/>
+          </g>
+          <text class="st-num" x="460" y="66" text-anchor="middle" id="num2">2</text>
+          <text class="st-title" x="460" y="182" text-anchor="middle" id="t2">Can the value be tested?</text>
+          <text class="st-sub" x="460" y="198" text-anchor="middle" id="s2">3 Jun · now it's testable</text>
+          <text class="enter-pill" x="460" y="214" text-anchor="middle" id="e2">enter day 2 &rarr;</text>
+        </a>
+
+        <!-- ===== STATION 3 : the public speaks ===== -->
+        <a class="stationhit" id="hit3" href="day3/" aria-label="Day 3: whose voice decides">
+          <circle class="st-ring" id="ring3" cx="790" cy="120" r="40" stroke="#fff"/>
+          <g id="d3">
+            <circle cx="778" cy="110" r="5.5" fill="#1B7A3D"/>
+            <circle cx="796" cy="106" r="5.5" fill="#1B7A3D"/>
+            <circle cx="804" cy="120" r="5.5" fill="#1B7A3D"/>
+            <circle cx="782" cy="126" r="5.5" fill="#1B7A3D"/>
+            <circle cx="798" cy="132" r="5.5" fill="#1B7A3D"/>
+            <!-- voice arcs radiating -->
+            <path class="voice" d="M806 110 q 22 -6 34 -22" fill="none" stroke="#7fd6a0" stroke-width="2" stroke-linecap="round" opacity="0"/>
+            <path class="voice" d="M810 122 q 24 2 38 0"   fill="none" stroke="#7fd6a0" stroke-width="2" stroke-linecap="round" opacity="0"/>
+            <path class="voice" d="M804 134 q 22 8 32 22"  fill="none" stroke="#7fd6a0" stroke-width="2" stroke-linecap="round" opacity="0"/>
+          </g>
+          <text class="st-num" x="790" y="66" text-anchor="middle" id="num3">3</text>
+          <text class="st-title" x="790" y="182" text-anchor="middle" id="t3">Whose voice decides</text>
+          <text class="st-sub" x="790" y="198" text-anchor="middle" id="s3">4 Jun · the public speaks</text>
+          <text class="enter-pill" x="790" y="214" text-anchor="middle" id="e3">enter day 3 &rarr;</text>
+        </a>
+      </svg>
+
+      <button class="replay" id="replay" aria-label="Replay the animation">&#8635; replay the journey</button>
+    </div>
+  </section>
+
+  <p class="arcline">Three days. One question, taken apart in front of you: <b>can the public tell whether public money built something worth it?</b></p>
+
+  <!-- ===================== DAY DETAIL STRIP ===================== -->
+  <div class="wrap">
+    <div class="days">
+      <!-- DAY 1 -->
+      <div class="daycol">
+        <span class="ddate">2 Jun</span><span class="dtag">Day 1</span>
+        <h2>Reading the room</h2>
+        <p class="dq">Where the partners stand, and what "foreign-funded" even means.</p>
+        <a class="go" href="partner-vision-constellation-force.html">Partner priorities, shared ground <span class="arr">&rarr;</span><span class="sub">Five visions, one shared centre</span></a>
+        <a class="go" href="foreign-funding-untangler.html">One railway, five counts <span class="arr">&rarr;</span><span class="sub">The same project slips through the net</span></a>
+        <a class="go" href="modality-risk-map.html">What each funding type hides <span class="arr">&rarr;</span><span class="sub">Every blind spot, and the field that clears it</span></a>
+        <a class="go" href="project-anatomy-sgr.html">Anatomy of a project <span class="arr">&rarr;</span><span class="sub">The deeper you dig, the darker it gets</span></a>
+        <a class="enter" href="day1/">Enter Day 1</a>
       </div>
-    </section>
+      <!-- DAY 2 -->
+      <div class="daycol">
+        <span class="ddate">3 Jun</span><span class="dtag">Day 2</span>
+        <h2>Can the value be tested?</h2>
+        <p class="dq">The question sharpens: not "is it good?" but "are we even allowed to find out?"</p>
+        <a class="go" href="day2/disclosure-vs-npv-correlation.html">No terms, no test <span class="arr">&rarr;</span><span class="sub">Ten projects. Watch which can even be judged</span></a>
+        <a class="enter" href="day2/">Enter Day 2</a>
+      </div>
+      <!-- DAY 3 -->
+      <div class="daycol">
+        <span class="ddate">4 Jun</span><span class="dtag">Day 3</span>
+        <h2>Whose voice decides</h2>
+        <p class="dq">The method's real power: synthesising the public's voice, unlocked by contract disclosure.</p>
+        <a class="go" href="day3/the-unlock.html">The unlock <span class="arr">&rarr;</span><span class="sub">A published contract is the switch</span></a>
+        <a class="enter" href="day3/">Enter Day 3</a>
+      </div>
+    </div>
 
-    <!-- DAY 1 -->
-    <section class="day" id="day1">
-      <div class="dayhead"><span class="dno">Day 1</span><h2>Reading the room</h2><span class="ddate">2 Jun 2026</span></div>
-      <p class="daylede">Where the partners actually stand, and what "foreign-funded" even means. The day the shared ground, and the disagreements, came into view.</p>
-      <a class="card" href="partner-vision-constellation-force.html">
-        <div class="hrow"><h3>Partner priorities, shared ground</h3><span class="tag ready">Ready</span></div>
-        <p>Five visions, one shared centre. Drag the bubbles; tap a country to read its vision.</p>
-        <span class="go">Open &rarr;</span></a>
-      <a class="card wip" href="foreign-funding-untangler.html">
-        <div class="hrow"><h3>What counts as foreign-funded?</h3><span class="tag wip">In progress</span></div>
-        <p>The same project, counted five different ways.</p>
-        <span class="go">Open &rarr;</span></a>
-      <a class="card wip" href="project-anatomy-sgr.html">
-        <div class="hrow"><h3>Anatomy of a project</h3><span class="tag wip">In progress</span></div>
-        <p>The railway, layer by layer.</p>
-        <span class="go">Open &rarr;</span></a>
-      <a class="card wip" href="modality-risk-map.html">
-        <div class="hrow"><h3>What each funding type hides</h3><span class="tag wip">In progress</span></div>
-        <p>Pick how a project is paid for; see what goes dark.</p>
-        <span class="go">Open &rarr;</span></a>
-    </section>
-
-    <!-- DAY 2 -->
-    <section class="day" id="day2">
-      <div class="dayhead"><span class="dno">Day 2</span><h2>Can the value be tested?</h2><span class="ddate">3 Jun 2026</span></div>
-      <p class="daylede">The case studies and the NPV method. The day the question sharpened from "is this a good project?" to "are we even allowed to find out?"</p>
-      <a class="card" href="day2/disclosure-vs-npv-correlation.html">
-        <div class="hrow"><h3>No terms, no test</h3><span class="tag essay">Visual essay</span></div>
-        <p>Ten flagship projects. Watch which ones can even be judged, as the chart flies to each one. Disclosure does not make a project good; it makes value testable.</p>
-        <span class="go">Open &rarr;</span></a>
-      <a class="card" href="day2/">
-        <div class="hrow"><h3>All Day 2 visuals</h3><span class="tag ready">Index</span></div>
-        <p>The full set from the case-study day.</p>
-        <span class="go">Open &rarr;</span></a>
-    </section>
-
-    <!-- DAY 3 -->
-    <section class="day" id="day3">
-      <div class="dayhead"><span class="dno">Day 3</span><h2>Whose voice decides</h2><span class="ddate">4 Jun 2026</span></div>
-      <p class="daylede">The partner day, and the strategic "so what" of the whole method: InfraWatch's real power is synthesizing the public's voice, and the thing that unlocks it is contract disclosure.</p>
-      <a class="card" href="day3/the-unlock.html">
-        <div class="hrow"><h3>The unlock</h3><span class="tag essay">Visual essay</span></div>
-        <p>Why a published contract is the switch that turns data into accountability. From sealed terms to a public that can finally speak.</p>
-        <span class="go">Open &rarr;</span></a>
-      <a class="card" href="day3/">
-        <div class="hrow"><h3>All Day 3 visuals</h3><span class="tag ready">Index</span></div>
-        <p>The full set from the final day.</p>
-        <span class="go">Open &rarr;</span></a>
-    </section>
+    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. The visual is chosen so its first reading is the finding, and where the evidence is thin it says so on the chart itself.</p>
 
     <footer>
       <p><strong>InfraWatch Nairobi</strong>, 2&ndash;4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Working visuals by Michael Cengkuru, CoST. Treat figures as reported; confirm against source documents.</p>
     </footer>
-  </main>
+  </div>
+
+  <script>
+  (function(){
+    "use strict";
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var fill=document.getElementById("spineFill");
+    function show(id){ var e=document.getElementById(id); if(e) e.style.opacity="1"; }
+    function ignite(n){
+      show("ring"+n); show("t"+n); show("s"+n); show("e"+n);
+      var ring=document.getElementById("ring"+n);
+      if(ring && !reduceMotion){ ring.animate(
+        [{transform:"scale(.6)",opacity:0},{transform:"scale(1)",opacity:1}],
+        {duration:520,easing:"cubic-bezier(.2,.7,.2,1)"}); }
+    }
+    function voices(){ document.querySelectorAll(".voice").forEach(function(v,i){
+      setTimeout(function(){ v.style.transition="opacity .5s"; v.style.opacity="1"; }, i*140); }); }
+
+    function play(){
+      // reset
+      fill.style.transition="none"; fill.style.strokeDashoffset="1000";
+      ["ring1","t1","s1","e1","ring2","t2","s2","e2","ring3","t3","s3","e3"].forEach(function(id){
+        var e=document.getElementById(id); if(e) e.style.opacity="0"; });
+      document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="0"; });
+      if(reduceMotion){ // show everything, no motion
+        fill.style.strokeDashoffset="0";
+        [1,2,3].forEach(function(n){ ["ring","t","s","e"].forEach(function(p){ var e=document.getElementById(p+n); if(e)e.style.opacity="1"; }); });
+        document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="1"; });
+        return;
+      }
+      // sequence: station1 -> draw to 2 -> station2 -> draw to 3 -> station3 -> voices
+      setTimeout(function(){ ignite(1); }, 250);
+      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="500"; }, 700);
+      setTimeout(function(){ ignite(2); }, 2000);
+      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="0"; }, 2300);
+      setTimeout(function(){ ignite(3); }, 3650);
+      setTimeout(voices, 4000);
+    }
+
+    // play once on load (when the hero is in view), and on replay click
+    if("IntersectionObserver" in window){
+      var fired=false;
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+        if(e.isIntersecting && !fired){ fired=true; play(); } }); },{threshold:.4});
+      io.observe(document.getElementById("journey"));
+    } else { play(); }
+    document.getElementById("replay").addEventListener("click", play);
+  })();
+  </script>
 </body>
 </html>

@@ -40,18 +40,24 @@
     .step{min-height:100vh;display:flex;align-items:center;}
     .step .card{background:rgba(12,22,34,.82);backdrop-filter:blur(6px);border:1px solid #22384f;border-left:4px solid #3a516b;border-radius:14px;padding:1.4rem 1.5rem;
       opacity:.25;transform:translateY(18px);transition:opacity .5s,transform .5s,border-color .5s;box-shadow:0 18px 50px rgba(0,0,0,.4);}
-    .step.on .card{opacity:1;transform:translateY(0);}
-    .step.on[data-tone="dark"] .card{border-left-color:var(--amber);}
-    .step.on[data-tone="light"] .card{border-left-color:var(--green-glow);}
+    .step.on .card{opacity:1;transform:translateY(0);border-left-color:var(--amber);}
+    .step.on.lit .card{border-left-color:var(--green-glow);}
     .step .ftype{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#7fa8d6;margin:0 0 .5rem;}
-    .step h2{margin:0 0 .6rem;font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;line-height:1.12;color:#fff;letter-spacing:-.01em;}
+    .step h2{margin:0 0 .7rem;font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;line-height:1.12;color:#fff;letter-spacing:-.01em;}
     .step h2 .em{color:#f0b860;}
     .step h2 .lit{color:#9fe6bb;}
     .step p{margin:0;color:#bcd0e4;font-size:.98rem;line-height:1.55;}
     .step p strong{color:#fff;}
-    .step .rec{display:inline-block;margin-top:.9rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:#9fe6bb;background:rgba(63,208,122,.1);border:1px solid #2f6b48;border-radius:8px;padding:.5rem .7rem;}
-    .step .miss{display:block;margin-top:.7rem;font-size:.86rem;color:#e0a3a8;}
-    .step .miss b{color:#f3c4c8;}
+    /* two-paragraph card: dark copy first, light copy after the panel flips */
+    .step .darkp{transition:opacity .4s;}
+    .step .lightp{margin-top:.7rem;max-height:0;opacity:0;overflow:hidden;transition:opacity .5s,max-height .5s,margin .5s;}
+    .step .darkp .dk{display:block;margin-top:.5rem;color:#e0a3a8;font-weight:600;}
+    .step .darkp .dk b{color:#f3c4c8;}
+    .step.lit .darkp{opacity:.45;}
+    .step.lit .darkp .dk{display:none;}
+    .step.lit .lightp{max-height:240px;opacity:1;}
+    .step .rec{display:inline-block;margin-top:.9rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:#9fe6bb;background:rgba(63,208,122,.1);border:1px solid #2f6b48;border-radius:8px;padding:.5rem .7rem;max-height:0;opacity:0;overflow:hidden;transition:opacity .5s,max-height .5s;}
+    .step.lit .rec{max-height:120px;opacity:1;}
 
     /* intro + outro steps */
     .step.intro .card,.step.outro .card{background:transparent;border:none;box-shadow:none;border-left:none;text-align:center;}
@@ -87,12 +93,12 @@
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
     footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);max-width:760px;margin-left:auto;margin-right:auto;}
 
-    /* svg scene elements */
-    .struct{transition:opacity .6s;}
-    .shade{fill:#000;opacity:0;transition:opacity .8s;}
-    .hidden-fact{opacity:0;transition:opacity .7s;}
-    .beam{opacity:0;transition:opacity .6s;}
-    .glow circle{transition:r .8s,opacity .8s;}
+    /* svg scene elements: the redacted -> revealed flip.
+       Redacted hides instantly; revealed fades in after, so the two never ghost over each other. */
+    #glyph,#glyphcap{transition:opacity .5s;}
+    #redacted{transition:opacity .12s;}
+    #revealed{transition:opacity .55s ease .15s;}
+    #rglow{transition:r .4s;}
 
     /* MOBILE: stage pinned to the top half, cards scroll in the lower half, never overlapping */
     @media (max-width:720px){
@@ -108,7 +114,8 @@
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;} .scrollcue{animation:none;}
       .step .card{opacity:1;transform:none;}
-      .shade,.hidden-fact,.beam,.struct{transition:none;}
+      .step .darkp,.step .lightp,.step .rec{transition:none;}
+      #redacted,#revealed{transition:none;}
     }
   </style>
 </head>
@@ -128,169 +135,103 @@
   <!-- SCROLLY -->
   <section class="scrolly" id="scrolly">
     <div class="stage" aria-hidden="true">
-      <svg id="scene" viewBox="0 0 600 460" role="img" aria-label="A project that darkens to show its hidden fact, then is lit by the one record that reveals it. Each funding structure shown in turn.">
-        <!-- ground -->
-        <line x1="40" y1="392" x2="560" y2="392" stroke="#22384f" stroke-width="2"/>
+      <svg id="scene" viewBox="0 0 520 460" role="img" aria-label="For each funding structure, the one fact it hides is shown first as a redacted black bar, then revealed by the record that brings it back into the light.">
+        <!-- small project glyph at the top: which project this is -->
+        <g id="glyph" transform="translate(260,92)" stroke="#5a7798" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+        <text id="glyphcap" x="260" y="150" text-anchor="middle" font-family="var(--mono)" font-size="12" letter-spacing="1" fill="#7fa0c4"></text>
 
-        <!-- ===== STRUCTURE LAYERS (one shown at a time) ===== -->
-        <!-- 0 RAILWAY (sovereign loan) -->
-        <g class="struct" id="s0" opacity="1">
-          <g stroke="#5a7798" stroke-width="3" fill="none">
-            <line x1="110" y1="392" x2="110" y2="300"/><line x1="200" y1="392" x2="200" y2="300"/>
-            <line x1="290" y1="392" x2="290" y2="300"/><line x1="380" y1="392" x2="380" y2="300"/><line x1="470" y1="392" x2="470" y2="300"/>
-            <line x1="90" y1="300" x2="490" y2="300"/><line x1="90" y1="330" x2="490" y2="330"/>
+        <!-- the blind-spot panel: the heart of the scene -->
+        <g id="panel" transform="translate(60,200)">
+          <!-- panel frame -->
+          <rect x="0" y="0" width="400" height="150" rx="12" fill="#0a1320" stroke="#22384f" stroke-width="1.5"/>
+          <text x="20" y="34" font-family="var(--mono)" font-size="11" letter-spacing="1.5" fill="#5a7798">WHAT THIS STRUCTURE HIDES</text>
+
+          <!-- DARK STATE: a redacted black bar marked HIDDEN -->
+          <g id="redacted">
+            <rect x="20" y="52" width="360" height="34" rx="5" fill="#05080d" stroke="#1a2a3d" stroke-width="1.5"/>
+            <rect x="20" y="52" width="360" height="34" rx="5" fill="url(#hatch)" opacity="0.5"/>
+            <text x="200" y="74" text-anchor="middle" font-family="var(--mono)" font-size="13" font-weight="800" letter-spacing="3" fill="#3a516b">R E D A C T E D</text>
+            <text id="redlabel" x="20" y="112" font-family="var(--mono)" font-size="12" fill="#6f8aa6"></text>
           </g>
-          <g stroke="#3a5571" stroke-width="6"><line x1="90" y1="362" x2="490" y2="362"/></g>
-          <g stroke="#3a5571" stroke-width="3">
-            <line x1="120" y1="356" x2="120" y2="372"/><line x1="170" y1="356" x2="170" y2="372"/><line x1="220" y1="356" x2="220" y2="372"/>
-            <line x1="270" y1="356" x2="270" y2="372"/><line x1="320" y1="356" x2="320" y2="372"/><line x1="370" y1="356" x2="370" y2="372"/><line x1="420" y1="356" x2="420" y2="372"/><line x1="470" y1="356" x2="470" y2="372"/>
+
+          <!-- LIGHT STATE: the fact revealed, glowing green. Opaque backing occludes the redacted layer. -->
+          <g id="revealed" opacity="0">
+            <rect x="8" y="44" width="384" height="86" rx="8" fill="#0a1320"/>
+            <rect x="20" y="52" width="360" height="34" rx="5" fill="#11261a" stroke="#2f6b48" stroke-width="1.5"/>
+            <circle id="rglow" cx="40" cy="69" r="6" fill="#3fd07a"/>
+            <text id="factlabel" x="60" y="74" font-family="var(--mono)" font-size="14" font-weight="800" letter-spacing="1" fill="#9fe6bb"></text>
+            <text id="recline" x="20" y="112" font-family="var(--mono)" font-size="11.5" fill="#7fc89c"></text>
           </g>
         </g>
 
-        <!-- 1 POWER PLANT (equity) -->
-        <g class="struct" id="s1" opacity="0">
-          <rect x="180" y="250" width="120" height="142" fill="none" stroke="#5a7798" stroke-width="3"/>
-          <rect x="320" y="210" width="60" height="182" fill="none" stroke="#5a7798" stroke-width="3"/>
-          <path d="M340 210 q10 -40 20 0" fill="none" stroke="#3a5571" stroke-width="3"/>
-          <line x1="200" y1="285" x2="280" y2="285" stroke="#3a5571" stroke-width="2"/>
-          <line x1="200" y1="320" x2="280" y2="320" stroke="#3a5571" stroke-width="2"/>
-          <line x1="200" y1="355" x2="280" y2="355" stroke="#3a5571" stroke-width="2"/>
-        </g>
-
-        <!-- 2 TOLL ROAD (PPP / concession) -->
-        <g class="struct" id="s2" opacity="0">
-          <path d="M120 392 L260 250 H340 L480 392 Z" fill="none" stroke="#5a7798" stroke-width="3"/>
-          <line x1="300" y1="250" x2="300" y2="392" stroke="#3a5571" stroke-width="2" stroke-dasharray="10 12"/>
-          <rect x="250" y="220" width="100" height="34" rx="4" fill="none" stroke="#5a7798" stroke-width="3"/>
-        </g>
-
-        <!-- 3 PORT (EPC + finance) -->
-        <g class="struct" id="s3" opacity="0">
-          <line x1="300" y1="220" x2="300" y2="392" stroke="#5a7798" stroke-width="3"/>
-          <line x1="300" y1="240" x2="420" y2="240" stroke="#5a7798" stroke-width="3"/>
-          <line x1="420" y1="240" x2="420" y2="280" stroke="#3a5571" stroke-width="2"/>
-          <rect x="150" y="340" width="60" height="52" fill="none" stroke="#5a7798" stroke-width="3"/>
-          <rect x="215" y="356" width="60" height="36" fill="none" stroke="#3a5571" stroke-width="3"/>
-          <path d="M120 392 q220 26 360 0" fill="none" stroke="#3a5571" stroke-width="2"/>
-        </g>
-
-        <!-- 4 WATER SYSTEM (grant / aid) -->
-        <g class="struct" id="s4" opacity="0">
-          <circle cx="300" cy="300" r="64" fill="none" stroke="#5a7798" stroke-width="3"/>
-          <line x1="236" y1="300" x2="120" y2="300" stroke="#5a7798" stroke-width="3"/>
-          <line x1="364" y1="300" x2="480" y2="300" stroke="#5a7798" stroke-width="3"/>
-          <line x1="120" y1="288" x2="120" y2="392" stroke="#3a5571" stroke-width="3"/>
-          <line x1="480" y1="288" x2="480" y2="392" stroke="#3a5571" stroke-width="3"/>
-          <path d="M300 270 v60 M280 290 h40" stroke="#3a5571" stroke-width="2"/>
-        </g>
-
-        <!-- shade that falls over the structure -->
-        <rect class="shade" id="shade" x="0" y="0" width="600" height="392"/>
-
-        <!-- the hidden fact, made visible when the record flares -->
-        <g class="hidden-fact" id="fact">
-          <g class="glow"><circle id="glowc" cx="300" cy="300" r="0" fill="#3fd07a" opacity="0"/></g>
-          <text id="facttext" x="300" y="120" text-anchor="middle" font-family="var(--mono)" font-size="15" font-weight="800" fill="#9fe6bb"></text>
-          <text id="factrec" x="300" y="146" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="#7fc89c"></text>
-        </g>
+        <defs>
+          <pattern id="hatch" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#0e1726" stroke-width="6"/>
+          </pattern>
+        </defs>
       </svg>
-      <p class="scenecap" id="scenecap">five structures, five blind spots</p>
+      <p class="scenecap" id="scenecap">same outside, different secret</p>
     </div>
 
     <div class="steps">
       <div class="step intro on" data-scene="-1">
         <div class="card">
           <h2>Same outside.<br>Different secret.</h2>
-          <p>Scroll through five flagship projects. Each one looks like any other piece of infrastructure, until you see how it was financed.</p>
+          <p>Five flagship projects. Each looks like any other piece of infrastructure, until you see how it was financed. Scroll, and watch each one give up the fact it hides.</p>
         </div>
       </div>
 
-      <div class="step" data-scene="0" data-tone="dark">
+      <div class="step" data-scene="0">
         <div class="card">
           <p class="ftype">Sovereign loan &middot; a national railway</p>
           <h2>The headline is the line.<br>The <span class="em">real debt</span> is not.</h2>
-          <p>The state borrows to build. The project gets announced; the liability it loads onto the treasury stays out of view.</p>
-          <span class="miss">Ask only for the announced cost and <b>the debt stays dark</b>. A sticker price is not a loan book.</span>
-        </div>
-      </div>
-      <div class="step" data-scene="0" data-tone="light">
-        <div class="card">
-          <p class="ftype">Sovereign loan &middot; what brings it back</p>
-          <h2>One record turns the <span class="lit">lights on</span>.</h2>
-          <p><strong>Publish the loan terms and the guarantee,</strong> and the real debt appears: the interest, the repayment, the contingent liability.</p>
+          <p class="darkp">The state borrows to build. The project gets announced; the liability it loads onto the treasury stays out of view. <b class="dk">Ask only for the announced cost and the debt stays dark.</b></p>
+          <p class="lightp"><strong>Publish the loan terms and the guarantee,</strong> and the real debt appears: the interest, the repayment, the contingent liability.</p>
           <span class="rec">the record: loan terms + state guarantee</span>
         </div>
       </div>
 
-      <div class="step" data-scene="1" data-tone="dark">
+      <div class="step" data-scene="1">
         <div class="card">
           <p class="ftype">Equity stake &middot; a power plant</p>
           <h2>You can see the price.<br>Not <span class="em">who gains</span>.</h2>
-          <p>An investor takes a share. You can know exactly what was paid and still not know who sits behind the stake and captures the value.</p>
-          <span class="miss">Ask only for the contract price and <b>the beneficiary stays dark</b>. Price and ownership are different questions.</span>
-        </div>
-      </div>
-      <div class="step" data-scene="1" data-tone="light">
-        <div class="card">
-          <p class="ftype">Equity stake &middot; what brings it back</p>
-          <h2>One record turns the <span class="lit">lights on</span>.</h2>
-          <p><strong>Publish the beneficial owners,</strong> and you see who is really behind it, and who the value flows to.</p>
+          <p class="darkp">An investor takes a share. You can know exactly what was paid and still not know who sits behind the stake. <b class="dk">Ask only for the contract price and the beneficiary stays dark.</b></p>
+          <p class="lightp"><strong>Publish the beneficial owners,</strong> and you see who is really behind it, and who the value flows to.</p>
           <span class="rec">the record: beneficial ownership</span>
         </div>
       </div>
 
-      <div class="step" data-scene="2" data-tone="dark">
+      <div class="step" data-scene="2">
         <div class="card">
           <p class="ftype">PPP / concession &middot; a toll road</p>
           <h2>A budget shows this year.<br>The bill runs <span class="em">25 years</span>.</h2>
-          <p>A private partner builds and operates. The guarantees, availability payments and contingent liabilities run for decades.</p>
-          <span class="miss">Ask only for the project budget and <b>the future bill stays dark</b>. This year is not the whole story.</span>
-        </div>
-      </div>
-      <div class="step" data-scene="2" data-tone="light">
-        <div class="card">
-          <p class="ftype">PPP / concession &middot; what brings it back</p>
-          <h2>One record turns the <span class="lit">lights on</span>.</h2>
-          <p><strong>Publish the contract and its fiscal commitments,</strong> and the long-term bill to the public becomes visible.</p>
+          <p class="darkp">A private partner builds and operates. The guarantees and contingent liabilities run for decades. <b class="dk">Ask only for the project budget and the future bill stays dark.</b></p>
+          <p class="lightp"><strong>Publish the contract and its fiscal commitments,</strong> and the long-term bill to the public becomes visible.</p>
           <span class="rec">the record: contract + fiscal commitments</span>
         </div>
       </div>
 
-      <div class="step" data-scene="3" data-tone="dark">
+      <div class="step" data-scene="3">
         <div class="card">
           <p class="ftype">EPC + finance &middot; a container port</p>
           <h2>One total.<br>Nothing to <span class="em">check it against</span>.</h2>
-          <p>Build and finance are rolled into one bundled deal. The mark-up hides inside a single number with nothing to compare it to.</p>
-          <span class="miss">Ask only for the total value and <b>the mark-up stays dark</b>. A lump sum cannot be benchmarked.</span>
-        </div>
-      </div>
-      <div class="step" data-scene="3" data-tone="light">
-        <div class="card">
-          <p class="ftype">EPC + finance &middot; what brings it back</p>
-          <h2>One record turns the <span class="lit">lights on</span>.</h2>
-          <p><strong>Publish the itemised cost breakdown,</strong> and the price can finally be benchmarked, line by line.</p>
+          <p class="darkp">Build and finance are rolled into one bundled deal. The mark-up hides inside a single number. <b class="dk">Ask only for the total value and the mark-up stays dark.</b></p>
+          <p class="lightp"><strong>Publish the itemised cost breakdown,</strong> and the price can finally be benchmarked, line by line.</p>
           <span class="rec">the record: cost breakdown + benchmark price</span>
         </div>
       </div>
 
-      <div class="step" data-scene="4" data-tone="dark">
+      <div class="step" data-scene="4">
         <div class="card">
           <p class="ftype">Grant / aid &middot; a water system</p>
           <h2>The money looks free.<br>The <span class="em">strings</span> do not show.</h2>
-          <p>A funder gives, with terms. The conditions attached, and any requirement to buy from the funder's own firms, decide who really benefits.</p>
-          <span class="miss">Ask only for the grant amount and <b>the conditions stay dark</b>. Free money is rarely free of terms.</span>
-        </div>
-      </div>
-      <div class="step" data-scene="4" data-tone="light">
-        <div class="card">
-          <p class="ftype">Grant / aid &middot; what brings it back</p>
-          <h2>One record turns the <span class="lit">lights on</span>.</h2>
-          <p><strong>Publish the source, its conditions and any tied procurement,</strong> and the real terms show.</p>
+          <p class="darkp">A funder gives, with terms. The conditions, and any requirement to buy from the funder's own firms, decide who really benefits. <b class="dk">Ask only for the grant amount and the conditions stay dark.</b></p>
+          <p class="lightp"><strong>Publish the source, its conditions and any tied procurement,</strong> and the real terms show.</p>
           <span class="rec">the record: source + conditions + tied procurement</span>
         </div>
       </div>
 
-      <div class="step outro" data-scene="-1">
+      <div class="step outro" data-scene="-2">
         <div class="card">
           <h2 style="color:#9fe6bb">Five structures. Five blind spots.<br>Five records that reveal them.</h2>
         </div>
@@ -336,50 +277,83 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var structs=[]; for(var i=0;i<5;i++) structs.push(document.getElementById("s"+i));
-    var shade=document.getElementById("shade"), fact=document.getElementById("fact"),
-        glowc=document.getElementById("glowc"), facttext=document.getElementById("facttext"),
-        factrec=document.getElementById("factrec"), scenecap=document.getElementById("scenecap");
 
+    var glyphG=document.getElementById("glyph"), glyphcap=document.getElementById("glyphcap"),
+        redacted=document.getElementById("redacted"), revealed=document.getElementById("revealed"),
+        redlabel=document.getElementById("redlabel"), factlabel=document.getElementById("factlabel"),
+        recline=document.getElementById("recline"), scenecap=document.getElementById("scenecap"),
+        rglow=document.getElementById("rglow");
+
+    // each project: a small glyph (path set), a one-word project caption,
+    // the redacted label (what is hidden), the revealed fact, and the record line.
     var DATA=[
-      {cap:"sovereign loan, a railway", hidden:"THE REAL DEBT", rec:"loan terms + guarantee"},
-      {cap:"equity stake, a power plant", hidden:"WHO REALLY GAINS", rec:"beneficial ownership"},
-      {cap:"PPP, a toll road", hidden:"THE 25-YEAR BILL", rec:"contract + fiscal commitments"},
-      {cap:"EPC + finance, a port", hidden:"THE BURIED MARK-UP", rec:"cost breakdown"},
-      {cap:"grant / aid, a water system", hidden:"THE STRINGS ATTACHED", rec:"source + conditions"}
+      { glyph:'<line x1="-70" y1="22" x2="70" y2="22"/><line x1="-60" y1="10" x2="-60" y2="22"/><line x1="-20" y1="10" x2="-20" y2="22"/><line x1="20" y1="10" x2="20" y2="22"/><line x1="60" y1="10" x2="60" y2="22"/><line x1="-72" y1="10" x2="72" y2="10"/><line x1="-72" y1="0" x2="72" y2="0"/>',
+        cap:"a national railway", red:"the liability to the treasury", fact:"THE REAL DEBT", rec:"revealed by: loan terms + guarantee" },
+      { glyph:'<rect x="-58" y="-14" width="48" height="56"/><rect x="14" y="-30" width="30" height="72"/><path d="M22 -30 q7 -22 14 0"/>',
+        cap:"a power plant", red:"who sits behind the stake", fact:"WHO REALLY GAINS", rec:"revealed by: beneficial ownership" },
+      { glyph:'<path d="M-70 42 L-6 -22 H10 L74 42"/><rect x="-22" y="-34" width="44" height="18" rx="3"/>',
+        cap:"a toll road", red:"the payments for 25 years", fact:"THE 25-YEAR BILL", rec:"revealed by: contract + fiscal commitments" },
+      { glyph:'<line x1="0" y1="-34" x2="0" y2="42"/><line x1="0" y1="-24" x2="56" y2="-24"/><line x1="56" y1="-24" x2="56" y2="0"/><rect x="-64" y="20" width="34" height="22"/><rect x="-26" y="28" width="30" height="14"/>',
+        cap:"a container port", red:"the mark-up inside the bundle", fact:"THE BURIED MARK-UP", rec:"revealed by: cost breakdown" },
+      { glyph:'<circle cx="0" cy="6" r="34"/><line x1="-34" y1="6" x2="-72" y2="6"/><line x1="34" y1="6" x2="72" y2="6"/><path d="M0 -14 v40 M-13 0 h26"/>',
+        cap:"a water system", red:"the strings on the money", fact:"THE STRINGS ATTACHED", rec:"revealed by: source + conditions" }
     ];
 
-    var curScene=-1, curTone=null;
-    function showStruct(n){
-      structs.forEach(function(s,i){ if(s) s.style.opacity = (i===n?"1":"0"); });
+    function drawGlyph(i){
+      if(i<0){ glyphG.innerHTML=""; glyphcap.textContent=""; return; }
+      glyphG.innerHTML = DATA[i].glyph;
+      glyphcap.textContent = DATA[i].cap;
     }
-    function setScene(scene, tone){
-      if(scene===curScene && tone===curTone) return;
-      curScene=scene; curTone=tone;
-      if(scene<0){ // intro/outro: dim everything, no shade, no fact
-        showStruct(-1); shade.style.opacity="0"; fact.style.opacity="0"; glowc.setAttribute("opacity","0");
-        scenecap.textContent = scene===-1 ? "five structures, five blind spots" : "";
-        return;
+    function setRedacted(i){
+      drawGlyph(i);
+      redlabel.textContent = "what disappears: "+DATA[i].red;
+      revealed.setAttribute("opacity","0");
+      redacted.setAttribute("opacity","1");
+      scenecap.textContent="what this structure hides";
+    }
+    function setRevealed(i){
+      drawGlyph(i);
+      factlabel.textContent = DATA[i].fact;
+      recline.textContent = DATA[i].rec;
+      redacted.setAttribute("opacity","0");
+      revealed.setAttribute("opacity","1");
+      scenecap.textContent="brought back into the light";
+      if(!reduceMotion){
+        rglow.setAttribute("r","6");
+        rglow.animate([{r:6,opacity:1},{r:13,opacity:.5},{r:6,opacity:1}],{duration:900,iterations:1});
       }
-      showStruct(scene);
-      scenecap.textContent = DATA[scene].cap;
-      if(tone==="dark"){
-        // blind spot: shade falls, hidden label not yet
-        shade.style.opacity="0.62";
-        fact.style.opacity="0"; glowc.setAttribute("opacity","0");
-      } else { // light: record flares, hidden fact revealed
-        shade.style.opacity="0.34";
-        facttext.textContent=DATA[scene].hidden;
-        factrec.textContent="revealed by: "+DATA[scene].rec;
-        fact.style.opacity="1";
-        glowc.setAttribute("opacity","0.18");
-        glowc.setAttribute("r", reduceMotion ? "150" : "10");
-        if(!reduceMotion){ requestAnimationFrame(function(){ glowc.setAttribute("r","170"); }); }
+    }
+
+    var steps=[].slice.call(document.querySelectorAll(".step"));
+    var curScene=-99, revealTimer=null, curStep=null;
+
+    // ONE source of truth: enter(step) sets BOTH the panel and the card together.
+    function enter(step){
+      var scene=parseInt(step.getAttribute("data-scene"),10);
+      if(scene===curScene) return;
+      curScene=scene; curStep=step;
+      if(revealTimer){ clearTimeout(revealTimer); revealTimer=null; }
+      // every card starts in its dark state; only the active one will flip
+      steps.forEach(function(s){ s.classList.remove("lit"); });
+
+      if(scene===-1){ // INTRO: preview the first project, panel empty
+        drawGlyph(0); redacted.setAttribute("opacity","0"); revealed.setAttribute("opacity","0");
+        scenecap.textContent="same outside, different secret"; return;
       }
+      if(scene===-2){ // OUTRO: last fact left lit
+        setRevealed(4); scenecap.textContent="five structures, five records"; return;
+      }
+      // a funding type: show what is hidden, then after a beat reveal it (panel + card together)
+      if(reduceMotion){ setRevealed(scene); step.classList.add("lit"); return; }
+      setRedacted(scene);
+      revealTimer=setTimeout(function(){
+        if(curScene!==scene) return;          // guard: scrolled away during the beat
+        setRevealed(scene);
+        step.classList.add("lit");
+      }, 1100);
     }
 
     // race-proof: drive from the MOST-CENTERED step
-    var steps=[].slice.call(document.querySelectorAll(".step"));
     var ratios=new Map();
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){ ratios.set(e.target, e.isIntersecting?e.intersectionRatio:0); });
@@ -387,15 +361,14 @@
       steps.forEach(function(s){ var r=ratios.get(s)||0; if(r>bestR){ bestR=r; best=s; } });
       if(best){
         steps.forEach(function(s){ s.classList.toggle("on", s===best); });
-        var sc=parseInt(best.getAttribute("data-scene"),10);
-        var tone=best.getAttribute("data-tone");
-        setScene(sc, tone);
+        enter(best);
       }
     },{threshold:[0,.25,.5,.75,1]});
     steps.forEach(function(s){ io.observe(s); });
 
-    // initial
-    setScene(-1,null);
+    // initial: the intro step
+    var introStep=document.querySelector('.step.intro');
+    if(introStep) enter(introStep);
   })();
   </script>
 </body>

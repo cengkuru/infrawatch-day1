@@ -34,16 +34,10 @@
     h1 .accent{color:var(--brand);}
     .lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--mid);max-width:54ch;margin:0 0 1.5rem;}
 
-    /* HERO NUMBER STRIP */
-    .counts{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.5rem 0 .6rem;}
-    .count{background:var(--white);border:1px solid var(--light);border-top:4px solid var(--mid);border-radius:var(--radius);padding:1rem 1.1rem;}
-    .count.green{border-top-color:var(--green);}
-    .count.amber{border-top-color:var(--amber);}
-    .count.red{border-top-color:var(--red);}
-    .count .big{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;line-height:1;letter-spacing:-.02em;}
-    .count.green .big{color:var(--green);} .count.amber .big{color:var(--amber);} .count.red .big{color:var(--red);}
-    .count .cap{font-size:.82rem;color:var(--mid);margin-top:.4rem;line-height:1.35;}
-    .counts-note{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin:.2rem 0 0;}
+    /* HERO TALLY: the 6/3/1 finding as one sentence, figures emphasised inline */
+    .tally{font-size:clamp(1.15rem,2.8vw,1.55rem);line-height:1.5;color:var(--dark);font-weight:500;max-width:40ch;margin:1.6rem 0 .4rem;}
+    .tally b{font-weight:800;}
+    .tally b.g{color:var(--green);} .tally b.a{color:var(--amber);} .tally b.r{color:var(--red);}
 
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
@@ -79,13 +73,13 @@
     .anncard.warn{border-left-color:var(--red);}
     .anncard.dark{border-left-color:var(--dark);}
     .anncard .ic{font-size:1.4rem;line-height:1;margin-bottom:.3rem;}
-    /* hand-drawn scribble arrow pointing from the annotation back to the chart (left) */
-    .scribble{position:absolute;left:-66px;top:50%;width:60px;height:48px;transform:translateY(-50%);pointer-events:none;
-      opacity:0;transition:opacity .5s ease .25s;}
-    .ann.on .anncard .scribble{opacity:1;}
-    .scribble path{fill:none;stroke:var(--brand);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:140;stroke-dashoffset:140;}
-    .ann.on .anncard .scribble path{animation:draw .8s ease .3s forwards;}
-    @keyframes draw{to{stroke-dashoffset:0;}}
+
+    /* LIVE LEADER: one SVG overlay spanning the whole story; draws from the active
+       dot's real position to the active annotation card, recomputed on scroll/stage/resize. */
+    #leader{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6;overflow:visible;opacity:0;transition:opacity .35s ease;}
+    #leader.show{opacity:1;}
+    #leaderPath{fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-dasharray:6 5;}
+    #leaderTip{fill:var(--brand);}
 
     /* glyph + label classes */
     .dot-label{font-size:11px;font-weight:600;fill:var(--dark);font-family:var(--sans);}
@@ -163,7 +157,7 @@
       .ann:last-child{min-height:70vh;}
       .anncard{transform:translateY(20px);}
       .ann.on .anncard{transform:translateY(0);}
-      .scribble{display:none;}
+      #leader{display:none;}
       .lens{grid-template-columns:1fr;gap:.3rem;}
       .lens-who{border-left:none;padding-left:0;}
     }
@@ -188,20 +182,7 @@
       <h1>You cannot assess a project you are <span class="accent">not allowed to see</span>.</h1>
       <p class="lede">Publishing a project's financing does not make it good value-for-money. But it is the only thing that lets anyone assess whether it is. Here are ten flagship projects. Watch which ones can even be judged.</p>
 
-      <div class="counts" aria-label="Summary of ten projects">
-        <div class="count green">
-          <div class="big">6</div>
-          <div class="cap">could be <strong>assessed</strong> &mdash; value worked out from financing terms that were actually published</div>
-        </div>
-        <div class="count amber">
-          <div class="big">3</div>
-          <div class="cap">judged <strong>only by what happened</strong> &mdash; terms withheld, so the cost surfaced only after the project ran</div>
-        </div>
-        <div class="count red">
-          <div class="big">1</div>
-          <div class="cap"><strong>cannot be judged at all</strong> &mdash; terms never published, so there is nothing to assess (NASENI)</div>
-        </div>
-      </div>
+      <p class="tally">Of ten flagship projects, only <b class="g">six</b> could be assessed up front. <b class="a">Three</b> were judged only after they had run. And <b class="r">one</b> cannot be judged at all.</p>
 
       <div class="scrollcue">scroll to see it &darr;</div>
     </section>
@@ -243,43 +224,42 @@
         </div>
       </div>
 
-      <!-- RIGHT: annotations reveal one at a time as you scroll; scribble arrows point back to the chart -->
+      <!-- RIGHT: annotations reveal one at a time as you scroll; a live leader line points back to the dot -->
+      <!-- one leader-line overlay spanning the whole story; JS draws from the active dot to the active card -->
+      <svg id="leader" aria-hidden="true"><path id="leaderPath" d=""/><circle id="leaderTip" r="3.5"/></svg>
+
       <div class="anncol">
-        <div class="ann" data-stage="0">
+        <div class="ann" data-stage="0" data-target="">
           <div class="anncard">
             <p class="kicker">start here</p>
             <h3>Ten projects, one line.</h3>
             <p>Each dot is a project, placed by how much of its financing is public &mdash; <strong>withheld</strong> on the left, <strong>disclosed</strong> on the right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. It is tempting to read a slope. Hold that thought.</p>
           </div>
         </div>
-        <div class="ann" data-stage="1">
+        <div class="ann" data-stage="1" data-target="naseni">
           <div class="anncard">
-            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 8 C 30 2, 8 14, 6 30 M6 30 L 2 22 M6 30 L 14 26"/></svg>
             <p class="kicker">the wall</p>
             <h3>Withheld terms can't be assessed.</h3>
             <p>Projects whose financing was never published <strong>fog over with a "?"</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> A lack of transparency is not missing data &mdash; it is a wall you cannot see past.</p>
           </div>
         </div>
-        <div class="ann" data-stage="2">
+        <div class="ann" data-stage="2" data-target="split">
           <div class="anncard">
-            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 40 C 34 46, 10 36, 6 18 M6 18 L 1 27 M6 18 L 14 22"/></svg>
             <p class="kicker">the slope was an illusion</p>
             <h3>It comes down to the funder.</h3>
             <p>Split the projects by who financed them and the slope is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours &mdash; transparency was just riding along.</p>
           </div>
         </div>
-        <div class="ann" data-stage="3">
+        <div class="ann" data-stage="3" data-target="sankofa">
           <div class="anncard warn">
-            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 24 C 32 18, 12 26, 5 38 M5 38 L 3 28 M5 38 L 13 36"/></svg>
             <p class="kicker">exception one</p>
             <h3>Sankofa: disclosed, yet harmful.</h3>
             <p class="tagline">disclosed &middot; measurable &middot; still harmful</p>
             <p>Its terms were public &mdash; including a clause locking Ghana into paying for gas it does not use (about $250m a year). The value <em>could</em> be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
           </div>
         </div>
-        <div class="ann" data-stage="4">
+        <div class="ann" data-stage="4" data-target="naseni">
           <div class="anncard dark">
-            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 30 C 30 38, 10 28, 5 12 M5 12 L 2 22 M5 12 L 13 14"/></svg>
             <p class="kicker">exception two</p>
             <h3>NASENI: withheld, so unjudgeable.</h3>
             <p class="tagline">withheld &middot; cannot be assessed</p>
@@ -465,6 +445,7 @@
     // ---- scroll stages drive everything; reveal the matching annotation ----
     var anns=document.querySelectorAll(".ann");
     var curStage=-1, confettiFired=false;
+    var activeAnn=null;
     function setStage(s){
       if(s===curStage) return; curStage=s;
       if(s===0){ state.showFog=false; state.funder=false; state.focus=null; }
@@ -474,16 +455,61 @@
       if(s===4){ state.showFog=false; state.funder=true;  state.focus="naseni";
                  if(!confettiFired){ confettiFired=true; fireConfetti(); } }
       render();
+      // let the dot transition settle, then redraw the leader to the new positions
+      setTimeout(drawLeader, 720);
     }
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting){
           e.target.classList.add("on");
+          activeAnn=e.target;
           setStage(parseInt(e.target.getAttribute("data-stage"),10));
         }
       });
     },{threshold:.55});
     anns.forEach(function(a){io.observe(a);});
+
+    // ---- LIVE LEADER LINE: from the active dot's real position to the active annotation ----
+    var storyEl=document.querySelector(".story"),
+        leaderSvg=document.getElementById("leader"),
+        leaderPath=document.getElementById("leaderPath"),
+        leaderTip=document.getElementById("leaderTip");
+    function centerOf(id){
+      var n=nodes[id]; if(!n) return null;
+      var r=n.body.getBoundingClientRect();
+      return {x:r.left+r.width/2, y:r.top+r.height/2};
+    }
+    function drawLeader(){
+      if(!activeAnn){ leaderSvg.classList.remove("show"); return; }
+      var target=activeAnn.getAttribute("data-target");
+      var card=activeAnn.querySelector(".anncard");
+      if(!target || !card){ leaderSvg.classList.remove("show"); return; }
+      // source point on the chart (client coords)
+      var src=null;
+      if(target==="split"){
+        var a=centerOf("addis"), z=centerOf("nep");
+        if(a&&z) src={x:(a.x+z.x)/2, y:(a.y+z.y)/2};
+      } else { src=centerOf(target); }
+      if(!src){ leaderSvg.classList.remove("show"); return; }
+      // destination: left-middle of the card
+      var cr=card.getBoundingClientRect();
+      var dst={x:cr.left, y:cr.top+Math.min(cr.height/2, 46)};
+      // convert both to story-relative coords
+      var sb=storyEl.getBoundingClientRect();
+      var sx0=src.x-sb.left, sy0=src.y-sb.top, dx0=dst.x-sb.left, dy0=dst.y-sb.top;
+      // only draw if the card is reasonably in view and to the right of the source
+      if(dx0-sx0 < 30){ leaderSvg.classList.remove("show"); return; }
+      var midx=(sx0+dx0)/2;
+      var d="M "+sx0+" "+sy0+" C "+midx+" "+sy0+", "+midx+" "+dy0+", "+(dx0-6)+" "+dy0;
+      leaderPath.setAttribute("d", d);
+      leaderTip.setAttribute("cx", sx0); leaderTip.setAttribute("cy", sy0);
+      leaderSvg.classList.add("show");
+    }
+    var leaderTick=false;
+    function scheduleLeader(){ if(leaderTick) return; leaderTick=true;
+      requestAnimationFrame(function(){ leaderTick=false; drawLeader(); }); }
+    window.addEventListener("scroll", scheduleLeader, {passive:true});
+    window.addEventListener("resize", function(){ scheduleLeader(); });
 
     // ---- export / copy ----
     var CAPTION="Of 10 flagship infrastructure projects, value could be assessed for only 6. For 3 we knew the cost only after the project ran. For 1, the financing terms were never published, so it cannot be judged at all. Transparency does not make a project good value-for-money. It makes value assessable. #InfraWatch";

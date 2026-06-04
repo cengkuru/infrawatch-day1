@@ -3,94 +3,151 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InfraWatch · Day 1 visuals</title>
+  <title>InfraWatch Nairobi — visual essays</title>
+  <meta name="description" content="Interactive visual essays from the InfraWatch Nairobi workshop. One question per piece, walked through, not just charted.">
   <style>
-    :root{ --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6; --surface:#F8F8F8;
-      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:12px;
-      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; --mono:"SFMono-Regular",Consolas,monospace; }
+    :root{
+      --brand:#28496A; --brand-deep:#142334;          /* CIPE navy */
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D; /* semantic */
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:12px; --shadow:0 16px 44px rgba(20,35,52,.12);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
-    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
-    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red); display:flex; align-items:center; justify-content:space-between; padding:13px 24px;}
-    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
-    .daynav{display:flex; gap:0; background:#222; border-bottom:1px solid #000;}
-    .daynav a{flex:1; text-align:center; text-decoration:none; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; font-size:.74rem; font-weight:700; padding:11px 8px; color:#9aa; border-bottom:3px solid transparent; transition:color .12s, border-color .12s, background .12s;}
-    .daynav a:hover{color:#fff; background:#2d2d2d;}
-    .daynav a.active{color:#fff; border-bottom-color:var(--cost-red); background:#2d2d2d;}
-    .daynav a .d{display:block; font-size:.62rem; color:#788; font-weight:600; letter-spacing:.04em;}
-    .daynav a.active .d{color:#c98;}
-    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
-    .wrap{max-width:760px; margin:0 auto; padding:30px 20px 60px;}
-    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
-    h1{font-size:clamp(1.7rem,4vw,2.4rem); line-height:1.1; font-weight:800; margin:6px 0 8px;}
-    .sub{color:var(--cost-mid); margin:0 0 22px; font-size:1.05rem;}
-    a.card{display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--cost-light); border-left:5px solid var(--cost-red);
-      border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; margin-bottom:14px; transition:transform .12s, box-shadow .12s;}
-    a.card:hover{transform:translateY(-2px); box-shadow:0 22px 50px rgba(45,45,45,.16);}
-    a.card h3{margin:0 0 4px; font-size:1.15rem;}
-    a.card p{margin:0; color:var(--cost-mid); font-size:.92rem;}
-    a.card .go{font-family:var(--mono); font-size:.72rem; color:var(--cost-red); font-weight:700; margin-top:8px; display:inline-block;}
-    a.card .hrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-    .tag{font-family:var(--mono); font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:20px;}
-    .tag.ready{background:#eef6f0; color:#2F7A46; border:1px solid #cfe6d5;}
-    .tag.wip{background:#fff4d6; color:#7a5a12; border:1px solid #ecd9a0;}
-    a.card.wip{border-left-color:#c9c9d2; opacity:.92;}
-    a.card.wip h3{color:var(--cost-mid);}
-    a.card.wip .go{color:#7a5a12;}
-    .sectionlabel{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.06em; color:var(--cost-mid); margin:22px 0 10px;}
-    .qrpanel{display:flex; align-items:center; gap:20px; background:var(--cost-dark); color:#fff; border-radius:var(--radius);
-      box-shadow:var(--shadow); padding:20px 22px; margin:6px 0 26px;}
-    .qrpanel img{width:128px; height:128px; background:#fff; border-radius:10px; padding:8px; flex:0 0 auto;}
-    .qrpanel .qt{font-size:1.15rem; font-weight:800; margin:0 0 4px;}
-    .qrpanel .qs{font-size:.9rem; color:#cfcfd6; margin:0;}
-    .qrpanel .qu{font-family:var(--mono); font-size:.72rem; color:#9aa; margin:8px 0 0; word-break:break-all;}
-    @media (max-width:520px){ .qrpanel{flex-direction:column; text-align:center;} }
-    .foot{margin-top:24px; color:var(--cost-mid); font-size:.8rem;} .foot strong{color:var(--cost-dark);}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;letter-spacing:.01em;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .daynav{display:flex;background:var(--brand-deep);}
+    .daynav a{flex:1;text-align:center;text-decoration:none;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-size:.72rem;font-weight:700;padding:.7rem .5rem;color:#9fb0c4;border-bottom:3px solid transparent;transition:.12s;}
+    .daynav a:hover{color:#fff;background:rgba(255,255,255,.06);}
+    .daynav a.active{color:#fff;border-bottom-color:#fff;}
+    .daynav a .d{display:block;font-size:.6rem;color:#7d92aa;font-weight:600;}
+
+    .wrap{max-width:860px;margin:0 auto;padding:0 1.3rem;}
+
+    /* HERO */
+    .hero{padding:3.2rem 0 1.4rem;}
+    .eyebrow{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.1em;color:var(--brand);font-weight:700;margin:0 0 .6rem;}
+    h1{font-size:clamp(2rem,5.5vw,3.3rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin:0 0 1rem;max-width:18ch;}
+    .lede{font-size:clamp(1.05rem,2.3vw,1.32rem);color:var(--mid);max-width:56ch;margin:0 0 1.2rem;}
+
+    /* WHAT TO EXPECT */
+    .expect{background:var(--white);border:1px solid var(--light);border-radius:14px;padding:1.6rem 1.7rem;margin:1.6rem 0 2.4rem;box-shadow:var(--shadow);}
+    .expect h2{margin:0 0 .9rem;font-size:1.15rem;font-weight:800;color:var(--dark);}
+    .principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem 1.4rem;}
+    .principle .pk{font-family:var(--mono);text-transform:uppercase;font-size:.64rem;letter-spacing:.06em;color:var(--brand);font-weight:700;margin:0 0 .2rem;}
+    .principle p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.5;}
+
+    /* DAY SECTIONS */
+    .day{margin:2.6rem 0;}
+    .dayhead{display:flex;align-items:baseline;gap:.8rem;border-bottom:2px solid var(--brand);padding-bottom:.5rem;margin-bottom:1.1rem;flex-wrap:wrap;}
+    .dayhead .dno{font-family:var(--mono);font-weight:800;font-size:.8rem;letter-spacing:.06em;color:var(--brand);text-transform:uppercase;}
+    .dayhead h2{margin:0;font-size:1.5rem;font-weight:800;letter-spacing:-.01em;}
+    .dayhead .ddate{font-family:var(--mono);font-size:.72rem;color:var(--mid);margin-left:auto;}
+    .daylede{color:var(--mid);font-size:.96rem;margin:0 0 1.1rem;max-width:64ch;}
+
+    a.card{display:block;text-decoration:none;color:inherit;background:var(--white);border:1px solid var(--light);border-left:5px solid var(--brand);
+      border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem 1.25rem;margin-bottom:.85rem;transition:transform .12s,box-shadow .12s;}
+    a.card:hover{transform:translateY(-2px);box-shadow:0 22px 50px rgba(20,35,52,.16);}
+    a.card .hrow{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+    a.card h3{margin:0 0 .25rem;font-size:1.12rem;}
+    a.card p{margin:0;color:var(--mid);font-size:.9rem;}
+    a.card .go{font-family:var(--mono);font-size:.7rem;color:var(--brand);font-weight:700;margin-top:.5rem;display:inline-block;}
+    .tag{font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.18rem .5rem;border-radius:20px;}
+    .tag.ready{background:#eef6f0;color:#2F7A46;border:1px solid #cfe6d5;}
+    .tag.essay{background:#e9f0f7;color:#28496A;border:1px solid #cdddec;}
+    .tag.wip{background:#fff4d6;color:#7a5a12;border:1px solid #ecd9a0;}
+    a.card.wip{border-left-color:#c9c9d2;}
+    a.card.soon{border-left-color:#c9c9d2;opacity:.6;pointer-events:none;}
+
+    footer{margin:2.5rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.82rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    @media (max-width:560px){ .dayhead .ddate{margin-left:0;width:100%;} }
   </style>
 </head>
 <body>
-  <div class="brandbar"><span class="brand">InfraWatch &middot; Day 1 visuals</span><span class="ctx">CIPE &middot; CoST</span></div>
+  <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
   <nav class="daynav">
-    <a class="active" href="./"><span class="d">2 Jun</span>Day 1</a>
+    <a class="active" href="./"><span class="d">cover</span>Start</a>
+    <a href="day1/"><span class="d">2 Jun</span>Day 1</a>
     <a href="day2/"><span class="d">3 Jun</span>Day 2</a>
+    <a href="day3/"><span class="d">4 Jun</span>Day 3</a>
   </nav>
-  <div class="draftbar">Working drafts, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+
   <main class="wrap">
-    <p class="label">Nairobi workshop &middot; Day 1</p>
-    <h1>Follow along on your own device.</h1>
-    <p class="sub">Quick interactive sketches from yesterday's discussions. Tap one to open it. They work best in landscape on a phone.</p>
+    <section class="hero">
+      <p class="eyebrow">Nairobi workshop &middot; 2&ndash;4 June 2026</p>
+      <h1>One question, walked through.</h1>
+      <p class="lede">These are not charts with captions. Each one is a short visual essay: a single question, taken apart in front of you, where the picture and the point never disagree. Built to be understood in the room and to survive being shared after it.</p>
+    </section>
 
-    <div class="qrpanel">
-      <img src="qr.png" alt="QR code to this page">
-      <div>
-        <p class="qt">Scan to follow on your phone</p>
-        <p class="qs">Point your camera at the code to open this page on your own device.</p>
-        <p class="qu">cengkuru.github.io/infrawatch-day1</p>
+    <section class="expect">
+      <h2>What to expect from these visuals</h2>
+      <div class="principles">
+        <div class="principle"><p class="pk">One question each</p><p>Every piece answers a single question. No dashboards, no piles of metrics. If it cannot be said in one line, it is not on the page.</p></div>
+        <div class="principle"><p class="pk">The picture argues the point</p><p>The visual is chosen so its first reading is the finding. You should not need a paragraph telling you not to misread it.</p></div>
+        <div class="principle"><p class="pk">You are walked, not quizzed</p><p>Scroll and the visual moves with you, zooming to whatever the text is talking about. The work of reading the chart is done for you.</p></div>
+        <div class="principle"><p class="pk">Honest about its limits</p><p>Where the evidence is thin, the piece says so on the chart itself, so the caveat travels even in a screenshot.</p></div>
       </div>
-    </div>
+    </section>
 
-    <p class="sectionlabel">Ready to present</p>
-    <a class="card" href="partner-vision-constellation-force.html">
-      <div class="hrow"><h3>Partner priorities, shared ground</h3><span class="tag ready">Ready</span></div>
-      <p>Five visions, one shared centre. Drag the bubbles, tap a country to read its vision.</p>
-      <span class="go">Open &rarr;</span></a>
+    <!-- DAY 1 -->
+    <section class="day" id="day1">
+      <div class="dayhead"><span class="dno">Day 1</span><h2>Reading the room</h2><span class="ddate">2 Jun 2026</span></div>
+      <p class="daylede">Where the partners actually stand, and what "foreign-funded" even means. The day the shared ground, and the disagreements, came into view.</p>
+      <a class="card" href="partner-vision-constellation-force.html">
+        <div class="hrow"><h3>Partner priorities, shared ground</h3><span class="tag ready">Ready</span></div>
+        <p>Five visions, one shared centre. Drag the bubbles; tap a country to read its vision.</p>
+        <span class="go">Open &rarr;</span></a>
+      <a class="card wip" href="foreign-funding-untangler.html">
+        <div class="hrow"><h3>What counts as foreign-funded?</h3><span class="tag wip">In progress</span></div>
+        <p>The same project, counted five different ways.</p>
+        <span class="go">Open &rarr;</span></a>
+      <a class="card wip" href="project-anatomy-sgr.html">
+        <div class="hrow"><h3>Anatomy of a project</h3><span class="tag wip">In progress</span></div>
+        <p>The railway, layer by layer.</p>
+        <span class="go">Open &rarr;</span></a>
+      <a class="card wip" href="modality-risk-map.html">
+        <div class="hrow"><h3>What each funding type hides</h3><span class="tag wip">In progress</span></div>
+        <p>Pick how a project is paid for; see what goes dark.</p>
+        <span class="go">Open &rarr;</span></a>
+    </section>
 
-    <p class="sectionlabel">Still in progress &middot; play, poke, tell me what is wrong</p>
-    <a class="card wip" href="foreign-funding-untangler.html">
-      <div class="hrow"><h3>What counts as foreign-funded?</h3><span class="tag wip">In progress</span></div>
-      <p>The same project, counted five different ways. The narrative is still being built.</p>
-      <span class="go">Open &rarr;</span></a>
+    <!-- DAY 2 -->
+    <section class="day" id="day2">
+      <div class="dayhead"><span class="dno">Day 2</span><h2>Can the value be tested?</h2><span class="ddate">3 Jun 2026</span></div>
+      <p class="daylede">The case studies and the NPV method. The day the question sharpened from "is this a good project?" to "are we even allowed to find out?"</p>
+      <a class="card" href="day2/disclosure-vs-npv-correlation.html">
+        <div class="hrow"><h3>No terms, no test</h3><span class="tag essay">Visual essay</span></div>
+        <p>Ten flagship projects. Watch which ones can even be judged, as the chart flies to each one. Disclosure does not make a project good; it makes value testable.</p>
+        <span class="go">Open &rarr;</span></a>
+      <a class="card" href="day2/">
+        <div class="hrow"><h3>All Day 2 visuals</h3><span class="tag ready">Index</span></div>
+        <p>The full set from the case-study day.</p>
+        <span class="go">Open &rarr;</span></a>
+    </section>
 
-    <a class="card wip" href="project-anatomy-sgr.html">
-      <div class="hrow"><h3>Anatomy of a project</h3><span class="tag wip">In progress</span></div>
-      <p>The railway, layer by layer. Rough draft, still finding its story.</p>
-      <span class="go">Open &rarr;</span></a>
+    <!-- DAY 3 -->
+    <section class="day" id="day3">
+      <div class="dayhead"><span class="dno">Day 3</span><h2>Whose voice decides</h2><span class="ddate">4 Jun 2026</span></div>
+      <p class="daylede">The partner day, and the strategic "so what" of the whole method: InfraWatch's real power is synthesizing the public's voice, and the thing that unlocks it is contract disclosure.</p>
+      <a class="card" href="day3/the-unlock.html">
+        <div class="hrow"><h3>The unlock</h3><span class="tag essay">Visual essay</span></div>
+        <p>Why a published contract is the switch that turns data into accountability. From sealed terms to a public that can finally speak.</p>
+        <span class="go">Open &rarr;</span></a>
+      <a class="card" href="day3/">
+        <div class="hrow"><h3>All Day 3 visuals</h3><span class="tag ready">Index</span></div>
+        <p>The full set from the final day.</p>
+        <span class="go">Open &rarr;</span></a>
+    </section>
 
-    <a class="card wip" href="modality-risk-map.html">
-      <div class="hrow"><h3>What each funding type hides</h3><span class="tag wip">In progress</span></div>
-      <p>Pick how a project is paid for, see what goes dark. Early sketch, not final.</p>
-      <span class="go">Open &rarr;</span></a>
-
-    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day 1, 2 Jun 2026. Working drafts by Michael Cengkuru, CoST. Tell me where I have you wrong.</p>
+    <footer>
+      <p><strong>InfraWatch Nairobi</strong>, 2&ndash;4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Working visuals by Michael Cengkuru, CoST. Treat figures as reported; confirm against source documents.</p>
+    </footer>
   </main>
 </body>
 </html>

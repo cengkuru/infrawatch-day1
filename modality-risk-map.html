@@ -45,6 +45,26 @@
     .country.lit{fill:#28496A;opacity:1;}
     .marker{transition:opacity .5s,r .5s;}
     .mk-dot{fill:#3fd07a;} .mk-ring{fill:none;stroke:#3fd07a;stroke-width:1.5;opacity:.5;}
+    /* SVG fallback heartbeat */
+    .mk-ring{transform-box:fill-box;transform-origin:center;animation:hb 1.8s ease-out infinite;}
+    @keyframes hb{0%{transform:scale(.5);opacity:.7}70%{transform:scale(1.6);opacity:0}100%{opacity:0}}
+    /* Mapbox heartbeat marker */
+    .mbmarker{position:relative;width:16px;height:16px;}
+    .mbmarker .mbdot{position:absolute;inset:0;margin:auto;width:11px;height:11px;border-radius:50%;background:#3fd07a;box-shadow:0 0 8px rgba(63,208,122,.6);}
+    .mbmarker .mbpulse{position:absolute;inset:0;margin:auto;width:11px;height:11px;border-radius:50%;background:#3fd07a;opacity:.6;animation:mbhb 1.8s ease-out infinite;}
+    .mbmarker.active .mbpulse{animation-duration:1.1s;}
+    .mbmarker.active .mbdot{box-shadow:0 0 14px 2px rgba(63,208,122,.9);}
+    @keyframes mbhb{0%{transform:scale(1);opacity:.6}70%{transform:scale(3.4);opacity:0}100%{opacity:0}}
+    @media (prefers-reduced-motion:reduce){ .mk-ring,.mbmarker .mbpulse{animation:none;} }
+    /* hand-drawn scribble pointing from the panel to the active dot */
+    .scribble{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:visible;}
+    .scribble path{fill:none;stroke:#9fd6b3;stroke-width:2.2;stroke-linecap:round;
+      stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));}
+    .scribble path.draw{animation:scribbledraw .7s ease forwards;}
+    @keyframes scribbledraw{to{stroke-dashoffset:0}}
+    .scribble .arrowhead{fill:#9fd6b3;opacity:0;transition:opacity .3s .5s;}
+    .scribble.show .arrowhead{opacity:1;}
+    @media (prefers-reduced-motion:reduce){ .scribble path{stroke-dashoffset:0;animation:none;} }
 
     /* the overlay panel (the secret callout, pinned, updates per stop) */
     .panel{position:absolute;left:clamp(1rem,4vw,3rem);top:50%;transform:translateY(-50%);
@@ -75,13 +95,13 @@
     @media (max-width:820px){ .jumprail{display:none;} }
 
     /* the scrolling narrative steps drive the camera */
+    /* the pinned panel owns the LEFT; every narrative card sits on the RIGHT so they never overlap */
     .steps{position:relative;z-index:4;}
-    .step{min-height:100vh;display:flex;align-items:center;padding:0 1.4rem;pointer-events:none;}
-    .step .card{pointer-events:auto;max-width:430px;background:rgba(12,22,34,.82);backdrop-filter:blur(8px);
+    .step{min-height:100vh;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(1rem,4vw,3rem);pointer-events:none;}
+    .step .card{pointer-events:auto;width:min(40vw,430px);background:rgba(12,22,34,.86);backdrop-filter:blur(8px);
       border:1px solid #22384f;border-radius:14px;padding:1.3rem 1.5rem;opacity:.2;transform:translateY(16px);
       transition:opacity .6s,transform .6s;box-shadow:0 18px 50px rgba(0,0,0,.4);}
     .step.on .card{opacity:1;transform:none;}
-    .step.right{justify-content:flex-end;}
     .step .eyebrow{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 .6rem;color:#7fa8d6;}
     .step .eyebrow.gate{color:#3fd07a;} .step .eyebrow.hide{color:#f0b860;} .step .eyebrow.wrong{color:#e0848c;} .step .eyebrow.rec{color:#7fc89c;}
     .step h2{font-size:clamp(1.5rem,3.6vw,2.1rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#fff;margin:0 0 .5rem;}
@@ -104,9 +124,8 @@
     .step.room .meta .rm.src{font-size:.7rem;color:#7fa0c4;} .step.room .meta .rm.src i{color:#9fd6b3;font-style:normal;}
 
     @media (max-width:820px){
-      .step{min-height:auto;padding:8vh 1.1rem;}
-      .step .card{max-width:100%;opacity:1;transform:none;}
-      .step.right{justify-content:flex-start;}
+      .step{min-height:auto;padding:8vh 1.1rem;justify-content:flex-start;}
+      .step .card{width:100%;opacity:1;transform:none;}
     }
     @media (prefers-reduced-motion:reduce){ .hero .cue{animation:none;} .step .card{opacity:1;transform:none;} }
 
@@ -117,15 +136,26 @@
     .turn .te{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--brand);margin:0 0 .8rem;}
     .turn h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em;color:var(--dark);margin:0 auto;max-width:22ch;}
     .lead{color:var(--mid);max-width:62ch;margin:1rem auto 1.6rem;text-align:center;}
-    .triage{border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);background:var(--white);}
-    .triage .th{background:var(--brand-deep);color:#fff;padding:1.1rem 1.3rem;}
-    .triage .th .t{font-weight:800;font-size:1.08rem;} .triage .th .s{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.25rem;}
-    .trow{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:.7rem;align-items:center;padding:.9rem 1.3rem;border-bottom:1px solid var(--light);}
-    .trow:last-child{border-bottom:none;}
-    .trow .money{font-weight:700;font-size:.92rem;color:var(--dark);} .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.74rem;}
-    .trow .blind{font-size:.84rem;color:var(--amber);font-weight:600;}
-    .trow .rec{color:var(--green);font-weight:700;font-size:.86rem;font-family:var(--mono);}
-    @media (max-width:560px){ .trow{grid-template-columns:1fr;gap:.2rem;} }
+    .triage{width:100%;border-collapse:collapse;border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);background:var(--white);}
+    .triage caption.th{background:var(--brand-deep);color:#fff;padding:1.1rem 1.3rem;text-align:left;}
+    .triage caption.th .t{font-weight:800;font-size:1.08rem;}
+    .triage thead th{background:var(--surface);color:var(--mid);font-family:var(--mono);font-size:.62rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:.7rem 1rem;border-bottom:2px solid var(--light);}
+    .triage tbody td{padding:.85rem 1rem;border-bottom:1px solid var(--light);vertical-align:top;font-size:.9rem;}
+    .triage tbody tr:last-child td{border-bottom:none;}
+    .triage .money{font-weight:800;color:var(--brand);} .triage .proj{color:var(--dark);}
+    .triage .blind{color:var(--amber);font-weight:600;} .triage .rec{color:var(--green);font-weight:700;font-family:var(--mono);font-size:.84rem;}
+    @media (max-width:600px){
+      .triage thead{display:none;}
+      .triage tbody td{display:block;border:none;padding:.2rem 1rem;}
+      .triage tbody td::before{content:attr(data-l) ": ";font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);display:block;}
+      .triage tbody tr{display:block;padding:.8rem 0;border-bottom:1px solid var(--light);}
+      .triage tbody tr:last-child{border-bottom:none;}
+    }
+    .dl{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.9rem;}
+    .dlbtn{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.03em;color:var(--brand);background:#fff;
+      border:1px solid var(--brand);border-radius:99px;padding:.5rem 1rem;cursor:pointer;transition:.15s;}
+    .dlbtn:hover{background:var(--brand);color:#fff;}
     details.drawer{margin:1.8rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;color:var(--dark);}
     details.drawer>summary::-webkit-details-marker{display:none;}
@@ -163,9 +193,10 @@
         <!-- country markers (positioned on the silhouette, approximate) -->
         <g id="markers"></g>
       </svg>
+      <svg class="scribble" id="scribble" aria-hidden="true" preserveAspectRatio="none"></svg>
       <nav class="jumprail" id="jumprail" aria-label="jump to a country"></nav>
       <div class="panel" id="panel">
-        <span class="badge" id="pBadge">MONEY TYPE 01 / 05</span>
+        <span class="badge" id="pBadge">how it was financed</span>
         <div class="ft" id="pFt">Sovereign loan</div>
         <div class="pj"><span class="flag" id="pFlag">KE</span><span id="pPj">The SGR</span></div>
         <div class="row hide"><span class="k">hides</span><span class="v" id="pHide">the real debt</span></div>
@@ -185,22 +216,31 @@
         <h2>The financing type predicted the blind spot every time.</h2>
         <p class="lead">Different countries, different financing routes, one diagnostic rule: the money type tells you which record to ask for first. A comparison is worthless without a narrative, and a narrative is worthless until the data is humanized, that was this room's doctrine. Here is the field tool it produces.</p>
       </div>
-      <div class="triage">
-        <div class="th"><div class="t">Use this before asking for disclosure</div><div class="s">money type &rarr; hidden risk &rarr; the record to demand first</div></div>
-        <div class="trow"><div class="money">Sovereign loan<small>Kenya, the SGR</small></div><div class="blind">the real debt</div><div class="rec">loan terms + guarantee</div></div>
-        <div class="trow"><div class="money">Equity / project finance<small>Ghana, Sankofa gas</small></div><div class="blind">who really gains</div><div class="rec">beneficial ownership + offtake</div></div>
-        <div class="trow"><div class="money">PPP / concession<small>Kenya, Nairobi Expressway</small></div><div class="blind">the long-term bill</div><div class="rec">contract + fiscal commitments</div></div>
-        <div class="trow"><div class="money">EPC + finance<small>Nigeria, NASENI solar</small></div><div class="blind">the buried mark-up</div><div class="rec">itemised cost breakdown</div></div>
-        <div class="trow"><div class="money">Concessional loan<small>Ethiopia, Addis light rail</small></div><div class="blind">the real terms</div><div class="rec">source + conditions + tender</div></div>
-      </div>
+      <table class="triage" id="triagetable">
+        <caption class="th"><span class="t">Use this before asking for disclosure</span></caption>
+        <thead>
+          <tr><th>If the money is...</th><th>The project that showed it</th><th>What it hides</th><th>Ask for this record first</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-l="If the money is" class="money">Sovereign loan</td><td data-l="Shown by" class="proj">Kenya, the SGR</td><td data-l="It hides" class="blind">the real debt</td><td data-l="Ask for" class="rec">loan terms + guarantee</td></tr>
+          <tr><td data-l="If the money is" class="money">Equity / project finance</td><td data-l="Shown by" class="proj">Ghana, Sankofa gas</td><td data-l="It hides" class="blind">who really gains</td><td data-l="Ask for" class="rec">beneficial ownership + offtake</td></tr>
+          <tr><td data-l="If the money is" class="money">PPP / concession</td><td data-l="Shown by" class="proj">Kenya, Nairobi Expressway</td><td data-l="It hides" class="blind">the long-term bill</td><td data-l="Ask for" class="rec">contract + fiscal commitments</td></tr>
+          <tr><td data-l="If the money is" class="money">EPC + finance</td><td data-l="Shown by" class="proj">Nigeria, NASENI solar</td><td data-l="It hides" class="blind">the buried mark-up</td><td data-l="Ask for" class="rec">itemised cost breakdown</td></tr>
+          <tr><td data-l="If the money is" class="money">Concessional loan</td><td data-l="Shown by" class="proj">Ethiopia, Addis light rail</td><td data-l="It hides" class="blind">the real terms</td><td data-l="Ask for" class="rec">source + conditions + tender</td></tr>
+        </tbody>
+      </table>
 
-      <p class="tokennote" id="tokennote">Map note: running on the stylized Africa fallback. To enable the live Mapbox basemap, append <b>?mbtoken=pk...</b> to the URL with your own public, domain-restricted Mapbox token, or set window.MAPBOX_TOKEN in a mapbox-token.js config. Never commit a secret (sk.) token.</p>
+      <p class="tokennote" id="tokennote">Map note: running on the stylized Africa fallback. To enable the live Mapbox basemap, append <b>?mbtoken=pk...</b> to the URL with your own public, domain-restricted Mapbox token. Never commit a secret (sk.) token.</p>
 
       <details class="drawer">
         <summary>Where this comes from, and where it maps</summary>
         <div class="drawer-body">
           <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The projects were presented by the country teams; the blind-spot to record matches are illustrative of the disclosure pattern. Confirm exact field labels against the CoST IDS v2.0, and figures against loan agreements, before external use.</p>
           <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that reveals it. A request to publish can be aimed precisely at the one fact the financing was always going to hide.</p>
+          <p><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely.</p>
+          <div class="dl"><button class="dlbtn" id="dlJson" type="button">Download JSON</button>
+            <button class="dlbtn" id="dlCsv" type="button">Download CSV</button>
+            <button class="dlbtn" id="dlXls" type="button">Download Excel</button></div>
         </div>
       </details>
 
@@ -291,10 +331,19 @@
         panel=document.getElementById("panel"),
         markersG=document.getElementById("markers"),
         jumprail=document.getElementById("jumprail"),
+        scribble=document.getElementById("scribble"),
         svgmap=document.getElementById("svgmap"), africa=document.getElementById("africa");
     var pBadge=document.getElementById("pBadge"),pFt=document.getElementById("pFt"),
         pFlag=document.getElementById("pFlag"),pPj=document.getElementById("pPj"),
         pHide=document.getElementById("pHide"),pRec=document.getElementById("pRec");
+    var mbMarkers=[];
+
+    // click a country (rail or pulsing dot): fly the camera there AND scroll to its story
+    function jumpToCase(i){
+      var t=steps.querySelector('.step[data-i="'+i+'"][data-act="gate"]');
+      if(t) t.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
+    }
+    window.jumpToCase=jumpToCase;
 
     // build markers on the fallback svg
     CASES.forEach(function(c,i){
@@ -312,8 +361,9 @@
       s.innerHTML='<div class="card">'+html+'</div>'; steps.appendChild(s); return s;
     }
     CASES.forEach(function(c,i){
-      // gate (arrival in a new country / money type)
-      step('<p class="eyebrow gate">money type 0'+(i+1)+' / 05 &middot; '+c.country+'</p>'+
+      // gate (arrival in a new country): named "stop N of 5" in plain words
+      var ord=["first","second","third","fourth","fifth"][i];
+      step('<p class="eyebrow gate">the '+ord+' project &middot; '+c.country+'</p>'+
         '<h2>'+c.ft+'</h2><p class="gsub">'+c.project+'. '+c.ftNote+'.</p>',
         '', i, 'gate');
       step('<p class="eyebrow">the project</p><h2 style="font-size:clamp(1.3rem,3vw,1.7rem)">'+c.human+'</h2>','',i);
@@ -334,14 +384,11 @@
       '<p>The money type told you which record to ask for, every time. This is not one country\'s problem. It is a continental disclosure pattern.</p></div>';
     steps.appendChild(synth);
 
-    // jump rail
+    // jump rail: clicking a country flies the camera there AND scrolls to its story
     CASES.forEach(function(c,i){
       var bn=document.createElement("button"); bn.type="button"; bn.id="jr-"+i;
       bn.textContent=c.country+" "+c.project;
-      bn.addEventListener("click",function(){
-        var t=steps.querySelector('.step[data-i="'+i+'"][data-act="gate"]');
-        if(t) t.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
-      });
+      bn.addEventListener("click",function(){ lightCountry(i); jumpToCase(i); });
       jumprail.appendChild(bn);
     });
     var jrButtons=[].slice.call(jumprail.children);
@@ -354,11 +401,13 @@
         map=new mapboxgl.Map({container:"map",style:"mapbox://styles/mapbox/dark-v11",
           center:[20,3],zoom:2.4,interactive:false,attributionControl:true});
         map.on("load",function(){ svgmap.style.opacity="0"; svgmap.style.pointerEvents="none"; });
-        // add project markers
-        CASES.forEach(function(c){
-          var el=document.createElement("div");
-          el.style.cssText="width:14px;height:14px;border-radius:50%;background:#3fd07a;box-shadow:0 0 0 4px rgba(63,208,122,.3)";
-          new mapboxgl.Marker(el).setLngLat([c.lng,c.lat]).addTo(map);
+        // pulsing heartbeat markers, one per project
+        CASES.forEach(function(c,i){
+          var el=document.createElement("div"); el.className="mbmarker";
+          el.innerHTML='<span class="mbpulse"></span><span class="mbdot"></span>';
+          el.style.cursor="pointer";
+          el.addEventListener("click",function(){ jumpToCase(i); });
+          mbMarkers[i]=new mapboxgl.Marker({element:el,anchor:"center"}).setLngLat([c.lng,c.lat]).addTo(map);
         });
       }catch(e){ map=null; }
     }
@@ -394,22 +443,75 @@
     }
 
     function lightCountry(ci){
-      // markers
+      // svg fallback markers
       CASES.forEach(function(c,i){ var m=document.getElementById("mk-"+i); if(m) m.setAttribute("opacity", i===ci?"1":"0.28"); });
+      // mapbox markers: the active one beats faster + brighter
+      mbMarkers.forEach(function(mk,i){ if(mk&&mk.getElement) mk.getElement().classList.toggle("active", i===ci); });
       jrButtons.forEach(function(b,i){ b.classList.toggle("on", i===ci); });
       if(ci>=0){
         var c=CASES[ci];
-        pBadge.textContent="MONEY TYPE 0"+(ci+1)+" / 05";
+        pBadge.textContent="how it was financed";
         pFt.textContent=c.ft; pFlag.textContent=c.country; pPj.textContent=c.project;
         pHide.textContent=c.hidden; pRec.textContent=c.rec;
         panel.classList.add("show");
         flyTo(c);
+        drawScribble(ci);
       } else {
         panel.classList.remove("show");
+        clearScribble();
         CASES.forEach(function(_,i){ var m=document.getElementById("mk-"+i); if(m) m.setAttribute("opacity","1"); });
         flyOut();
       }
     }
+
+    // hand-drawn scribble from the panel edge to the active pulsing dot
+    var scribbleT=null;
+    function dotScreenXY(ci){
+      if(map && mbMarkers[ci]){ var r=mbMarkers[ci].getElement().getBoundingClientRect(); return [r.left+r.width/2, r.top+r.height/2]; }
+      // svg fallback: project the marker's svg coords to screen
+      var m=document.getElementById("mk-"+ci); if(!m) return null;
+      var r=m.getBoundingClientRect(); return [r.left+r.width/2, r.top+r.height/2];
+    }
+    function clearScribble(){ scribble.classList.remove("show"); scribble.innerHTML=""; }
+    function drawScribble(ci){
+      if(reduceMotion){ clearScribble(); return; }
+      // wait for the camera to settle before pointing
+      if(scribbleT) clearTimeout(scribbleT);
+      clearScribble();
+      scribbleT=setTimeout(function(){
+        var stage=scribble.parentElement.getBoundingClientRect();
+        scribble.setAttribute("viewBox","0 0 "+stage.width+" "+stage.height);
+        var p=panel.getBoundingClientRect();
+        // start at the panel's right edge, mid-height
+        var sx=p.right-stage.left+6, sy=(p.top+p.height*0.5)-stage.top;
+        var d=dotScreenXY(ci); if(!d) return;
+        var ex=d[0]-stage.left, ey=d[1]-stage.top;
+        // a loose, hand-drawn wobbly curve toward the dot, stopping just short
+        var mx=(sx+ex)/2, my=(sy+ey)/2;
+        var wob=(ey>sy?-1:1)*18;
+        var dist=Math.hypot(ex-sx,ey-sy); if(dist<40) return;
+        var back=14/dist; // stop ~14px short of the dot
+        var tx=ex-(ex-sx)*back, ty=ey-(ey-sy)*back;
+        var path="M "+sx+" "+sy+
+          " C "+(sx+(mx-sx)*0.5)+" "+(sy+wob)+", "+(mx-10)+" "+(my-wob*1.4)+", "+mx+" "+my+
+          " S "+(tx-12)+" "+(ty+wob)+", "+tx+" "+ty;
+        var ns="http://www.w3.org/2000/svg";
+        var pe=document.createElementNS(ns,"path"); pe.setAttribute("d",path);
+        var len=Math.round(dist*1.4); pe.style.strokeDasharray=len; pe.style.strokeDashoffset=len;
+        scribble.appendChild(pe);
+        // arrowhead at the dot
+        var ang=Math.atan2(ty-my,tx-mx);
+        var a1=ang+2.5, a2=ang-2.5, hl=11;
+        var ah=document.createElementNS(ns,"path");
+        ah.setAttribute("class","arrowhead");
+        ah.setAttribute("d","M "+tx+" "+ty+" L "+(tx+Math.cos(a1)*hl)+" "+(ty+Math.sin(a1)*hl)+
+          " L "+(tx+Math.cos(a2)*hl)+" "+(ty+Math.sin(a2)*hl)+" Z");
+        scribble.appendChild(ah);
+        void pe.getBBox(); pe.classList.add("draw"); scribble.classList.add("show");
+      }, map?1500:1150);
+    }
+    // redraw scribble on resize so it keeps pointing at the dot
+    window.addEventListener("resize",function(){ if(lastCase>=0) drawScribble(lastCase); });
 
     // fade steps in
     var inView=new IntersectionObserver(function(es){
@@ -431,6 +533,40 @@
       }
     },{threshold:[0,.25,.5,.75,1]});
     tracked.forEach(function(t){ driver.observe(t); });
+
+    // ===== open-data downloads (generated from the same CASES so they never drift) =====
+    var DATA=CASES.map(function(c){ return {
+      country:c.country, project:c.project, project_full:c.projectFull,
+      funding_type:c.ft, hidden_risk:c.hidden, wrong_ask:c.wrong, record_to_demand:c.rec,
+      presenter:c.presenter, source:c.source, confidence:c.conf,
+      lat:c.lat, lng:c.lng
+    }; });
+    var COLS=["country","project","project_full","funding_type","hidden_risk","wrong_ask","record_to_demand","presenter","source","confidence","lat","lng"];
+    function dl(name,mime,text){
+      var blob=new Blob([text],{type:mime}); var url=URL.createObjectURL(blob);
+      var a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+      document.body.removeChild(a); setTimeout(function(){ URL.revokeObjectURL(url); },1500);
+    }
+    function csvCell(v){ v=String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+    document.getElementById("dlJson").addEventListener("click",function(){
+      dl("infrawatch-disclosure-risk-map.json","application/json",JSON.stringify(DATA,null,2));
+    });
+    document.getElementById("dlCsv").addEventListener("click",function(){
+      var rows=[COLS.join(",")].concat(DATA.map(function(r){ return COLS.map(function(k){ return csvCell(r[k]); }).join(","); }));
+      dl("infrawatch-disclosure-risk-map.csv","text/csv",rows.join("\n"));
+    });
+    document.getElementById("dlXls").addEventListener("click",function(){
+      // SpreadsheetML 2003: a real .xls Excel opens natively, no library needed
+      function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+      var head="<Row>"+COLS.map(function(k){ return '<Cell><Data ss:Type="String">'+esc(k)+'</Data></Cell>'; }).join("")+"</Row>";
+      var body=DATA.map(function(r){ return "<Row>"+COLS.map(function(k){
+        var num=(k==="lat"||k==="lng"); return '<Cell><Data ss:Type="'+(num?"Number":"String")+'">'+esc(r[k])+'</Data></Cell>'; }).join("")+"</Row>"; }).join("");
+      var xml='<?xml version="1.0"?>'+
+        '<?mso-application progid="Excel.Sheet"?>'+
+        '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'+
+        '<Worksheet ss:Name="Disclosure risk map"><Table>'+head+body+'</Table></Worksheet></Workbook>';
+      dl("infrawatch-disclosure-risk-map.xls","application/vnd.ms-excel",xml);
+    });
 
     lightCountry(0);
   })();

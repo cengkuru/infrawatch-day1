@@ -93,6 +93,19 @@
     .callout p{margin:.4rem 0;color:#ddd;font-size:.95rem;}
     .callout strong{color:var(--cost-white);}
 
+    /* METHODOLOGY DRAWER */
+    .drawer{margin:2.5rem 0 0;border:1px solid var(--cost-light);border-radius:var(--radius);background:var(--cost-white);}
+    .drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;color:var(--cost-dark);display:flex;align-items:center;gap:.6rem;}
+    .drawer>summary::-webkit-details-marker{display:none;}
+    .drawer>summary::before{content:"▸";color:var(--cost-red);font-size:.9rem;transition:transform .15s;}
+    .drawer[open]>summary::before{transform:rotate(90deg);}
+    .drawer>summary:hover{color:var(--cost-red);}
+    .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--cost-mid);border-top:1px solid var(--cost-light);}
+    .drawer-body p{margin:1rem 0 0;}
+    .drawer-body strong{color:var(--cost-dark);}
+    .drawer-body ol{margin:.6rem 0 0;padding-left:1.3rem;}
+    .drawer-body li{margin:.5rem 0;}
+
     footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--cost-light);font-size:.8rem;color:var(--cost-mid);}
     footer code{font-family:var(--mono);background:var(--cost-light);padding:.1rem .35rem;border-radius:3px;}
   </style>
@@ -205,7 +218,7 @@
 
     <!-- ===================== OFF-DIAGONAL ===================== -->
     <h2><span class="num">02</span>The off-diagonal cases are the lesson</h2>
-    <p class="lead">A correlation coefficient on ten self-coded points would be statistical theatre. The defensible reading is to narrate the projects that <em>break</em> the expected pattern.</p>
+    <p class="lead">With only ten hand-scored projects, the honest move is not to draw a trend line through them. It is to look at the projects that <em>break</em> the expected pattern, because that is where the real lesson sits.</p>
 
     <div class="cases">
       <div class="case tr">
@@ -257,38 +270,34 @@
     </div>
 
     <!-- ===================== THE HONEST FINDING ===================== -->
-    <h2><span class="num">04</span>What you can honestly say in the room</h2>
-    <p class="lead">Not "transparency correlates with value, r = 0.x." A coefficient on ten analyst-coded points would be statistical theatre. Say this instead, and notice the headline claim is about <em>assessability</em>, not prediction:</p>
+    <h2><span class="num">04</span>What this probe actually shows</h2>
+    <p class="lead">Three things the ten projects support. None of them is "disclosure predicts value." The finding is narrower, and sharper:</p>
 
     <div class="callout">
-      <h3>Three claims this artifact supports</h3>
-      <p><strong>1. Disclosure is the binding constraint on assessment, not on value.</strong> The clearest pattern is not that opaque projects are bad, it is that opaque projects (NASENI) <em>cannot be judged at all</em>. You cannot run NPV on terms you do not have. That is the case for InfraWatch's disclosure leg in one sentence: the CoST IDS data points are what make the NPV toolkit usable.</p>
-      <p><strong>2. The apparent disclosure-to-value slope is mostly funder type.</strong> PRC/commercial money clusters low-disclosure; multilateral money clusters high-disclosure-and-better-terms. Transparency rides along with funder discipline; isolating its own effect needs a far larger, funder-matched sample.</p>
-      <p><strong>3. Transparency diagnoses, it does not cure.</strong> Sankofa proves disclosure surfaces a poisoned chalice without preventing it. The value of disclosure is that it lets NPV register the poison, exactly Kwame's ruling that the limit is disclosure, not the math.</p>
+      <h3>Three claims</h3>
+      <p><strong>1. Disclosure decides whether a project can be judged, not whether it is good.</strong> The clearest pattern is not that hidden projects are bad. It is that a hidden project like NASENI <em>cannot be assessed at all</em>: you cannot weigh a deal's costs against its benefits when the financing terms are not public. Disclosure is the entry ticket for testing value.</p>
+      <p><strong>2. The upward slope is mostly about who paid, not about transparency.</strong> Multilateral money tends to come with open contracts <em>and</em> better terms; PRC and commercial money tends to come with neither. The two travel together, so the chart makes disclosure look more powerful than this small sample can prove. Separating disclosure's own effect would need a far larger sample that holds the funder fixed.</p>
+      <p><strong>3. Disclosure diagnoses; it does not cure.</strong> Sankofa is the proof: its terms were public, so the bad deal could be seen and measured, and it went ahead anyway. Transparency let the poison be detected. It did not stop anyone drinking it. The limit on judging a deal is what gets published, not the arithmetic.</p>
     </div>
 
-    <h2><span class="num">05</span>What would make this empirical</h2>
-    <p class="lead">If you want a real correlation rather than a teaching artifact, the path is:</p>
-    <div class="cases">
-      <div class="case">
-        <h4>Step 1</h4>
-        <p class="who">Pull genuine IDS scores</p>
-        <p>Use the Ghana OC4IDS portal (STMA, 28 projects with real disclosure data) rather than coding headline megaprojects by hand. Small municipal works, but genuinely measured.</p>
+    <details class="drawer">
+      <summary>Methodology and how this would be made rigorous</summary>
+      <div class="drawer-body">
+        <p><strong>What this is.</strong> A teaching probe, not an empirical finding. Ten projects, scored by an analyst from public records (AidData, press, the Nairobi Day-2 case studies), not from a completed InfraWatch assessment or from loan-agreement-grade cash flows. It is meant to show <em>how</em> disclosure and value relate, not to measure the strength of that relationship. A correlation coefficient on ten hand-coded points would imply a precision the data does not have.</p>
+
+        <p><strong>How it would be made rigorous.</strong> Three steps turn this from a teaching artifact into evidence:</p>
+        <ol>
+          <li><strong>Use measured disclosure, not hand-coded.</strong> Pull real IDS scores from a live portal (the Ghana OC4IDS portal covers STMA, 28 projects with genuine disclosure data) instead of coding headline megaprojects by judgement. Smaller works, but actually measured.</li>
+          <li><strong>Hold the funder fixed.</strong> Compare projects with the same funder type and varying disclosure (e.g. all PRC). Only then does the remaining disclosure variation mean anything, because the funder confound is held constant.</li>
+          <li><strong>Compute value from the agreements.</strong> Real cash flows from the actual loan agreements, discount rate set to the government long-term bond rate at signing, social value capped at 15%. Mark every point as computed or estimated so the gap between the two stays visible.</li>
+        </ol>
+
+        <p><strong>Method, in full.</strong> InfraWatch, developed by CIPE (Center for International Private Enterprise), with the NPV toolkit led by IEA-Kenya. It runs three legs: a transparency assessment that maps to the CoST IDS data points, political-economy analysis (PEA), and net present value (NPV). This probe uses the disclosure and NPV legs only. Disclosure axis = analyst coding of CoST IDS data-point coverage from reported records. Value-signal axis = the InfraWatch / IEA-Kenya 16-step NPV toolkit (discount rate = government long-term bond at signing, social value capped 15%) applied to reported terms where they exist, and an outcome-based verdict where they do not. Project inputs from the Nairobi Day-2 case studies (AidData + press; treat as reported, confirm against loan agreements). The NASENI 85% figure is officially attributed but not officially published. n=10.</p>
       </div>
-      <div class="case">
-        <h4>Step 2</h4>
-        <p class="who">Funder-match the sample</p>
-        <p>Hold funder type fixed (e.g. all PRC, varying disclosure) to break the confound. Only then does residual disclosure variation mean anything.</p>
-      </div>
-      <div class="case">
-        <h4>Step 3</h4>
-        <p class="who">Compute NPV on agreements</p>
-        <p>Discount = govt bond rate at signing, real cash flows from loan agreements, social value capped 15%. Mark computed vs coded so the gap stays visible.</p>
-      </div>
-    </div>
+    </details>
 
     <footer>
-      <p><strong>Methodology: InfraWatch, developed by CIPE</strong> (Center for International Private Enterprise), with the NPV toolkit led by IEA-Kenya. InfraWatch runs three legs: a transparency assessment that <strong>maps to the CoST IDS</strong> data points, political-economy analysis (PEA), and net present value (NPV). This probe uses the disclosure and NPV legs only. Disclosure axis = analyst coding of CoST IDS data-point coverage from reported records; NPV axis = the InfraWatch / IEA-Kenya 16-step toolkit applied to reported financing terms (discount rate = govt long-term bond at signing, social value capped 15%). Project inputs sourced from the Nairobi Day-2 case studies (AidData + press; treat as reported, confirm against loan agreements). NASENI 85% figure is officially-attributed-but-not-officially-published. n=10. <strong>Not an empirical finding; a teaching and hypothesis artifact.</strong></p>
+      <p>InfraWatch (CIPE) · NPV toolkit led by IEA-Kenya · disclosure maps to the CoST IDS. Teaching and hypothesis artifact, not an empirical finding.</p>
     </footer>
   </div>
 </body>

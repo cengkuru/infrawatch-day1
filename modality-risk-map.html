@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What each funding source hides, and the one record that reveals it</title>
-  <meta name="description" content="Every way of financing infrastructure has its own blind spot, and one record that reveals it. A transforming-chart visual essay from InfraWatch Nairobi, Day 2.">
+  <title>Pick the money. Find the blind spot.</title>
+  <meta name="description" content="A funding structure is a prediction engine: it tells you which fact will disappear, and which record to demand first. An interactive disclosure scanner from InfraWatch Nairobi, Day 2.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
@@ -14,166 +14,153 @@
     }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
-    .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
-    .hero{padding:3rem 0 1.4rem;}
+    .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem;}
+
+    /* HERO */
+    .hero{padding:3rem 0 1rem;}
     .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
     .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:17ch;}
+    h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:15ch;}
     h1 .accent{color:var(--brand);}
-    .lede{font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--mid);max-width:54ch;margin:0;}
-    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
-    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+    .lede{font-size:clamp(1.05rem,2.3vw,1.28rem);color:var(--mid);max-width:54ch;margin:0;}
+    .lede b{color:var(--dark);font-weight:700;}
 
-    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
-    .chartcol{position:sticky;top:3vh;}
-    .stage-inner{background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:0 16px 44px rgba(20,35,52,.12);padding:1.2rem;}
-    svg{width:100%;height:auto;display:block;}
-    .scenecap{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    /* SCANNER */
+    .scanner{background:var(--white);border:1px solid var(--light);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.13);margin:2.2rem 0 1rem;overflow:hidden;}
+    .progress{display:flex;gap:.3rem;padding:1rem 1.2rem 0;}
+    .pdot{flex:1;height:5px;border-radius:99px;background:var(--light);transition:background .3s;}
+    .pdot.done{background:var(--green);} .pdot.cur{background:var(--brand);}
+    .scanhead{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem 1.3rem .2rem;}
+    .scanhead .step{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);}
+    .scanhead .proj{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);font-weight:700;}
+    .scanbody{padding:.6rem 1.3rem 1.3rem;}
 
-    .anncol{position:relative;}
-    .ann{min-height:84vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;}
-    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.25rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
-    .ann.on .anncard{opacity:1;transform:translateX(0);}
-    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
-    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;color:var(--dark);}
-    .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
-    .anncard strong{color:var(--dark);}
-    .anncard .dark{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem .3rem .5rem 0;padding:.12rem .4rem;border-radius:4px;background:#1E2A38;color:#fff;}
-    .anncard .field{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem;padding:.12rem .4rem;border-radius:4px;background:#eef6f0;color:#1B7A3D;}
+    /* identical project card */
+    .projcard{display:flex;align-items:center;gap:1rem;background:var(--surface);border:1px solid var(--light);border-radius:12px;padding:1rem 1.2rem;margin:.4rem 0 1rem;}
+    .projcard .ic{width:46px;height:46px;flex:0 0 auto;}
+    .projcard .pt{margin:0;font-weight:800;font-size:1.15rem;}
+    .projcard .ps{margin:.1rem 0 0;font-size:.84rem;color:var(--mid);}
+    .finance-badge{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--brand-deep);background:#e9f0f7;border:1px solid #cdddec;border-radius:99px;padding:.2rem .6rem;margin-left:auto;}
 
-    /* chart row elements */
-    .rowtype{font-size:12px;font-weight:700;fill:var(--dark);font-family:var(--sans);}
-    .cell{transition:opacity .6s;}
-    .darkcell{transition:opacity .6s;}
-    .fieldcell{transition:opacity .7s;}
-    .celltext{font-family:var(--mono);font-weight:700;}
+    .qlabel{font-size:1rem;font-weight:700;color:var(--dark);margin:.2rem 0 .8rem;}
+    .opts{display:grid;gap:.55rem;}
+    .opt{display:flex;align-items:center;gap:.7rem;text-align:left;width:100%;background:var(--white);border:1.5px solid var(--light);border-radius:10px;padding:.8rem 1rem;font-size:.95rem;color:var(--dark);cursor:pointer;transition:.13s;font-family:inherit;}
+    .opt:hover:not(:disabled){border-color:var(--brand);background:#f4f8fc;}
+    .opt:disabled{cursor:default;}
+    .opt .mk{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:2px solid var(--mid);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;}
+    .opt.correct{border-color:var(--green);background:#eef7f1;} .opt.correct .mk{background:var(--green);border-color:var(--green);}
+    .opt.wrong{border-color:var(--red);background:#fdeeef;} .opt.wrong .mk{background:var(--red);border-color:var(--red);}
+    .opt.dim{opacity:.5;}
 
-    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
+    /* verdict band (the named fail) */
+    .verdict{margin:1.1rem 0 0;border-radius:12px;padding:1.1rem 1.2rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .45s,max-height .45s,padding .45s;}
+    .verdict.show{opacity:1;max-height:420px;}
+    .verdict.fail{background:#fdeeef;border:1px solid #f3c4c8;border-left:4px solid var(--red);}
+    .verdict.win{background:#eef7f1;border:1px solid #c4e3cf;border-left:4px solid var(--green);}
+    .verdict .vlab{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 .4rem;}
+    .verdict.fail .vlab{color:var(--red);} .verdict.win .vlab{color:var(--green);}
+    .verdict h4{margin:0 0 .4rem;font-size:1.05rem;font-weight:800;color:var(--dark);}
+    .verdict p{margin:0;font-size:.92rem;color:var(--mid);}
+    .verdict p strong{color:var(--dark);}
+    .verdict .rec{margin-top:.8rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--green);background:#fff;border:1px solid #c4e3cf;border-radius:8px;padding:.55rem .7rem;}
+
+    .scanfoot{display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:1rem 1.3rem;border-top:1px solid var(--light);background:var(--surface);}
+    .btn{background:var(--brand);color:#fff;border:none;border-radius:99px;padding:.6rem 1.3rem;font-weight:800;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:.15s;}
+    .btn:hover{background:var(--brand-deep);} .btn:disabled{opacity:.35;cursor:not-allowed;}
+    .btn.ghost{background:transparent;color:var(--mid);border:1px solid var(--light);}
+    .btn.ghost:hover{color:var(--brand);border-color:var(--brand);background:#fff;}
+    .showall{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);background:none;border:none;cursor:pointer;text-decoration:underline;}
+
+    /* TRIAGE CARD (payoff) */
+    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.8rem 0 .4rem;}
     h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
+    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.6rem 0;}
     .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
-    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
+    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.42rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
     .tk-line strong{color:#fff;font-weight:800;}
-    .matrix{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:1rem;border:1px solid var(--light);border-radius:12px;overflow:hidden;}
-    .matrix th,.matrix td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--light);}
-    .matrix th{font-family:var(--mono);text-transform:uppercase;font-size:.64rem;letter-spacing:.04em;color:var(--mid);background:var(--surface);}
-    .matrix td.f{color:var(--green);font-weight:700;} .matrix tr:last-child td{border-bottom:none;}
-    details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
+
+    .triage{border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);margin-top:1rem;}
+    .triage .th{background:var(--brand-deep);color:#fff;padding:1rem 1.2rem;}
+    .triage .th .t{font-weight:800;font-size:1.05rem;} .triage .th .s{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.2rem;}
+    .trow{display:grid;grid-template-columns:1fr auto 1.3fr;gap:.6rem;align-items:center;padding:.8rem 1.2rem;border-bottom:1px solid var(--light);}
+    .trow:last-child{border-bottom:none;}
+    .trow .money{font-weight:700;font-size:.92rem;}
+    .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.74rem;}
+    .trow .ar{color:var(--brand);font-family:var(--mono);font-size:.8rem;}
+    .trow .rec{color:var(--green);font-weight:700;font-size:.88rem;font-family:var(--mono);}
+    @media (max-width:560px){ .trow{grid-template-columns:1fr;gap:.2rem;} .trow .ar{display:none;} }
+
+    details.drawer{margin:1.6rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
     details.drawer>summary::-webkit-details-marker{display:none;}
-    details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
+    details.drawer>summary::before{content:"\25B8";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
     footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
 
-    @media (max-width:860px){
-      .story{grid-template-columns:1fr;gap:0;}
-      .chartcol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
-      .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
-      .ann:first-child{min-height:26vh;}
-      .anncard{transform:translateY(20px);} .ann.on .anncard{transform:translateY(0);}
-      .matrix{font-size:.78rem;}
-    }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} .cell,.darkcell,.fieldcell{transition:none;} }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .verdict{transition:none;} .opt{transition:none;} }
   </style>
 </head>
 <body>
-  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; where the money comes from x blind spot</span></div>
+  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; disclosure scanner</span></div>
 
   <div class="wrap">
     <section class="hero">
-      <p class="hook">Two projects can look identical from the outside and hide completely different things, because they were financed in different ways. The blind spot is not random. <b>The way the money is structured tells you, in advance, exactly what will go dark.</b></p>
-      <h1>Every funding source hides <span class="accent">something</span>.</h1>
-      <p class="lede">And each blind spot has one record that brings it into the light. Watch the grid build: a black cell for what stays hidden, then the record that reveals it.</p>
-      <div class="scrollcue">scroll to build the matrix &darr;</div>
+      <p class="hook">Two projects can look identical from the outside and hide completely different things, because they were financed in different ways. <b>A generic transparency request is weak. A request aimed at the right record is sharp.</b></p>
+      <h1>Pick the money. <span class="accent">Find the blind spot.</span></h1>
+      <p class="lede">A funding structure is not a label. It is a prediction engine: it tells you, in advance, <b>which fact will disappear, and which record to demand first.</b> Run five real projects through the scanner.</p>
     </section>
-  </div>
 
-  <div class="wrap">
-    <div class="story">
-      <div class="chartcol">
-        <div class="stage-inner">
-          <svg id="chart" viewBox="0 0 600 420" role="img" aria-label="A matrix of five funding sources. For each row, a black cell shows what stays hidden, and on its beat the black cell is replaced by a green cell naming the record to publish that reveals it. The matrix builds row by row.">
-            <!-- column headers -->
-            <text x="20"  y="34" class="rowtype" font-size="10" fill="#5A6B7B" font-family="var(--mono)">FUNDING SOURCE</text>
-            <text x="250" y="34" class="rowtype" font-size="10" fill="#5A6B7B" font-family="var(--mono)">WHAT STAYS HIDDEN / WHAT REVEALS IT</text>
-            <line x1="20" y1="44" x2="580" y2="44" stroke="#E2E8ED" stroke-width="1.5"/>
-            <g id="rows"></g>
-            <text x="300" y="410" text-anchor="middle" font-size="9" font-weight="700" fill="#28496A" font-family="var(--sans)">Illustrative of the pattern. Confirm fields against CoST IDS v2.0.</text>
-          </svg>
-          <p class="scenecap" id="scenecap">five funding sources, five blind spots</p>
-        </div>
+    <!-- THE SCANNER -->
+    <section class="scanner" id="scanner" aria-label="Disclosure scanner: five projects, one at a time">
+      <div class="progress" id="progress" aria-hidden="true"></div>
+      <div class="scanhead">
+        <span class="step" id="stepct">Project 1 of 5</span>
+        <span class="proj" id="projtag">sovereign loan</span>
       </div>
-
-      <div class="anncol">
-        <div class="ann" data-stage="0"><div class="anncard">
-          <p class="kicker">start here</p><h3>The blind spot is built into the money.</h3>
-          <p>How a project is financed decides what you can and cannot see. Each funding source carries a predictable dark patch, shown as a black cell. The useful part: there is already one record that names what is hidden.</p>
-        </div></div>
-        <div class="ann" data-stage="1"><div class="anncard">
-          <p class="kicker">Sovereign loan</p><h3>Hides the real debt.</h3>
-          <p><span class="dark">hidden: the real debt</span><span class="field">publish the loan terms to reveal it</span></p>
-          <p>The headline is the project; the liability to the treasury sits out of view. <strong>Publish the loan terms and the guarantee, and the real debt appears.</strong></p>
-        </div></div>
-        <div class="ann" data-stage="2"><div class="anncard">
-          <p class="kicker">Equity stake</p><h3>Hides who really owns it.</h3>
-          <p><span class="dark">hidden: who really owns it</span><span class="field">publish the beneficial owners to reveal it</span></p>
-          <p>An ownership stake can obscure who captures the value. <strong>Publish the beneficial owners and you see who is really behind it.</strong></p>
-        </div></div>
-        <div class="ann" data-stage="3"><div class="anncard">
-          <p class="kicker">Concession / PPP</p><h3>Hides the future bill.</h3>
-          <p><span class="dark">hidden: the future bill</span><span class="field">publish the contract to reveal it</span></p>
-          <p>The long-term payments and guarantees can be invisible at the start. <strong>Publish the contract and the future bill becomes visible.</strong></p>
-        </div></div>
-        <div class="ann" data-stage="4"><div class="anncard">
-          <p class="kicker">EPC + finance</p><h3>Hides the mark-up.</h3>
-          <p><span class="dark">hidden: the mark-up</span><span class="field">publish the cost breakdown to reveal it</span></p>
-          <p>A bundled build-and-finance package can bury the price. <strong>Publish the cost breakdown and the price can be benchmarked.</strong></p>
-        </div></div>
-        <div class="ann" data-stage="5"><div class="anncard">
-          <p class="kicker">Grant / aid</p><h3>Hides the conditions.</h3>
-          <p><span class="dark">hidden: the strings attached</span><span class="field">publish the source and its conditions to reveal them</span></p>
-          <p>Tied conditions and strings attached can stay out of sight. <strong>Publish the source and its conditions and the real terms show.</strong></p>
-        </div></div>
+      <div class="scanbody" id="scanbody"><!-- rendered by JS --></div>
+      <div class="scanfoot">
+        <button class="showall" id="showall" type="button">Skip the game, show all answers</button>
+        <button class="btn" id="next" type="button" disabled>Next project &rarr;</button>
       </div>
-    </div>
+    </section>
+    <p style="text-align:center;color:var(--mid);font-size:.82rem;margin:.2rem 0 0">Same five projects, five different blind spots. Work each one, or skip to the triage card.</p>
 
+    <!-- THE THESIS -->
     <div class="takeaway">
-      <p class="tk-eyebrow">The finding, in one breath</p>
-      <p class="tk-line"><strong>Different money, different blind spot, but every blind spot has a record that already names it.</strong> Where the money comes from is a shortcut: it tells you, before you read a single document, which fact to ask them to publish.</p>
+      <p class="tk-eyebrow">What the scanner proves</p>
+      <p class="tk-line"><strong>A funding structure is a prediction engine.</strong> It tells you which fact will disappear before you read a single document, and which one record to demand first. Ask for the wrong thing and the blind spot stays dark.</p>
     </div>
 
-    <h2><span class="num">01</span>The five at a glance</h2>
-    <p class="lead">The whole matrix, on one page: pick the funding source, read the record to ask for.</p>
-    <table class="matrix">
-      <thead><tr><th>Funding source</th><th>What stays hidden</th><th>The record that reveals it</th><th>CoST IDS phase</th></tr></thead>
-      <tbody>
-        <tr><td>Sovereign loan</td><td>Hidden debt</td><td class="f">Loan terms &amp; guarantee</td><td>Preparation + Implementation</td></tr>
-        <tr><td>Equity stake</td><td>Hidden ownership</td><td class="f">Beneficial ownership</td><td>Identification</td></tr>
-        <tr><td>Concession / PPP</td><td>Hidden future bill</td><td class="f">Contract terms &amp; cost</td><td>Procurement</td></tr>
-        <tr><td>EPC + finance</td><td>Hidden mark-up</td><td class="f">Cost estimate &amp; price</td><td>Preparation + Procurement</td></tr>
-        <tr><td>Grant / aid</td><td>Hidden conditions</td><td class="f">Funding source &amp; conditions</td><td>Preparation</td></tr>
-      </tbody>
-    </table>
+    <!-- THE PAYOFF: triage card -->
+    <h2><span class="num">&rarr;</span>The disclosure triage card</h2>
+    <p class="lead">The capability, on one card. See the funding structure, demand the record that reveals its blind spot. Screenshot it and take it into a real disclosure request.</p>
+    <div class="triage" id="triage">
+      <div class="th"><div class="t">See this money type, demand this first</div><div class="s">funding structure &rarr; the record that reveals the blind spot</div></div>
+      <div class="trow"><div class="money">Sovereign loan<small>state borrows to build</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
+      <div class="trow"><div class="money">Equity stake<small>investor takes a share</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
+      <div class="trow"><div class="money">PPP / concession<small>private builds and operates</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
+      <div class="trow"><div class="money">EPC + finance<small>one bundled build-and-fund deal</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
+      <div class="trow"><div class="money">Grant / aid<small>funder gives, with terms</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
+    </div>
 
     <details class="drawer">
-      <summary>Where this comes from</summary>
+      <summary>Where this comes from, and where it maps</summary>
       <div class="drawer-body">
-        <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The values are illustrative of the disclosure pattern; field labels at CoST phase level. Confirm against the CoST IDS v2.0 before external use.</p>
-        <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that closes it. A request to publish can be aimed precisely at the one fact the money was always going to hide.</p>
+        <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The blind-spot to record matches are illustrative of the disclosure pattern; confirm the exact field labels against the CoST IDS v2.0 before external use.</p>
+        <p><strong>The records, in CoST IDS terms.</strong> Loan terms and guarantee (Preparation, Implementation); beneficial ownership (Identification); contract terms and fiscal commitments (Procurement); cost estimate and price (Preparation, Procurement); funding source and conditions (Preparation).</p>
+        <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that reveals it. A request to publish can be aimed precisely at the one fact the financing was always going to hide.</p>
       </div>
     </details>
 
     <footer>
-      <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Illustrative of the disclosure pattern; confirm fields against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
+      <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Illustrative of the disclosure pattern; confirm records against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
     </footer>
   </div>
 
@@ -181,59 +168,178 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var D=[
-      {type:"Sovereign loan",   dark:"Hidden debt",        field:"LOAN TERMS & GUARANTEE"},
-      {type:"Equity stake",     dark:"Hidden ownership",   field:"BENEFICIAL OWNERSHIP"},
-      {type:"Concession / PPP",  dark:"Hidden future bill", field:"CONTRACT TERMS & COST"},
-      {type:"EPC + finance",    dark:"Hidden mark-up",     field:"COST ESTIMATE & PRICE"},
-      {type:"Grant / aid",      dark:"Hidden conditions",  field:"FUNDING SOURCE & CONDITIONS"}
+
+    // icons (simple line glyphs per project type)
+    var ICON = {
+      road:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M8 40 L20 6 H26 L38 40" fill="none" stroke="#28496A" stroke-width="2.5"/><line x1="23" y1="12" x2="23" y2="18" stroke="#C77F00" stroke-width="2.5"/><line x1="23" y1="24" x2="23" y2="30" stroke="#C77F00" stroke-width="2.5"/></svg>',
+      rail:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><line x1="16" y1="6" x2="16" y2="40" stroke="#28496A" stroke-width="2.5"/><line x1="30" y1="6" x2="30" y2="40" stroke="#28496A" stroke-width="2.5"/><line x1="12" y1="14" x2="34" y2="14" stroke="#28496A" stroke-width="2.5"/><line x1="12" y1="26" x2="34" y2="26" stroke="#28496A" stroke-width="2.5"/></svg>',
+      port:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><circle cx="23" cy="10" r="3" fill="none" stroke="#28496A" stroke-width="2.5"/><line x1="23" y1="13" x2="23" y2="34" stroke="#28496A" stroke-width="2.5"/><line x1="14" y1="20" x2="32" y2="20" stroke="#28496A" stroke-width="2.5"/><path d="M12 30 q11 9 22 0" fill="none" stroke="#28496A" stroke-width="2.5"/></svg>',
+      power:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M26 6 L14 26 H24 L20 40 L34 18 H24 Z" fill="none" stroke="#28496A" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+      water:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M23 6 C14 22 14 30 23 38 C32 30 32 22 23 6 Z" fill="none" stroke="#28496A" stroke-width="2.5"/></svg>'
+    };
+
+    // The five projects. blind = correct blind spot; blindOpts = 3 choices.
+    // ask: wrongAsk (the plausible weak request), failLine; rightRecord.
+    var PROJECTS = [
+      { proj:"sovereign loan", icon:"rail", title:"A national railway", sub:"Same headline as any flagship project.",
+        q1:"What does a sovereign loan hide?",
+        blindOpts:[ {t:"Who really owns it", ok:false}, {t:"The real debt it puts on the state", ok:true}, {t:"The construction mark-up", ok:false} ],
+        wrongAsk:"the project's announced cost",
+        wrongOpts:[ {t:"Ask for the announced project cost", ok:false}, {t:"Ask for the loan terms and the state guarantee", ok:true} ],
+        failHead:"The announced cost is just the sticker.",
+        failBody:"The headline number is the project. <strong>The liability it loads onto the treasury, the interest, the guarantee, the repayment, sits in the loan agreement, not the press release.</strong>",
+        rightRecord:"Publish the loan terms and the guarantee. The real debt appears." },
+
+      { proj:"equity stake", icon:"power", title:"A power plant", sub:"Same headline as any flagship project.",
+        q1:"What does an equity stake hide?",
+        blindOpts:[ {t:"Who really owns it and gains from it", ok:true}, {t:"The future maintenance bill", ok:false}, {t:"The tied conditions", ok:false} ],
+        wrongAsk:"the contract price",
+        wrongOpts:[ {t:"Ask for the contract price", ok:false}, {t:"Ask for the beneficial owners behind the stake", ok:true} ],
+        failHead:"The price tells you the cost, not the beneficiary.",
+        failBody:"You can know exactly what was paid and still not know <strong>who sits behind the ownership stake and captures the value.</strong> Price and ownership are different questions.",
+        rightRecord:"Publish the beneficial owners. You see who is really behind it." },
+
+      { proj:"PPP / concession", icon:"road", title:"A toll road", sub:"Same headline as any flagship project.",
+        q1:"What does a PPP or concession hide?",
+        blindOpts:[ {t:"The construction mark-up", ok:false}, {t:"The 25-year bill to the public", ok:true}, {t:"Who owns the contractor", ok:false} ],
+        wrongAsk:"the project budget",
+        wrongOpts:[ {t:"Ask for the project budget", ok:false}, {t:"Ask for the contract and its fiscal commitments", ok:true} ],
+        failHead:"A budget shows this year. The bill runs 25 years.",
+        failBody:"The budget tells you what is spent now. <strong>The guarantees, availability payments and contingent liabilities run for decades, and they live in the contract, not the budget line.</strong>",
+        rightRecord:"Publish the contract and its fiscal commitments. The future bill becomes visible." },
+
+      { proj:"EPC + finance", icon:"port", title:"A container port", sub:"Same headline as any flagship project.",
+        q1:"What does a bundled EPC-plus-finance deal hide?",
+        blindOpts:[ {t:"The mark-up buried in the bundle", ok:true}, {t:"The repayment schedule", ok:false}, {t:"The owner's identity", ok:false} ],
+        wrongAsk:"the total contract value",
+        wrongOpts:[ {t:"Ask for the total contract value", ok:false}, {t:"Ask for the itemised cost breakdown", ok:true} ],
+        failHead:"One total tells you nothing you can check.",
+        failBody:"A single bundled figure cannot be benchmarked. <strong>Build and finance are rolled together, so the mark-up hides inside a number with nothing to compare it to.</strong>",
+        rightRecord:"Publish the itemised cost breakdown. The price can be benchmarked." },
+
+      { proj:"grant / aid", icon:"water", title:"A water system", sub:"Same headline as any flagship project.",
+        q1:"What does a grant or aid package hide?",
+        blindOpts:[ {t:"The strings and tied procurement", ok:true}, {t:"The debt burden", ok:false}, {t:"The construction price", ok:false} ],
+        wrongAsk:"the grant amount",
+        wrongOpts:[ {t:"Ask for the grant amount", ok:false}, {t:"Ask for the source, its conditions and any tied procurement", ok:true} ],
+        failHead:"Free money is rarely free of terms.",
+        failBody:"The amount looks generous on its own. <strong>The conditions attached, and any requirement to buy from the funder's own firms, decide who actually benefits, and they are not in the headline figure.</strong>",
+        rightRecord:"Publish the source and its conditions. The real terms show." }
     ];
-    var Y0=64, ROWH=64, CX=235, CW=345, CH=42;
-    var rowsG=document.getElementById("rows"), scenecap=document.getElementById("scenecap");
-    function mk(t,a,txt){var e=document.createElementNS("http://www.w3.org/2000/svg",t);for(var k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
 
-    var rows=[];
-    D.forEach(function(d,i){
-      var y=Y0+i*ROWH;
-      var g=mk("g",{});
-      g.appendChild(mk("text",{x:20,y:y+CH/2+4,"class":"rowtype"},d.type));
-      // dark cell (what goes dark)
-      var dc=mk("g",{"class":"darkcell"});
-      dc.appendChild(mk("rect",{x:CX,y:y,width:CW,height:CH,rx:5,fill:"#1E2A38"}));
-      dc.appendChild(mk("text",{x:CX+14,y:y+CH/2+4,"class":"celltext",fill:"#fff","font-size":11},d.dark));
-      // field cell (the record that reveals it) sits on top, revealed by opacity
-      var fc=mk("g",{"class":"fieldcell",opacity:"0"});
-      fc.appendChild(mk("rect",{x:CX,y:y,width:CW,height:CH,rx:5,fill:"#1B7A3D"}));
-      fc.appendChild(mk("text",{x:CX+14,y:y+CH/2+4,"class":"celltext",fill:"#fff","font-size":10},d.field));
-      g.appendChild(dc); g.appendChild(fc);
-      rowsG.appendChild(g);
-      rows.push({g:g, dc:dc, fc:fc});
-    });
+    var idx=0;            // current project
+    var phase=0;          // 0 = pick blind spot, 1 = pick ask, 2 = revealed
+    var progress=document.getElementById("progress");
+    var body=document.getElementById("scanbody");
+    var stepct=document.getElementById("stepct");
+    var projtag=document.getElementById("projtag");
+    var nextBtn=document.getElementById("next");
 
-    function setStage(s){
-      rows.forEach(function(r,i){
-        // before any focus: all rows visible but dimmed-ish, dark cells showing
-        var revealed = (s>=1 && i < s);      // rows 0..s-1 are "cleared" (field shown)
-        var focused  = (s>=1 && i === s-1);  // the row this beat is about
-        r.fc.setAttribute("opacity", revealed ? "1" : "0");
-        r.dc.setAttribute("opacity", revealed ? "0" : "1");
-        r.g.style.transition="opacity .5s";
-        r.g.style.opacity = (s===0) ? "1" : (focused ? "1" : (revealed ? "0.85" : "0.4"));
+    // build progress dots
+    PROJECTS.forEach(function(_,i){ var d=document.createElement("div"); d.className="pdot"; progress.appendChild(d); });
+    function paintProgress(){
+      [].forEach.call(progress.children, function(d,i){
+        d.className = "pdot" + (i<idx?" done":(i===idx?" cur":""));
       });
-      var caps=["five funding sources, five blind spots","loan terms reveal the debt","ownership records reveal who gains","the contract reveals the bill","the breakdown reveals the price","the source reveals the conditions"];
-      scenecap.textContent=caps[s];
     }
 
-    var ratios={}, cur=-1;
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ ratios[e.target.dataset.stage]=e.isIntersecting?e.intersectionRatio:0;
-        if(e.isIntersecting) e.target.classList.add("on"); });
-      var best=-1,bestR=0; for(var k in ratios) if(ratios[k]>bestR){bestR=ratios[k];best=+k;}
-      if(best>=0 && bestR>0.2 && best!==cur){ cur=best; setStage(best); }
-    },{threshold:[0,.25,.5,.75,1]});
-    document.querySelectorAll(".ann").forEach(function(a){ io.observe(a); });
-    setStage(0);
-    if(document.querySelector(".ann")) document.querySelector(".ann").classList.add("on");
+    function el(tag,cls,html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+
+    function render(){
+      var P=PROJECTS[idx];
+      paintProgress();
+      stepct.textContent="Project "+(idx+1)+" of "+PROJECTS.length;
+      projtag.textContent=P.proj;
+      body.innerHTML="";
+
+      // identical project card; financing badge appears (the reveal)
+      var card=el("div","projcard");
+      card.innerHTML = ICON[P.icon] + '<div><p class="pt">'+P.title+'</p><p class="ps">'+P.sub+'</p></div><span class="finance-badge">'+P.proj+'</span>';
+      body.appendChild(card);
+
+      if(phase===0){
+        body.appendChild(el("p","qlabel",P.q1));
+        var opts=el("div","opts");
+        P.blindOpts.forEach(function(o,i){
+          var b=el("button","opt"); b.type="button";
+          b.innerHTML='<span class="mk"></span><span>'+o.t+'</span>';
+          b.addEventListener("click",function(){ chooseBlind(i); });
+          opts.appendChild(b);
+        });
+        body.appendChild(opts);
+        nextBtn.disabled=true;
+      } else if(phase===1){
+        // blind spot now shown as locked-correct, ask the disclosure question
+        body.appendChild(el("p","qlabel","Right. Now make the transparency request. Which ask reveals it?"));
+        var opts2=el("div","opts");
+        P.wrongOpts.forEach(function(o,i){
+          var b=el("button","opt"); b.type="button";
+          b.innerHTML='<span class="mk"></span><span>'+o.t+'</span>';
+          b.addEventListener("click",function(){ chooseAsk(i); });
+          opts2.appendChild(b);
+        });
+        body.appendChild(opts2);
+        nextBtn.disabled=true;
+      }
+    }
+
+    function chooseBlind(i){
+      var P=PROJECTS[idx];
+      var buttons=body.querySelectorAll(".opt");
+      buttons.forEach(function(b,j){
+        b.disabled=true;
+        if(P.blindOpts[j].ok){ b.classList.add("correct"); b.querySelector(".mk").textContent="✓"; }
+        else if(j===i){ b.classList.add("wrong"); b.querySelector(".mk").textContent="✗"; }
+        else b.classList.add("dim");
+      });
+      // brief beat, then advance to the ask phase
+      setTimeout(function(){ phase=1; render(); }, reduceMotion?0:650);
+    }
+
+    function chooseAsk(i){
+      var P=PROJECTS[idx];
+      var picked=P.wrongOpts[i];
+      var buttons=body.querySelectorAll(".opt");
+      buttons.forEach(function(b,j){
+        b.disabled=true;
+        if(P.wrongOpts[j].ok){ b.classList.add("correct"); b.querySelector(".mk").textContent="✓"; }
+        else if(j===i){ b.classList.add("wrong"); b.querySelector(".mk").textContent="✗"; }
+        else b.classList.add("dim");
+      });
+      // if they picked the wrong (weak) ask, show the named fail FIRST, then the win.
+      if(!picked.ok){
+        var v=el("div","verdict fail");
+        v.innerHTML='<p class="vlab">You asked for: '+P.wrongAsk+' &middot; blind spot still dark</p>'+
+          '<h4>'+P.failHead+'</h4><p>'+P.failBody+'</p>'+
+          '<div class="rec">'+P.rightRecord+'</div>';
+        body.appendChild(v);
+      } else {
+        var w=el("div","verdict win");
+        w.innerHTML='<p class="vlab">Sharp ask &middot; blind spot revealed</p>'+
+          '<h4>That is the precise record.</h4><p>'+P.failBody+'</p>'+
+          '<div class="rec">'+P.rightRecord+'</div>';
+        body.appendChild(w);
+      }
+      if(reduceMotion){ body.querySelector(".verdict").classList.add("show"); }
+      else { requestAnimationFrame(function(){ requestAnimationFrame(function(){ body.querySelector(".verdict").classList.add("show"); }); }); }
+      phase=2;
+      nextBtn.disabled=false;
+      if(idx===PROJECTS.length-1){ nextBtn.textContent="See the triage card ↓"; }
+    }
+
+    nextBtn.addEventListener("click",function(){
+      if(idx<PROJECTS.length-1){ idx++; phase=0; render(); document.getElementById("scanner").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"}); }
+      else { document.getElementById("triage").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"}); }
+    });
+
+    // FALLBACK: skip the game, jump to triage
+    document.getElementById("showall").addEventListener("click",function(){
+      idx=PROJECTS.length-1; phase=2; paintProgress();
+      [].forEach.call(progress.children,function(d){ d.className="pdot done"; });
+      document.getElementById("triage").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"});
+    });
+
+    render();
   })();
   </script>
 </body>

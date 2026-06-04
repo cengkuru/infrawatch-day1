@@ -3,25 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anatomy of a project — the deeper you dig, the darker it gets</title>
-  <meta name="description" content="Five questions about the Nairobi Standard Gauge Railway. The first three are public; the two that matter most are locked. A visual essay from InfraWatch Nairobi, Day 1.">
+  <title>Anatomy of a project: the file you are allowed to read</title>
+  <meta name="description" content="The Nairobi SGR as a project file. The first pages are public; the pages that decide whether it was worth it are stamped confidential. A document-closeup visual essay from InfraWatch Nairobi, Day 1.">
   <style>
     :root{
-      --brand:#28496A; --brand-deep:#142334;
-      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
-      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
-      --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
+      --brand:#28496A; --brand-deep:#142334; --red:#BE1E2D; --amber:#C77F00; --green:#1B7A3D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --paper:#fbfaf7;
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
-      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      --serif:Georgia,"Times New Roman",serif; --mono:"SFMono-Regular",Consolas,monospace;
     }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
     html{scroll-behavior:smooth;}
-    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;}
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
     .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
-
     .hero{padding:3rem 0 1.4rem;}
     .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
     .hook b{color:var(--dark);font-weight:800;}
@@ -32,21 +29,33 @@
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
     .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
-    .scenecol{position:sticky;top:3vh;align-self:start;}
-    .stage-inner{position:relative;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem;}
-    svg{width:100%;height:auto;display:block;}
+    .doccol{position:sticky;top:3vh;}
+    .docframe{background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:0 16px 44px rgba(20,35,52,.12);padding:1rem;overflow:hidden;}
+    .docview{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border:1px solid var(--light);background:#eee;border-radius:8px;}
+    .page{position:absolute;inset:0;background:var(--paper);transition:transform 1.2s cubic-bezier(.2,.7,.2,1);will-change:transform;padding:6% 7%;font-family:var(--serif);}
+    .page .doctitle{font-family:var(--sans);font-weight:800;font-size:clamp(.62rem,1.7vw,1rem);color:var(--dark);text-align:center;margin:0 0 .2em;}
+    .page .docmeta{font-family:var(--mono);font-size:.48rem;color:var(--mid);text-align:center;margin:0 0 1.1em;letter-spacing:.04em;}
+    .qrow{margin:0 0 .85em;}
+    .qrow .q{font-family:var(--sans);font-weight:800;font-size:clamp(.5rem,1.35vw,.78rem);color:var(--dark);margin:0 0 .15em;}
+    .qrow .a{font-size:clamp(.44rem,1.2vw,.7rem);color:#3a3a3a;margin:0;line-height:1.45;}
+    .qrow.locked{position:relative;background:#1E2A38;border-radius:4px;padding:.5em .7em;color:#fff;}
+    .qrow.locked .q{color:#fff;} .qrow.locked .a{color:#9fb0c4;}
+    .qrow.locked .stamp{position:absolute;right:.5em;top:50%;transform:translateY(-50%) rotate(-12deg);
+      border:2px solid #ff6b76;color:#ff6b76;font-family:var(--mono);font-weight:800;font-size:clamp(.42rem,1.1vw,.62rem);
+      text-transform:uppercase;letter-spacing:.06em;padding:.1em .35em;border-radius:3px;opacity:.92;}
+    .qrow .tag{font-family:var(--mono);font-size:.42rem;color:#7fd6a0;text-transform:uppercase;letter-spacing:.04em;display:block;margin-top:.25em;}
     .scenecap{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
 
     .anncol{position:relative;}
-    .ann{min-height:86vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;padding-bottom:6vh;}
-    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
+    .ann{min-height:88vh;display:flex;align-items:center;}
+    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;}
+    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1);
       background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.25rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
     .ann.on .anncard{opacity:1;transform:translateX(0);}
     .anncard.locked{border-left-color:var(--dark);}
     .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
     .anncard.locked .kicker{color:var(--dark);}
-    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
+    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;color:var(--dark);}
     .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
     .anncard strong{color:var(--dark);}
     .anncard .state{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem;padding:.12rem .4rem;border-radius:4px;}
@@ -54,37 +63,31 @@
     .anncard .state.locked{background:#1E2A38;color:#fff;}
     .anncard .field{display:block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--green);margin-top:.5rem;}
 
-    .layer-q{font-size:12px;font-weight:700;fill:var(--dark);font-family:var(--sans);}
-    .layer-a{font-size:11px;fill:var(--mid);font-family:var(--sans);}
-    .layer-locked-q{font-size:12px;font-weight:700;fill:#fff;font-family:var(--sans);}
-
     h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
     h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-
     .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
     .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
     .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
     .tk-line strong{color:#fff;font-weight:800;}
-
-    details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
+    details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
     details.drawer>summary::-webkit-details-marker{display:none;}
     details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
-
     footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
 
     @media (max-width:860px){
       .story{grid-template-columns:1fr;gap:0;}
-      .scenecol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
+      .doccol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
+      .docview{aspect-ratio:4/3;}
       .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
       .ann:first-child{min-height:26vh;}
       .anncard{transform:translateY(20px);} .ann.on .anncard{transform:translateY(0);}
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .page{transition:none;} }
   </style>
 </head>
 <body>
@@ -92,122 +95,80 @@
 
   <div class="wrap">
     <section class="hero">
-      <p class="hook">You can photograph the Standard Gauge Railway. You can ride it, count its trains, read its opening-day headlines. But ask the two questions that actually decide whether it was a good idea, and the record goes black. <b>The easy questions are public. The ones that matter are locked.</b></p>
-      <h1>The deeper you dig, the <span class="accent">darker it gets</span>.</h1>
-      <p class="lede">Five questions about one railway. The first three are on the record. The last two, what it really cost and whether it was worth it, are exactly the ones you cannot see.</p>
-      <div class="scrollcue">dig in &darr;</div>
+      <p class="hook">Picture the project as a file. The first pages, what it is, how it is paid for, who decided, are open. Turn to the pages that decide whether it was a good idea, and they are stamped confidential. <b>The easy questions are on the record. The ones that matter are sealed.</b></p>
+      <h1>The file you are <span class="accent">allowed to read</span>.</h1>
+      <p class="lede">Five questions about the Nairobi Standard Gauge Railway, on one page. The camera reads down it. Watch where the page goes black.</p>
+      <div class="scrollcue">read the file &darr;</div>
     </section>
   </div>
 
   <div class="wrap">
     <div class="story">
-      <div class="scenecol">
-        <div class="stage-inner">
-          <svg id="viz" viewBox="0 0 600 560" role="img" aria-label="The Nairobi Standard Gauge Railway shown as five stacked layers, dug into from the top. The top three layers, what it is, how it is paid for, and who decides, are public and light. The bottom two layers, what it really costs and whether it was worth it, are black and locked, each naming the CoST IDS field that would unlock it. The deeper questions go dark.">
-            <!-- 5 stacked layers; top 3 light (public), bottom 2 dark (locked) -->
-            <!-- L0 -->
-            <g class="layer" data-l="0">
-              <rect x="80" y="40" width="440" height="86" rx="8" fill="#fff" stroke="#1E2A38" stroke-width="2"/>
-              <text x="100" y="68" class="layer-q">What is it?</text>
-              <text x="100" y="92" class="layer-a">A railway, Mombasa to Nairobi</text>
-              <text x="500" y="68" text-anchor="end" class="layer-a" fill="#1B7A3D" font-family="var(--mono)" font-size="9">PUBLIC</text>
-            </g>
-            <!-- L1 -->
-            <g class="layer" data-l="1">
-              <rect x="80" y="134" width="440" height="86" rx="8" fill="#fff" stroke="#1E2A38" stroke-width="2"/>
-              <text x="100" y="162" class="layer-q">How is it paid for?</text>
-              <text x="100" y="186" class="layer-a">A sovereign loan</text>
-              <text x="500" y="162" text-anchor="end" class="layer-a" fill="#1B7A3D" font-family="var(--mono)" font-size="9">PUBLIC</text>
-            </g>
-            <!-- L2 -->
-            <g class="layer" data-l="2">
-              <rect x="80" y="228" width="440" height="86" rx="8" fill="#fff" stroke="#1E2A38" stroke-width="2"/>
-              <text x="100" y="256" class="layer-q">Who decides?</text>
-              <text x="100" y="280" class="layer-a">Treasury, the railway, the lender</text>
-              <text x="500" y="256" text-anchor="end" class="layer-a" fill="#1B7A3D" font-family="var(--mono)" font-size="9">PUBLIC</text>
-            </g>
-            <!-- L3 LOCKED -->
-            <g class="layer" data-l="3">
-              <rect x="80" y="322" width="440" height="86" rx="8" fill="#1E2A38" stroke="#1E2A38" stroke-width="2"/>
-              <text x="100" y="350" class="layer-locked-q">What does it really cost?</text>
-              <text x="100" y="374" class="layer-a" fill="#9fb0c4" font-family="var(--mono)" font-size="9">field that unlocks it: loan terms &amp; guarantee</text>
-              <g transform="translate(490,352)"><rect x="-9" y="-2" width="14" height="12" rx="2" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M-6 -2 v-4 a5 5 0 0 1 10 0 v4" fill="none" stroke="#fff" stroke-width="1.6"/></g>
-            </g>
-            <!-- L4 LOCKED -->
-            <g class="layer" data-l="4">
-              <rect x="80" y="416" width="440" height="86" rx="8" fill="#1E2A38" stroke="#1E2A38" stroke-width="2"/>
-              <text x="100" y="444" class="layer-locked-q">Was it worth it?</text>
-              <text x="100" y="468" class="layer-a" fill="#9fb0c4" font-family="var(--mono)" font-size="9">field that unlocks it: the appraisal (cost-benefit)</text>
-              <g transform="translate(490,446)"><rect x="-9" y="-2" width="14" height="12" rx="2" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M-6 -2 v-4 a5 5 0 0 1 10 0 v4" fill="none" stroke="#fff" stroke-width="1.6"/></g>
-            </g>
+      <div class="doccol">
+        <div class="docframe">
+          <div class="docview">
+            <div class="page" id="page">
+              <p class="doctitle">PROJECT FILE: NAIROBI SGR</p>
+              <p class="docmeta">illustrative dossier · not the audited record</p>
 
-            <text x="300" y="535" text-anchor="middle" font-size="9.5" font-weight="700" fill="#28496A" font-family="var(--sans)">Illustrative of the disclosure pattern, not the audited SGR record. Confirm fields against CoST IDS v2.0.</text>
-          </svg>
-          <p class="scenecap" id="scenecap">five questions, top to bottom</p>
+              <div class="qrow"><p class="q">1. What is it?</p><p class="a">A railway, Mombasa to Nairobi. Stations, trains, ridership. Announced, opened, photographed.</p></div>
+              <div class="qrow"><p class="q">2. How is it paid for?</p><p class="a">A sovereign loan. A foreign export-import bank lends; the state borrows and guarantees.</p></div>
+              <div class="qrow"><p class="q">3. Who decides?</p><p class="a">Treasury, the railway, the lender. The high-power actors and the people who carry the cost barely overlap.</p></div>
+
+              <div class="qrow locked" id="lk1"><span class="stamp">confidential</span>
+                <p class="q">4. What does it really cost?</p>
+                <p class="a">Interest rate, repayment schedule, and a sovereign guarantee on the full amount. [withheld]</p>
+                <span class="tag">unlocks with: loan terms &amp; guarantee (IDS prep + impl)</span></div>
+              <div class="qrow locked" id="lk2"><span class="stamp">confidential</span>
+                <p class="q">5. Was it worth it?</p>
+                <p class="a">The cost-benefit analysis and feasibility study behind the decision to build. [withheld]</p>
+                <span class="tag">unlocks with: the appraisal (IDS preparation)</span></div>
+            </div>
+          </div>
+          <p class="scenecap" id="scenecap">the project file, full page</p>
         </div>
       </div>
 
       <div class="anncol">
-        <div class="ann" data-stage="0">
-          <div class="anncard">
-            <p class="kicker">start at the surface</p>
-            <h3>What is it?</h3>
-            <p class="state public">public</p>
-            <p>A railway from Mombasa to Nairobi. Stations, trains, ridership: announced, opened, photographed. The surface of the project is fully on the record.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="1">
-          <div class="anncard">
-            <p class="kicker">one layer down</p>
-            <h3>How is it paid for?</h3>
-            <p class="state public">public</p>
-            <p>A sovereign loan: a foreign export-import bank lends, and the state borrows and guarantees. Still visible, still on the record.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="2">
-          <div class="anncard">
-            <p class="kicker">deeper</p>
-            <h3>Who decides?</h3>
-            <p class="state public">public</p>
-            <p>The treasury, the railway, and the lender. Notice already: the people with the power and the people who carry the cost barely overlap. This is the last layer you can see clearly.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="3">
-          <div class="anncard locked">
-            <p class="kicker">the record goes black</p>
-            <h3>What does it really cost?</h3>
-            <p class="state locked">&#128274; locked</p>
-            <p>The interest rate, the repayment schedule, the sovereign guarantee on the full amount. This is the question a citizen most needs answered, and it is sealed.</p>
-            <span class="field">unlocked by: loan terms &amp; guarantee (CoST IDS · Prep + Impl)</span>
-          </div>
-        </div>
-        <div class="ann" data-stage="4">
-          <div class="anncard locked">
-            <p class="kicker">the deepest, the darkest</p>
-            <h3>Was it worth it?</h3>
-            <p class="state locked">&#128274; locked</p>
-            <p>The cost-benefit analysis and feasibility study behind the decision to build, projected against what actually happened. The single most important question, and the most completely hidden.</p>
-            <span class="field">unlocked by: the appraisal (CoST IDS · Preparation)</span>
-          </div>
-        </div>
+        <div class="ann" data-stage="0"><div class="anncard">
+          <p class="kicker">the whole file</p><h3>Five questions, top to bottom.</h3>
+          <p>Everything you might ask about the railway, on one page. The first three answers are in plain type. The last two are in black boxes. Read down and the page changes character.</p>
+        </div></div>
+        <div class="ann" data-stage="1"><div class="anncard">
+          <p class="kicker">on the record</p><h3>What it is, who paid, who decided.</h3>
+          <p class="state public">public</p>
+          <p>A railway, a sovereign loan, a treasury-railway-lender triangle. The surface of the project is fully readable. And already a tell: the deciders and the people who carry the cost barely overlap.</p>
+        </div></div>
+        <div class="ann" data-stage="2"><div class="anncard locked">
+          <p class="kicker">the page goes black</p><h3>What does it really cost?</h3>
+          <p class="state locked">&#128274; confidential</p>
+          <p>The interest rate, the repayment schedule, the guarantee on the full amount. The question a citizen most needs answered, and it is stamped and sealed.</p>
+          <span class="field">unlocks with: loan terms &amp; guarantee (CoST IDS, prep + impl)</span>
+        </div></div>
+        <div class="ann" data-stage="3"><div class="anncard locked">
+          <p class="kicker">the deepest, the darkest</p><h3>Was it worth it?</h3>
+          <p class="state locked">&#128274; confidential</p>
+          <p>The cost-benefit case behind the decision to build, projected against what actually happened. The single most important question, and the most completely withheld.</p>
+          <span class="field">unlocks with: the appraisal (CoST IDS, preparation)</span>
+        </div></div>
       </div>
     </div>
 
     <div class="takeaway">
       <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
-      <p class="tk-line"><strong>Transparency is not missing at random. It runs out exactly where it matters most.</strong> The questions you can answer about the SGR are the easy ones. The two that decide whether it was a good idea, what it cost and whether it was worth it, are the two that are locked.</p>
+      <p class="tk-line"><strong>Transparency is not missing at random. It runs out exactly where it matters most.</strong> The questions you can answer about the SGR are the easy ones. The two that decide whether it was a good idea, what it cost and whether it was worth it, are the two stamped confidential.</p>
     </div>
 
     <details class="drawer">
       <summary>Where this comes from</summary>
       <div class="drawer-body">
-        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026), the Nairobi Standard Gauge Railway as a worked example. The revealed values are illustrative of the disclosure pattern, not the audited SGR record; field labels are shown at CoST phase level. Confirm against the CoST IDS v2.0 before external use.</p>
-        <p><strong>The point.</strong> The two locked layers each name the CoST IDS field that would open them. The depth of the question and the darkness of the record move together, and the standard already says which field to demand.</p>
+        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026), the Nairobi Standard Gauge Railway as a worked example. The dossier here is illustrative of the disclosure pattern, not the audited SGR record; the [withheld] entries stand in for terms not in the public record. Field labels shown at CoST phase level. Confirm against the CoST IDS v2.0 before external use.</p>
+        <p><strong>The point.</strong> The two sealed questions each name the CoST IDS field that would open them. The importance of the question and the darkness of the record move together, and the standard already says which field to demand.</p>
       </div>
     </details>
 
     <footer>
-      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026, Nairobi SGR worked example. Illustrative of the disclosure pattern, not the audited record; confirm fields against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
+      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026, Nairobi SGR worked example. Illustrative dossier, not the audited record; confirm fields against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
     </footer>
   </div>
 
@@ -215,32 +176,21 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var viz=document.getElementById("viz");
-    var FULL=[0,0,600,560], camCur=FULL.slice(), camAnim=null;
-    function setVB(v){ viz.setAttribute("viewBox", v.join(" ")); }
-    function easeIO(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
-    function cameraTo(target,dur){
-      if(reduceMotion){ camCur=target.slice(); setVB(camCur); return; }
-      var from=camCur.slice(), start=null; if(camAnim) cancelAnimationFrame(camAnim);
-      function step(ts){ if(start===null)start=ts; var t=Math.min(1,(ts-start)/dur), e=easeIO(t);
-        for(var i=0;i<4;i++) camCur[i]=from[i]+(target[i]-from[i])*e; setVB(camCur);
-        if(t<1) camAnim=requestAnimationFrame(step); else { camCur=target.slice(); camAnim=null; } }
-      camAnim=requestAnimationFrame(step);
-    }
-    var scenecap=document.getElementById("scenecap");
-    var layers=document.querySelectorAll(".layer");
-    // each layer top-y for camera framing
-    var Y=[40,134,228,322,416];
-    var CAP=["the surface: what it is","how it is paid for","who decides","what it really costs (locked)","was it worth it (locked)"];
-
+    var page=document.getElementById("page"), scenecap=document.getElementById("scenecap");
+    // poses measured against the rendered page (transform-origin centred on the target row)
+    // oy values measured from the rendered page (transform-origin centres the target row)
+    var POSE=[
+      {s:1,    ox:50, oy:16, cap:"the project file, full page"},
+      {s:1.6,  ox:44, oy:24, cap:"pages 1 to 3: on the record"},
+      {s:2.2,  ox:46, oy:45, cap:"page 4: cost, sealed"},
+      {s:2.2,  ox:46, oy:58, cap:"page 5: was it worth it, sealed"}
+    ];
     function setStage(s){
-      // dim layers above and below the current one slightly; spotlight current
-      layers.forEach(function(g,i){ g.style.transition="opacity .5s"; g.style.opacity = (i===s)?"1":(i<s?"0.5":"0.32"); });
-      // camera frames the current layer (deeper = lower in the scene)
-      cameraTo([40, Math.max(0,Y[s]-26), 520, 150], 950);
-      scenecap.textContent=CAP[s];
+      var p=POSE[s]; if(!p) return;
+      page.style.transformOrigin=p.ox+"% "+p.oy+"%";
+      page.style.transform="scale("+(reduceMotion?1:p.s)+")";
+      scenecap.textContent=p.cap;
     }
-
     var ratios={}, cur=-1;
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){ ratios[e.target.dataset.stage]=e.isIntersecting?e.intersectionRatio:0;
@@ -249,11 +199,7 @@
       if(best>=0 && bestR>0.2 && best!==cur){ cur=best; setStage(best); }
     },{threshold:[0,.25,.5,.75,1]});
     document.querySelectorAll(".ann").forEach(function(a){ io.observe(a); });
-    window.addEventListener("resize", function(){ setVB(camCur); });
-
-    // start wide so the reader sees all five, then dig
-    setVB(FULL.slice());
-    setTimeout(function(){ setStage(0); }, 400);
+    setStage(0);
     if(document.querySelector(".ann")) document.querySelector(".ann").classList.add("on");
   })();
   </script>

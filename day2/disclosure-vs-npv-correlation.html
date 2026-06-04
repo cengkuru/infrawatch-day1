@@ -70,11 +70,10 @@
       padding:.55rem .7rem;font-size:.8rem;color:#eaf2fb;box-shadow:0 12px 30px rgba(0,0,0,.5);max-width:240px;line-height:1.4;}
     .chtip b{color:#fff;} .chtip .tv{font-family:var(--mono);font-size:.72rem;}
     .chtip .tv.g{color:#6fd99a;} .chtip .tv.a{color:#f0b860;} .chtip .tv.r{color:#e88a92;} .chtip .tv.x{color:#9fb4cc;}
-    /* hand-drawn annotation that brings the choice meaning into the chart */
-    .chnote{position:relative;margin:.2rem auto 0;max-width:560px;display:flex;gap:.4rem;align-items:flex-start;padding:0 .5rem;}
-    .chnote-arrow{width:48px;height:34px;flex:0 0 auto;margin-top:.1rem;}
-    .chnote p{margin:0;font-size:.92rem;line-height:1.5;color:#dfe8f2;font-style:italic;}
-    .chnote p b{color:#fff;font-style:normal;}
+    /* reveal layout: chart on the left, the verdict BESIDE it with an arrow pointing in */
+    .reveal-row{display:grid;grid-template-columns:1.55fr 1fr;gap:.4rem;align-items:center;}
+    .chart-side{min-width:0;}
+    @media (max-width:760px){ .reveal-row{grid-template-columns:1fr;} }
     /* re-toggle answers without refresh */
     .vote-reswap{text-align:center;margin:.8rem auto 0;font-size:.85rem;color:#9fb4cc;}
     .vote-reswap button{background:none;border:none;color:#9b86f0;font-weight:700;cursor:pointer;font-size:.85rem;text-decoration:underline;}
@@ -97,12 +96,18 @@
     .dbtn:hover{filter:brightness(1.1);} .dbtn:disabled{opacity:.4;cursor:not-allowed;}
     .dbtn.ghost{background:transparent;color:#9fb4cc;border:1px solid #2a3f57;}
     .dhint{font-size:.78rem;color:#8ea4bc;text-align:center;width:100%;margin-top:.2rem;}
-    .door-reveal{max-width:700px;margin:1.4rem auto 0;background:rgba(124,77,255,.1);border:1px solid #3a3168;border-left:4px solid #9b86f0;border-radius:12px;padding:1.1rem 1.3rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .6s ease,max-height .6s ease,padding .6s ease;}
-    .door-reveal.show{opacity:1;max-height:360px;}
-    .door-reveal h3{margin:0 0 .4rem;font-size:1.2rem;color:#fff;}
-    .door-reveal p{margin:0 0 1rem;color:#dfe8f2;font-size:.98rem;} .door-reveal strong{color:#fff;}
-    .door-reveal .dr-next{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--brand-deep);text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.6rem 1.1rem;border-radius:99px;}
-    @media (prefers-reduced-motion:reduce){ .realfit,.reallab,#realdots circle,.door-reveal{transition:none;} }
+    /* the verdict card, beside the chart */
+    .verdict-side{position:relative;padding-left:2.8rem;opacity:0;transform:translateX(12px);transition:opacity .5s ease,transform .5s ease;}
+    .verdict-side.show{opacity:1;transform:none;}
+    .verdict-side .vs-arrow{position:absolute;left:-.4rem;top:1rem;width:54px;height:96px;}
+    .verdict-side .vs-tag{margin:0 0 .4rem;display:inline-block;font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;border-radius:99px;padding:.22rem .6rem;}
+    .verdict-side .vs-tag.wrong{color:#fff;background:rgba(190,30,45,.9);}
+    .verdict-side .vs-tag.part{color:#0c1622;background:#f0b860;}
+    .verdict-side h3{margin:0 0 .5rem;font-size:1.25rem;line-height:1.18;color:#fff;letter-spacing:-.01em;}
+    .verdict-side p{margin:0 0 1rem;color:#dfe8f2;font-size:.96rem;line-height:1.5;} .verdict-side strong{color:#fff;}
+    .verdict-side .dr-next{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--brand-deep);text-decoration:none;font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.55rem 1rem;border-radius:99px;}
+    @media (max-width:760px){ .verdict-side{padding-left:0;margin-top:1rem;border-top:1px solid #1f3148;padding-top:1rem;} .verdict-side .vs-arrow{display:none;} }
+    @media (prefers-reduced-motion:reduce){ .realfit,.reallab,#realdots circle,.verdict-side{transition:none;} }
 
     /* TWO-COLUMN SCROLLY: chart pinned LEFT (always in view), annotations reveal RIGHT.
        Scroll is the only interaction. */
@@ -270,6 +275,8 @@
       <p class="vote-reswap" id="voteReswap" hidden>You picked one. <button id="seeOthers" type="button">See the other answers &rarr;</button></p>
 
       <div class="draw" id="revealWrap" hidden>
+        <div class="reveal-row">
+        <div class="chart-side">
         <!-- legend: what the dot colours mean -->
         <div class="chlegend">
           <span class="li"><span class="lc g"></span>worth it</span>
@@ -294,20 +301,20 @@
           <path class="realfit" id="realfit" d="" />
           <g id="realdots"></g>
         </svg>
-        <!-- hand-drawn annotation that brings the choice meaning INTO the chart -->
-        <div class="chnote" id="chNote" hidden>
-          <svg class="chnote-arrow" viewBox="0 0 60 40" aria-hidden="true"><path d="M4 6 C 20 4, 34 14, 50 30" fill="none" stroke="#9b86f0" stroke-width="2.4" stroke-linecap="round"/><path d="M50 30 L41 28 M50 30 L48 21" fill="none" stroke="#9b86f0" stroke-width="2.4" stroke-linecap="round"/></svg>
-          <p id="chNoteText"></p>
-        </div>
+        </div><!-- /chart-side -->
+
+        <!-- the verdict, BESIDE the chart, with an arrow pointing into it -->
+        <aside class="verdict-side" id="doorReveal">
+          <svg class="vs-arrow" viewBox="0 0 70 120" aria-hidden="true"><path id="vsArrowPath" d="M62 16 C 30 18, 14 50, 10 96" fill="none" stroke="#9b86f0" stroke-width="2.6" stroke-linecap="round"/><path d="M10 96 L18 88 M10 96 L4 86" fill="none" stroke="#9b86f0" stroke-width="2.6" stroke-linecap="round"/></svg>
+          <p class="vs-tag" id="vsTag"></p>
+          <h3 id="drTitle"></h3>
+          <p id="drBody"></p>
+          <a class="dr-next" href="#story">See why, project by project &darr;</a>
+        </aside>
+        </div><!-- /reveal-row -->
       </div>
       <!-- tooltip, shared -->
       <div class="chtip" id="chTip" role="status" aria-live="polite" hidden></div>
-
-      <div class="door-reveal" id="doorReveal">
-        <h3 id="drTitle"></h3>
-        <p id="drBody"></p>
-        <a class="dr-next" href="#story">Now watch the slope dissolve &darr;</a>
-      </div>
     </div>
   </section>
 
@@ -531,7 +538,7 @@
           doorReveal=document.getElementById("doorReveal"),
           vote=document.getElementById("vote"),
           drTitle=document.getElementById("drTitle"), drBody=document.getElementById("drBody"),
-          chNote=document.getElementById("chNote"), chNoteText=document.getElementById("chNoteText"),
+          vsTag=document.getElementById("vsTag"),
           chTip=document.getElementById("chTip"), voteReswap=document.getElementById("voteReswap");
 
       function nameOf(p){ return p.name; }
@@ -565,17 +572,17 @@
       var meanY=comp.reduce(function(s,p){return s+VY[p.verdict];},0)/comp.length;
       realfit.setAttribute("d","M "+DX0+" "+(meanY+5)+" L "+DX1+" "+(meanY-5));
 
-      // copy + the in-chart hand-drawn note, tailored to each answer
+      // verdict copy, tailored to the reader's exact choice. Each LEADS with whether they were right.
       var COPY={
-        yes:{t:"You expected a climb. The real verdicts do not.",
-          note:"You said yes, but the dots do not climb. The greenest “worth it” dots are not the most published ones.",
-          b:"That is the common instinct: more published, better value. But the ten projects do not climb. The most transparent here, <strong>Sankofa</strong>, is a bad deal. Publishing the terms did not make it good. It only made it <em>visible</em>. So what is the line people keep seeing? Scroll on."},
-        no:{t:"Half right, and it matters which half.",
-          note:"Right that disclosure does not make a project good. But it is the only thing that lets you <b>find out</b>.",
-          b:"Publishing terms does not, on its own, make a project good. But it is the only thing that lets anyone <em>find out</em>. <strong>Sankofa</strong> is a bad deal and we know it precisely because its terms were public. <strong>NASENI</strong> may be worse, but no one can say, because its terms were never published. Scroll on."},
-        dep:{t:"It depends, and here is what it depends on.",
-          note:"Not on how much is published. On <b>who financed it</b>. Disclosure just rides along with the lender.",
-          b:"Not on how much is published, it turns out. The ten verdicts do not line up with disclosure. They line up with <strong>who financed them</strong>. Scroll on and watch the line dissolve."}
+        yes:{tag:"Not what happens", tagcls:"wrong",
+          t:"You said more transparency means better projects. The ten real projects say otherwise.",
+          b:"Watch the dots leave the line you expected. The greenest, most published project is not the best deal, and the worst is. <strong>Sankofa</strong> published everything and is still a bad deal. So if it is not transparency lifting these projects, what is?"},
+        no:{tag:"Half of it", tagcls:"part",
+          t:"You said it makes no difference. Half right, and the other half is the whole point.",
+          b:"Publishing terms does not, on its own, make a project good, you are right there. But it is the only thing that lets anyone <strong>find out</strong>. We can call <strong>Sankofa</strong> a bad deal because its terms were public. <strong>NASENI</strong> may be worse, and no one can say, because they were not."},
+        dep:{tag:"On one thing", tagcls:"part",
+          t:"You said it depends. It does, but not on how much is published.",
+          b:"The verdicts do not line up with disclosure at all. They line up with <strong>who financed each project</strong>. Disclosure just rides along with the lender. See it for yourself."}
       };
       // the belief line per choice (the y the reader EXPECTS each dot to land on, given its disclosure x)
       function beliefY(p, v){
@@ -599,19 +606,19 @@
           b.setAttribute("aria-pressed", on?"true":"false");
         });
         revealWrap.hidden=false; voteReswap.hidden=false;
+        vsTag.textContent=COPY[v].tag; vsTag.className="vs-tag "+COPY[v].tagcls;
         drTitle.innerHTML=COPY[v].t; drBody.innerHTML=COPY[v].b;
-        chNoteText.innerHTML=COPY[v].note;
 
         if(reduceMotion){
-          // static: dots straight to truth, line + note shown
+          // static: dots straight to truth, line + verdict shown
           realNodes.forEach(function(c){ c.setAttribute("cy", c._trueY); c.classList.add("show"); });
           setLineForBelief(v); realfit.classList.add("show"); reallab.classList.add("show");
-          chNote.hidden=false; doorReveal.classList.add("show");
+          doorReveal.classList.add("show");
           return;
         }
 
         // 1) place every dot ON the belief line and show it there: it LOOKS like it confirms your expectation
-        realfit.classList.remove("show"); reallab.classList.remove("show"); chNote.hidden=true;
+        realfit.classList.remove("show"); reallab.classList.remove("show"); doorReveal.classList.remove("show");
         realNodes.forEach(function(c){
           c.classList.remove("show");
           c.style.transition="opacity .4s ease"; // no cy-transition yet: snap to belief position
@@ -628,9 +635,9 @@
           requestAnimationFrame(function(){
             realNodes.forEach(function(c){ c.setAttribute("cy", c._trueY); });
           });
-          // the expected line dissolves as the dots leave it; the flat reality + note arrive
+          // the expected line dissolves as the dots leave it; the flat reality + the side verdict arrive
           setTimeout(function(){ guess.classList.remove("show"); realfit.classList.add("show"); reallab.classList.add("show"); }, 500);
-          setTimeout(function(){ chNote.hidden=false; doorReveal.classList.add("show"); }, 950);
+          setTimeout(function(){ doorReveal.classList.add("show"); }, 950);
         }, first?1400:1100);
       }
       vote.addEventListener("click",function(e){

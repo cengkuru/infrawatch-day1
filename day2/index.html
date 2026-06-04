@@ -3,63 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InfraWatch &middot; Day 2 visuals</title>
+  <title>InfraWatch · Day 2 visuals</title>
   <style>
-    :root{ --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6; --surface:#F8F8F8;
-      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:12px;
-      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; --mono:"SFMono-Regular",Consolas,monospace; }
+    :root{ --brand:#28496A; --brand-deep:#142334; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA;
+      --shadow:0 16px 44px rgba(20,35,52,.12); --radius:12px; --dark:#1E2A38;
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif; --mono:"SFMono-Regular",Consolas,monospace; }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
-    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
-    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red); display:flex; align-items:center; justify-content:space-between; padding:13px 24px;}
-    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
-    /* DAY NAV */
-    .daynav{display:flex; gap:0; background:#222; border-bottom:1px solid #000;}
-    .daynav a{flex:1; text-align:center; text-decoration:none; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; font-size:.74rem; font-weight:700; padding:11px 8px; color:#9aa; border-bottom:3px solid transparent; transition:color .12s, border-color .12s, background .12s;}
-    .daynav a:hover{color:#fff; background:#2d2d2d;}
-    .daynav a.active{color:#fff; border-bottom-color:var(--cost-red); background:#2d2d2d;}
-    .daynav a .d{display:block; font-size:.62rem; color:#788; font-weight:600; letter-spacing:.04em;}
-    .daynav a.active .d{color:#c98;}
-    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
-    .wrap{max-width:760px; margin:0 auto; padding:30px 20px 60px;}
-    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
-    h1{font-size:clamp(1.7rem,4vw,2.4rem); line-height:1.1; font-weight:800; margin:6px 0 8px;}
-    .sub{color:var(--cost-mid); margin:0 0 22px; font-size:1.05rem;}
-    a.card{display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--cost-light); border-left:5px solid var(--cost-red);
-      border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; margin-bottom:14px; transition:transform .12s, box-shadow .12s;}
-    a.card:hover{transform:translateY(-2px); box-shadow:0 22px 50px rgba(45,45,45,.16);}
-    a.card h3{margin:0 0 4px; font-size:1.15rem;}
-    a.card p{margin:0; color:var(--cost-mid); font-size:.92rem;}
-    a.card .go{font-family:var(--mono); font-size:.72rem; color:var(--cost-red); font-weight:700; margin-top:8px; display:inline-block;}
-    a.card .hrow{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-    .tag{font-family:var(--mono); font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:20px;}
-    .tag.ready{background:#eef6f0; color:#2F7A46; border:1px solid #cfe6d5;}
-    .tag.wip{background:#fff4d6; color:#7a5a12; border:1px solid #ecd9a0;}
-    a.card.wip{border-left-color:#c9c9d2; opacity:.92;}
-    a.card.wip h3{color:var(--cost-mid);}
-    a.card.wip .go{color:#7a5a12;}
-    .sectionlabel{font-family:var(--mono); text-transform:uppercase; font-size:.68rem; font-weight:800; letter-spacing:.06em; color:var(--cost-mid); margin:22px 0 10px;}
-    .foot{margin-top:24px; color:var(--cost-mid); font-size:.8rem;} .foot strong{color:var(--cost-dark);}
+    body{font-family:var(--sans); color:var(--dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand); color:#fff; border-bottom:5px solid var(--brand-deep); display:flex; align-items:center; justify-content:space-between; padding:.85rem 1.3rem;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.66rem; color:var(--light);}
+    .daynav{display:flex; background:var(--brand-deep);}
+    .daynav a{flex:1; text-align:center; text-decoration:none; font-family:var(--mono); text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; font-weight:700; padding:.7rem .5rem; color:#9fb0c4; border-bottom:3px solid transparent; transition:.12s;}
+    .daynav a:hover{color:#fff; background:rgba(255,255,255,.06);}
+    .daynav a.active{color:#fff; border-bottom-color:#fff;}
+    .daynav a .d{display:block; font-size:.6rem; color:#7d92aa; font-weight:600;}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:.4rem .9rem;} .draftbar b{color:#5a410a;}
+    .wrap{max-width:760px; margin:0 auto; padding:1.9rem 1.3rem 3.5rem;}
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--brand); font-weight:700;}
+    h1{font-size:clamp(1.7rem,4vw,2.4rem); line-height:1.1; font-weight:800; margin:.4rem 0 .5rem;}
+    .sub{color:var(--mid); margin:0 0 1.4rem; font-size:1.05rem;}
+    a.card{display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--light); border-left:5px solid var(--brand);
+      border-radius:var(--radius); box-shadow:var(--shadow); padding:1.1rem 1.25rem; margin-bottom:.85rem; transition:transform .12s, box-shadow .12s;}
+    a.card:hover{transform:translateY(-2px); box-shadow:0 22px 50px rgba(20,35,52,.16);}
+    a.card h3{margin:0 0 .25rem; font-size:1.15rem;}
+    a.card p{margin:0; color:var(--mid); font-size:.92rem;}
+    a.card .go{font-family:var(--mono); font-size:.72rem; color:var(--brand); font-weight:700; margin-top:.5rem; display:inline-block;}
+    a.card .hrow{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;}
+    .tag{font-family:var(--mono); font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:.18rem .56rem; border-radius:20px;}
+    .tag.essay{background:#e9f0f7; color:#28496A; border:1px solid #cdddec;}
+    .foot{margin-top:1.5rem; color:var(--mid); font-size:.8rem;} .foot strong{color:var(--dark);}
   </style>
 </head>
 <body>
   <div class="brandbar"><span class="brand">InfraWatch &middot; Day 2 visuals</span><span class="ctx">CIPE &middot; CoST</span></div>
   <nav class="daynav">
-    <a href="../"><span class="d">2 Jun</span>Day 1</a>
+    <a href="../"><span class="d">cover</span>Start</a>
+    <a href="../day1/"><span class="d">2 Jun</span>Day 1</a>
     <a class="active" href="./"><span class="d">3 Jun</span>Day 2</a>
+    <a href="../day3/"><span class="d">4 Jun</span>Day 3</a>
   </nav>
-  <div class="draftbar">Working drafts, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+  <div class="draftbar">Working visuals, shared for this session. <b>Confirm figures against source documents.</b></div>
   <main class="wrap">
-    <p class="label">Nairobi workshop &middot; Day 2</p>
-    <h1>Day 2: does disclosure predict value?</h1>
-    <p class="sub">Yesterday's discussions, taken one step further. The case studies and the NPV toolkit, turned into something you can poke at. Tap one to open it. They work best in landscape on a phone.</p>
+    <p class="label">Nairobi workshop &middot; Day 2 &middot; 3 Jun 2026</p>
+    <h1>Can the value be tested?</h1>
+    <p class="sub">The case studies and the NPV method. The day the question sharpened from "is this a good project?" to "are we even allowed to find out?"</p>
 
-    <p class="sectionlabel">Still in progress &middot; play, poke, tell me what is wrong</p>
-    <a class="card wip" href="disclosure-vs-npv-correlation.html">
-      <div class="hrow"><h3>Does disclosure predict value?</h3><span class="tag wip">In progress</span></div>
-      <p>Ten projects plotted: how much each disclosed against the CoST IDS data points, versus its NPV verdict. The honest answer is that the question partly answers itself.</p>
+    <a class="card" href="disclosure-vs-npv-correlation.html">
+      <div class="hrow"><h3>No terms, no test</h3><span class="tag essay">Visual essay</span></div>
+      <p>Ten flagship projects. Watch which ones can even be judged, as the chart flies to each one. Disclosure does not make a project good value-for-money; it is what lets anyone test whether it is.</p>
       <span class="go">Open &rarr;</span></a>
 
-    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day 2, 3 Jun 2026. InfraWatch is a CIPE methodology; its disclosure leg maps to the CoST IDS, alongside PEA and the NPV toolkit (IEA-Kenya). Working drafts by Michael Cengkuru. Tell me where I have you wrong.</p>
+    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day 2, 3 Jun 2026. Project inputs from the case studies; treat as reported, confirm against loan agreements. Working visual by Michael Cengkuru, CoST.</p>
   </main>
 </body>
 </html>

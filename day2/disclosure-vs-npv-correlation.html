@@ -28,12 +28,6 @@
     h1 .accent{color:var(--cost-red);}
     .subline{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--cost-mid);margin:0;max-width:60ch;}
 
-    /* PROVENANCE BANNER */
-    .provenance{background:#FFF8E8;border:1px solid var(--amber);border-left:5px solid var(--amber);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:1.75rem 0 2.25rem;font-size:.92rem;color:#5A4500;}
-    .provenance strong{color:#8a6800;}
-    .provenance ul{margin:.6rem 0 0;padding-left:1.2rem;}
-    .provenance li{margin:.25rem 0;}
-
     /* WARN BAND (sits directly above the chart) */
     .warnband{background:#FCE0E3;border:1px solid var(--cost-red);border-left:5px solid var(--cost-red);border-radius:var(--radius);padding:1rem 1.2rem;margin:.4rem 0 1.25rem;font-size:.9rem;color:#6e1018;line-height:1.5;}
     .warnband strong{color:var(--cost-red);}
@@ -119,24 +113,15 @@
   <div class="wrap">
     <div class="hero">
       <h1>Disclosure makes value <span class="accent">testable</span>.</h1>
-      <p class="subline">Disclosure does not make a deal good. It determines whether the deal can be tested at all. Using CIPE's InfraWatch methodology, which maps to the CoST IDS for disclosure and adds PEA and NPV, this probe plots how much each project disclosed against whether its value can even be assessed. The slope you will see is mostly funder type, not transparency, and naming that is the finding.</p>
-    </div>
-
-    <div class="provenance">
-      <strong>Read this before you read the chart.</strong> This probe applies <strong>CIPE's InfraWatch methodology</strong>: a transparency assessment that maps to the CoST IDS data points, run alongside PEA and the NPV toolkit. It is a teaching and hypothesis artifact, not an empirical finding. Every number here is coded or estimated by the analyst from reported inputs (AidData, press, the Day-2 case studies), not pulled from a completed InfraWatch assessment or from loan-agreement-grade cash flows.
-      <ul>
-        <li><strong>Disclosure axis</strong> = the InfraWatch transparency assessment, which maps to the CoST IDS data points. Here it is the analyst's coding of how many of those data points are evidenced in the reported record (0 = nothing public, 100 = full disclosure). It is <em>not</em> a completed InfraWatch assessment or an ITI Dimension-4 score.</li>
-        <li><strong>Value-signal axis is two different measurements, and the chart marks which is which.</strong> A <strong>circle</strong> is an NPV computed with the InfraWatch / IEA-Kenya 16-step toolkit (discount rate = govt long-term bond at signing; social value capped 15%) on <em>disclosed</em> financing terms. A <strong>triangle</strong> is only an outcome-based verdict: where terms are confidential the toolkit cannot run, so the verdict is inferred from what the project did, not what it cost. Do not read a triangle as a computed NPV.</li>
-        <li><strong>The confound is built in.</strong> NPV needs disclosed financing terms to compute. So a low-disclosure project literally cannot have a trustworthy NPV. Part of any upward slope is mechanical, not causal. n=10 cannot separate mechanism from funder-type confound from genuine effect.</li>
-      </ul>
+      <p class="subline">Making a deal public does not make it a good deal. But it is the only way anyone can check whether it is. This page lines up ten infrastructure projects by how much of the deal was made public, against whether the deal looks worth the money. The pattern looks like "openness brings good deals." It is mostly something simpler: who lent the money. Seeing that clearly is the point.</p>
     </div>
 
     <!-- ===================== THE 2x2 ===================== -->
-    <h2><span class="num">01</span>The 2x2</h2>
-    <p class="lead">Each project sits at (disclosure band, value signal). Colour = majority funder type. The diagonal is the "expected" story; the off-diagonal cases are where the real lessons live.</p>
+    <h2><span class="num">01</span>The map</h2>
+    <p class="lead">Each dot is a project. Move <strong>right</strong> for more public information about the deal. Move <strong>up</strong> for a deal that looks more worthwhile. Colour shows who mainly paid for it. The projects that sit where you would not expect are the ones that teach you the most.</p>
 
     <div class="warnband" role="note">
-      <strong>Before the chart, not after it.</strong> The dots trend up-and-right, but <strong>that slope is mostly funder type, not transparency.</strong> Multilateral money clusters high-disclosure <em>and</em> better-terms; PRC/commercial money clusters low-disclosure. One fact drives both axes. The shapes also matter: a <strong>circle</strong> is an NPV computed from disclosed terms; a <strong>triangle</strong> is only an outcome-based verdict, because the terms were never published. n=10, analyst-coded. Do not read causation off this.
+      <strong>Read this before the chart.</strong> The dots rise from left to right, but <strong>that is mostly about who paid, not about transparency.</strong> Lenders who publish more (like the World Bank) also tend to offer better terms, so both things move together. The shapes matter too: a <strong>circle</strong> means the value was worked out from terms that were made public; a <strong>triangle</strong> means we are only judging by what the project did, because its terms were never published. This is a teaching example built from ten projects, not proof. Do not read it as "openness causes good deals."
     </div>
 
     <div class="chartcard">
@@ -156,12 +141,12 @@
           <text x="326" y="490" text-anchor="middle" class="axis-tick">LOW</text>
           <text x="484" y="490" text-anchor="middle" class="axis-tick">MEDIUM</text>
           <text x="642" y="490" text-anchor="middle" class="axis-tick">HIGH</text>
-          <text x="405" y="512" text-anchor="middle" class="axis-title">InfraWatch disclosure band, maps to CoST IDS (analyst-coded)</text>
+          <text x="405" y="512" text-anchor="middle" class="axis-title">How much of the deal is public (mapped to the CoST IDS)</text>
 
           <text x="82" y="150" text-anchor="end" class="axis-tick">Worthwhile</text>
           <text x="82" y="258" text-anchor="end" class="axis-tick">Marginal</text>
           <text x="82" y="380" text-anchor="end" class="axis-tick">Harmful</text>
-          <text x="16" y="255" text-anchor="middle" class="axis-title" transform="rotate(-90 16 255)">Value signal (see shape for method)</text>
+          <text x="16" y="255" text-anchor="middle" class="axis-title" transform="rotate(-90 16 255)">Does the deal look worth the money?</text>
 
           <text x="100" y="58" class="qlabel">hidden · cannot be tested</text>
           <text x="712" y="58" text-anchor="end" class="qlabel">visible · looks worthwhile</text>
@@ -182,7 +167,7 @@
           <!-- Zungeru hydro (LOW, marginal · computed, partial terms) -->
           <g class="dot"><circle cx="342" cy="295" r="7" fill="#BE1E2D" stroke="#fff" stroke-width="2"/><text x="342" y="315" text-anchor="middle" class="dot-label">Zungeru</text></g>
           <!-- GERD transmission (LOW, marginal · OUTCOME) -->
-          <g class="dot"><polygon points="355,222 363,237 347,237" fill="#2D2D2D" stroke="#fff" stroke-width="1.5"/><text x="355" y="213" text-anchor="middle" class="dot-label">GERD txn</text></g>
+          <g class="dot"><polygon points="355,222 363,237 347,237" fill="#2D2D2D" stroke="#fff" stroke-width="1.5"/><text x="355" y="213" text-anchor="middle" class="dot-label">GERD grid</text></g>
           <!-- SGR Kenya (LOW, harmful · OUTCOME) -->
           <g class="dot"><polygon points="310,388 320,406 300,406" fill="#BE1E2D" stroke="#fff" stroke-width="1.5"/><text x="310" y="378" text-anchor="middle" class="dot-label">SGR (Kenya)</text></g>
           <!-- Addis Light Rail (LOW, harmful · OUTCOME) -->
@@ -191,61 +176,61 @@
           <g class="dot"><rect x="160" y="404" width="15" height="15" fill="none" stroke="#BE1E2D" stroke-width="2" stroke-dasharray="3 2"/><text x="167" y="432" text-anchor="middle" class="dot-label">NASENI solar</text></g>
 
           <!-- Burned-in caveat: survives screenshots lifted out of the page -->
-          <text x="405" y="540" text-anchor="middle" class="svg-caveat">Slope is mostly funder-type confound, not causal. n=10, analyst-coded.</text>
-          <text x="405" y="556" text-anchor="middle" class="svg-caveat">Disclosure makes value testable; it does not make value good.</text>
+          <text x="405" y="540" text-anchor="middle" class="svg-caveat">The slope is mostly about who lent the money, not openness. 10 projects, hand-scored.</text>
+          <text x="405" y="556" text-anchor="middle" class="svg-caveat">Making a deal public lets you test it. It does not make it a good deal.</text>
         </svg>
       </div>
 
       <div class="legend">
-        <span class="legend-head">Shape = how the value signal was derived</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#5A5A5A" stroke="#fff" stroke-width="1.5"/></svg> NPV computed from disclosed terms</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><polygon points="7,1 13,13 1,13" fill="#5A5A5A" stroke="#fff" stroke-width="1"/></svg> Outcome-based verdict (terms not published)</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><rect x="1" y="1" width="12" height="12" fill="none" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="3 2"/></svg> Not computable at all</span>
+        <span class="legend-head">Shape = how we judged the deal</span>
+        <span class="item"><svg width="18" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#5A5A5A" stroke="#fff" stroke-width="1.5"/></svg> Value worked out from public terms</span>
+        <span class="item"><svg width="18" height="14" aria-hidden="true"><polygon points="7,1 13,13 1,13" fill="#5A5A5A" stroke="#fff" stroke-width="1"/></svg> Judged by results only (terms hidden)</span>
+        <span class="item"><svg width="18" height="14" aria-hidden="true"><rect x="1" y="1" width="12" height="12" fill="none" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="3 2"/></svg> Cannot be judged at all</span>
       </div>
       <div class="legend">
-        <span class="legend-head">Colour = majority funder type <em>(shown because it is the confound, not the cause)</em></span>
-        <span class="item"><span class="swatch" style="background:#BE1E2D"></span> PRC majority-funded</span>
-        <span class="item"><span class="swatch" style="background:#0071BC"></span> Multilateral / non-PRC</span>
-        <span class="item"><span class="swatch" style="background:#2D2D2D"></span> Domestic-funded</span>
+        <span class="legend-head">Colour = who mainly paid <em>(shown because it, not openness, is doing most of the work)</em></span>
+        <span class="item"><span class="swatch" style="background:#BE1E2D"></span> Mainly Chinese-funded</span>
+        <span class="item"><span class="swatch" style="background:#0071BC"></span> World Bank / other non-Chinese</span>
+        <span class="item"><span class="swatch" style="background:#2D2D2D"></span> Funded at home</span>
       </div>
     </div>
 
     <div class="callout">
       <h3>Two things the shapes tell you that the slope hides</h3>
-      <p><strong>Half these "verdicts" are not the same measurement.</strong> The circles (Azura, Sankofa, Bui) are NPV computed from terms that were actually published. The triangles (SGR, Addis, GERD) are not NPV at all; they are outcome-based verdicts, because the financing terms were never disclosed and the toolkit could not be run. The slope plots both under one label. The shapes are there so you do not mistake "we judged the outcome" for "we computed the value."</p>
-      <p>The strongest evidence the relationship is <strong>not</strong> "transparency causes value" is <strong>Sankofa</strong>: a circle in the medium-disclosure band sitting deep in the harmful zone. Its terms were transparent enough to <em>compute</em> the take-or-pay poison, so disclosure caught the problem; it did not prevent it. Disclosure made the bad deal testable. It did not make it good.</p>
+      <p><strong>Not every dot was judged the same way.</strong> For the circles (like Azura and Sankofa) we could actually work out the value, because the deal's terms were public. For the triangles (like SGR and Addis) we could not: the terms were kept secret, so all we have is what the project did in the end. The chart puts both on one line. The shapes are there so you do not mistake "we saw how it turned out" for "we checked the numbers."</p>
+      <p>The clearest sign that openness does <strong>not</strong> guarantee a good deal is <strong>Sankofa</strong>: a circle that sits low in the harmful zone even though its terms were public. Because the terms were public, the bad deal could be measured, and it still went ahead. Making it public let people see the trap. It did not stop them walking into it.</p>
     </div>
 
-    <!-- ===================== OFF-DIAGONAL ===================== -->
-    <h2><span class="num">02</span>The off-diagonal cases are the lesson</h2>
-    <p class="lead">With only ten hand-scored projects, the honest move is not to draw a trend line through them. It is to look at the projects that <em>break</em> the expected pattern, because that is where the real lesson sits.</p>
+    <!-- ===================== THE EXCEPTIONS ===================== -->
+    <h2><span class="num">02</span>The exceptions are the lesson</h2>
+    <p class="lead">With only ten hand-scored projects, drawing a line through them would over-claim. The honest move is to look at the projects that land where you would not expect, because that is where the real lesson sits.</p>
 
     <div class="cases">
       <div class="case tr">
-        <h4>Visible · looks worthwhile (NPV computed)</h4>
-        <p class="who">Azura-Edo IPP</p>
-        <p>Open competitive procurement, World Bank/MIGA + IFC + 16 disclosed lenders. The "expected" diagonal, but it is the funder-discipline confound made visible, not proof transparency created the value.</p>
+        <h4>Public · looks worthwhile</h4>
+        <p class="who">Azura-Edo power plant</p>
+        <p>Won through open competition, with the World Bank and 16 named lenders. This is the "expected" outcome, but it mostly shows the effect of a careful lender, not proof that openness by itself created the value.</p>
       </div>
       <div class="case br">
-        <h4>Visible · still a bad deal (NPV computed)</h4>
+        <h4>Public · still a bad deal</h4>
         <p class="who">Sankofa gas</p>
-        <p>The case that breaks the thesis. Terms <em>were</em> disclosed (~$250m/yr take-or-pay), so the NPV could be computed and it came out deeply negative. Disclosure surfaced a poisoned chalice it could not stop. Transparency is diagnostic, not curative.</p>
+        <p>The case that breaks the rule. The terms were public, including a clause that locked Ghana into paying for gas it does not use (about $250m a year). Being able to see the trap did not stop the country walking into it.</p>
       </div>
       <div class="case bl">
-        <h4>Hidden · failure leaked out (outcome verdict)</h4>
-        <p class="who">Addis LRT · SGR</p>
-        <p>A white elephant (8 of 41 trains running) and a railway under documented debt-service strain (the SGR loan is roughly 5% of Kenya's GDP). No full NPV exists for either, the terms are confidential; we know they failed only because the outcomes leaked out.</p>
+        <h4>Hidden · the failure showed later</h4>
+        <p class="who">Addis light rail · Kenya SGR</p>
+        <p>A railway running just 8 of its 41 trains, and another whose loan is worth roughly 5% of Kenya's whole economy and is straining the rail company's finances. The deals' terms stayed secret; we only know they went wrong because the results became visible afterwards.</p>
       </div>
       <div class="case tl">
-        <h4>Hidden · cannot be tested at all</h4>
+        <h4>Hidden · cannot be judged at all</h4>
         <p class="who">NASENI solar</p>
-        <p>The honest blank cell. Financing terms never published on any official document, so NPV cannot be computed and there is not even an outcome track record yet. The opacity is itself the finding: you cannot assess what is not disclosed.</p>
+        <p>The honest blank. The financing terms were never published anywhere official, so there is no way to test whether the deal is good, and not even a track record yet. You cannot judge a deal you are not allowed to see, and that is the whole point.</p>
       </div>
     </div>
 
     <!-- ===================== DATA TABLE ===================== -->
-    <h2><span class="num">03</span>The underlying table (every cell tagged)</h2>
-    <p class="lead">Disclosure is reported as a <strong>band</strong>, not a false-precision integer: the analyst coding does not support an 82-versus-85 distinction. Value signal is tagged by method: <span class="prov-tag prov-estimated">computed</span> = NPV run on disclosed terms · <span class="prov-tag prov-coded">outcome</span> = verdict inferred from outcomes because terms were not published · the funder column is the confound, not the cause.</p>
+    <h2><span class="num">03</span>The full table</h2>
+    <p class="lead">Openness is shown as a <strong>band</strong> (High, Medium, Low, Unknown), not an exact number, because hand-scoring cannot tell 82 from 85 with any honesty. Each verdict is labelled by how we reached it: <span class="prov-tag prov-estimated">computed</span> means we worked the value out from public terms; <span class="prov-tag prov-coded">outcome</span> means we judged it by results because the terms were hidden. The funder column is there because it, not openness, is doing most of the work.</p>
 
     <div class="tablewrap">
       <table>
@@ -255,16 +240,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Azura-Edo IPP (NG)</td><td>Multilateral</td><td>High</td><td>Open tender, 16 lenders, contract terms</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on disclosed terms, commercial PPA</td></tr>
-          <tr><td>NEP mini-grids (NG)</td><td>Multilateral</td><td>High</td><td>Open tender, full contractor disclosure</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on WB+AfDB disclosed terms</td></tr>
-          <tr><td>Accra interchange (GH)</td><td>Non-PRC commercial</td><td>Medium</td><td>Post-RTI; ~$445m attributed; partial terms</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cash flow, urban beneficiary</td></tr>
-          <tr><td>Sankofa gas (GH)</td><td>Non-PRC</td><td>Medium</td><td>WB-guaranteed; take-or-pay clause public</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-estimated">computed</span></td><td>NPV registers ~$250m/yr unused-gas poison from disclosed terms</td></tr>
-          <tr><td>GERD transmission (ET)</td><td>Domestic + PRC</td><td>Low</td><td>Self-reported; substations ~$1.2bn PRC</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from 9yr idle substations; terms self-reported, no full NPV</td></tr>
-          <tr><td>Bui hydro (GH)</td><td>PRC</td><td>Low</td><td>Blended EXIM $270m@2% + commercial; collateral</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cocoa-collateral terms</td></tr>
-          <tr><td>Zungeru hydro (NG)</td><td>PRC</td><td>Low</td><td>EXIM $984m, 2.5%/20yr via PBC; direct award</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partly-public terms; delay + security cost</td></tr>
-          <tr><td>SGR (KE)</td><td>PRC</td><td>Low</td><td>Sovereign guarantee known; full terms confidential</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: loan ~5% of GDP, documented debt-service strain on Kenya Railways; no full NPV (terms confidential)</td></tr>
-          <tr><td>Addis LRT (ET)</td><td>PRC</td><td>Low</td><td>85% EXIM known; no competitive tender</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: 8/41 trains running, O&amp;M &gt; benefit (white elephant); no full NPV</td></tr>
-          <tr><td>NASENI solar (NG)</td><td>PRC</td><td>Unknown</td><td>85% attributed but NOT officially published</td><td><span class="verdict v-red"></span>Not computable</td><td>Terms undisclosed; neither NPV nor outcome verdict possible</td></tr>
+          <tr><td>Azura-Edo IPP (NG)</td><td>World Bank</td><td>High</td><td>Open tender, 16 lenders, contract terms</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on disclosed terms, commercial PPA</td></tr>
+          <tr><td>NEP mini-grids (NG)</td><td>World Bank</td><td>High</td><td>Open tender, full contractor disclosure</td><td><span class="verdict v-green"></span>Worthwhile <span class="prov-tag prov-estimated">computed</span></td><td>NPV on WB+AfDB disclosed terms</td></tr>
+          <tr><td>Accra interchange (GH)</td><td>Non-Chinese</td><td>Medium</td><td>Post-RTI; ~$445m attributed; partial terms</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cash flow, urban beneficiary</td></tr>
+          <tr><td>Sankofa gas (GH)</td><td>Non-Chinese</td><td>Medium</td><td>WB-guaranteed; take-or-pay clause public</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-estimated">computed</span></td><td>NPV registers ~$250m/yr unused-gas poison from disclosed terms</td></tr>
+          <tr><td>GERD transmission (ET)</td><td>Home + Chinese</td><td>Low</td><td>Self-reported; substations ~$1.2bn PRC</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from 9yr idle substations; terms self-reported, no full NPV</td></tr>
+          <tr><td>Bui hydro (GH)</td><td>Chinese</td><td>Low</td><td>Blended EXIM $270m@2% + commercial; collateral</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partial cocoa-collateral terms</td></tr>
+          <tr><td>Zungeru hydro (NG)</td><td>Chinese</td><td>Low</td><td>EXIM $984m, 2.5%/20yr via PBC; direct award</td><td><span class="verdict v-amber"></span>Marginal <span class="prov-tag prov-estimated">computed</span></td><td>NPV on partly-public terms; delay + security cost</td></tr>
+          <tr><td>SGR (KE)</td><td>Chinese</td><td>Low</td><td>Sovereign guarantee known; full terms confidential</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: loan ~5% of GDP, documented debt-service strain on Kenya Railways; no full NPV (terms confidential)</td></tr>
+          <tr><td>Addis LRT (ET)</td><td>Chinese</td><td>Low</td><td>85% EXIM known; no competitive tender</td><td><span class="verdict v-red"></span>Harmful <span class="prov-tag prov-coded">outcome</span></td><td>Verdict from outcomes: 8/41 trains running, O&amp;M &gt; benefit (white elephant); no full NPV</td></tr>
+          <tr><td>NASENI solar (NG)</td><td>Chinese</td><td>Unknown</td><td>85% attributed but NOT officially published</td><td><span class="verdict v-red"></span>Not computable</td><td>Terms undisclosed; neither NPV nor outcome verdict possible</td></tr>
         </tbody>
       </table>
     </div>
@@ -276,8 +261,8 @@
     <div class="callout">
       <h3>Three claims</h3>
       <p><strong>1. Disclosure decides whether a project can be judged, not whether it is good.</strong> The clearest pattern is not that hidden projects are bad. It is that a hidden project like NASENI <em>cannot be assessed at all</em>: you cannot weigh a deal's costs against its benefits when the financing terms are not public. Disclosure is the entry ticket for testing value.</p>
-      <p><strong>2. The upward slope is mostly about who paid, not about transparency.</strong> Multilateral money tends to come with open contracts <em>and</em> better terms; PRC and commercial money tends to come with neither. The two travel together, so the chart makes disclosure look more powerful than this small sample can prove. Separating disclosure's own effect would need a far larger sample that holds the funder fixed.</p>
-      <p><strong>3. Disclosure diagnoses; it does not cure.</strong> Sankofa is the proof: its terms were public, so the bad deal could be seen and measured, and it went ahead anyway. Transparency let the poison be detected. It did not stop anyone drinking it. The limit on judging a deal is what gets published, not the arithmetic.</p>
+      <p><strong>2. The upward slope is mostly about who lent the money, not about openness.</strong> Lenders like the World Bank tend to publish more <em>and</em> offer better terms; Chinese and commercial lenders tend to do neither. Because those two things come together, the chart makes openness look more powerful than ten projects can prove. To pull openness apart from the lender you would need a much bigger set of projects, all with the same kind of lender.</p>
+      <p><strong>3. Openness shows you the problem; it does not fix it.</strong> Sankofa is the proof: its terms were public, so the bad deal could be seen and measured, and it went ahead anyway. Being able to see the trap is not the same as avoiding it. What limits whether a deal can be judged is what gets published, not the maths.</p>
     </div>
 
     <details class="drawer">

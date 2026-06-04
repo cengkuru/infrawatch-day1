@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pick the money. Find the blind spot.</title>
-  <meta name="description" content="A funding structure is a prediction engine: it tells you which fact will disappear, and which record to demand first. An interactive disclosure scanner from InfraWatch Nairobi, Day 2.">
+  <title>Every funding structure has a blind spot</title>
+  <meta name="description" content="A funding structure is a prediction engine: it tells you which fact will disappear, and the one record that brings it back into the light. A scroll-driven visual essay from InfraWatch Nairobi, Day 2.">
   <style>
     :root{
-      --brand:#28496A; --brand-deep:#142334; --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
-      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --brand:#28496A; --brand-deep:#142334; --night:#0c1622; --green:#1B7A3D; --green-glow:#3fd07a;
+      --amber:#C77F00; --red:#BE1E2D; --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
       --mono:"SFMono-Regular",Consolas,monospace;
     }
@@ -18,328 +18,384 @@
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
-    .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem;}
 
     /* HERO */
-    .hero{padding:3rem 0 1rem;}
-    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
-    .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:15ch;}
-    h1 .accent{color:var(--brand);}
-    .lede{font-size:clamp(1.05rem,2.3vw,1.28rem);color:var(--mid);max-width:54ch;margin:0;}
-    .lede b{color:var(--dark);font-weight:700;}
+    .hero{background:var(--brand-deep);color:#fff;padding:3.4rem 1.3rem 3rem;text-align:center;}
+    .hero .inner{max-width:760px;margin:0 auto;}
+    .hero .kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:#7fa8d6;margin:0 0 1rem;}
+    .hero h1{font-size:clamp(2rem,5.4vw,3.2rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0 auto 1.1rem;max-width:18ch;}
+    .hero h1 .accent{color:#9fd6b3;}
+    .hero p{font-size:clamp(1.05rem,2.3vw,1.28rem);color:#cdddec;max-width:50ch;margin:0 auto;}
+    .hero p b{color:#fff;font-weight:700;}
+    .scrollcue{margin-top:2rem;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#7fa8d6;animation:bob 2s ease-in-out infinite;}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-    /* SCANNER */
-    .scanner{background:var(--white);border:1px solid var(--light);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.13);margin:2.2rem 0 1rem;overflow:hidden;}
-    .progress{display:flex;gap:.3rem;padding:1rem 1.2rem 0;}
-    .pdot{flex:1;height:5px;border-radius:99px;background:var(--light);transition:background .3s;}
-    .pdot.done{background:var(--green);} .pdot.cur{background:var(--brand);}
-    .scanhead{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem 1.3rem .2rem;}
-    .scanhead .step{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);}
-    .scanhead .proj{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);font-weight:700;}
-    .scanbody{padding:.6rem 1.3rem 1.3rem;}
+    /* SCROLLY: sticky stage + scrolling annotations */
+    .scrolly{position:relative;background:var(--night);}
+    .stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .stage svg{width:min(86vw,720px);height:auto;display:block;}
+    .scenecap{position:absolute;left:0;right:0;bottom:6.5vh;text-align:center;font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:#7fa0c4;transition:opacity .4s;}
 
-    /* identical project card */
-    .projcard{display:flex;align-items:center;gap:1rem;background:var(--surface);border:1px solid var(--light);border-radius:12px;padding:1rem 1.2rem;margin:.4rem 0 1rem;}
-    .projcard .ic{width:46px;height:46px;flex:0 0 auto;}
-    .projcard .pt{margin:0;font-weight:800;font-size:1.15rem;}
-    .projcard .ps{margin:.1rem 0 0;font-size:.84rem;color:var(--mid);}
-    .finance-badge{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--brand-deep);background:#e9f0f7;border:1px solid #cdddec;border-radius:99px;padding:.2rem .6rem;margin-left:auto;}
+    .steps{position:relative;z-index:2;max-width:430px;margin:0;padding:0 1.2rem 0 max(1.2rem,5vw);}
+    .step{min-height:100vh;display:flex;align-items:center;}
+    .step .card{background:rgba(12,22,34,.82);backdrop-filter:blur(6px);border:1px solid #22384f;border-left:4px solid #3a516b;border-radius:14px;padding:1.4rem 1.5rem;
+      opacity:.25;transform:translateY(18px);transition:opacity .5s,transform .5s,border-color .5s;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+    .step.on .card{opacity:1;transform:translateY(0);}
+    .step.on[data-tone="dark"] .card{border-left-color:var(--amber);}
+    .step.on[data-tone="light"] .card{border-left-color:var(--green-glow);}
+    .step .ftype{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#7fa8d6;margin:0 0 .5rem;}
+    .step h2{margin:0 0 .6rem;font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;line-height:1.12;color:#fff;letter-spacing:-.01em;}
+    .step h2 .em{color:#f0b860;}
+    .step h2 .lit{color:#9fe6bb;}
+    .step p{margin:0;color:#bcd0e4;font-size:.98rem;line-height:1.55;}
+    .step p strong{color:#fff;}
+    .step .rec{display:inline-block;margin-top:.9rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:#9fe6bb;background:rgba(63,208,122,.1);border:1px solid #2f6b48;border-radius:8px;padding:.5rem .7rem;}
+    .step .miss{display:block;margin-top:.7rem;font-size:.86rem;color:#e0a3a8;}
+    .step .miss b{color:#f3c4c8;}
 
-    .qlabel{font-size:1rem;font-weight:700;color:var(--dark);margin:.2rem 0 .8rem;}
-    .opts{display:grid;gap:.55rem;}
-    .opt{display:flex;align-items:center;gap:.7rem;text-align:left;width:100%;background:var(--white);border:1.5px solid var(--light);border-radius:10px;padding:.8rem 1rem;font-size:.95rem;color:var(--dark);cursor:pointer;transition:.13s;font-family:inherit;}
-    .opt:hover:not(:disabled){border-color:var(--brand);background:#f4f8fc;}
-    .opt:disabled{cursor:default;}
-    .opt .mk{width:20px;height:20px;flex:0 0 auto;border-radius:50%;border:2px solid var(--mid);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;}
-    .opt.correct{border-color:var(--green);background:#eef7f1;} .opt.correct .mk{background:var(--green);border-color:var(--green);}
-    .opt.wrong{border-color:var(--red);background:#fdeeef;} .opt.wrong .mk{background:var(--red);border-color:var(--red);}
-    .opt.dim{opacity:.5;}
+    /* intro + outro steps */
+    .step.intro .card,.step.outro .card{background:transparent;border:none;box-shadow:none;border-left:none;text-align:center;}
+    .step.intro .card{padding-top:0;}
 
-    /* verdict band (the named fail) */
-    .verdict{margin:1.1rem 0 0;border-radius:12px;padding:1.1rem 1.2rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .45s,max-height .45s,padding .45s;}
-    .verdict.show{opacity:1;max-height:420px;}
-    .verdict.fail{background:#fdeeef;border:1px solid #f3c4c8;border-left:4px solid var(--red);}
-    .verdict.win{background:#eef7f1;border:1px solid #c4e3cf;border-left:4px solid var(--green);}
-    .verdict .vlab{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:0 0 .4rem;}
-    .verdict.fail .vlab{color:var(--red);} .verdict.win .vlab{color:var(--green);}
-    .verdict h4{margin:0 0 .4rem;font-size:1.05rem;font-weight:800;color:var(--dark);}
-    .verdict p{margin:0;font-size:.92rem;color:var(--mid);}
-    .verdict p strong{color:var(--dark);}
-    .verdict .rec{margin-top:.8rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--green);background:#fff;border:1px solid #c4e3cf;border-radius:8px;padding:.55rem .7rem;}
-
-    .scanfoot{display:flex;justify-content:space-between;align-items:center;gap:.8rem;padding:1rem 1.3rem;border-top:1px solid var(--light);background:var(--surface);}
-    .btn{background:var(--brand);color:#fff;border:none;border-radius:99px;padding:.6rem 1.3rem;font-weight:800;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:.15s;}
-    .btn:hover{background:var(--brand-deep);} .btn:disabled{opacity:.35;cursor:not-allowed;}
-    .btn.ghost{background:transparent;color:var(--mid);border:1px solid var(--light);}
-    .btn.ghost:hover{color:var(--brand);border-color:var(--brand);background:#fff;}
-    .showall{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);background:none;border:none;cursor:pointer;text-decoration:underline;}
-
-    /* TRIAGE CARD (payoff) */
-    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.8rem 0 .4rem;}
-    h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
-    .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.6rem 0;}
-    .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
-    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.42rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
+    /* THESIS + TRIAGE (light section) */
+    .light-sec{background:var(--surface);}
+    .wrap{max-width:760px;margin:0 auto;padding:0 1.2rem;}
+    .takeaway{background:var(--brand-deep);color:#fff;border-radius:16px;padding:2.4rem 2.2rem;margin:3rem 0 2.4rem;}
+    .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .8rem;}
+    .tk-line{margin:0;font-size:clamp(1.15rem,2.6vw,1.5rem);line-height:1.45;color:#eaf0f6;font-weight:500;}
     .tk-line strong{color:#fff;font-weight:800;}
 
-    .triage{border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);margin-top:1rem;}
-    .triage .th{background:var(--brand-deep);color:#fff;padding:1rem 1.2rem;}
-    .triage .th .t{font-weight:800;font-size:1.05rem;} .triage .th .s{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.2rem;}
-    .trow{display:grid;grid-template-columns:1fr auto 1.3fr;gap:.6rem;align-items:center;padding:.8rem 1.2rem;border-bottom:1px solid var(--light);}
+    h3.cardh{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.4rem 0 .4rem;}
+    h3.cardh .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
+    .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
+    .triage{border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(20,35,52,.1);background:var(--white);}
+    .triage .th{background:var(--brand-deep);color:#fff;padding:1.1rem 1.3rem;}
+    .triage .th .t{font-weight:800;font-size:1.08rem;} .triage .th .s{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.25rem;}
+    .trow{display:grid;grid-template-columns:1fr auto 1.3fr;gap:.7rem;align-items:center;padding:.9rem 1.3rem;border-bottom:1px solid var(--light);}
     .trow:last-child{border-bottom:none;}
-    .trow .money{font-weight:700;font-size:.92rem;}
-    .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.74rem;}
+    .trow .money{font-weight:700;font-size:.94rem;} .trow .money small{display:block;color:var(--mid);font-weight:400;font-size:.76rem;}
     .trow .ar{color:var(--brand);font-family:var(--mono);font-size:.8rem;}
-    .trow .rec{color:var(--green);font-weight:700;font-size:.88rem;font-family:var(--mono);}
-    @media (max-width:560px){ .trow{grid-template-columns:1fr;gap:.2rem;} .trow .ar{display:none;} }
+    .trow .rec{color:var(--green);font-weight:700;font-size:.9rem;font-family:var(--mono);}
+    @media (max-width:560px){ .trow{grid-template-columns:1fr;gap:.25rem;} .trow .ar{display:none;} }
 
-    details.drawer{margin:1.6rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
+    details.drawer{margin:1.8rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
     details.drawer>summary::-webkit-details-marker{display:none;}
     details.drawer>summary::before{content:"\25B8";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
-    footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);max-width:760px;margin-left:auto;margin-right:auto;}
 
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .verdict{transition:none;} .opt{transition:none;} }
+    /* svg scene elements */
+    .struct{transition:opacity .6s;}
+    .shade{fill:#000;opacity:0;transition:opacity .8s;}
+    .hidden-fact{opacity:0;transition:opacity .7s;}
+    .beam{opacity:0;transition:opacity .6s;}
+    .glow circle{transition:r .8s,opacity .8s;}
+
+    /* MOBILE: stage pinned to the top half, cards scroll in the lower half, never overlapping */
+    @media (max-width:720px){
+      .stage{height:54vh;top:0;align-items:center;background:var(--night);border-bottom:1px solid #1c2e42;}
+      .stage svg{width:84vw;}
+      .scenecap{bottom:2.5vh;}
+      .steps{max-width:100%;margin:0;padding:0 1rem;}
+      .step{min-height:auto;padding:46vh 0 8vh;align-items:flex-start;}
+      .step.intro{padding-top:8vh;} .step.outro{padding:20vh 0;}
+      .step .card{opacity:1;transform:none;}
+      .step .card{background:rgba(12,22,34,.94);}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto;} .scrollcue{animation:none;}
+      .step .card{opacity:1;transform:none;}
+      .shade,.hidden-fact,.beam,.struct{transition:none;}
+    }
   </style>
 </head>
 <body>
-  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; disclosure scanner</span></div>
+  <div class="brandbar"><a href="./day2/">&larr; InfraWatch &middot; Day 2</a><span class="label">CIPE &middot; the blind spot in the money</span></div>
 
-  <div class="wrap">
-    <section class="hero">
-      <p class="hook">Two projects can look identical from the outside and hide completely different things, because they were financed in different ways. <b>A generic transparency request is weak. A request aimed at the right record is sharp.</b></p>
-      <h1>Pick the money. <span class="accent">Find the blind spot.</span></h1>
-      <p class="lede">A funding structure is not a label. It is a prediction engine: it tells you, in advance, <b>which fact will disappear, and which record to demand first.</b> Run five real projects through the scanner.</p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="inner">
+      <p class="kick">Day 2 &middot; reading a project by its money</p>
+      <h1>Every funding structure has a <span class="accent">blind spot</span>.</h1>
+      <p>Two projects can look identical from the outside and hide completely different things, because they were financed in different ways. <b>The structure tells you, in advance, which fact will disappear.</b></p>
+      <p class="scrollcue">scroll to see each one &darr;</p>
+    </div>
+  </section>
 
-    <!-- THE SCANNER -->
-    <section class="scanner" id="scanner" aria-label="Disclosure scanner: five projects, one at a time">
-      <div class="progress" id="progress" aria-hidden="true"></div>
-      <div class="scanhead">
-        <span class="step" id="stepct">Project 1 of 5</span>
-        <span class="proj" id="projtag">sovereign loan</span>
-      </div>
-      <div class="scanbody" id="scanbody"><!-- rendered by JS --></div>
-      <div class="scanfoot">
-        <button class="showall" id="showall" type="button">Skip the game, show all answers</button>
-        <button class="btn" id="next" type="button" disabled>Next project &rarr;</button>
-      </div>
-    </section>
-    <p style="text-align:center;color:var(--mid);font-size:.82rem;margin:.2rem 0 0">Same five projects, five different blind spots. Work each one, or skip to the triage card.</p>
+  <!-- SCROLLY -->
+  <section class="scrolly" id="scrolly">
+    <div class="stage" aria-hidden="true">
+      <svg id="scene" viewBox="0 0 600 460" role="img" aria-label="A project that darkens to show its hidden fact, then is lit by the one record that reveals it. Each funding structure shown in turn.">
+        <!-- ground -->
+        <line x1="40" y1="392" x2="560" y2="392" stroke="#22384f" stroke-width="2"/>
 
-    <!-- THE THESIS -->
-    <div class="takeaway">
-      <p class="tk-eyebrow">What the scanner proves</p>
-      <p class="tk-line"><strong>A funding structure is a prediction engine.</strong> It tells you which fact will disappear before you read a single document, and which one record to demand first. Ask for the wrong thing and the blind spot stays dark.</p>
+        <!-- ===== STRUCTURE LAYERS (one shown at a time) ===== -->
+        <!-- 0 RAILWAY (sovereign loan) -->
+        <g class="struct" id="s0" opacity="1">
+          <g stroke="#5a7798" stroke-width="3" fill="none">
+            <line x1="110" y1="392" x2="110" y2="300"/><line x1="200" y1="392" x2="200" y2="300"/>
+            <line x1="290" y1="392" x2="290" y2="300"/><line x1="380" y1="392" x2="380" y2="300"/><line x1="470" y1="392" x2="470" y2="300"/>
+            <line x1="90" y1="300" x2="490" y2="300"/><line x1="90" y1="330" x2="490" y2="330"/>
+          </g>
+          <g stroke="#3a5571" stroke-width="6"><line x1="90" y1="362" x2="490" y2="362"/></g>
+          <g stroke="#3a5571" stroke-width="3">
+            <line x1="120" y1="356" x2="120" y2="372"/><line x1="170" y1="356" x2="170" y2="372"/><line x1="220" y1="356" x2="220" y2="372"/>
+            <line x1="270" y1="356" x2="270" y2="372"/><line x1="320" y1="356" x2="320" y2="372"/><line x1="370" y1="356" x2="370" y2="372"/><line x1="420" y1="356" x2="420" y2="372"/><line x1="470" y1="356" x2="470" y2="372"/>
+          </g>
+        </g>
+
+        <!-- 1 POWER PLANT (equity) -->
+        <g class="struct" id="s1" opacity="0">
+          <rect x="180" y="250" width="120" height="142" fill="none" stroke="#5a7798" stroke-width="3"/>
+          <rect x="320" y="210" width="60" height="182" fill="none" stroke="#5a7798" stroke-width="3"/>
+          <path d="M340 210 q10 -40 20 0" fill="none" stroke="#3a5571" stroke-width="3"/>
+          <line x1="200" y1="285" x2="280" y2="285" stroke="#3a5571" stroke-width="2"/>
+          <line x1="200" y1="320" x2="280" y2="320" stroke="#3a5571" stroke-width="2"/>
+          <line x1="200" y1="355" x2="280" y2="355" stroke="#3a5571" stroke-width="2"/>
+        </g>
+
+        <!-- 2 TOLL ROAD (PPP / concession) -->
+        <g class="struct" id="s2" opacity="0">
+          <path d="M120 392 L260 250 H340 L480 392 Z" fill="none" stroke="#5a7798" stroke-width="3"/>
+          <line x1="300" y1="250" x2="300" y2="392" stroke="#3a5571" stroke-width="2" stroke-dasharray="10 12"/>
+          <rect x="250" y="220" width="100" height="34" rx="4" fill="none" stroke="#5a7798" stroke-width="3"/>
+        </g>
+
+        <!-- 3 PORT (EPC + finance) -->
+        <g class="struct" id="s3" opacity="0">
+          <line x1="300" y1="220" x2="300" y2="392" stroke="#5a7798" stroke-width="3"/>
+          <line x1="300" y1="240" x2="420" y2="240" stroke="#5a7798" stroke-width="3"/>
+          <line x1="420" y1="240" x2="420" y2="280" stroke="#3a5571" stroke-width="2"/>
+          <rect x="150" y="340" width="60" height="52" fill="none" stroke="#5a7798" stroke-width="3"/>
+          <rect x="215" y="356" width="60" height="36" fill="none" stroke="#3a5571" stroke-width="3"/>
+          <path d="M120 392 q220 26 360 0" fill="none" stroke="#3a5571" stroke-width="2"/>
+        </g>
+
+        <!-- 4 WATER SYSTEM (grant / aid) -->
+        <g class="struct" id="s4" opacity="0">
+          <circle cx="300" cy="300" r="64" fill="none" stroke="#5a7798" stroke-width="3"/>
+          <line x1="236" y1="300" x2="120" y2="300" stroke="#5a7798" stroke-width="3"/>
+          <line x1="364" y1="300" x2="480" y2="300" stroke="#5a7798" stroke-width="3"/>
+          <line x1="120" y1="288" x2="120" y2="392" stroke="#3a5571" stroke-width="3"/>
+          <line x1="480" y1="288" x2="480" y2="392" stroke="#3a5571" stroke-width="3"/>
+          <path d="M300 270 v60 M280 290 h40" stroke="#3a5571" stroke-width="2"/>
+        </g>
+
+        <!-- shade that falls over the structure -->
+        <rect class="shade" id="shade" x="0" y="0" width="600" height="392"/>
+
+        <!-- the hidden fact, made visible when the record flares -->
+        <g class="hidden-fact" id="fact">
+          <g class="glow"><circle id="glowc" cx="300" cy="300" r="0" fill="#3fd07a" opacity="0"/></g>
+          <text id="facttext" x="300" y="120" text-anchor="middle" font-family="var(--mono)" font-size="15" font-weight="800" fill="#9fe6bb"></text>
+          <text id="factrec" x="300" y="146" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="#7fc89c"></text>
+        </g>
+      </svg>
+      <p class="scenecap" id="scenecap">five structures, five blind spots</p>
     </div>
 
-    <!-- THE PAYOFF: triage card -->
-    <h2><span class="num">&rarr;</span>The disclosure triage card</h2>
-    <p class="lead">The capability, on one card. See the funding structure, demand the record that reveals its blind spot. Screenshot it and take it into a real disclosure request.</p>
-    <div class="triage" id="triage">
-      <div class="th"><div class="t">See this money type, demand this first</div><div class="s">funding structure &rarr; the record that reveals the blind spot</div></div>
-      <div class="trow"><div class="money">Sovereign loan<small>state borrows to build</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
-      <div class="trow"><div class="money">Equity stake<small>investor takes a share</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
-      <div class="trow"><div class="money">PPP / concession<small>private builds and operates</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
-      <div class="trow"><div class="money">EPC + finance<small>one bundled build-and-fund deal</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
-      <div class="trow"><div class="money">Grant / aid<small>funder gives, with terms</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
-    </div>
-
-    <details class="drawer">
-      <summary>Where this comes from, and where it maps</summary>
-      <div class="drawer-body">
-        <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The blind-spot to record matches are illustrative of the disclosure pattern; confirm the exact field labels against the CoST IDS v2.0 before external use.</p>
-        <p><strong>The records, in CoST IDS terms.</strong> Loan terms and guarantee (Preparation, Implementation); beneficial ownership (Identification); contract terms and fiscal commitments (Procurement); cost estimate and price (Preparation, Procurement); funding source and conditions (Preparation).</p>
-        <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that reveals it. A request to publish can be aimed precisely at the one fact the financing was always going to hide.</p>
+    <div class="steps">
+      <div class="step intro on" data-scene="-1">
+        <div class="card">
+          <h2>Same outside.<br>Different secret.</h2>
+          <p>Scroll through five flagship projects. Each one looks like any other piece of infrastructure, until you see how it was financed.</p>
+        </div>
       </div>
-    </details>
 
-    <footer>
-      <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Illustrative of the disclosure pattern; confirm records against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
-    </footer>
-  </div>
+      <div class="step" data-scene="0" data-tone="dark">
+        <div class="card">
+          <p class="ftype">Sovereign loan &middot; a national railway</p>
+          <h2>The headline is the line.<br>The <span class="em">real debt</span> is not.</h2>
+          <p>The state borrows to build. The project gets announced; the liability it loads onto the treasury stays out of view.</p>
+          <span class="miss">Ask only for the announced cost and <b>the debt stays dark</b>. A sticker price is not a loan book.</span>
+        </div>
+      </div>
+      <div class="step" data-scene="0" data-tone="light">
+        <div class="card">
+          <p class="ftype">Sovereign loan &middot; what brings it back</p>
+          <h2>One record turns the <span class="lit">lights on</span>.</h2>
+          <p><strong>Publish the loan terms and the guarantee,</strong> and the real debt appears: the interest, the repayment, the contingent liability.</p>
+          <span class="rec">the record: loan terms + state guarantee</span>
+        </div>
+      </div>
+
+      <div class="step" data-scene="1" data-tone="dark">
+        <div class="card">
+          <p class="ftype">Equity stake &middot; a power plant</p>
+          <h2>You can see the price.<br>Not <span class="em">who gains</span>.</h2>
+          <p>An investor takes a share. You can know exactly what was paid and still not know who sits behind the stake and captures the value.</p>
+          <span class="miss">Ask only for the contract price and <b>the beneficiary stays dark</b>. Price and ownership are different questions.</span>
+        </div>
+      </div>
+      <div class="step" data-scene="1" data-tone="light">
+        <div class="card">
+          <p class="ftype">Equity stake &middot; what brings it back</p>
+          <h2>One record turns the <span class="lit">lights on</span>.</h2>
+          <p><strong>Publish the beneficial owners,</strong> and you see who is really behind it, and who the value flows to.</p>
+          <span class="rec">the record: beneficial ownership</span>
+        </div>
+      </div>
+
+      <div class="step" data-scene="2" data-tone="dark">
+        <div class="card">
+          <p class="ftype">PPP / concession &middot; a toll road</p>
+          <h2>A budget shows this year.<br>The bill runs <span class="em">25 years</span>.</h2>
+          <p>A private partner builds and operates. The guarantees, availability payments and contingent liabilities run for decades.</p>
+          <span class="miss">Ask only for the project budget and <b>the future bill stays dark</b>. This year is not the whole story.</span>
+        </div>
+      </div>
+      <div class="step" data-scene="2" data-tone="light">
+        <div class="card">
+          <p class="ftype">PPP / concession &middot; what brings it back</p>
+          <h2>One record turns the <span class="lit">lights on</span>.</h2>
+          <p><strong>Publish the contract and its fiscal commitments,</strong> and the long-term bill to the public becomes visible.</p>
+          <span class="rec">the record: contract + fiscal commitments</span>
+        </div>
+      </div>
+
+      <div class="step" data-scene="3" data-tone="dark">
+        <div class="card">
+          <p class="ftype">EPC + finance &middot; a container port</p>
+          <h2>One total.<br>Nothing to <span class="em">check it against</span>.</h2>
+          <p>Build and finance are rolled into one bundled deal. The mark-up hides inside a single number with nothing to compare it to.</p>
+          <span class="miss">Ask only for the total value and <b>the mark-up stays dark</b>. A lump sum cannot be benchmarked.</span>
+        </div>
+      </div>
+      <div class="step" data-scene="3" data-tone="light">
+        <div class="card">
+          <p class="ftype">EPC + finance &middot; what brings it back</p>
+          <h2>One record turns the <span class="lit">lights on</span>.</h2>
+          <p><strong>Publish the itemised cost breakdown,</strong> and the price can finally be benchmarked, line by line.</p>
+          <span class="rec">the record: cost breakdown + benchmark price</span>
+        </div>
+      </div>
+
+      <div class="step" data-scene="4" data-tone="dark">
+        <div class="card">
+          <p class="ftype">Grant / aid &middot; a water system</p>
+          <h2>The money looks free.<br>The <span class="em">strings</span> do not show.</h2>
+          <p>A funder gives, with terms. The conditions attached, and any requirement to buy from the funder's own firms, decide who really benefits.</p>
+          <span class="miss">Ask only for the grant amount and <b>the conditions stay dark</b>. Free money is rarely free of terms.</span>
+        </div>
+      </div>
+      <div class="step" data-scene="4" data-tone="light">
+        <div class="card">
+          <p class="ftype">Grant / aid &middot; what brings it back</p>
+          <h2>One record turns the <span class="lit">lights on</span>.</h2>
+          <p><strong>Publish the source, its conditions and any tied procurement,</strong> and the real terms show.</p>
+          <span class="rec">the record: source + conditions + tied procurement</span>
+        </div>
+      </div>
+
+      <div class="step outro" data-scene="-1">
+        <div class="card">
+          <h2 style="color:#9fe6bb">Five structures. Five blind spots.<br>Five records that reveal them.</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THESIS + TRIAGE -->
+  <section class="light-sec">
+    <div class="wrap">
+      <div class="takeaway">
+        <p class="tk-eyebrow">The point, in one breath</p>
+        <p class="tk-line"><strong>A funding structure is a prediction engine.</strong> It tells you which fact will disappear before you read a single document, and the one record that brings it back into the light.</p>
+      </div>
+
+      <h3 class="cardh"><span class="num">&rarr;</span>The disclosure triage card</h3>
+      <p class="lead">The whole story on one card. See the funding structure, ask for the record that reveals its blind spot. Screenshot it and take it into a real request.</p>
+      <div class="triage">
+        <div class="th"><div class="t">See this money type, ask for this first</div><div class="s">funding structure &rarr; the record that reveals the blind spot</div></div>
+        <div class="trow"><div class="money">Sovereign loan<small>the state borrows to build</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
+        <div class="trow"><div class="money">Equity stake<small>an investor takes a share</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
+        <div class="trow"><div class="money">PPP / concession<small>private builds and operates</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
+        <div class="trow"><div class="money">EPC + finance<small>one bundled build-and-fund deal</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
+        <div class="trow"><div class="money">Grant / aid<small>a funder gives, with terms</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
+      </div>
+
+      <details class="drawer">
+        <summary>Where this comes from, and where it maps</summary>
+        <div class="drawer-body">
+          <p><strong>Source.</strong> InfraWatch Nairobi, Day 2 (3 Jun 2026). The blind-spot to record matches are illustrative of the disclosure pattern; confirm the exact field labels against the CoST IDS v2.0 before external use.</p>
+          <p><strong>The records, in CoST IDS terms.</strong> Loan terms and guarantee (Preparation, Implementation); beneficial ownership (Identification); contract terms and fiscal commitments (Procurement); cost estimate and price (Preparation, Procurement); funding source and conditions (Preparation).</p>
+          <p><strong>The point.</strong> Where the money comes from predicts the blind spot, and the CoST IDS already contains the record that reveals it. A request to publish can be aimed precisely at the one fact the financing was always going to hide.</p>
+        </div>
+      </details>
+
+      <footer>
+        <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Illustrative of the disclosure pattern; confirm records against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
+      </footer>
+    </div>
+  </section>
 
   <script>
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var structs=[]; for(var i=0;i<5;i++) structs.push(document.getElementById("s"+i));
+    var shade=document.getElementById("shade"), fact=document.getElementById("fact"),
+        glowc=document.getElementById("glowc"), facttext=document.getElementById("facttext"),
+        factrec=document.getElementById("factrec"), scenecap=document.getElementById("scenecap");
 
-    // icons (simple line glyphs per project type)
-    var ICON = {
-      road:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M8 40 L20 6 H26 L38 40" fill="none" stroke="#28496A" stroke-width="2.5"/><line x1="23" y1="12" x2="23" y2="18" stroke="#C77F00" stroke-width="2.5"/><line x1="23" y1="24" x2="23" y2="30" stroke="#C77F00" stroke-width="2.5"/></svg>',
-      rail:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><line x1="16" y1="6" x2="16" y2="40" stroke="#28496A" stroke-width="2.5"/><line x1="30" y1="6" x2="30" y2="40" stroke="#28496A" stroke-width="2.5"/><line x1="12" y1="14" x2="34" y2="14" stroke="#28496A" stroke-width="2.5"/><line x1="12" y1="26" x2="34" y2="26" stroke="#28496A" stroke-width="2.5"/></svg>',
-      port:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><circle cx="23" cy="10" r="3" fill="none" stroke="#28496A" stroke-width="2.5"/><line x1="23" y1="13" x2="23" y2="34" stroke="#28496A" stroke-width="2.5"/><line x1="14" y1="20" x2="32" y2="20" stroke="#28496A" stroke-width="2.5"/><path d="M12 30 q11 9 22 0" fill="none" stroke="#28496A" stroke-width="2.5"/></svg>',
-      power:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M26 6 L14 26 H24 L20 40 L34 18 H24 Z" fill="none" stroke="#28496A" stroke-width="2.5" stroke-linejoin="round"/></svg>',
-      water:'<svg viewBox="0 0 46 46" class="ic" aria-hidden="true"><path d="M23 6 C14 22 14 30 23 38 C32 30 32 22 23 6 Z" fill="none" stroke="#28496A" stroke-width="2.5"/></svg>'
-    };
-
-    // The five projects. blind = correct blind spot; blindOpts = 3 choices.
-    // ask: wrongAsk (the plausible weak request), failLine; rightRecord.
-    var PROJECTS = [
-      { proj:"sovereign loan", icon:"rail", title:"A national railway", sub:"Same headline as any flagship project.",
-        q1:"What does a sovereign loan hide?",
-        blindOpts:[ {t:"Who really owns it", ok:false}, {t:"The real debt it puts on the state", ok:true}, {t:"The construction mark-up", ok:false} ],
-        wrongAsk:"the project's announced cost",
-        wrongOpts:[ {t:"Ask for the announced project cost", ok:false}, {t:"Ask for the loan terms and the state guarantee", ok:true} ],
-        failHead:"The announced cost is just the sticker.",
-        failBody:"The headline number is the project. <strong>The liability it loads onto the treasury, the interest, the guarantee, the repayment, sits in the loan agreement, not the press release.</strong>",
-        rightRecord:"Publish the loan terms and the guarantee. The real debt appears." },
-
-      { proj:"equity stake", icon:"power", title:"A power plant", sub:"Same headline as any flagship project.",
-        q1:"What does an equity stake hide?",
-        blindOpts:[ {t:"Who really owns it and gains from it", ok:true}, {t:"The future maintenance bill", ok:false}, {t:"The tied conditions", ok:false} ],
-        wrongAsk:"the contract price",
-        wrongOpts:[ {t:"Ask for the contract price", ok:false}, {t:"Ask for the beneficial owners behind the stake", ok:true} ],
-        failHead:"The price tells you the cost, not the beneficiary.",
-        failBody:"You can know exactly what was paid and still not know <strong>who sits behind the ownership stake and captures the value.</strong> Price and ownership are different questions.",
-        rightRecord:"Publish the beneficial owners. You see who is really behind it." },
-
-      { proj:"PPP / concession", icon:"road", title:"A toll road", sub:"Same headline as any flagship project.",
-        q1:"What does a PPP or concession hide?",
-        blindOpts:[ {t:"The construction mark-up", ok:false}, {t:"The 25-year bill to the public", ok:true}, {t:"Who owns the contractor", ok:false} ],
-        wrongAsk:"the project budget",
-        wrongOpts:[ {t:"Ask for the project budget", ok:false}, {t:"Ask for the contract and its fiscal commitments", ok:true} ],
-        failHead:"A budget shows this year. The bill runs 25 years.",
-        failBody:"The budget tells you what is spent now. <strong>The guarantees, availability payments and contingent liabilities run for decades, and they live in the contract, not the budget line.</strong>",
-        rightRecord:"Publish the contract and its fiscal commitments. The future bill becomes visible." },
-
-      { proj:"EPC + finance", icon:"port", title:"A container port", sub:"Same headline as any flagship project.",
-        q1:"What does a bundled EPC-plus-finance deal hide?",
-        blindOpts:[ {t:"The mark-up buried in the bundle", ok:true}, {t:"The repayment schedule", ok:false}, {t:"The owner's identity", ok:false} ],
-        wrongAsk:"the total contract value",
-        wrongOpts:[ {t:"Ask for the total contract value", ok:false}, {t:"Ask for the itemised cost breakdown", ok:true} ],
-        failHead:"One total tells you nothing you can check.",
-        failBody:"A single bundled figure cannot be benchmarked. <strong>Build and finance are rolled together, so the mark-up hides inside a number with nothing to compare it to.</strong>",
-        rightRecord:"Publish the itemised cost breakdown. The price can be benchmarked." },
-
-      { proj:"grant / aid", icon:"water", title:"A water system", sub:"Same headline as any flagship project.",
-        q1:"What does a grant or aid package hide?",
-        blindOpts:[ {t:"The strings and tied procurement", ok:true}, {t:"The debt burden", ok:false}, {t:"The construction price", ok:false} ],
-        wrongAsk:"the grant amount",
-        wrongOpts:[ {t:"Ask for the grant amount", ok:false}, {t:"Ask for the source, its conditions and any tied procurement", ok:true} ],
-        failHead:"Free money is rarely free of terms.",
-        failBody:"The amount looks generous on its own. <strong>The conditions attached, and any requirement to buy from the funder's own firms, decide who actually benefits, and they are not in the headline figure.</strong>",
-        rightRecord:"Publish the source and its conditions. The real terms show." }
+    var DATA=[
+      {cap:"sovereign loan, a railway", hidden:"THE REAL DEBT", rec:"loan terms + guarantee"},
+      {cap:"equity stake, a power plant", hidden:"WHO REALLY GAINS", rec:"beneficial ownership"},
+      {cap:"PPP, a toll road", hidden:"THE 25-YEAR BILL", rec:"contract + fiscal commitments"},
+      {cap:"EPC + finance, a port", hidden:"THE BURIED MARK-UP", rec:"cost breakdown"},
+      {cap:"grant / aid, a water system", hidden:"THE STRINGS ATTACHED", rec:"source + conditions"}
     ];
 
-    var idx=0;            // current project
-    var phase=0;          // 0 = pick blind spot, 1 = pick ask, 2 = revealed
-    var progress=document.getElementById("progress");
-    var body=document.getElementById("scanbody");
-    var stepct=document.getElementById("stepct");
-    var projtag=document.getElementById("projtag");
-    var nextBtn=document.getElementById("next");
-
-    // build progress dots
-    PROJECTS.forEach(function(_,i){ var d=document.createElement("div"); d.className="pdot"; progress.appendChild(d); });
-    function paintProgress(){
-      [].forEach.call(progress.children, function(d,i){
-        d.className = "pdot" + (i<idx?" done":(i===idx?" cur":""));
-      });
+    var curScene=-1, curTone=null;
+    function showStruct(n){
+      structs.forEach(function(s,i){ if(s) s.style.opacity = (i===n?"1":"0"); });
     }
-
-    function el(tag,cls,html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
-
-    function render(){
-      var P=PROJECTS[idx];
-      paintProgress();
-      stepct.textContent="Project "+(idx+1)+" of "+PROJECTS.length;
-      projtag.textContent=P.proj;
-      body.innerHTML="";
-
-      // identical project card; financing badge appears (the reveal)
-      var card=el("div","projcard");
-      card.innerHTML = ICON[P.icon] + '<div><p class="pt">'+P.title+'</p><p class="ps">'+P.sub+'</p></div><span class="finance-badge">'+P.proj+'</span>';
-      body.appendChild(card);
-
-      if(phase===0){
-        body.appendChild(el("p","qlabel",P.q1));
-        var opts=el("div","opts");
-        P.blindOpts.forEach(function(o,i){
-          var b=el("button","opt"); b.type="button";
-          b.innerHTML='<span class="mk"></span><span>'+o.t+'</span>';
-          b.addEventListener("click",function(){ chooseBlind(i); });
-          opts.appendChild(b);
-        });
-        body.appendChild(opts);
-        nextBtn.disabled=true;
-      } else if(phase===1){
-        // blind spot now shown as locked-correct, ask the disclosure question
-        body.appendChild(el("p","qlabel","Right. Now make the transparency request. Which ask reveals it?"));
-        var opts2=el("div","opts");
-        P.wrongOpts.forEach(function(o,i){
-          var b=el("button","opt"); b.type="button";
-          b.innerHTML='<span class="mk"></span><span>'+o.t+'</span>';
-          b.addEventListener("click",function(){ chooseAsk(i); });
-          opts2.appendChild(b);
-        });
-        body.appendChild(opts2);
-        nextBtn.disabled=true;
+    function setScene(scene, tone){
+      if(scene===curScene && tone===curTone) return;
+      curScene=scene; curTone=tone;
+      if(scene<0){ // intro/outro: dim everything, no shade, no fact
+        showStruct(-1); shade.style.opacity="0"; fact.style.opacity="0"; glowc.setAttribute("opacity","0");
+        scenecap.textContent = scene===-1 ? "five structures, five blind spots" : "";
+        return;
+      }
+      showStruct(scene);
+      scenecap.textContent = DATA[scene].cap;
+      if(tone==="dark"){
+        // blind spot: shade falls, hidden label not yet
+        shade.style.opacity="0.62";
+        fact.style.opacity="0"; glowc.setAttribute("opacity","0");
+      } else { // light: record flares, hidden fact revealed
+        shade.style.opacity="0.34";
+        facttext.textContent=DATA[scene].hidden;
+        factrec.textContent="revealed by: "+DATA[scene].rec;
+        fact.style.opacity="1";
+        glowc.setAttribute("opacity","0.18");
+        glowc.setAttribute("r", reduceMotion ? "150" : "10");
+        if(!reduceMotion){ requestAnimationFrame(function(){ glowc.setAttribute("r","170"); }); }
       }
     }
 
-    function chooseBlind(i){
-      var P=PROJECTS[idx];
-      var buttons=body.querySelectorAll(".opt");
-      buttons.forEach(function(b,j){
-        b.disabled=true;
-        if(P.blindOpts[j].ok){ b.classList.add("correct"); b.querySelector(".mk").textContent="✓"; }
-        else if(j===i){ b.classList.add("wrong"); b.querySelector(".mk").textContent="✗"; }
-        else b.classList.add("dim");
-      });
-      // brief beat, then advance to the ask phase
-      setTimeout(function(){ phase=1; render(); }, reduceMotion?0:650);
-    }
-
-    function chooseAsk(i){
-      var P=PROJECTS[idx];
-      var picked=P.wrongOpts[i];
-      var buttons=body.querySelectorAll(".opt");
-      buttons.forEach(function(b,j){
-        b.disabled=true;
-        if(P.wrongOpts[j].ok){ b.classList.add("correct"); b.querySelector(".mk").textContent="✓"; }
-        else if(j===i){ b.classList.add("wrong"); b.querySelector(".mk").textContent="✗"; }
-        else b.classList.add("dim");
-      });
-      // if they picked the wrong (weak) ask, show the named fail FIRST, then the win.
-      if(!picked.ok){
-        var v=el("div","verdict fail");
-        v.innerHTML='<p class="vlab">You asked for: '+P.wrongAsk+' &middot; blind spot still dark</p>'+
-          '<h4>'+P.failHead+'</h4><p>'+P.failBody+'</p>'+
-          '<div class="rec">'+P.rightRecord+'</div>';
-        body.appendChild(v);
-      } else {
-        var w=el("div","verdict win");
-        w.innerHTML='<p class="vlab">Sharp ask &middot; blind spot revealed</p>'+
-          '<h4>That is the precise record.</h4><p>'+P.failBody+'</p>'+
-          '<div class="rec">'+P.rightRecord+'</div>';
-        body.appendChild(w);
+    // race-proof: drive from the MOST-CENTERED step
+    var steps=[].slice.call(document.querySelectorAll(".step"));
+    var ratios=new Map();
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ ratios.set(e.target, e.isIntersecting?e.intersectionRatio:0); });
+      var best=null, bestR=0;
+      steps.forEach(function(s){ var r=ratios.get(s)||0; if(r>bestR){ bestR=r; best=s; } });
+      if(best){
+        steps.forEach(function(s){ s.classList.toggle("on", s===best); });
+        var sc=parseInt(best.getAttribute("data-scene"),10);
+        var tone=best.getAttribute("data-tone");
+        setScene(sc, tone);
       }
-      if(reduceMotion){ body.querySelector(".verdict").classList.add("show"); }
-      else { requestAnimationFrame(function(){ requestAnimationFrame(function(){ body.querySelector(".verdict").classList.add("show"); }); }); }
-      phase=2;
-      nextBtn.disabled=false;
-      if(idx===PROJECTS.length-1){ nextBtn.textContent="See the triage card ↓"; }
-    }
+    },{threshold:[0,.25,.5,.75,1]});
+    steps.forEach(function(s){ io.observe(s); });
 
-    nextBtn.addEventListener("click",function(){
-      if(idx<PROJECTS.length-1){ idx++; phase=0; render(); document.getElementById("scanner").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"}); }
-      else { document.getElementById("triage").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"}); }
-    });
-
-    // FALLBACK: skip the game, jump to triage
-    document.getElementById("showall").addEventListener("click",function(){
-      idx=PROJECTS.length-1; phase=2; paintProgress();
-      [].forEach.call(progress.children,function(d){ d.className="pdot done"; });
-      document.getElementById("triage").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"});
-    });
-
-    render();
+    // initial
+    setScene(-1,null);
   })();
   </script>
 </body>

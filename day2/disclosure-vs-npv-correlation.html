@@ -167,6 +167,47 @@
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
 
 
+    /* THE VALUE GATE: a forensic test room. Sticky stage left, scroll steps right. */
+    .gate-sec{position:relative;background:var(--brand-deep);color:#fff;}
+    .gate-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;overflow:hidden;}
+    .gate-frame{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr auto 1.3fr;gap:1rem;align-items:stretch;min-height:60vh;}
+    .gate-col,.gate-lane{position:relative;border:1px dashed #2a4259;border-radius:12px;padding:1.8rem .7rem .7rem;display:flex;flex-wrap:wrap;align-content:flex-start;gap:.4rem;}
+    .gate-collabel{position:absolute;top:.5rem;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#7e93ab;}
+    .gate-out{display:flex;flex-direction:column;gap:.7rem;}
+    .gate-lane{flex:1;min-height:0;}
+    .gate-lane.pass{border-color:#2f6b48;background:rgba(63,208,122,.05);}
+    .gate-lane.late{border-color:#7a5a1a;background:rgba(240,184,96,.05);}
+    .gate-lane.wall{border-color:#7a1f27;background:rgba(190,30,45,.06);}
+    .gate-door{align-self:center;width:62px;background:linear-gradient(180deg,#1a2c40,#0c1622);border:2px solid #3a5571;border-radius:10px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.6rem .3rem;min-height:55vh;position:relative;transition:border-color .4s,box-shadow .4s;}
+    .gate-door.open{border-color:#3fd07a;box-shadow:0 0 24px rgba(63,208,122,.3);}
+    .gate-door .gd-top{font-family:var(--mono);font-size:.56rem;font-weight:800;letter-spacing:.1em;color:#9fb4cc;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);}
+    .gate-door .gd-need{font-family:var(--mono);font-size:.5rem;color:#5a7798;margin-top:.5rem;writing-mode:vertical-rl;transform:rotate(180deg);}
+    /* project chips */
+    .pchip{display:inline-flex;align-items:center;gap:.3rem;background:#0c1622;border:1px solid #2a4259;border-radius:7px;padding:.3rem .5rem;font-size:.72rem;color:#dfe8f2;font-weight:600;
+      transition:transform .7s cubic-bezier(.4,0,.2,1),opacity .4s;max-width:100%;}
+    .pchip .pc-dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;}
+    .pchip .pc-dot.g{background:var(--green);} .pchip .pc-dot.a{background:var(--amber);} .pchip .pc-dot.r{background:var(--red);}
+    .pchip .pc-dot.x{background:transparent;border:1.5px dashed #7e93ab;}
+    .pchip.flag{font-family:var(--mono);font-size:.5rem;font-weight:800;color:#0c1622;border-radius:99px;padding:.05rem .3rem;}
+    .gate-tally{font-family:var(--mono);font-size:.8rem;letter-spacing:.02em;color:#9fd6b3;margin:1.1rem 0 0;text-align:center;}
+    .gate-steps{position:relative;z-index:2;max-width:440px;margin:0 auto;padding:0 1.2rem;}
+    .gstep{min-height:96vh;display:flex;align-items:center;}
+    .gcard{background:rgba(12,22,34,.85);backdrop-filter:blur(8px);border:1px solid #22384f;border-left:4px solid #9b86f0;border-radius:14px;padding:1.3rem 1.5rem;
+      opacity:.25;transform:translateY(16px);transition:opacity .5s,transform .5s;box-shadow:0 18px 50px rgba(0,0,0,.4);}
+    .gstep.on .gcard{opacity:1;transform:none;}
+    .gcard .gkick{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:#9b86f0;margin:0 0 .5rem;}
+    .gcard h3{margin:0 0 .6rem;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;line-height:1.14;color:#fff;letter-spacing:-.01em;}
+    .gcard p{margin:0;font-size:.98rem;line-height:1.55;color:#bcd0e4;} .gcard strong{color:#fff;} .gcard em{color:#cdddec;}
+    @media (max-width:820px){
+      .gate-stage{height:auto;position:sticky;top:0;padding:.8rem;background:rgba(20,35,52,.96);backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid #22384f;}
+      .gate-frame{min-height:0;grid-template-columns:1fr auto 1fr;gap:.5rem;}
+      .gate-door{min-height:120px;} .gate-door .gd-top,.gate-door .gd-need{writing-mode:horizontal-tb;transform:none;}
+      .gate-col,.gate-lane{padding:1.4rem .4rem .4rem;min-height:64px;}
+      .gstep{min-height:auto;padding:7vh 0;} .gcard{opacity:1;transform:none;}
+    }
+    @media (prefers-reduced-motion:reduce){ .pchip{transition:opacity .3s;} .gcard{opacity:1;transform:none;} }
+
     /* THREE PLAIN PANELS (replacing the heavy scrolly chart) */
     .panels{display:flex;flex-direction:column;gap:1.4rem;margin:2rem 0;}
     .pnl{background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.6rem 1.7rem;border-left:4px solid var(--brand);}
@@ -341,39 +382,50 @@
     </div>
   </section>
 
-  <!-- ============ THREE PLAIN PANELS (no moving chart): the funder, then the two exceptions ============ -->
-  <div class="wrap" id="story">
-    <div class="panels">
-
-      <!-- Panel 1: the slope was the funder, not transparency. Two static groups, side by side. -->
-      <section class="pnl">
-        <p class="pnl-kick">why the line looked real</p>
-        <h3 class="pnl-h">The slope was the lender, not the light.</h3>
-        <p class="pnl-sub">Sort the same ten projects by who paid for them, and the upward line disappears. One group publishes its terms. The other does not. Transparency was just riding along with the funder.</p>
-        <div class="fgroups">
-          <div class="fgroup wb">
-            <p class="fg-name">World Bank &amp; non-Chinese</p>
-            <p class="fg-trait">terms published &middot; can be judged</p>
-            <ul class="fg-list">
-              <li><span class="vd g"></span>Azura-Edo IPP <em>worth it</em></li>
-              <li><span class="vd g"></span>NEP mini-grids <em>worth it</em></li>
-              <li><span class="vd a"></span>Accra interchange <em>borderline</em></li>
-              <li><span class="vd r"></span>Sankofa gas <em>a bad deal, but visible</em></li>
-            </ul>
-          </div>
-          <div class="fgroup cn">
-            <p class="fg-name">Chinese-financed &amp; home</p>
-            <p class="fg-trait">terms withheld &middot; hard or impossible to judge</p>
-            <ul class="fg-list">
-              <li><span class="vd a"></span>GERD transmission <em>marginal</em></li>
-              <li><span class="vd a"></span>Bui hydro &middot; Zungeru <em>marginal</em></li>
-              <li><span class="vd r"></span>SGR &middot; Addis LRT <em>a bad deal</em></li>
-              <li><span class="vd x"></span>NASENI <em>can't tell, terms hidden</em></li>
-            </ul>
-          </div>
+  <!-- ============ THE VALUE GATE (evidence room): ten cards walk a test; published pass, withheld hit the wall ============ -->
+  <section class="gate-sec" id="story">
+    <div class="gate-stage" aria-hidden="true">
+      <div class="gate-frame">
+        <div class="gate-col gate-in" id="gateIn"><span class="gate-collabel">awaiting the test</span></div>
+        <div class="gate-door" id="gateDoor">
+          <span class="gd-top">THE VALUE TEST</span>
+          <span class="gd-need" id="gateNeed">needs published terms</span>
         </div>
-        <p class="pnl-foot">The two groups barely overlap. That gap, not the disclosure axis, is what produced the apparent slope.</p>
-      </section>
+        <div class="gate-out">
+          <div class="gate-lane pass" id="lanePass"><span class="gate-collabel">judged: a verdict</span></div>
+          <div class="gate-lane late" id="laneLate"><span class="gate-collabel">judged late, by outcome</span></div>
+          <div class="gate-lane wall" id="laneWall"><span class="gate-collabel">never published: no verdict</span></div>
+        </div>
+      </div>
+      <p class="gate-tally" id="gateTally">Ten projects approach the test.</p>
+    </div>
+
+    <div class="gate-steps" id="gateSteps">
+      <div class="gstep" data-g="0">
+        <div class="gcard"><p class="gkick">the test</p><h3>Ten projects. One question.</h3>
+          <p>To judge whether a project is worth the money, you have to run the value test. The test needs one thing to even start: <strong>the published financing terms</strong>. Scroll, and send the ten projects through.</p></div>
+      </div>
+      <div class="gstep" data-g="1">
+        <div class="gcard"><p class="gkick">the door opens</p><h3>Six had their terms published.</h3>
+          <p>Six projects published enough to run the test up front. They pass through and get a verdict, <span style="color:var(--green);font-weight:700">worth it</span>, <span style="color:var(--amber);font-weight:700">borderline</span>, or <span style="color:var(--red);font-weight:700">a bad deal</span>. Disclosure did not make them good. It made them <em>judgeable</em>.</p></div>
+      </div>
+      <div class="gstep" data-g="2">
+        <div class="gcard"><p class="gkick">judged too late</p><h3>Three could only be judged after the damage.</h3>
+          <p>Three withheld their terms, so no test could run up front. We only know they were bad deals because the outcomes leaked out later, idle trains, debt strain. By then the money was spent.</p></div>
+      </div>
+      <div class="gstep" data-g="3">
+        <div class="gcard"><p class="gkick">the wall</p><h3>One never entered the room.</h3>
+          <p><strong>NASENI</strong> published nothing. No terms, no test, no verdict, ever. A withheld contract is not missing data. It is a wall built against assessment.</p></div>
+      </div>
+      <div class="gstep" data-g="4">
+        <div class="gcard"><p class="gkick">the real driver</p><h3>So who got let in, and who got the wall?</h3>
+          <p>Group the same ten by who financed them and the answer jumps out. <span style="color:var(--blue);font-weight:700">World Bank</span> projects published; <span style="color:var(--red);font-weight:700">Chinese-financed</span> ones withheld. <strong>The slope you saw at the top was the lender, not transparency.</strong></p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="panels">
 
       <!-- Panel 2: Sankofa, published yet a bad deal -->
       <section class="pnl warn">
@@ -647,7 +699,88 @@
       });
     })();
 
-    // (the heavy scrolly chart and its camera/observer were removed; the three static panels above carry the story)
+    // ===== THE VALUE GATE: ten project cards walk a test; published pass, withheld hit the wall =====
+    (function(){
+      var gateIn=document.getElementById("gateIn"),
+          lanePass=document.getElementById("lanePass"), laneLate=document.getElementById("laneLate"),
+          laneWall=document.getElementById("laneWall"), gateDoor=document.getElementById("gateDoor"),
+          gateTally=document.getElementById("gateTally"), gateNeed=document.getElementById("gateNeed");
+      if(!gateIn) return;
+      // verdict + how each project was judged, from the verified data.
+      // outcome3 = the three withheld-but-judged-by-outcome projects.
+      var OUTCOME={sgr:1, addis:1, gerd:1};
+      var FUNDLANE={cn:"cn", hm:"cn", wb:"wb"};
+      var FLAG={cn:"CN", hm:"HM", wb:"WB"};
+      var FLAGCOL={cn:"#e88a92", wb:"#7fb2e6", hm:"#bbb"};
+      var VCLS={g:"g", a:"a", r:"r", null:"x"};
+      var chips={};
+      // order the chips: NASENI first (the wall), then the rest by disclosure
+      P.forEach(function(p){
+        var c=document.createElement("span"); c.className="pchip";
+        var vk = p.verdict===null?"x":p.verdict;
+        c.innerHTML='<span class="pc-dot '+vk+'"></span>'+p.name;
+        gateIn.appendChild(c); chips[p.id]={el:c,p:p};
+      });
+      // where each project ends up: null verdict -> wall; outcome-judged -> late; else pass
+      function destOf(p){
+        if(p.verdict===null) return laneWall;
+        if(OUTCOME[p.id]) return laneLate;
+        return lanePass;
+      }
+      function move(toLane, ids){
+        ids.forEach(function(id){ var ch=chips[id]; if(ch) toLane.appendChild(ch.el); });
+      }
+      var passIds=P.filter(function(p){return p.verdict!==null && !OUTCOME[p.id];}).map(function(p){return p.id;});
+      var lateIds=Object.keys(OUTCOME);
+      var wallIds=P.filter(function(p){return p.verdict===null;}).map(function(p){return p.id;});
+
+      function setStep(g){
+        if(g>=1) gateDoor.classList.add("open"); else gateDoor.classList.remove("open");
+        // g0: all waiting. g1: pass move. g2: late move. g3: wall stays/marked. g4: regroup by funder.
+        if(g<=0){ // reset to waiting
+          P.forEach(function(p){ gateIn.appendChild(chips[p.id].el); chips[p.id].el.querySelector(".pc-dot").className="pc-dot "+(p.verdict===null?"x":p.verdict); chips[p.id].el.classList.remove("flag"); chips[p.id].el.style.background=""; });
+          gateTally.textContent="Ten projects approach the test."; gateNeed.textContent="needs published terms";
+        } else if(g===1){
+          move(lanePass, passIds);
+          gateTally.textContent="Six had published terms. They pass and get a verdict.";
+        } else if(g===2){
+          move(lanePass, passIds); move(laneLate, lateIds);
+          gateTally.textContent="Three more, judged only later, by their outcomes.";
+        } else if(g===3){
+          move(lanePass, passIds); move(laneLate, lateIds); move(laneWall, wallIds);
+          gateTally.textContent="And one, NASENI, never enters. No terms, no verdict.";
+        } else if(g>=4){
+          // regroup by FUNDER inside the same three lanes is confusing; instead recolor every chip by funder
+          P.forEach(function(p){
+            var ch=chips[p.id]; var fl=FUNDLANE[p.funder];
+            ch.el.classList.add("flag");
+            ch.el.style.background = fl==="wb" ? "rgba(0,113,188,.18)" : "rgba(190,30,45,.16)";
+            ch.el.style.borderColor = fl==="wb" ? "#0071BC" : "#BE1E2D";
+          });
+          // keep them where they landed (pass/late/wall) but now coloured by funder: the pattern is visible
+          move(lanePass, passIds); move(laneLate, lateIds); move(laneWall, wallIds);
+          gateTally.textContent="Blue = World Bank (published). Red = Chinese-financed (withheld). The split is the story.";
+        }
+      }
+
+      var steps=[].slice.call(document.querySelectorAll(".gstep"));
+      var inView=new IntersectionObserver(function(es){
+        es.forEach(function(e){ e.target.classList.toggle("on", e.isIntersecting && e.intersectionRatio>0.4); });
+      },{threshold:[0.4]});
+      steps.forEach(function(s){ inView.observe(s); });
+
+      var ratios=new Map(), cur=-1;
+      var driver=new IntersectionObserver(function(es){
+        es.forEach(function(e){ ratios.set(e.target, e.isIntersecting?e.intersectionRatio:0); });
+        var best=null,bestR=0;
+        steps.forEach(function(s){ var r=ratios.get(s)||0; if(r>bestR){bestR=r;best=s;} });
+        if(best){ var g=parseInt(best.getAttribute("data-g"),10); if(g!==cur){ cur=g; setStep(g); } }
+      },{threshold:[0,.25,.5,.75,1]});
+      steps.forEach(function(s){ driver.observe(s); });
+
+      setStep(0);
+    })();
+
   })();
   </script>
 </body>

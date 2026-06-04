@@ -77,6 +77,11 @@
     .panel .pj{font-family:var(--mono);font-size:.72rem;color:#7fa0c4;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;}
     .panel .pj .flag{font-size:.56rem;font-weight:800;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.12rem .42rem;}
     .panel .phuman{font-size:.92rem;line-height:1.5;color:#cdddec;margin:0 0 1rem;padding-bottom:.9rem;border-bottom:1px solid #1c2e42;}
+    /* a real photo of the project, where one is verifiably sourced */
+    .panel .pphoto{margin:0 0 1rem;border-radius:10px;overflow:hidden;position:relative;display:none;}
+    .panel .pphoto.show{display:block;}
+    .panel .pphoto img{display:block;width:100%;height:118px;object-fit:cover;}
+    .panel .pphoto figcaption{position:absolute;right:0;bottom:0;font-family:var(--mono);font-size:.5rem;color:#cdddec;background:rgba(12,22,34,.7);padding:.1rem .35rem;border-top-left-radius:5px;}
     .panel .row{display:flex;gap:.6rem;margin:.55rem 0;align-items:baseline;}
     .panel .row .k{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.07em;flex:0 0 5.5rem;padding-top:.1rem;}
     .panel .row.hide .k{color:#f0b860;} .panel .row.rec .k{color:#7fc89c;}
@@ -200,6 +205,7 @@
       <svg class="scribble" id="scribble" aria-hidden="true" preserveAspectRatio="none"></svg>
       <nav class="jumprail" id="jumprail" aria-label="jump to a country"></nav>
       <div class="panel" id="panel">
+        <figure class="pphoto" id="pPhotoWrap"><img id="pPhoto" alt="" src=""><figcaption id="pPhotoCredit"></figcaption></figure>
         <span class="badge" id="pBadge">how it was financed</span>
         <div class="ft" id="pFt">Sovereign loan</div>
         <div class="pj"><span class="flag" id="pFlag">KE</span><span id="pPj">The SGR</span></div>
@@ -250,7 +256,7 @@
       </details>
 
       <footer>
-        <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Projects presented by IEA-Kenya, IEA-Ghana, Dataphyte and Stalwart; figures as reported, confirm against source. Working visual by Michael Cengkuru, CoST. Map: Mapbox, with an inline stylized fallback. Photograph of Kwame Owino via the Observer Research Foundation expert profile, used for identification.</p>
+        <p>InfraWatch (CIPE), Nairobi Day 2, 3 Jun 2026. Projects presented by IEA-Kenya, IEA-Ghana, Dataphyte and Stalwart; figures as reported, confirm against source. Working visual by Michael Cengkuru, CoST. Map: Mapbox, with an inline stylized fallback. Project photographs via Wikimedia Commons (SGR by TTC dude; Nairobi Expressway by Bahnfrend; Addis Light Rail by Pegel05; all CC BY-SA 4.0). Photograph of Kwame Owino via the Observer Research Foundation expert profile, used for identification. Sankofa gas and NASENI solar shown as glyphs, no verified photo available.</p>
       </footer>
     </div>
   </section>
@@ -276,6 +282,7 @@
     // verified cases. lng/lat = project site (approx); svg x/y = marker on the fallback silhouette.
     var CASES=[
       { country:"KE", project:"The SGR", lng:37.02, lat:-1.30, x:640, y:560,
+        projphoto:"assets/sgr-voi-viaduct.jpg", projphotoCredit:"TTC dude, CC BY-SA 4.0",
         ft:"Sovereign loan", ftNote:"the state borrows and guarantees the loan itself",
         human:"The debt was the story, not the railway. ~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
         hidden:"the real debt", hiddenNote:"The liability it loads onto the treasury, the interest and the sovereign guarantee, stays out of view.",
@@ -303,6 +310,7 @@
         egg:"“A desperate mood for attraction... fertile ground for corrosive capital.” Resources sold below market price to attract the financier, pricing never disclosed.",
         who:"IEA-Ghana", role:"partner team", ctx:"their own country-profile framing, Day 2", ini:"GH" },
       { country:"KE", project:"Nairobi Expressway", lng:36.85, lat:-1.30, x:648, y:548,
+        projphoto:"assets/nairobi-expressway.jpg", projphotoCredit:"Bahnfrend, CC BY-SA 4.0",
         ft:"PPP / concession", ftNote:"a private partner builds and operates for decades",
         human:"A PPP meant to move demand risk off the public balance sheet. Without big toll rises it needs public subsidy, so it did the opposite of what it promised.",
         hidden:"the long-term bill", hiddenNote:"The guarantees and contingent liabilities run for decades, not one budget year.",
@@ -329,6 +337,7 @@
         egg:"It is hard to find a truly apple-to-apple comparator in Nigeria, because the disclosure is so thin there is nothing to compare against.",
         who:"Dataphyte", role:"Nigeria", ctx:"their own framing problem, Day 2", ini:"DP" },
       { country:"ET", project:"Addis Light Rail", lng:38.76, lat:9.03, x:660, y:480,
+        projphoto:"assets/addis-light-rail.jpg", projphotoCredit:"Pegel05, CC BY-SA 4.0",
         ft:"Concessional loan", ftNote:"a low headline rate, with conditions attached",
         human:"The white elephant that runs at a loss. Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
         hidden:"the real terms", hiddenNote:"Concessional rates can hide no competitive tender, tied conditions, and what was actually delivered for the money.",
@@ -352,6 +361,8 @@
     var pBadge=document.getElementById("pBadge"),pFt=document.getElementById("pFt"),
         pFlag=document.getElementById("pFlag"),pPj=document.getElementById("pPj"),
         pHuman=document.getElementById("pHuman"),
+        pPhotoWrap=document.getElementById("pPhotoWrap"),pPhoto=document.getElementById("pPhoto"),
+        pPhotoCredit=document.getElementById("pPhotoCredit"),
         pHide=document.getElementById("pHide"),pRec=document.getElementById("pRec");
     var mbMarkers=[];
 
@@ -470,6 +481,8 @@
         pBadge.textContent="how it was financed";
         pFt.textContent=c.ft; pFlag.textContent=c.country; pPj.textContent=c.project;
         pHuman.textContent=c.human; pHide.textContent=c.hidden; pRec.textContent=c.rec;
+        if(c.projphoto){ pPhoto.src=c.projphoto; pPhoto.alt=c.project; pPhotoCredit.textContent=c.projphotoCredit||""; pPhotoWrap.classList.add("show"); }
+        else { pPhotoWrap.classList.remove("show"); pPhoto.removeAttribute("src"); }
         panel.classList.add("show");
         flyTo(c);
         drawScribble(ci);

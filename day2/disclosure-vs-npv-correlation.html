@@ -168,9 +168,10 @@
 
 
     /* THE VALUE GATE: a forensic test room. Sticky stage left, scroll steps right. */
-    .gate-sec{position:relative;background:var(--brand-deep);color:#fff;}
-    .gate-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;overflow:hidden;}
-    .gate-frame{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr auto 1.3fr;gap:1rem;align-items:stretch;min-height:60vh;}
+    /* two columns: the steps scroll on the LEFT, the gate stays pinned on the RIGHT, so cards never get covered */
+    .gate-sec{position:relative;background:var(--brand-deep);color:#fff;display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);}
+    .gate-stage{grid-column:2;grid-row:1;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 1.8rem;overflow:hidden;}
+    .gate-frame{width:100%;display:grid;grid-template-columns:1fr auto 1.3fr;gap:.9rem;align-items:stretch;min-height:62vh;}
     .gate-col,.gate-lane{position:relative;border:1px dashed #2a4259;border-radius:12px;padding:1.8rem .7rem .7rem;display:flex;flex-wrap:wrap;align-content:flex-start;gap:.4rem;}
     .gate-collabel{position:absolute;top:.5rem;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#7e93ab;}
     .gate-out{display:flex;flex-direction:column;gap:.7rem;}
@@ -191,20 +192,28 @@
     .pchip .pc-dot.x{background:transparent;border:1.5px dashed #7e93ab;}
     .pchip.flag{font-family:var(--mono);font-size:.5rem;font-weight:800;color:#0c1622;border-radius:99px;padding:.05rem .3rem;}
     .gate-tally{font-family:var(--mono);font-size:.8rem;letter-spacing:.02em;color:#9fd6b3;margin:1.1rem 0 0;text-align:center;}
-    .gate-steps{position:relative;z-index:2;max-width:440px;margin:0 auto;padding:0 1.2rem;}
-    .gstep{min-height:96vh;display:flex;align-items:center;}
-    .gcard{background:rgba(12,22,34,.85);backdrop-filter:blur(8px);border:1px solid #22384f;border-left:4px solid #9b86f0;border-radius:14px;padding:1.3rem 1.5rem;
+    .gate-steps{grid-column:1;grid-row:1;position:relative;z-index:2;padding:0 1.4rem 0 clamp(1rem,3vw,2.4rem);}
+    .gstep{min-height:100vh;display:flex;align-items:center;}
+    .gcard{background:rgba(12,22,34,.78);backdrop-filter:blur(8px);border:1px solid #22384f;border-left:4px solid #9b86f0;border-radius:14px;padding:1.3rem 1.5rem;max-width:420px;
       opacity:.25;transform:translateY(16px);transition:opacity .5s,transform .5s;box-shadow:0 18px 50px rgba(0,0,0,.4);}
     .gstep.on .gcard{opacity:1;transform:none;}
     .gcard .gkick{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:#9b86f0;margin:0 0 .5rem;}
     .gcard h3{margin:0 0 .6rem;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;line-height:1.14;color:#fff;letter-spacing:-.01em;}
     .gcard p{margin:0;font-size:.98rem;line-height:1.55;color:#bcd0e4;} .gcard strong{color:#fff;} .gcard em{color:#cdddec;}
+    /* guiding arrow from the card to the lane it is talking about */
+    .gpoint{margin-top:.9rem !important;display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.02em;color:#9fe6bb;}
+    .gpoint.amber{color:#f0b860;} .gpoint.red{color:#e88a92;}
+    .gpoint b{color:#fff;font-weight:700;}
+    .gpoint svg{width:40px;height:18px;flex:0 0 auto;}
     @media (max-width:820px){
-      .gate-stage{height:auto;position:sticky;top:0;padding:.8rem;background:rgba(20,35,52,.96);backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid #22384f;}
+      /* stack: gate pinned to the top, steps scroll beneath (no side columns on a phone) */
+      .gate-sec{display:block;}
+      .gate-stage{grid-column:auto;height:auto;position:sticky;top:0;padding:.8rem;background:rgba(20,35,52,.96);backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid #22384f;}
       .gate-frame{min-height:0;grid-template-columns:1fr auto 1fr;gap:.5rem;}
       .gate-door{min-height:120px;} .gate-door .gd-top,.gate-door .gd-need{writing-mode:horizontal-tb;transform:none;}
       .gate-col,.gate-lane{padding:1.4rem .4rem .4rem;min-height:64px;}
-      .gstep{min-height:auto;padding:7vh 0;} .gcard{opacity:1;transform:none;}
+      .gate-steps{grid-column:auto;padding:0 1.1rem;}
+      .gstep{min-height:auto;padding:7vh 0;} .gcard{opacity:1;transform:none;max-width:100%;}
     }
     @media (prefers-reduced-motion:reduce){ .pchip{transition:opacity .3s;} .gcard{opacity:1;transform:none;} }
 
@@ -265,6 +274,11 @@
     details.drawer>summary:hover{color:var(--brand);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
+    /* open-data download buttons */
+    .dl-lead{margin-top:1.2rem;}
+    .dl{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.7rem;}
+    .dlbtn{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.03em;color:var(--brand);background:#fff;border:1px solid var(--brand);border-radius:99px;padding:.5rem 1rem;cursor:pointer;transition:.15s;}
+    .dlbtn:hover{background:var(--brand);color:#fff;}
     .drawer-body ol{margin:.5rem 0 0;padding-left:1.3rem;} .drawer-body li{margin:.5rem 0;}
 
     .tablewrap{overflow-x:auto;margin-top:1rem;}
@@ -407,15 +421,18 @@
       </div>
       <div class="gstep" data-g="1">
         <div class="gcard"><p class="gkick">the door opens</p><h3>Six had their terms published.</h3>
-          <p>Six projects published enough to run the test up front. They pass through and get a verdict, <span style="color:var(--green);font-weight:700">worth it</span>, <span style="color:var(--amber);font-weight:700">borderline</span>, or <span style="color:var(--red);font-weight:700">a bad deal</span>. Disclosure did not make them good. It made them <em>judgeable</em>.</p></div>
+          <p>Six projects published enough to run the test up front. They pass through and get a verdict, <span style="color:var(--green);font-weight:700">worth it</span>, <span style="color:var(--amber);font-weight:700">borderline</span>, or <span style="color:var(--red);font-weight:700">a bad deal</span>. Disclosure did not make them good. It made them <em>judgeable</em>.</p>
+          <p class="gpoint"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 14 C 16 12, 28 8, 40 6" fill="none" stroke="#3fd07a" stroke-width="2" stroke-linecap="round"/><path d="M40 6 L33 7 M40 6 L36 12" fill="none" stroke="#3fd07a" stroke-width="2" stroke-linecap="round"/></svg>watch the top lane, <b>judged: a verdict</b></p></div>
       </div>
       <div class="gstep" data-g="2">
         <div class="gcard"><p class="gkick">judged too late</p><h3>Three could only be judged after the damage.</h3>
-          <p>Three withheld their terms, so no test could run up front. We only know they were bad deals because the outcomes leaked out later, idle trains, debt strain. By then the money was spent.</p></div>
+          <p>Three withheld their terms, so no test could run up front. We only know they were bad deals because the outcomes leaked out later, idle trains, debt strain. By then the money was spent.</p>
+          <p class="gpoint amber"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 10 C 16 10, 28 10, 40 10" fill="none" stroke="#f0b860" stroke-width="2" stroke-linecap="round"/><path d="M40 10 L33 7 M40 10 L33 13" fill="none" stroke="#f0b860" stroke-width="2" stroke-linecap="round"/></svg>watch the middle lane, <b>judged late, by outcome</b></p></div>
       </div>
       <div class="gstep" data-g="3">
         <div class="gcard"><p class="gkick">the wall</p><h3>One never entered the room.</h3>
-          <p><strong>NASENI</strong> published nothing. No terms, no test, no verdict, ever. A withheld contract is not missing data. It is a wall built against assessment.</p></div>
+          <p><strong>NASENI</strong> published nothing. No terms, no test, no verdict, ever. A withheld contract is not missing data. It is a wall built against assessment.</p>
+          <p class="gpoint red"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 6 C 16 8, 28 12, 40 14" fill="none" stroke="#e88a92" stroke-width="2" stroke-linecap="round"/><path d="M40 14 L33 13 M40 14 L36 8" fill="none" stroke="#e88a92" stroke-width="2" stroke-linecap="round"/></svg>watch the bottom lane, <b>never published</b></p></div>
       </div>
       <div class="gstep" data-g="4">
         <div class="gcard"><p class="gkick">the real driver</p><h3>So who got let in, and who got the wall?</h3>
@@ -518,6 +535,10 @@
             </tbody>
           </table>
         </div>
+        <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; every figure is "as reported", confirm against loan agreements before external use.</p>
+        <div class="dl"><button class="dlbtn" id="dlJson" type="button">Download JSON</button>
+          <button class="dlbtn" id="dlCsv" type="button">Download CSV</button>
+          <button class="dlbtn" id="dlXls" type="button">Download Excel</button></div>
       </div>
     </details>
 
@@ -779,6 +800,44 @@
       steps.forEach(function(s){ driver.observe(s); });
 
       setStep(0);
+    })();
+
+    // ===== OPEN DATA: export the dataset behind this visual (JSON / CSV / Excel). Generated from the verified records. =====
+    (function(){
+      var DATA=[
+        {project:"Azura-Edo IPP",country:"Nigeria",funder:"World Bank",funder_group:"non-Chinese",disclosure_band:"High",public_record:"Open tender, 16 lenders, contract terms",verdict:"Worthwhile",verdict_method:"computed",basis:"NPV on disclosed terms, commercial PPA",confidence:"as reported"},
+        {project:"NEP mini-grids",country:"Nigeria",funder:"World Bank",funder_group:"non-Chinese",disclosure_band:"High",public_record:"Open tender, full contractor disclosure",verdict:"Worthwhile",verdict_method:"computed",basis:"NPV on WB+AfDB disclosed terms",confidence:"as reported"},
+        {project:"Accra interchange",country:"Ghana",funder:"Non-Chinese",funder_group:"non-Chinese",disclosure_band:"Medium",public_record:"Post-RTI; ~$445m attributed; partial terms",verdict:"Marginal",verdict_method:"computed",basis:"NPV on partial cash flow, urban beneficiary",confidence:"as reported"},
+        {project:"Sankofa gas",country:"Ghana",funder:"Non-Chinese",funder_group:"non-Chinese",disclosure_band:"Medium",public_record:"WB-guaranteed; take-or-pay clause public",verdict:"Harmful",verdict_method:"computed",basis:"NPV registers ~$250m/yr unused-gas burden from disclosed terms",confidence:"as reported"},
+        {project:"GERD transmission",country:"Ethiopia",funder:"Home + Chinese",funder_group:"Chinese/home",disclosure_band:"Low",public_record:"Self-reported; substations ~$1.2bn PRC",verdict:"Marginal",verdict_method:"outcome",basis:"Verdict from 9yr idle substations; terms self-reported, no full NPV",confidence:"as reported"},
+        {project:"Bui hydro",country:"Ghana",funder:"Chinese",funder_group:"Chinese/home",disclosure_band:"Low",public_record:"Blended EXIM $270m@2% + commercial; collateral",verdict:"Marginal",verdict_method:"computed",basis:"NPV on partial cocoa-collateral terms",confidence:"as reported"},
+        {project:"Zungeru hydro",country:"Nigeria",funder:"Chinese",funder_group:"Chinese/home",disclosure_band:"Low",public_record:"EXIM $984m, 2.5%/20yr via PBC; direct award",verdict:"Marginal",verdict_method:"computed",basis:"NPV on partly-public terms; delay + security cost",confidence:"as reported"},
+        {project:"SGR",country:"Kenya",funder:"Chinese",funder_group:"Chinese/home",disclosure_band:"Low",public_record:"Sovereign guarantee known; full terms confidential",verdict:"Harmful",verdict_method:"outcome",basis:"Verdict from outcomes: loan ~5% of GDP, debt-service strain on Kenya Railways; no full NPV",confidence:"as reported"},
+        {project:"Addis LRT",country:"Ethiopia",funder:"Chinese",funder_group:"Chinese/home",disclosure_band:"Low",public_record:"85% EXIM known; no competitive tender",verdict:"Harmful",verdict_method:"outcome",basis:"Verdict from outcomes: 8/41 trains running, O&M > benefit; no full NPV",confidence:"as reported"},
+        {project:"NASENI solar",country:"Nigeria",funder:"Chinese",funder_group:"Chinese/home",disclosure_band:"Unknown",public_record:"85% attributed but NOT officially published",verdict:"Not computable",verdict_method:"none",basis:"Terms undisclosed; neither NPV nor outcome verdict possible",confidence:"attributed, not published"}
+      ];
+      var COLS=["project","country","funder","funder_group","disclosure_band","public_record","verdict","verdict_method","basis","confidence"];
+      function dl(name,mime,text){
+        var blob=new Blob([text],{type:mime}); var url=URL.createObjectURL(blob);
+        var a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+        document.body.removeChild(a); setTimeout(function(){ URL.revokeObjectURL(url); },1500);
+      }
+      function csvCell(v){ v=String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+      var bJ=document.getElementById("dlJson"), bC=document.getElementById("dlCsv"), bX=document.getElementById("dlXls");
+      if(bJ) bJ.addEventListener("click",function(){ dl("disclosure-vs-value.json","application/json",JSON.stringify(DATA,null,2)); });
+      if(bC) bC.addEventListener("click",function(){
+        var rows=[COLS.join(",")].concat(DATA.map(function(r){ return COLS.map(function(k){ return csvCell(r[k]); }).join(","); }));
+        dl("disclosure-vs-value.csv","text/csv",rows.join("\n"));
+      });
+      if(bX) bX.addEventListener("click",function(){
+        function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+        var head="<Row>"+COLS.map(function(k){ return '<Cell><Data ss:Type="String">'+esc(k)+'</Data></Cell>'; }).join("")+"</Row>";
+        var body=DATA.map(function(r){ return "<Row>"+COLS.map(function(k){ return '<Cell><Data ss:Type="String">'+esc(r[k])+'</Data></Cell>'; }).join("")+"</Row>"; }).join("");
+        var xml='<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?>'+
+          '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'+
+          '<Worksheet ss:Name="Disclosure vs value"><Table>'+head+body+'</Table></Worksheet></Workbook>';
+        dl("disclosure-vs-value.xls","application/vnd.ms-excel",xml);
+      });
     })();
 
   })();

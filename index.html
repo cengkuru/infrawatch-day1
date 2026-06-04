@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>InfraWatch Nairobi: three days, one question</title>
-  <meta name="description" content="Three days of visual essays from the InfraWatch Nairobi workshop. From a project you cannot see, to a value you can test, to a public that can finally speak.">
+  <meta name="description" content="Three days of visual essays from the InfraWatch Nairobi workshop. Draw what you think transparency does to a project's value, then find out.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
-      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D; --guess:#7c4dff;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
       --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
@@ -22,19 +22,47 @@
     .brandbar .brand{font-weight:800;letter-spacing:.01em;}
     .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
 
-    /* ===== STAGE: dark, cinematic hero that holds the animated journey ===== */
-    .stage{background:var(--brand-deep);color:#fff;padding:2.6rem 1.2rem 3.2rem;position:relative;overflow:hidden;}
-    .stage-inner{max-width:1000px;margin:0 auto;position:relative;}
-    .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .7rem;text-align:center;}
-    .stage h1{font-size:clamp(1.8rem,4.6vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0 auto 1.4rem;text-align:center;max-width:18ch;}
-    .stage h1 .a1{color:#8aa6c4;} .stage h1 .a2{color:#cfe0d6;} .stage h1 .a3{color:#fff;}
+    /* ===== THE DOOR: predict-then-reveal ===== */
+    .door{background:var(--brand-deep);color:#fff;padding:2.8rem 1.2rem 2.4rem;}
+    .door-inner{max-width:880px;margin:0 auto;}
+    .door .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#9b86f0;margin:0 0 .8rem;text-align:center;}
+    .door h1{font-size:clamp(1.7rem,4.4vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin:0 auto 1rem;text-align:center;max-width:20ch;}
+    .door h1 .g{color:#b9a6ff;}
+    .door .ask{text-align:center;color:#cdddec;font-size:clamp(1rem,2.2vw,1.2rem);max-width:48ch;margin:0 auto 1.6rem;}
 
+    .draw{background:#0c1622;border:1px solid #1f3148;border-radius:14px;padding:1rem 1rem .4rem;max-width:680px;margin:0 auto;}
+    svg.canvas{width:100%;height:auto;display:block;touch-action:none;}
+    .ax{stroke:#2a3f57;stroke-width:1.4;} .grid{stroke:#16273a;stroke-width:1;}
+    .axlab{font-size:11px;fill:#8ea4bc;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    .guessline{fill:none;stroke:var(--guess);stroke-width:3.5;stroke-linecap:round;}
+    .guessdot{fill:var(--guess);cursor:grab;}
+    .realline{fill:none;stroke:#7fa8d6;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.2s ease;}
+    .realline.show{stroke-dashoffset:0;}
+    .gap{fill:rgba(190,30,45,.2);opacity:0;transition:opacity .8s ease .4s;} .gap.show{opacity:1;}
+    .reallab{font-size:11px;font-weight:700;fill:#9fc0e6;opacity:0;transition:opacity .5s ease .8s;} .reallab.show{opacity:1;}
+    .dctl{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;justify-content:center;padding:.8rem .2rem .4rem;}
+    .btn{background:var(--guess);color:#fff;border:none;border-radius:99px;padding:.6rem 1.3rem;font-weight:800;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;transition:.15s;}
+    .btn:hover{filter:brightness(1.1);} .btn:disabled{opacity:.4;cursor:not-allowed;}
+    .btn.ghost{background:transparent;color:#9fb4cc;border:1px solid #2a3f57;}
+    .dhint{font-size:.78rem;color:#8ea4bc;text-align:center;width:100%;margin-top:.2rem;}
+
+    .verdict-door{max-width:680px;margin:1.3rem auto 0;background:rgba(124,77,255,.12);border:1px solid #3a3168;border-left:4px solid var(--guess);border-radius:12px;padding:1.1rem 1.3rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .6s ease, max-height .6s ease, padding .6s ease;}
+    .verdict-door.show{opacity:1;max-height:340px;}
+    .verdict-door h3{margin:0 0 .4rem;font-size:1.15rem;color:#fff;}
+    .verdict-door p{margin:0 0 1rem;color:#dfe8f2;font-size:.98rem;}
+    .verdict-door strong{color:#fff;}
+    .verdict-door .next{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--brand-deep);text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.6rem 1.1rem;border-radius:99px;}
+
+    /* ===== JOURNEY (kept) ===== */
+    .stage{background:var(--brand-deep);color:#fff;padding:.5rem 1.2rem 3.2rem;position:relative;overflow:hidden;border-top:1px solid #1f3148;}
+    .stage-inner{max-width:1000px;margin:0 auto;position:relative;}
+    .skicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.14em;color:#7fa8d6;margin:1.6rem 0 .7rem;text-align:center;}
+    .stage h2.arc{font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 auto 1.4rem;text-align:center;max-width:22ch;}
+    .stage h2.arc .a1{color:#8aa6c4;} .stage h2.arc .a2{color:#cfe0d6;} .stage h2.arc .a3{color:#fff;}
     .journey{width:100%;max-width:920px;margin:0 auto;display:block;}
     .replay{display:block;margin:1.1rem auto 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#cfe0f0;
       font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;padding:.45rem .9rem;border-radius:99px;cursor:pointer;transition:.15s;}
     .replay:hover{background:rgba(255,255,255,.16);color:#fff;}
-
-    /* journey svg styles */
     .spine{stroke:#3a516b;stroke-width:3;fill:none;stroke-linecap:round;}
     .spine-fill{stroke:#7fa8d6;stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;}
     .stationhit{cursor:pointer;}
@@ -46,11 +74,7 @@
     .enter-pill{font-family:var(--mono);font-size:9px;fill:#7fa8d6;text-transform:uppercase;letter-spacing:.08em;opacity:0;transition:opacity .4s;}
     .stationhit:hover .enter-pill{fill:#cfe0f0;}
 
-    /* ===== arc legend line under the stage ===== */
-    .arcline{max-width:1000px;margin:0 auto;text-align:center;color:#bcd0e6;font-size:clamp(.95rem,2vw,1.15rem);padding:1.2rem 1.2rem 0;font-weight:500;}
-    .arcline b{color:#fff;font-weight:800;}
-
-    /* ===== day detail strip below ===== */
+    /* ===== day detail strip ===== */
     .wrap{max-width:920px;margin:0 auto;padding:0 1.2rem;}
     .days{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:-2.4rem auto 0;position:relative;z-index:3;padding-bottom:.5rem;}
     .daycol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.2rem 1rem;display:flex;flex-direction:column;}
@@ -64,7 +88,6 @@
     .daycol a.go .arr{color:var(--brand);font-family:var(--mono);font-size:.74rem;}
     .daycol a.enter{margin-top:.7rem;text-align:center;background:var(--brand);color:#fff;text-decoration:none;border-radius:99px;padding:.5rem;font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;transition:.15s;}
     .daycol a.enter:hover{background:var(--brand-deep);}
-
     .micro{max-width:920px;margin:1.8rem auto 0;padding:0 1.2rem;color:var(--mid);font-size:.92rem;text-align:center;}
     .micro b{color:var(--dark);}
     footer{max-width:920px;margin:2.4rem auto 3.5rem;padding:1.3rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
@@ -77,34 +100,66 @@
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;}
       .spine-fill{stroke-dashoffset:0;} .st-ring,.st-title,.st-sub,.enter-pill{opacity:1;}
+      .realline,.gap,.reallab,.verdict-door{transition:none;}
     }
   </style>
 </head>
 <body>
   <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
 
-  <!-- ===================== ANIMATED JOURNEY HERO ===================== -->
-  <section class="stage">
-    <div class="stage-inner">
-      <p class="kicker">Nairobi workshop &middot; 2 to 4 June 2026</p>
-      <h1>From a project you <span class="a1">cannot see</span>, to a value you <span class="a2">can test</span>, to a public that can <span class="a3">finally speak</span>.</h1>
+  <!-- ===================== THE DOOR: PREDICT-THEN-REVEAL ===================== -->
+  <section class="door">
+    <div class="door-inner">
+      <p class="kicker">Nairobi workshop &middot; 2 to 4 June 2026 &middot; before you start</p>
+      <h1>Draw what you think transparency does to a project's <span class="g">value</span>.</h1>
+      <p class="ask">Drag the dots to draw the line you expect: as more of a project's financing becomes public, does it become better value-for-money? Commit your guess, then find out.</p>
 
-      <svg class="journey" id="journey" viewBox="0 0 920 230" role="img" aria-label="A three-station journey across the three workshop days. Day 1 is a map with location pins: five countries, one project. Day 2 is a set of colour-coded verdicts: which projects can be judged. Day 3 is a photograph of a project with a lone figure beneath it. Each station links to that day's visuals.">
-        <!-- spine -->
+      <div class="draw">
+        <svg class="canvas" id="canvas" viewBox="0 0 600 320" role="img" aria-label="A blank chart. The horizontal axis is how much of a project's financing is public, from withheld to disclosed. The vertical axis is value-for-money, from harmful to worthwhile. Drag the control points to draw your predicted relationship, then commit to reveal the real one.">
+          <g class="grid"><line x1="60" y1="50" x2="560" y2="50"/><line x1="60" y1="130" x2="560" y2="130"/><line x1="60" y1="210" x2="560" y2="210"/></g>
+          <line class="ax" x1="60" y1="40" x2="60" y2="270"/>
+          <line class="ax" x1="60" y1="270" x2="560" y2="270"/>
+          <text class="axlab" x="60" y="292" text-anchor="start">withheld</text>
+          <text class="axlab" x="560" y="292" text-anchor="end">disclosed</text>
+          <text class="axlab" x="50" y="52" text-anchor="end">good</text>
+          <text class="axlab" x="50" y="266" text-anchor="end">harmful</text>
+          <path class="gap" id="gap" d=""/>
+          <path class="realline" id="real" d=""/>
+          <text class="reallab" id="reallab" x="300" y="150" text-anchor="middle">the real line is nearly flat</text>
+          <path class="guessline" id="guess" d=""/>
+          <g id="dots"></g>
+        </svg>
+        <div class="dctl">
+          <button class="btn" id="commit">Commit my guess &rarr;</button>
+          <button class="btn ghost" id="showme">Just show me</button>
+          <span class="dhint" id="dhint">Drag the purple dots. Keyboard: Tab to a dot, then arrow keys.</span>
+        </div>
+      </div>
+
+      <div class="verdict-door" id="verdictdoor">
+        <h3 id="vdtitle">Most people draw a climb. The real line is nearly flat.</h3>
+        <p id="vdbody">The gap you just drew is the intuition almost everyone shares: more transparency, better value. But the real line barely rises. The apparent link was mostly <strong>who funded the project</strong>, not transparency itself. Transparency does not make a project good. It lets you find out whether it is. That is what these three days take apart.</p>
+        <a class="next" href="#journey">See how the three days prove it &darr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== THE JOURNEY ===================== -->
+  <section class="stage" id="journey">
+    <div class="stage-inner">
+      <p class="skicker">the three days</p>
+      <h2 class="arc">From a project you <span class="a1">cannot see</span>, to a value you <span class="a2">can test</span>, to a public that can <span class="a3">finally speak</span>.</h2>
+
+      <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-station journey across the three workshop days. Day 1 is a map with location pins: five countries, one project. Day 2 is a set of colour-coded verdicts: which projects can be judged. Day 3 is a photograph of a project with a lone figure beneath it. Each station links to that day's visuals.">
         <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
         <path class="spine-fill" id="spineFill" d="M 130 120 L 460 120 L 790 120"/>
 
-        <!-- ===== STATION 1 : a map (Day 1 = where partners stand, map-jump + dossier) ===== -->
         <a class="stationhit" id="hit1" href="day1/" aria-label="Day 1: reading the room">
           <circle class="st-ring" id="ring1" cx="130" cy="120" r="40" stroke="#8aa6c4"/>
           <g id="d1">
-            <!-- a little continent blob with location pins -->
             <path d="M112 102 q 8 -8 20 -5 q 14 4 16 16 q 2 12 -8 18 q -10 7 -22 2 q -12 -6 -10 -18 q 1 -8 4 -13 Z" fill="#3a5571" stroke="#5a7798" stroke-width="1"/>
-            <!-- pins -->
-            <circle cx="122" cy="113" r="3.4" fill="#1B7A3D"/>
-            <circle cx="138" cy="118" r="3.4" fill="#BE1E2D"/>
-            <circle cx="128" cy="128" r="3.4" fill="#C77F00"/>
-            <circle cx="142" cy="130" r="3.4" fill="#8aa6c4"/>
+            <circle cx="122" cy="113" r="3.4" fill="#1B7A3D"/><circle cx="138" cy="118" r="3.4" fill="#BE1E2D"/>
+            <circle cx="128" cy="128" r="3.4" fill="#C77F00"/><circle cx="142" cy="130" r="3.4" fill="#8aa6c4"/>
           </g>
           <text class="st-num" x="130" y="66" text-anchor="middle" id="num1">1</text>
           <text class="st-title" x="130" y="182" text-anchor="middle" id="t1">Reading the room</text>
@@ -112,14 +167,11 @@
           <text class="enter-pill" x="130" y="214" text-anchor="middle" id="e1">enter day 1 &rarr;</text>
         </a>
 
-        <!-- ===== STATION 2 : testable (verdict dots resolve) ===== -->
         <a class="stationhit" id="hit2" href="day2/" aria-label="Day 2: can the value be tested">
           <circle class="st-ring" id="ring2" cx="460" cy="120" r="40" stroke="#cfe0d6"/>
           <g id="d2">
-            <circle cx="446" cy="110" r="6" fill="#1B7A3D"/>
-            <circle cx="468" cy="106" r="6" fill="#C77F00"/>
-            <circle cx="452" cy="130" r="6" fill="#BE1E2D"/>
-            <circle cx="474" cy="126" r="6" fill="#1B7A3D"/>
+            <circle cx="446" cy="110" r="6" fill="#1B7A3D"/><circle cx="468" cy="106" r="6" fill="#C77F00"/>
+            <circle cx="452" cy="130" r="6" fill="#BE1E2D"/><circle cx="474" cy="126" r="6" fill="#1B7A3D"/>
             <rect x="458" y="120" width="11" height="11" rx="2" fill="none" stroke="#9fb4cc" stroke-width="2" stroke-dasharray="3 2"/>
           </g>
           <text class="st-num" x="460" y="66" text-anchor="middle" id="num2">2</text>
@@ -128,19 +180,14 @@
           <text class="enter-pill" x="460" y="214" text-anchor="middle" id="e2">enter day 2 &rarr;</text>
         </a>
 
-        <!-- ===== STATION 3 : a photograph (Day 3 = full-bleed real imagery) ===== -->
         <a class="stationhit" id="hit3" href="day3/" aria-label="Day 3: whose voice decides">
           <circle class="st-ring" id="ring3" cx="790" cy="120" r="40" stroke="#fff"/>
           <g id="d3">
-            <!-- a small photo frame: a viaduct + a horizon, with a lone figure -->
             <rect x="770" y="104" width="40" height="32" rx="3" fill="#16273a" stroke="#5a7798" stroke-width="1.4"/>
-            <!-- horizon / ground -->
             <rect x="771" y="124" width="38" height="11" fill="#2a1e16"/>
-            <!-- viaduct beam (the project, overhead) -->
             <rect class="voice" x="772" y="111" width="36" height="4" fill="#7fa8d6" opacity="0"/>
             <line class="voice" x1="780" y1="115" x2="780" y2="124" stroke="#5a7798" stroke-width="1.5" opacity="0"/>
             <line class="voice" x1="800" y1="115" x2="800" y2="124" stroke="#5a7798" stroke-width="1.5" opacity="0"/>
-            <!-- the lone figure beneath -->
             <circle class="voice" cx="803" cy="129" r="2.1" fill="#ffb3ba" opacity="0"/>
           </g>
           <text class="st-num" x="790" y="66" text-anchor="middle" id="num3">3</text>
@@ -154,12 +201,9 @@
     </div>
   </section>
 
-  <p class="arcline">Three days. One question, taken apart in front of you: <b>can the public tell whether public money built something worth it?</b></p>
-
   <!-- ===================== DAY DETAIL STRIP ===================== -->
   <div class="wrap">
     <div class="days">
-      <!-- DAY 1 -->
       <div class="daycol">
         <span class="ddate">2 Jun</span><span class="dtag">Day 1</span>
         <h2>Reading the room</h2>
@@ -167,10 +211,9 @@
         <a class="go" href="partner-vision-constellation-force.html">Partner priorities, shared ground <span class="arr">&rarr;</span><span class="sub">Five visions, one shared centre</span></a>
         <a class="go" href="foreign-funding-untangler.html">One railway, five counts <span class="arr">&rarr;</span><span class="sub">Travel a map: caught in one country, gone in the next</span></a>
         <a class="go" href="modality-risk-map.html">What each funding type hides <span class="arr">&rarr;</span><span class="sub">A matrix that flips dark to clear, row by row</span></a>
-        <a class="go" href="project-anatomy-sgr.html">Anatomy of a project <span class="arr">&rarr;</span><span class="sub">Read the file down to where it is stamped confidential</span></a>
+        <a class="go" href="project-anatomy-sgr.html">Can the public prove it? <span class="arr">&rarr;</span><span class="sub">Run the SGR public-value test until the proof breaks</span></a>
         <a class="enter" href="day1/">Enter Day 1</a>
       </div>
-      <!-- DAY 2 -->
       <div class="daycol">
         <span class="ddate">3 Jun</span><span class="dtag">Day 2</span>
         <h2>Can the value be tested?</h2>
@@ -178,7 +221,6 @@
         <a class="go" href="day2/disclosure-vs-npv-correlation.html">You can't price what's hidden <span class="arr">&rarr;</span><span class="sub">Six of ten projects you can judge, one you never will</span></a>
         <a class="enter" href="day2/">Enter Day 2</a>
       </div>
-      <!-- DAY 3 -->
       <div class="daycol">
         <span class="ddate">4 Jun</span><span class="dtag">Day 3</span>
         <h2>Whose voice decides</h2>
@@ -191,7 +233,7 @@
     <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. The visual is chosen so its first reading is the finding, and where the evidence is thin it says so on the chart itself.</p>
 
     <footer>
-      <p><strong>InfraWatch Nairobi</strong>, 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Working visuals by Michael Cengkuru, CoST. Treat figures as reported; confirm against source documents.</p>
+      <p><strong>InfraWatch Nairobi</strong>, 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. The draw-your-guess chart is illustrative of the pattern, not a single dataset. Working visuals by Michael Cengkuru, CoST.</p>
     </footer>
   </div>
 
@@ -199,47 +241,81 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var fill=document.getElementById("spineFill");
-    function show(id){ var e=document.getElementById(id); if(e) e.style.opacity="1"; }
-    function ignite(n){
-      show("ring"+n); show("t"+n); show("s"+n); show("e"+n);
-      var ring=document.getElementById("ring"+n);
-      if(ring && !reduceMotion){ ring.animate(
-        [{transform:"scale(.6)",opacity:0},{transform:"scale(1)",opacity:1}],
-        {duration:520,easing:"cubic-bezier(.2,.7,.2,1)"}); }
-    }
-    function voices(){ document.querySelectorAll(".voice").forEach(function(v,i){
-      setTimeout(function(){ v.style.transition="opacity .5s"; v.style.opacity="1"; }, i*140); }); }
 
-    function play(){
-      // reset
-      fill.style.transition="none"; fill.style.strokeDashoffset="1000";
-      ["ring1","t1","s1","e1","ring2","t2","s2","e2","ring3","t3","s3","e3"].forEach(function(id){
-        var e=document.getElementById(id); if(e) e.style.opacity="0"; });
-      document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="0"; });
-      if(reduceMotion){ // show everything, no motion
-        fill.style.strokeDashoffset="0";
-        [1,2,3].forEach(function(n){ ["ring","t","s","e"].forEach(function(p){ var e=document.getElementById(p+n); if(e)e.style.opacity="1"; }); });
-        document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="1"; });
-        return;
+    /* ===== THE DOOR: predict-then-reveal ===== */
+    (function(){
+      var X0=60,X1=560,Y0=50,Y1=270, N=5, locked=false;
+      var px=[]; for(var i=0;i<N;i++) px.push(X0+(X1-X0)*i/(N-1));
+      var py=[]; for(var i=0;i<N;i++) py.push(160);
+      var realY=[182,176,170,165,160]; // nearly flat, slight rise = the surprise
+      var guessPath=document.getElementById("guess"), dotsG=document.getElementById("dots"),
+          realPath=document.getElementById("real"), gapPath=document.getElementById("gap"),
+          reallab=document.getElementById("reallab"), vbox=document.getElementById("verdictdoor"),
+          canvas=document.getElementById("canvas");
+      function poly(xs,ys){ var d="M "+xs[0]+" "+ys[0]; for(var i=1;i<xs.length;i++) d+=" L "+xs[i]+" "+ys[i]; return d; }
+      function drawGuess(){ guessPath.setAttribute("d", poly(px,py)); }
+      function clampY(y){ return Math.max(Y0, Math.min(Y1, y)); }
+      var dots=[];
+      for(var i=0;i<N;i++){(function(i){
+        var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",px[i]); c.setAttribute("cy",py[i]); c.setAttribute("r",10);
+        c.setAttribute("class","guessdot"); c.setAttribute("tabindex","0");
+        c.setAttribute("role","slider"); c.setAttribute("aria-label","prediction point "+(i+1)+" of "+N);
+        dotsG.appendChild(c); dots.push(c);
+        function setY(y){ py[i]=clampY(y); c.setAttribute("cy",py[i]); drawGuess(); }
+        c.addEventListener("pointerdown",function(e){ if(locked) return; c.setPointerCapture(e.pointerId); c.style.cursor="grabbing"; });
+        c.addEventListener("pointermove",function(e){ if(locked||!c.hasPointerCapture(e.pointerId)) return;
+          var r=canvas.getBoundingClientRect(); setY((e.clientY-r.top)/r.height*320); });
+        c.addEventListener("pointerup",function(e){ try{c.releasePointerCapture(e.pointerId);}catch(_){} c.style.cursor="grab"; });
+        c.addEventListener("keydown",function(e){ if(locked) return;
+          if(e.key==="ArrowUp"){ setY(py[i]-9); e.preventDefault(); }
+          if(e.key==="ArrowDown"){ setY(py[i]+9); e.preventDefault(); } });
+      })(i);}
+      drawGuess();
+      function reveal(){
+        if(locked) return; locked=true;
+        dots.forEach(function(c){ c.style.cursor="default"; c.setAttribute("tabindex","-1"); });
+        document.getElementById("commit").disabled=true; document.getElementById("showme").disabled=true;
+        document.getElementById("dhint").textContent="Locked in. Here is the real line.";
+        var d="M "+px[0]+" "+py[0]; for(var i=1;i<N;i++) d+=" L "+px[i]+" "+py[i];
+        for(var j=N-1;j>=0;j--) d+=" L "+px[j]+" "+realY[j]; d+=" Z"; gapPath.setAttribute("d",d);
+        realPath.setAttribute("d", poly(px,realY));
+        if(reduceMotion){ realPath.style.strokeDashoffset="0"; gapPath.style.opacity="1"; reallab.style.opacity="1"; vbox.classList.add("show"); }
+        else { realPath.classList.add("show"); setTimeout(function(){ gapPath.classList.add("show"); reallab.classList.add("show"); vbox.classList.add("show"); }, 600); }
       }
-      // sequence: station1 -> draw to 2 -> station2 -> draw to 3 -> station3 -> voices
-      setTimeout(function(){ ignite(1); }, 250);
-      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="500"; }, 700);
-      setTimeout(function(){ ignite(2); }, 2000);
-      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="0"; }, 2300);
-      setTimeout(function(){ ignite(3); }, 3650);
-      setTimeout(voices, 4000);
-    }
+      document.getElementById("commit").addEventListener("click", reveal);
+      document.getElementById("showme").addEventListener("click", reveal);
+    })();
 
-    // play once on load (when the hero is in view), and on replay click
-    if("IntersectionObserver" in window){
-      var fired=false;
-      var io=new IntersectionObserver(function(es){ es.forEach(function(e){
-        if(e.isIntersecting && !fired){ fired=true; play(); } }); },{threshold:.4});
-      io.observe(document.getElementById("journey"));
-    } else { play(); }
-    document.getElementById("replay").addEventListener("click", play);
+    /* ===== THE JOURNEY (kept) ===== */
+    (function(){
+      var fill=document.getElementById("spineFill");
+      function show(id){ var e=document.getElementById(id); if(e) e.style.opacity="1"; }
+      function ignite(n){ show("ring"+n); show("t"+n); show("s"+n); show("e"+n);
+        var ring=document.getElementById("ring"+n);
+        if(ring && !reduceMotion){ ring.animate([{transform:"scale(.6)",opacity:0},{transform:"scale(1)",opacity:1}],{duration:520,easing:"cubic-bezier(.2,.7,.2,1)"}); } }
+      function voices(){ document.querySelectorAll(".voice").forEach(function(v,i){ setTimeout(function(){ v.style.transition="opacity .5s"; v.style.opacity="1"; }, i*140); }); }
+      function play(){
+        fill.style.transition="none"; fill.style.strokeDashoffset="1000";
+        ["ring1","t1","s1","e1","ring2","t2","s2","e2","ring3","t3","s3","e3"].forEach(function(id){ var e=document.getElementById(id); if(e) e.style.opacity="0"; });
+        document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="0"; });
+        if(reduceMotion){ fill.style.strokeDashoffset="0";
+          [1,2,3].forEach(function(n){ ["ring","t","s","e"].forEach(function(p){ var e=document.getElementById(p+n); if(e)e.style.opacity="1"; }); });
+          document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="1"; }); return; }
+        setTimeout(function(){ ignite(1); }, 250);
+        setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="500"; }, 700);
+        setTimeout(function(){ ignite(2); }, 2000);
+        setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="0"; }, 2300);
+        setTimeout(function(){ ignite(3); }, 3650);
+        setTimeout(voices, 4000);
+      }
+      if("IntersectionObserver" in window){
+        var fired=false;
+        var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !fired){ fired=true; play(); } }); },{threshold:.4});
+        io.observe(document.getElementById("journeyviz"));
+      } else { play(); }
+      document.getElementById("replay").addEventListener("click", play);
+    })();
   })();
   </script>
 </body>

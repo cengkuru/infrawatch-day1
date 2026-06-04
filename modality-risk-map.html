@@ -218,7 +218,9 @@
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // token from ?mbtoken= or window.MAPBOX_TOKEN; reject secret (sk.) tokens outright.
+    // Mapbox public (pk.) token loaded from the un-committed mapbox-token.js (window.MAPBOX_TOKEN)
+    // or ?mbtoken=. Kept out of the repo so GitHub secret-scanning does not block the push and the
+    // token is never version-controlled. Secret (sk.) tokens are rejected outright.
     var qp=new URLSearchParams(location.search);
     var token = qp.get("mbtoken") || window.MAPBOX_TOKEN || "";
     if(token.indexOf("sk.")===0){ token=""; } // never use a secret token client-side

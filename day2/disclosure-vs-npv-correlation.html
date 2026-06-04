@@ -7,10 +7,13 @@
   <meta name="description" content="Transparency does not make a project good value-for-money. It is what lets anyone assess whether it is. An interactive look at ten infrastructure projects.">
   <style>
     :root{
-      --red:#BE1E2D; --dark:#2D2D2D; --mid:#5A5A5A; --light:#E6E6E6;
-      --white:#FFFFFF; --blue:#0071BC; --surface:#F8F8F8;
-      --green:#1B7A3D; --amber:#C77F00; --fog:#B8B8B8;
-      --radius:10px; --shadow:0 16px 44px rgba(45,45,45,.12);
+      /* CIPE brand (this work is CIPE-sponsored): navy is the lead accent */
+      --brand:#28496A; --brand-deep:#142334;
+      /* SEMANTIC verdict colours (traffic-light meaning, do NOT rebrand) */
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED;
+      --white:#FFFFFF; --blue:#0071BC; --surface:#F6F8FA; --fog:#B8B8B8;
+      --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
       --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
     }
@@ -19,7 +22,7 @@
     html{scroll-behavior:smooth;}
     body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
 
-    .brandbar{background:var(--dark);color:var(--white);border-bottom:5px solid var(--red);padding:.85rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .brandbar{background:var(--brand);color:var(--white);border-bottom:5px solid var(--brand-deep);padding:.85rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
 
@@ -28,7 +31,7 @@
     /* HERO */
     .hero{padding:3rem 0 1.5rem;}
     h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:16ch;}
-    h1 .accent{color:var(--red);}
+    h1 .accent{color:var(--brand);}
     .lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--mid);max-width:54ch;margin:0 0 1.5rem;}
 
     /* HERO NUMBER STRIP */
@@ -45,33 +48,44 @@
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    /* STICKY STAGE: the chart is the hero; it pins and performs while captions defer */
-    .story{position:relative;margin:1rem 0 2rem;}
-    .stage{position:sticky;top:0;height:100vh;max-height:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-    .stage-inner{width:100%;max-width:780px;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.4rem 1.4rem 1.1rem;}
+    /* TWO-COLUMN SCROLLY: chart pinned LEFT (always in view), annotations reveal RIGHT.
+       Scroll is the only interaction. */
+    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.55fr 1fr;gap:1.5rem;align-items:start;}
+
+    .chartcol{position:sticky;top:3vh;align-self:start;}
+    .stage-inner{position:relative;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem 1.2rem 1rem;}
     svg{width:100%;height:auto;display:block;}
-
-    /* Single deferential caption, fixed in a quiet lower band, only the ACTIVE one shows.
-       It floats below the chart, never on top of it. Light, glassy, recedes. */
-    .caption-rail{position:sticky;bottom:0;height:0;z-index:3;pointer-events:none;}
-    .caption{position:absolute;left:50%;bottom:1rem;transform:translate(-50%,12px);width:min(33rem,90vw);
-      background:rgba(255,255,255,.82);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
-      border:1px solid rgba(45,45,45,.08);border-radius:14px;padding:1rem 1.25rem;
-      box-shadow:0 10px 40px rgba(45,45,45,.13);opacity:0;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);}
-    .caption.show{opacity:1;transform:translate(-50%,0);}
-    .caption .kicker{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin:0 0 .3rem;}
-    .caption h3{margin:0 0 .3rem;font-size:1.02rem;font-weight:800;color:var(--dark);letter-spacing:-.01em;}
-    .caption p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.5;}
-    .caption strong{color:var(--dark);}
-
-    /* invisible scroll-tracks that drive the stage; no visible card here anymore */
-    .steps{position:relative;z-index:1;pointer-events:none;}
-    .step{min-height:92vh;}
-    .step:first-child{min-height:50vh;}
-    .step:last-child{min-height:86vh;}
-
-    /* confetti canvas overlays the stage, never intercepts clicks */
     #confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;}
+
+    /* verdict colour key, always visible under the chart */
+    .vkey{display:flex;flex-wrap:wrap;gap:.5rem 1rem;justify-content:center;margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--light);font-size:.76rem;color:var(--mid);}
+    .vkey .vi{display:inline-flex;align-items:center;gap:.35rem;}
+    .vkey .vc{width:11px;height:11px;border-radius:50%;display:inline-block;}
+    .vkey .vc.g{background:var(--green);} .vkey .vc.a{background:var(--amber);} .vkey .vc.r{background:var(--red);}
+    .vkey .vc.x{background:transparent;border:1.5px dashed var(--mid);width:9px;height:9px;}
+
+    /* annotation column: each block is a scroll track + a card that reveals */
+    .ann{min-height:88vh;display:flex;align-items:center;}
+    .ann:first-child{min-height:60vh;}
+    .ann:last-child{min-height:78vh;padding-bottom:6vh;}
+    .anncard{position:relative;opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
+      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
+    .ann.on .anncard{opacity:1;transform:translateX(0);}
+    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
+    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
+    .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
+    .anncard strong{color:var(--dark);}
+    .anncard .tagline{display:inline-block;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);margin:.1rem 0 .55rem;}
+    .anncard.warn{border-left-color:var(--red);}
+    .anncard.dark{border-left-color:var(--dark);}
+    .anncard .ic{font-size:1.4rem;line-height:1;margin-bottom:.3rem;}
+    /* hand-drawn scribble arrow pointing from the annotation back to the chart (left) */
+    .scribble{position:absolute;left:-66px;top:50%;width:60px;height:48px;transform:translateY(-50%);pointer-events:none;
+      opacity:0;transition:opacity .5s ease .25s;}
+    .ann.on .anncard .scribble{opacity:1;}
+    .scribble path{fill:none;stroke:var(--brand);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:140;stroke-dashoffset:140;}
+    .ann.on .anncard .scribble path{animation:draw .8s ease .3s forwards;}
+    @keyframes draw{to{stroke-dashoffset:0;}}
 
     /* glyph + label classes */
     .dot-label{font-size:11px;font-weight:600;fill:var(--dark);font-family:var(--sans);}
@@ -81,60 +95,45 @@
     .pulse{animation:pulse 1.4s ease-in-out infinite;transform-origin:center;transform-box:fill-box;}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 
-    /* CONTROLS (live, below the stage) */
-    .controls{max-width:760px;margin:0 auto 1.2rem;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;justify-content:space-between;}
-    .ctl{display:flex;flex-direction:column;gap:.3rem;flex:1 1 240px;}
-    .ctl label{font-size:.8rem;font-weight:700;color:var(--dark);}
-    .ctl .hint{font-size:.74rem;color:var(--mid);}
-    input[type=range]{width:100%;accent-color:var(--red);}
-    .toggle{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.85rem;font-weight:700;color:var(--dark);user-select:none;}
-    .toggle input{width:42px;height:22px;-webkit-appearance:none;appearance:none;background:var(--light);border-radius:99px;position:relative;cursor:pointer;transition:background .2s;outline:none;}
-    .toggle input:checked{background:var(--blue);}
-    .toggle input::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s;}
-    .toggle input:checked::after{transform:translateX(20px);}
 
     h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
-    h2 .num{color:var(--red);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
+    h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
 
-    /* PROOF CARDS */
-    .proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1.2rem 0;}
-    .pcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1.3rem 1.4rem;border-top:5px solid var(--mid);}
-    .pcard.warn{border-top-color:var(--red);}
-    .pcard.dark{border-top-color:var(--dark);}
-    .pcard .ic{font-size:1.6rem;line-height:1;margin-bottom:.5rem;}
-    .pcard h4{margin:0 0 .2rem;font-size:1.05rem;}
-    .pcard .sub{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin:0 0 .6rem;}
-    .pcard p{margin:0;font-size:.9rem;color:var(--mid);}
 
-    /* TAKEAWAY */
-    .takeaway{background:var(--dark);color:#fff;border-radius:var(--radius);padding:1.6rem 1.7rem;margin:2.4rem 0;border-left:5px solid var(--red);}
-    .takeaway h3{margin:0 0 .8rem;font-size:1.25rem;}
-    .takeaway ol{margin:0;padding-left:1.2rem;}
-    .takeaway li{margin:.55rem 0;color:#e8e8e8;font-size:.96rem;}
-    .takeaway strong{color:#fff;}
+    /* TAKEAWAY: one woven sentence, not a list of cards */
+    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
+    .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
+    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
+    .tk-line strong{color:#fff;font-weight:800;}
+    .tk-mark{font-weight:800;padding:.05em .3em;border-radius:4px;white-space:nowrap;}
+    .tk-mark.warn{background:rgba(190,30,45,.28);color:#ffd2d6;}
+    .tk-mark.dark{background:rgba(255,255,255,.14);color:#fff;}
 
-    /* STAKEHOLDER STRIP */
-    .who{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin:1.2rem 0;}
-    .wcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);padding:1rem 1.1rem;}
-    .wcard h5{margin:0 0 .35rem;font-size:.82rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--red);}
-    .wcard p{margin:0;font-size:.88rem;color:var(--mid);}
+    /* STAKEHOLDER LENSES: a guided two-column list, not loose cards */
+    .lenses{margin:1.2rem 0;border:1px solid var(--light);border-radius:14px;overflow:hidden;background:var(--white);}
+    .lens{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:1rem;padding:1.05rem 1.3rem;border-bottom:1px solid var(--light);align-items:baseline;}
+    .lens:last-child{border-bottom:none;}
+    .lens:nth-child(even){background:var(--surface);}
+    .lens-who{font-weight:800;color:var(--brand);font-size:.96rem;border-left:3px solid var(--brand);padding-left:.7rem;}
+    .lens-say{font-size:.92rem;color:var(--mid);line-height:1.5;}
+    .lens-say em{color:var(--dark);font-style:normal;font-weight:700;}
 
     /* EXPORT BAR */
     .export{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0;}
     .btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--white);border:1px solid var(--mid);color:var(--dark);border-radius:99px;padding:.5rem .9rem;font-size:.82rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .15s;}
     .btn:hover{background:var(--dark);color:#fff;border-color:var(--dark);}
-    .btn.primary{background:var(--red);color:#fff;border-color:var(--red);}
-    .btn.primary:hover{background:#9c1825;}
+    .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand);}
+    .btn.primary:hover{background:var(--brand-deep);}
     .copied{font-size:.8rem;color:var(--green);font-weight:700;align-self:center;}
 
     /* DRAWERS */
     details.drawer{margin:1rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:.6rem;}
     details.drawer>summary::-webkit-details-marker{display:none;}
-    details.drawer>summary::before{content:"▸";color:var(--red);transition:transform .15s;}
+    details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
-    details.drawer>summary:hover{color:var(--red);}
+    details.drawer>summary:hover{color:var(--brand);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
     .drawer-body ol{margin:.5rem 0 0;padding-left:1.3rem;} .drawer-body li{margin:.5rem 0;}
@@ -152,17 +151,28 @@
     footer{margin:3rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
 
     /* RESPONSIVE */
-    @media (max-width:680px){
+    /* TABLET/MOBILE: collapse to one column. Chart sticks to the TOP and stays in view;
+       annotations flow underneath it as you scroll. No side room, so arrows hide. */
+    @media (max-width:860px){
+      .story{grid-template-columns:1fr;gap:0;}
+      .chartcol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;margin-bottom:.5rem;}
+      .stage-inner{padding:.9rem .9rem .7rem;}
+      .anncol{position:relative;z-index:1;}
+      .ann{min-height:80vh;align-items:flex-start;padding-top:1rem;}
+      .ann:first-child{min-height:30vh;}
+      .ann:last-child{min-height:70vh;}
+      .anncard{transform:translateY(20px);}
+      .ann.on .anncard{transform:translateY(0);}
+      .scribble{display:none;}
+      .lens{grid-template-columns:1fr;gap:.3rem;}
+      .lens-who{border-left:none;padding-left:0;}
+    }
+    @media (max-width:560px){
       .counts{grid-template-columns:1fr;}
-      .stage{max-height:none;height:92vh;justify-content:flex-start;padding-top:2vh;}
-      .stage-inner{padding:.9rem .8rem .7rem;}
-      .caption{bottom:1rem;width:94vw;padding:.75rem .9rem;border-radius:12px;}
-      .caption h3{font-size:.94rem;} .caption p{font-size:.82rem;line-height:1.45;}
-      .caption .kicker{font-size:.58rem;}
-      .controls{flex-direction:column;align-items:stretch;}
     }
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;} .scrollcue,.pulse{animation:none;}
+      .anncard{transition:opacity .3s;transform:none;}
     }
   </style>
 </head>
@@ -197,105 +207,102 @@
     </section>
   </div>
 
-  <!-- ============ SCROLLYTELLING STORY ============ -->
+  <!-- ============ SCROLLYTELLING STORY: chart pinned left, annotations reveal right ============ -->
   <div class="wrap">
     <div class="story">
-      <div class="stage">
+      <!-- LEFT: the chart, pinned, always in the viewport -->
+      <div class="chartcol">
         <div class="stage-inner">
-          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects placed along one axis from financing terms withheld on the left to financing terms disclosed on the right. Projects whose terms are withheld stay fogged with a question mark and cannot be assessed. Toggling the funder view shows that transparency tracks the funder, not the project's value. Sankofa has fully disclosed terms yet is harmful; NASENI can never be assessed.">
-            <!-- axis -->
-            <line id="axisLine" x1="70" y1="400" x2="715" y2="400" stroke="#2D2D2D" stroke-width="2"/>
+          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects placed along one axis from financing terms withheld on the left to financing terms disclosed on the right. Projects whose terms are withheld fog over and cannot be assessed. Splitting by funder shows that transparency tracks the funder, not the project's value. Sankofa has fully disclosed terms yet is harmful; NASENI can never be assessed.">
+            <line id="axisLine" x1="70" y1="400" x2="715" y2="400" stroke="#1E2A38" stroke-width="2"/>
             <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#BE1E2D">financing terms withheld</text>
             <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the project is public</text>
             <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">financing terms disclosed</text>
-            <text x="392" y="442" text-anchor="middle" class="axis-tick" fill="#5A5A5A">mapped to the CoST IDS</text>
+            <text x="392" y="442" text-anchor="middle" class="axis-tick" fill="#5A6B7B">mapped to the CoST IDS</text>
 
-            <!-- threshold line (fog gate) -->
-            <g id="thresholdG">
-              <line id="threshLine" x1="240" y1="40" x2="240" y2="392" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="5 4"/>
-              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#BE1E2D">&#8592; not enough published to assess value</text>
+            <g id="thresholdG" opacity="0">
+              <line id="threshLine" x1="240" y1="40" x2="240" y2="392" stroke="#28496A" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#28496A">&#8592; not enough published to assess value</text>
             </g>
 
-            <!-- panel labels (hidden until funder split) -->
             <text id="panelWB" x="577" y="34" text-anchor="middle" class="axis-title" fill="#0071BC" opacity="0">World Bank / non-Chinese</text>
             <text id="panelCN" x="180" y="34" text-anchor="middle" class="axis-title" fill="#BE1E2D" opacity="0">Chinese-funded (+ home)</text>
 
-            <!-- dots injected by JS -->
             <g id="dots"></g>
 
-            <!-- burned-in caveat -->
-            <text x="392" y="456" text-anchor="middle" font-size="9.5" font-weight="700" fill="#BE1E2D" font-family="var(--sans)">Ten flagship projects. An illustration of the method, not a statistical claim.</text>
+            <text x="392" y="456" text-anchor="middle" font-size="9.5" font-weight="700" fill="#28496A" font-family="var(--sans)">Ten flagship projects. An illustration of the method, not a statistical claim.</text>
           </svg>
-        </div>
-        <!-- confetti lands here at the final step; canvas sits over the stage -->
-        <canvas id="confetti" aria-hidden="true"></canvas>
-        <!-- ONE deferential caption, swapped by scroll position; floats below the chart -->
-        <div class="caption-rail">
-          <div class="caption" id="caption" aria-live="polite">
-            <p class="kicker" id="capKicker"></p>
-            <h3 id="capTitle"></h3>
-            <p id="capBody"></p>
+          <canvas id="confetti" aria-hidden="true"></canvas>
+          <!-- verdict colour key, always visible with the pinned chart -->
+          <div class="vkey">
+            <span class="vi"><span class="vc g"></span>worthwhile</span>
+            <span class="vi"><span class="vc a"></span>marginal</span>
+            <span class="vi"><span class="vc r"></span>harmful</span>
+            <span class="vi"><span class="vc x"></span>can't be judged</span>
           </div>
         </div>
       </div>
 
-      <!-- invisible scroll tracks: presence in viewport drives the stage + caption -->
-      <div class="steps" aria-hidden="true">
-        <div class="step" data-stage="0"></div>
-        <div class="step" data-stage="1"></div>
-        <div class="step" data-stage="2"></div>
-        <div class="step" data-stage="3"></div>
+      <!-- RIGHT: annotations reveal one at a time as you scroll; scribble arrows point back to the chart -->
+      <div class="anncol">
+        <div class="ann" data-stage="0">
+          <div class="anncard">
+            <p class="kicker">start here</p>
+            <h3>Ten projects, one line.</h3>
+            <p>Each dot is a project, placed by how much of its financing is public &mdash; <strong>withheld</strong> on the left, <strong>disclosed</strong> on the right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. It is tempting to read a slope. Hold that thought.</p>
+          </div>
+        </div>
+        <div class="ann" data-stage="1">
+          <div class="anncard">
+            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 8 C 30 2, 8 14, 6 30 M6 30 L 2 22 M6 30 L 14 26"/></svg>
+            <p class="kicker">the wall</p>
+            <h3>Withheld terms can't be assessed.</h3>
+            <p>Projects whose financing was never published <strong>fog over with a "?"</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> A lack of transparency is not missing data &mdash; it is a wall you cannot see past.</p>
+          </div>
+        </div>
+        <div class="ann" data-stage="2">
+          <div class="anncard">
+            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 40 C 34 46, 10 36, 6 18 M6 18 L 1 27 M6 18 L 14 22"/></svg>
+            <p class="kicker">the slope was an illusion</p>
+            <h3>It comes down to the funder.</h3>
+            <p>Split the projects by who financed them and the slope is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours &mdash; transparency was just riding along.</p>
+          </div>
+        </div>
+        <div class="ann" data-stage="3">
+          <div class="anncard warn">
+            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 24 C 32 18, 12 26, 5 38 M5 38 L 3 28 M5 38 L 13 36"/></svg>
+            <p class="kicker">exception one</p>
+            <h3>Sankofa: disclosed, yet harmful.</h3>
+            <p class="tagline">disclosed &middot; measurable &middot; still harmful</p>
+            <p>Its terms were public &mdash; including a clause locking Ghana into paying for gas it does not use (about $250m a year). The value <em>could</em> be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
+          </div>
+        </div>
+        <div class="ann" data-stage="4">
+          <div class="anncard dark">
+            <svg class="scribble" viewBox="0 0 60 48"><path d="M58 30 C 30 38, 10 28, 5 12 M5 12 L 2 22 M5 12 L 13 14"/></svg>
+            <p class="kicker">exception two</p>
+            <h3>NASENI: withheld, so unjudgeable.</h3>
+            <p class="tagline">withheld &middot; cannot be assessed</p>
+            <p>Its financing was never published anywhere official. So no one &mdash; expert or citizen &mdash; can say whether it is good value-for-money. <strong>Withholding terms is not a footnote. It is a shield against assessment.</strong></p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- LIVE CONTROLS -->
-    <div class="controls" aria-label="Interactive controls">
-      <div class="ctl">
-        <label for="thresh">Drag to set how much must be published before a project can be assessed</label>
-        <input type="range" id="thresh" min="0" max="100" value="20" aria-describedby="threshHint">
-        <span class="hint" id="threshHint">Projects with less published than this fog over: there is too little to work out their value. NASENI never clears, however far you drag.</span>
-      </div>
-      <div class="ctl" style="flex:0 1 auto;">
-        <label class="toggle"><input type="checkbox" id="funder" role="switch"> Show the funder</label>
-        <span class="hint">Splits the projects by who financed them. Watch the slope dissolve.</span>
-      </div>
-    </div>
-
-    <!-- ============ PROOF CARDS ============ -->
-    <h2><span class="num">01</span>The two exceptions are the whole argument</h2>
-    <p class="lead">A small sample cannot prove that transparency causes good value-for-money. But two projects need no sample at all to show what transparency is <em>for</em>.</p>
-    <div class="proof">
-      <div class="pcard warn">
-        <div class="ic">&#9888;&#65039;</div>
-        <h4>Sankofa gas</h4>
-        <p class="sub">Disclosed · measurable · still harmful</p>
-        <p>The financing terms were public, including a clause locking Ghana into paying for gas it does not use (about $250m a year). The project's value could be measured. It went ahead anyway. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
-      </div>
-      <div class="pcard dark">
-        <div class="ic">&#128274;</div>
-        <h4>NASENI solar</h4>
-        <p class="sub">Withheld · cannot be assessed</p>
-        <p>The financing terms were never published anywhere official. So no one &mdash; expert or citizen &mdash; can say whether it is good value-for-money. <strong>Withholding terms is not a footnote. It is a shield against assessment.</strong></p>
-      </div>
-    </div>
-
-    <!-- ============ TAKEAWAY ============ -->
+    <!-- ============ TAKEAWAY (woven, not a card dump) ============ -->
     <div class="takeaway">
-      <h3>What this actually says</h3>
-      <ol>
-        <li><strong>Transparency does not guarantee good value-for-money.</strong> Sankofa was fully disclosed and still harmful.</li>
-        <li><strong>Withholding terms blocks the assessment.</strong> NASENI cannot be judged because its financing is not public. No terms, no test.</li>
-        <li><strong>The funder is doing the work.</strong> The apparent link between transparency and value is mostly funder behaviour, not transparency on its own.</li>
-      </ol>
+      <p class="tk-eyebrow">So, in one breath</p>
+      <p class="tk-line"><strong>Transparency does not make a project good.</strong> It is what lets anyone <strong>find out</strong> whether it is. Where the terms are public, a bad project like <span class="tk-mark warn">Sankofa</span> can at least be <em>seen</em>. Where they are withheld, a project like <span class="tk-mark dark">NASENI</span> cannot be judged at all. And the pattern that looks like "transparency brings value" is mostly the <strong>funder</strong>, not transparency itself.</p>
     </div>
 
-    <!-- ============ STAKEHOLDER LENSES ============ -->
-    <h2><span class="num">02</span>What it means, depending on where you sit</h2>
-    <div class="who">
-      <div class="wcard"><h5>Government</h5><p>Publish financing terms before you commit, not after a project fails. A project you can show is a project you can defend.</p></div>
-      <div class="wcard"><h5>Funders &amp; multilaterals</h5><p>Funder practice shapes both transparency and whether value can be assessed at all. Better publication shrinks fiscal blind spots.</p></div>
-      <div class="wcard"><h5>Civil society &amp; media</h5><p>Ask for the financing terms. Without them, nobody can honestly say whether the project is good value-for-money.</p></div>
-      <div class="wcard"><h5>CIPE · CoST · IEA-Kenya</h5><p>The two InfraWatch legs compose into one method: transparency (CoST IDS) is what makes the value assessment (NPV) runnable. Scaling it needs measured disclosure and agreement-grade cash flows.</p></div>
+    <!-- ============ STAKEHOLDER LENSES (as a guided list, not loose cards) ============ -->
+    <h2><span class="num">01</span>One finding, four rooms</h2>
+    <p class="lead">The same line reads differently depending on where you sit. Each row is the sentence that room should leave with.</p>
+    <div class="lenses">
+      <div class="lens"><span class="lens-who">Government</span><span class="lens-say">Publish financing terms <em>before</em> you commit, not after a project fails. A project you can show is a project you can defend.</span></div>
+      <div class="lens"><span class="lens-who">Funders &amp; multilaterals</span><span class="lens-say">Your practice sets both the transparency and whether value can be assessed at all. Better publication shrinks fiscal blind spots.</span></div>
+      <div class="lens"><span class="lens-who">Civil society &amp; media</span><span class="lens-say">Ask for the financing terms. Without them, nobody can honestly say whether the project is good value-for-money.</span></div>
+      <div class="lens"><span class="lens-who">CIPE &middot; CoST &middot; IEA-Kenya</span><span class="lens-say">The two InfraWatch legs compose into one method: transparency (CoST IDS) is what makes the value assessment (NPV) runnable.</span></div>
     </div>
 
     <!-- ============ SHARE / EXPORT ============ -->
@@ -404,28 +411,26 @@
 
     var threshLine=document.getElementById("threshLine"),
         threshLabel=document.getElementById("threshLabel"),
+        threshG=document.getElementById("thresholdG"),
         panelWB=document.getElementById("panelWB"),
-        panelCN=document.getElementById("panelCN"),
-        slider=document.getElementById("thresh"),
-        funderToggle=document.getElementById("funder");
+        panelCN=document.getElementById("panelCN");
 
-    var state={threshold:20, funder:false, spotlight:false};
+    // state is driven entirely by scroll position; no manual controls.
+    // showFog: draw the fog gate.  funder: split into two pools.  focus: project id to spotlight (or null).
+    var state={threshold:55, showFog:false, funder:false, focus:null};
 
     function render(){
       var tx = sx(state.threshold);
       threshLine.setAttribute("x1",tx); threshLine.setAttribute("x2",tx);
       threshLabel.setAttribute("x",tx);
-      // funder panels: when funder on, shift dots into two horizontal pools by lender,
-      // keeping disclosure meaning but separating clusters so the slope dissolves.
+      threshG.setAttribute("opacity", (state.showFog && !state.funder)?"1":"0");
       panelWB.setAttribute("opacity", state.funder?"1":"0");
       panelCN.setAttribute("opacity", state.funder?"1":"0");
-      threshLine.parentNode.setAttribute("opacity", state.funder?"0":"1");
 
       P.forEach(function(p){
         var n=nodes[p.id];
         var targetX, targetY;
         if(state.funder){
-          // split into two pools; use pool-local row so labels never collide
           if(p.funder==="cn"||p.funder==="hm"){ targetX = 95 + (p.disc/100)*175; }
           else { targetX = 460 + (p.disc/100)*235; }
           targetY = YTOP + p.prow*((YBOT-YTOP)/5);
@@ -433,14 +438,14 @@
           targetX = sx(p.disc);
           targetY = rowY(p.row);
         }
-        n.g.style.transition="transform .7s cubic-bezier(.4,0,.2,1), opacity .4s";
+        n.g.style.transition="transform .7s cubic-bezier(.4,0,.2,1), opacity .45s";
         n.g.style.transform="translate("+(targetX-n.cx)+"px,"+(targetY-n.cy)+"px)";
 
-        // fog logic: not-computable OR (hidden AND below threshold) -> fog
-        var fogged = (p.verdict===null) || (p.hidden && p.disc < state.threshold);
+        // fog: not-computable always fogs; hidden-term projects fog only when the gate is shown
+        var fogged = (p.verdict===null) || (state.showFog && p.hidden && p.disc < state.threshold);
         if(fogged){
           n.body.setAttribute("fill", p.verdict===null ? "none" : "#B8B8B8");
-          if(p.verdict===null){ n.body.setAttribute("stroke","#5A5A5A"); n.body.setAttribute("stroke-dasharray","3 2"); }
+          if(p.verdict===null){ n.body.setAttribute("stroke","#5A6B7B"); n.body.setAttribute("stroke-dasharray","3 2"); }
           else { n.body.setAttribute("stroke","#fff"); n.body.removeAttribute("stroke-dasharray"); }
           n.q.style.opacity="1";
         } else {
@@ -449,58 +454,36 @@
           n.q.style.opacity="0";
         }
 
-        // spotlight stage: dim all but sankofa + naseni
-        var dim = state.spotlight && p.id!=="sankofa" && p.id!=="naseni";
-        n.g.style.opacity = dim ? "0.18" : "1";
-        if(state.spotlight && (p.id==="sankofa"||p.id==="naseni")){
-          n.body.classList.add("pulse");
-        } else {
-          n.body.classList.remove("pulse");
-        }
+        // focus: dim everything but the focused project (and keep NASENI visible as context on the NASENI stage)
+        var dim = state.focus && p.id!==state.focus;
+        n.g.style.opacity = dim ? "0.16" : "1";
+        if(state.focus && p.id===state.focus){ n.body.classList.add("pulse"); }
+        else { n.body.classList.remove("pulse"); }
       });
     }
 
-    // ---- captions: one deferential line per stage, swapped on scroll ----
-    var CAPS=[
-      {k:"what the eye wants to see", t:"“More transparent projects look better.”",
-       b:"Each dot is a project, placed by how much of its financing is published. Tempting to read a slope: more disclosed, better value. Hold that thought."},
-      {k:"the wall, not a nuisance", t:"Withheld terms cannot be assessed.",
-       b:"Projects whose financing was never published stay fogged with a <strong>?</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> Opacity is a wall, not missing data."},
-      {k:"the slope was an illusion", t:"It comes down to the funder.",
-       b:"Split the projects by who financed them and the slope is gone. World Bank sits disclosed; Chinese-financed sits withheld. Two funders, two behaviours."},
-      {k:"the two that carry the lesson", t:"Sankofa and NASENI.",
-       b:"<strong>Sankofa</strong> was fully disclosed and still harmful. <strong>NASENI</strong> was withheld, so it cannot be judged at all. Transparency does not fix a project. It is the entry ticket to assess one."}
-    ];
-    var capEl=document.getElementById("caption"),
-        capK=document.getElementById("capKicker"),
-        capT=document.getElementById("capTitle"),
-        capB=document.getElementById("capBody");
+    // ---- scroll stages drive everything; reveal the matching annotation ----
+    var anns=document.querySelectorAll(".ann");
     var curStage=-1, confettiFired=false;
     function setStage(s){
       if(s===curStage) return; curStage=s;
-      // swap caption with a soft fade
-      capEl.classList.remove("show");
-      setTimeout(function(){
-        capK.textContent=CAPS[s].k; capT.innerHTML=CAPS[s].t; capB.innerHTML=CAPS[s].b;
-        capEl.classList.add("show");
-      }, 180);
-      if(s===0){ state.funder=false; state.spotlight=false; slider.value=20; state.threshold=20; }
-      if(s===1){ state.funder=false; state.spotlight=false; slider.value=55; state.threshold=55; }
-      if(s===2){ state.funder=true;  state.spotlight=false; }
-      if(s===3){ state.funder=true;  state.spotlight=true; if(!confettiFired){ confettiFired=true; fireConfetti(); } }
+      if(s===0){ state.showFog=false; state.funder=false; state.focus=null; }
+      if(s===1){ state.showFog=true;  state.funder=false; state.focus=null; }
+      if(s===2){ state.showFog=false; state.funder=true;  state.focus=null; }
+      if(s===3){ state.showFog=false; state.funder=true;  state.focus="sankofa"; }
+      if(s===4){ state.showFog=false; state.funder=true;  state.focus="naseni";
+                 if(!confettiFired){ confettiFired=true; fireConfetti(); } }
       render();
     }
-
-    // ---- scroll stages drive state ----
-    var steps=document.querySelectorAll(".step");
     var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ setStage(parseInt(e.target.getAttribute("data-stage"),10)); } });
-    },{threshold:.6});
-    steps.forEach(function(s){io.observe(s);});
-
-    // ---- live controls ----
-    slider.addEventListener("input",function(){ state.threshold=+slider.value; render(); });
-    funderToggle.addEventListener("change",function(){ state.funder=funderToggle.checked; render(); });
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add("on");
+          setStage(parseInt(e.target.getAttribute("data-stage"),10));
+        }
+      });
+    },{threshold:.55});
+    anns.forEach(function(a){io.observe(a);});
 
     // ---- export / copy ----
     var CAPTION="Of 10 flagship infrastructure projects, value could be assessed for only 6. For 3 we knew the cost only after the project ran. For 1, the financing terms were never published, so it cannot be judged at all. Transparency does not make a project good value-for-money. It makes value assessable. #InfraWatch";
@@ -562,6 +545,9 @@
       requestAnimationFrame(frame);
     }
 
+    // prime: stage 0 + reveal the first annotation immediately
+    setStage(0);
+    if(anns[0]) anns[0].classList.add("on");
     render();
   })();
   </script>

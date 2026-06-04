@@ -202,18 +202,18 @@
     <div class="story">
       <div class="stage">
         <div class="stage-inner">
-          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects plotted by how much of each project's financing is published. Projects whose terms are withheld stay fogged with a question mark and cannot be assessed. Toggling the funder view shows that transparency tracks the funder, not the project's value. Sankofa is fully disclosed yet harmful; NASENI can never be assessed.">
+          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects placed along one axis from financing terms withheld on the left to financing terms disclosed on the right. Projects whose terms are withheld stay fogged with a question mark and cannot be assessed. Toggling the funder view shows that transparency tracks the funder, not the project's value. Sankofa has fully disclosed terms yet is harmful; NASENI can never be assessed.">
             <!-- axis -->
             <line id="axisLine" x1="70" y1="400" x2="715" y2="400" stroke="#2D2D2D" stroke-width="2"/>
-            <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#5A5A5A">withheld</text>
-            <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the project's financing is published</text>
-            <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">disclosed</text>
+            <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#BE1E2D">financing terms withheld</text>
+            <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the project is public</text>
+            <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">financing terms disclosed</text>
             <text x="392" y="442" text-anchor="middle" class="axis-tick" fill="#5A5A5A">mapped to the CoST IDS</text>
 
             <!-- threshold line (fog gate) -->
             <g id="thresholdG">
               <line id="threshLine" x1="240" y1="40" x2="240" y2="392" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="5 4"/>
-              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#BE1E2D">left of here: too little to assess</text>
+              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#BE1E2D">&#8592; not enough published to assess value</text>
             </g>
 
             <!-- panel labels (hidden until funder split) -->
@@ -251,9 +251,9 @@
     <!-- LIVE CONTROLS -->
     <div class="controls" aria-label="Interactive controls">
       <div class="ctl">
-        <label for="thresh">Transparency threshold &mdash; drag to raise the bar for "can be assessed"</label>
+        <label for="thresh">Drag to set how much must be published before a project can be assessed</label>
         <input type="range" id="thresh" min="0" max="100" value="20" aria-describedby="threshHint">
-        <span class="hint" id="threshHint">Projects left of the line have too little published to work out value. NASENI never clears.</span>
+        <span class="hint" id="threshHint">Projects with less published than this fog over: there is too little to work out their value. NASENI never clears, however far you drag.</span>
       </div>
       <div class="ctl" style="flex:0 1 auto;">
         <label class="toggle"><input type="checkbox" id="funder" role="switch"> Show the funder</label>

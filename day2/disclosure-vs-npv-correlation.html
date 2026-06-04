@@ -50,6 +50,11 @@
     .axis-title{font-size:13px;font-weight:700;fill:var(--cost-dark);}
     .axis-tick{font-size:10px;fill:var(--cost-mid);font-family:var(--mono);}
     .svg-caveat{font-size:10.5px;font-weight:700;fill:var(--cost-red);font-family:var(--sans);}
+    .panel-title{font-size:13px;font-weight:800;font-family:var(--sans);}
+    .mini-tick{font-size:9.5px;fill:var(--cost-mid);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    .panel-read{font-size:11px;font-weight:700;fill:var(--cost-dark);font-family:var(--sans);}
+    .exc-note{font-size:9.5px;font-style:italic;fill:var(--cost-mid);font-family:var(--sans);}
+    .spine-note{font-size:11.5px;font-weight:700;font-family:var(--sans);}
     .dot{cursor:default;}
     .dot-label{font-size:10.5px;font-weight:600;fill:var(--cost-dark);}
     .quadrant-fill-good{fill:rgba(27,122,61,.05);}
@@ -127,89 +132,66 @@
       <p><strong>What this actually demonstrates.</strong> Both InfraWatch legs are scored here on one scale, for one set of projects: <span class="frame-dot" style="background:var(--green)"></span> openness, mapped to the <strong>CoST IDS</strong>, and <span class="frame-dot" style="background:var(--amber)"></span> value, run through the <strong>IEA-Kenya NPV toolkit</strong>. They share a project set, a data spine, and a colour system. That is the point worth carrying: the two legs <strong>compose into one method</strong>, and you can see them disagree exactly where the method says they should (Sankofa: public, yet a bad deal). This is proof the method runs end-to-end. It is not yet a finding: ten hand-scored projects show that the machine works, not what it concludes. Give it real disclosure scores and loan-agreement cash flows and the same instrument produces evidence.</p>
     </div>
 
-    <!-- ===================== THE 2x2 ===================== -->
-    <h2><span class="num">01</span>The map</h2>
-    <p class="lead">Each dot is a project. Move <strong>right</strong> for more public information about the deal. Move <strong>up</strong> for a deal that looks more worthwhile. Colour shows who mainly paid for it. The projects that sit where you would not expect are the ones that teach you the most.</p>
-
-    <div class="warnband" role="note">
-      <strong>One thing before you look:</strong> the dots rise from left to right, but <strong>do not read that as "openness brings good deals."</strong> The lenders who publish more (like the World Bank) also tend to lend on better terms, so the two move together. The slope is mostly about <strong>who paid</strong>, not about openness.
-    </div>
+    <!-- ===================== THE FACETS ===================== -->
+    <h2><span class="num">01</span>Watch the slope vanish</h2>
+    <p class="lead">The trap with one chart is that the eye draws a line: more public, better deal. So split the projects by <strong>who lent the money</strong>. Inside each lender the line is gone. What looked like "openness brings value" was really the lender setting both at once. Dot position = how public the deal is; <strong>dot colour = the verdict</strong> (green good, amber marginal, red harmful, grey can't judge).</p>
 
     <div class="chartcard">
       <div class="plot">
-        <svg viewBox="0 0 760 580" role="img" aria-label="Scatter plot of CoST IDS disclosure band versus value signal for ten infrastructure projects. Circles are NPV computed from disclosed terms; triangles are outcome-based verdicts where terms were not published; an open square marks a project whose value cannot be computed at all.">
-          <rect x="90" y="40" width="315" height="215" class="quadrant-fill-bad"/>
-          <rect x="405" y="40" width="315" height="215" class="quadrant-fill-good"/>
-          <rect x="90" y="255" width="315" height="215" class="quadrant-fill-bad"/>
-          <rect x="405" y="255" width="315" height="215" class="quadrant-fill-good"/>
+        <svg viewBox="0 0 760 430" role="img" aria-label="Two side-by-side panels splitting the ten projects by funder. Left panel, World Bank and other non-Chinese lenders: their projects all sit on the open, high-disclosure side, mostly with worthwhile verdicts, with Sankofa the exception (public but harmful). Right panel, Chinese-funded: their projects all sit on the hidden, low-disclosure side, with marginal, harmful, or untestable verdicts. Within each panel there is no upward slope; the difference is between the panels, set by the funder.">
+          <!-- ===== PANEL A: World Bank / non-Chinese ===== -->
+          <text x="60" y="34" text-anchor="start" class="panel-title" fill="#0071BC">World Bank / non-Chinese lenders</text>
+          <rect x="40" y="46" width="320" height="300" rx="6" fill="#F4F9FD" stroke="#0071BC" stroke-width="1"/>
+          <!-- mini disclosure axis -->
+          <line x1="60" y1="320" x2="345" y2="320" stroke="#5A5A5A" stroke-width="1.2"/>
+          <text x="60"  y="338" text-anchor="start" class="mini-tick">hidden</text>
+          <text x="345" y="338" text-anchor="end" class="mini-tick">open &#8594;</text>
+          <!-- dots: all sit RIGHT (open). colour = verdict. no slope: they are a vertical cluster on the open side. -->
+          <g class="dot"><circle cx="320" cy="90"  r="8" fill="#1B7A3D" stroke="#fff" stroke-width="2"/><text x="320" y="76" text-anchor="middle" class="dot-label">Azura-Edo</text></g>
+          <g class="dot"><circle cx="305" cy="135" r="8" fill="#1B7A3D" stroke="#fff" stroke-width="2"/><text x="305" y="121" text-anchor="middle" class="dot-label">NEP grids</text></g>
+          <g class="dot"><circle cx="250" cy="180" r="8" fill="#C77F00" stroke="#fff" stroke-width="2"/><text x="250" y="166" text-anchor="middle" class="dot-label">Accra</text></g>
+          <!-- Sankofa: the exception, public yet harmful -->
+          <g class="dot"><circle cx="285" cy="245" r="11" fill="#BE1E2D" stroke="#2D2D2D" stroke-width="2.5"/><text x="285" y="229" text-anchor="middle" class="dot-label" font-weight="800">Sankofa</text>
+            <text x="285" y="272" text-anchor="middle" class="exc-note">public, yet harmful</text></g>
+          <text x="200" y="300" text-anchor="middle" class="panel-read">All open. No slope inside the panel.</text>
 
-          <line x1="90" y1="470" x2="720" y2="470" stroke="#2D2D2D" stroke-width="1.5"/>
-          <line x1="90" y1="40" x2="90" y2="470" stroke="#2D2D2D" stroke-width="1.5"/>
-          <line x1="405" y1="40" x2="405" y2="470" stroke="#5A5A5A" stroke-width="1" stroke-dasharray="4 4"/>
-          <line x1="90" y1="255" x2="720" y2="255" stroke="#5A5A5A" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- ===== PANEL B: Chinese-funded ===== -->
+          <text x="415" y="34" text-anchor="start" class="panel-title" fill="#BE1E2D">Chinese-funded</text>
+          <rect x="400" y="46" width="320" height="300" rx="6" fill="#FDF5F6" stroke="#BE1E2D" stroke-width="1"/>
+          <line x1="420" y1="320" x2="705" y2="320" stroke="#5A5A5A" stroke-width="1.2"/>
+          <text x="420" y="338" text-anchor="start" class="mini-tick">hidden</text>
+          <text x="705" y="338" text-anchor="end" class="mini-tick">open &#8594;</text>
+          <!-- shaded 'can't even test' on the hidden end -->
+          <rect x="400" y="46" width="70" height="274" fill="rgba(90,90,90,.06)"/>
+          <!-- dots: all sit LEFT (hidden). NASENI has no fill verdict (grey hollow). -->
+          <g class="dot"><rect x="430" y="84" width="15" height="15" rx="2" fill="none" stroke="#5A5A5A" stroke-width="2" stroke-dasharray="3 2"/><text x="437" y="76" text-anchor="middle" class="dot-label">NASENI</text>
+            <text x="437" y="116" text-anchor="middle" class="exc-note">no terms, no test</text></g>
+          <g class="dot"><circle cx="500" cy="150" r="8" fill="#BE1E2D" stroke="#fff" stroke-width="2"/><text x="500" y="136" text-anchor="middle" class="dot-label">SGR</text></g>
+          <g class="dot"><circle cx="475" cy="195" r="8" fill="#BE1E2D" stroke="#fff" stroke-width="2"/><text x="475" y="181" text-anchor="middle" class="dot-label">Addis LRT</text></g>
+          <g class="dot"><circle cx="540" cy="235" r="8" fill="#C77F00" stroke="#fff" stroke-width="2"/><text x="540" y="221" text-anchor="middle" class="dot-label">Zungeru</text></g>
+          <g class="dot"><circle cx="515" cy="275" r="8" fill="#C77F00" stroke="#fff" stroke-width="2"/><text x="515" y="261" text-anchor="middle" class="dot-label">Bui</text></g>
+          <text x="560" y="300" text-anchor="middle" class="panel-read">All hidden. No slope inside the panel.</text>
 
-          <text x="168" y="490" text-anchor="middle" class="axis-tick" fill="#5A5A5A" font-weight="700">UNKNOWN</text>
-          <text x="326" y="490" text-anchor="middle" class="axis-tick" fill="#BE1E2D" font-weight="700">LOW</text>
-          <text x="484" y="490" text-anchor="middle" class="axis-tick" fill="#C77F00" font-weight="700">MEDIUM</text>
-          <text x="642" y="490" text-anchor="middle" class="axis-tick" fill="#1B7A3D" font-weight="700">HIGH</text>
-          <text x="405" y="512" text-anchor="middle" class="axis-title">How much of the deal is public (mapped to the CoST IDS)</text>
-
-          <text x="82" y="150" text-anchor="end" class="axis-tick">Worthwhile</text>
-          <text x="82" y="258" text-anchor="end" class="axis-tick">Marginal</text>
-          <text x="82" y="380" text-anchor="end" class="axis-tick">Harmful</text>
-          <text x="16" y="255" text-anchor="middle" class="axis-title" transform="rotate(-90 16 255)">Does the deal look worth the money?</text>
-
-          <text x="100" y="58" class="qlabel">hidden · cannot be tested</text>
-          <text x="712" y="58" text-anchor="end" class="qlabel">visible · looks worthwhile</text>
-          <text x="100" y="462" class="qlabel">hidden · failure leaked out</text>
-          <text x="712" y="462" text-anchor="end" class="qlabel">visible · still a bad deal</text>
-
-          <!-- CIRCLE = NPV computed from disclosed terms · TRIANGLE = outcome-based verdict (terms not published) · OPEN SQUARE = not computable -->
-          <!-- Azura-Edo IPP (HIGH, worthwhile · computed) -->
-          <g class="dot"><circle cx="642" cy="135" r="8" fill="#0071BC" stroke="#fff" stroke-width="2"/><text x="642" y="120" text-anchor="middle" class="dot-label">Azura-Edo</text></g>
-          <!-- NEP mini-grids (HIGH, worthwhile · computed) -->
-          <g class="dot"><circle cx="660" cy="178" r="7" fill="#0071BC" stroke="#fff" stroke-width="2"/><text x="660" y="200" text-anchor="middle" class="dot-label">NEP mini-grids</text></g>
-          <!-- Accra interchange (MEDIUM, marginal · computed) -->
-          <g class="dot"><circle cx="500" cy="225" r="7" fill="#0071BC" stroke="#fff" stroke-width="2"/><text x="500" y="212" text-anchor="middle" class="dot-label">Accra interchange</text></g>
-          <!-- Sankofa gas (MEDIUM, harmful · computed) THE THESIS-BREAKER -->
-          <g class="dot"><circle cx="520" cy="395" r="9" fill="#0071BC" stroke="#fff" stroke-width="2"/><text x="520" y="380" text-anchor="middle" class="dot-label">Sankofa (gas)</text></g>
-          <!-- Bui hydro (MEDIUM/LOW, marginal · computed, partial terms) -->
-          <g class="dot"><circle cx="392" cy="262" r="7" fill="#BE1E2D" stroke="#fff" stroke-width="2"/><text x="392" y="247" text-anchor="middle" class="dot-label">Bui hydro</text></g>
-          <!-- Zungeru hydro (LOW, marginal · computed, partial terms) -->
-          <g class="dot"><circle cx="342" cy="295" r="7" fill="#BE1E2D" stroke="#fff" stroke-width="2"/><text x="342" y="315" text-anchor="middle" class="dot-label">Zungeru</text></g>
-          <!-- GERD transmission (LOW, marginal · OUTCOME) -->
-          <g class="dot"><polygon points="355,222 363,237 347,237" fill="#2D2D2D" stroke="#fff" stroke-width="1.5"/><text x="355" y="213" text-anchor="middle" class="dot-label">GERD grid</text></g>
-          <!-- SGR Kenya (LOW, harmful · OUTCOME) -->
-          <g class="dot"><polygon points="310,388 320,406 300,406" fill="#BE1E2D" stroke="#fff" stroke-width="1.5"/><text x="310" y="378" text-anchor="middle" class="dot-label">SGR (Kenya)</text></g>
-          <!-- Addis Light Rail (LOW, harmful · OUTCOME) -->
-          <g class="dot"><polygon points="279,420 289,438 269,438" fill="#BE1E2D" stroke="#fff" stroke-width="1.5"/><text x="279" y="452" text-anchor="middle" class="dot-label">Addis LRT</text></g>
-          <!-- NASENI solar (UNKNOWN, not computable · OPEN SQUARE) -->
-          <g class="dot"><rect x="160" y="404" width="15" height="15" fill="none" stroke="#BE1E2D" stroke-width="2" stroke-dasharray="3 2"/><text x="167" y="432" text-anchor="middle" class="dot-label">NASENI solar</text></g>
-
-          <!-- Burned-in caveat: survives screenshots lifted out of the page -->
-          <text x="405" y="540" text-anchor="middle" class="svg-caveat">The slope is mostly about who lent the money, not openness. 10 projects, hand-scored.</text>
-          <text x="405" y="556" text-anchor="middle" class="svg-caveat">Making a deal public lets you test it. It does not make it a good deal.</text>
+          <!-- the between-panel punchline + honest home note + caveat -->
+          <text x="380" y="378" text-anchor="middle" class="spine-note" fill="#2D2D2D">The whole "slope" was the gap BETWEEN these two panels, set by the lender, not openness.</text>
+          <text x="380" y="398" text-anchor="middle" class="mini-tick" fill="#5A5A5A">(Home-funded: 1 project, GERD grid, low disclosure / marginal. Too few to make a third panel.)</text>
+          <text x="380" y="418" text-anchor="middle" class="svg-caveat">10 projects, hand-scored. A teaching example, not proof.</text>
         </svg>
       </div>
 
       <div class="legend">
-        <span class="legend-head">Shape = how we judged the deal</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#5A5A5A" stroke="#fff" stroke-width="1.5"/></svg> Value worked out from public terms</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><polygon points="7,1 13,13 1,13" fill="#5A5A5A" stroke="#fff" stroke-width="1"/></svg> Judged by results only (terms hidden)</span>
-        <span class="item"><svg width="18" height="14" aria-hidden="true"><rect x="1" y="1" width="12" height="12" fill="none" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="3 2"/></svg> Cannot be judged at all</span>
-      </div>
-      <div class="legend">
-        <span class="legend-head">Colour = who mainly paid <em>(shown because it, not openness, is doing most of the work)</em></span>
-        <span class="item"><span class="swatch" style="background:#BE1E2D"></span> Mainly Chinese-funded</span>
-        <span class="item"><span class="swatch" style="background:#0071BC"></span> World Bank / other non-Chinese</span>
-        <span class="item"><span class="swatch" style="background:#2D2D2D"></span> Funded at home</span>
+        <span class="legend-head">Dot colour = the verdict</span>
+        <span class="item"><svg width="16" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#1B7A3D"/></svg> Looks worthwhile</span>
+        <span class="item"><svg width="16" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#C77F00"/></svg> Marginal</span>
+        <span class="item"><svg width="16" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#BE1E2D"/></svg> Harmful</span>
+        <span class="item"><svg width="16" height="14" aria-hidden="true"><rect x="1" y="1" width="12" height="12" fill="none" stroke="#5A5A5A" stroke-width="1.5" stroke-dasharray="3 2"/></svg> Can't be judged (terms hidden)</span>
       </div>
     </div>
 
     <div class="callout">
-      <h3>Two things the shapes tell you that the slope hides</h3>
-      <p><strong>Not every dot was judged the same way.</strong> For the circles (like Azura and Sankofa) we could actually work out the value, because the deal's terms were public. For the triangles (like SGR and Addis) we could not: the terms were kept secret, so all we have is what the project did in the end. The chart puts both on one line. The shapes are there so you do not mistake "we saw how it turned out" for "we checked the numbers."</p>
-      <p>The clearest sign that openness does <strong>not</strong> guarantee a good deal is <strong>Sankofa</strong>: a circle that sits low in the harmful zone even though its terms were public. Because the terms were public, the bad deal could be measured, and it still went ahead. Making it public let people see the trap. It did not stop them walking into it.</p>
+      <h3>What the split shows in five seconds</h3>
+      <p><strong>The slope was never inside a panel. It was the gap between them.</strong> Put the World Bank projects on their own and they all sit open, mostly green. Put the Chinese-funded ones on their own and they all sit hidden, amber or red or untestable. Neither group slopes up. What the single chart read as "openness brings value" was just two different lenders behaving in two different ways. Disclosure rides along with the lender; it is not the cause.</p>
+      <p><strong>Then the two exceptions carry the real lesson.</strong> <strong>Sankofa</strong> sits in the open World Bank panel but its dot is red: its terms were public enough to measure the bad deal, and it went ahead anyway. Openness let people see the trap; it did not stop them walking in. And <strong>NASENI</strong> has no verdict at all, just a hollow square: its terms were never published, so there is nothing to test. Seeing the deal is the entry ticket. No ticket, no test.</p>
     </div>
 
     <!-- ===================== THE EXCEPTIONS ===================== -->

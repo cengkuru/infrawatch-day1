@@ -280,6 +280,7 @@
         human:"The debt was the story, not the railway. ~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
         hidden:"the real debt", hiddenNote:"The liability it loads onto the treasury, the interest and the sovereign guarantee, stays out of view.",
         wrong:"the announced cost", wrongNote:"A sticker price is not a loan book.",
+        wrongLine:"The announced cost tells you what the railway was sold to the public for. It says nothing about the interest, the repayment schedule, or the guarantee the state signed. Those live in the loan agreement, so the real debt never appears.",
         rec:"loan terms + guarantee",
         why:"In the SGR case the issue was never the announced cost. It was the debt-service exposure and the contingent liability, in the loan agreement, not the press release.",
         ids:"Loan terms &amp; guarantee", idsPhase:"Preparation, Implementation",
@@ -293,6 +294,7 @@
         human:"The problem was not only the gas. A take-or-pay clause means the public keeps paying for gas it never uses, on terms set by an ownership split it cannot see.",
         hidden:"who really gains", hiddenNote:"You can know exactly what was paid and still not know who sits behind the stake, and why the public pays for unused gas.",
         wrong:"the contract price", wrongNote:"Price and ownership are different questions.",
+        wrongLine:"The contract price tells you what was paid. It does not tell you who owns the stake or why the public keeps paying for gas it never uses. Price and ownership are different questions, so who really gains stays hidden.",
         rec:"ownership + offtake",
         why:"Brought deliberately, post Ghana's 2019 Right to Information Act, against a backdrop of national bankruptcy. The gap is the ownership and the offtake, not the headline price.",
         ids:"Beneficial ownership", idsPhase:"Identification",
@@ -305,6 +307,7 @@
         human:"A PPP meant to move demand risk off the public balance sheet. Without big toll rises it needs public subsidy, so it did the opposite of what it promised.",
         hidden:"the long-term bill", hiddenNote:"The guarantees and contingent liabilities run for decades, not one budget year.",
         wrong:"the project budget", wrongNote:"This year is not the whole story.",
+        wrongLine:"The project budget tells you what is being spent this year. A PPP's real cost is the payments and guarantees owed for the next twenty-five years, and those live in the contract, not the budget. So the long-term bill stays hidden.",
         rec:"contract + commitments",
         why:"A textbook poisoned chalice by structure: the PPP that promised to reduce public exposure raised it instead. The long-term bill lives in the contract, not the budget line.",
         ids:"Contract terms &amp; fiscal commitments", idsPhase:"Procurement",
@@ -317,6 +320,7 @@
         human:"When the number lives only in a launch speech and not in a record, there is nothing to benchmark the price against. The thinness is the finding.",
         hidden:"the buried mark-up", hiddenNote:"Build and finance rolled together hide the mark-up inside one number with nothing to compare it to.",
         wrong:"the total value", wrongNote:"A lump sum cannot be benchmarked.",
+        wrongLine:"The total value gives you one bundled number. With build and finance rolled together, there is nothing to compare it against, so you cannot tell what is a fair price and what is mark-up. The mark-up stays hidden.",
         rec:"cost breakdown",
         why:"The cleanest disclosure finding in the room: the financing figure was attributed to the agency's own CEO at launch, yet it appears on no official NASENI document.",
         ids:"Cost estimate &amp; price", idsPhase:"Preparation, Procurement",
@@ -329,6 +333,7 @@
         human:"The white elephant that runs at a loss. Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
         hidden:"the real terms", hiddenNote:"Concessional rates can hide no competitive tender, tied conditions, and what was actually delivered for the money.",
         wrong:"the headline rate", wrongNote:"A low rate is not a good deal if half the trains never run.",
+        wrongLine:"The headline interest rate looks generous. But a low rate is not a good deal if there was no competitive tender, the conditions are tied, and only 8 of 41 trains run. What the money actually bought stays hidden.",
         rec:"source + conditions",
         why:"Built on an 85% China EXIM loan with no competitive tender. The room's sharpest twist came when Michael flagged GERD beside it.",
         ids:"Funding source &amp; conditions", idsPhase:"Preparation",
@@ -376,10 +381,10 @@
       // The pinned panel now carries the project + financing + human line, so the sliding cards are
       // just the arc. First card = the secret (the entry/gate anchor for the jump rail + camera).
       step('<p class="eyebrow hide">what stays hidden</p><h2 class="em">'+c.hidden+'</h2><p>'+c.hiddenNote+'</p>','',i,'gate');
-      step('<p class="eyebrow wrong">the question that fails</p>'+
+      step('<p class="eyebrow wrong">the obvious request, and why it fails</p>'+
         '<h2>You ask for '+c.wrong+'.</h2>'+
-        '<p>It feels like the obvious thing to request. But '+c.wrongNote.charAt(0).toLowerCase()+c.wrongNote.slice(1)+' '+
-        '<strong>'+c.hidden.charAt(0).toUpperCase()+c.hidden.slice(1)+' stays hidden.</strong></p>','right',i);
+        '<p>'+c.wrongLine+'</p>'+
+        '<span class="xmark"><span class="x">&#10005;</span> '+c.hidden+' stays hidden</span>','right',i);
       step('<p class="eyebrow rec">the question that works</p><h2 class="rd">'+c.rec+'</h2><p>'+c.why+'</p>'+
         '<div class="idstag"><span class="il">the CoST IDS already names this record</span>'+
           '<span class="iv">'+c.ids+'</span><span class="ip">disclosed at: '+c.idsPhase+'</span></div>','',i);

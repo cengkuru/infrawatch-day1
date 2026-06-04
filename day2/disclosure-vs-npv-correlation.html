@@ -44,6 +44,36 @@
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
+    /* PREDICT-THEN-REVEAL door: draw the slope you expect, then it dissolves */
+    .door{background:var(--brand-deep);color:#fff;padding:2.6rem 0 2.4rem;margin:1rem 0 0;}
+    .door-inner{}
+    .door-kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:#8aa6c4;margin:0 0 .8rem;text-align:center;}
+    .door-h{font-size:clamp(1.5rem,3.6vw,2.3rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 auto 1rem;text-align:center;max-width:24ch;color:#fff;}
+    .door-h .accent{color:#9fd6b3;}
+    .door-sub{text-align:center;color:#cdddec;font-size:clamp(1rem,2.1vw,1.18rem);max-width:52ch;margin:0 auto 1.6rem;}
+    .draw{background:#0c1622;border:1px solid #1f3148;border-radius:14px;padding:1rem 1rem .4rem;max-width:780px;margin:0 auto;}
+    #drawsvg{width:100%;height:auto;display:block;touch-action:none;}
+    .dax{stroke:#2a3f57;stroke-width:1.4;} .dgrid line{stroke:#16273a;stroke-width:1;}
+    .dlab{font-size:12px;fill:#8ea4bc;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    .guessline{fill:none;stroke:#9b86f0;stroke-width:3.5;stroke-linecap:round;}
+    .guessdot{fill:#9b86f0;cursor:grab;}
+    .realfit{fill:none;stroke:#7fa8d6;stroke-width:3;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.1s ease;}
+    .realfit.show{stroke-dashoffset:0;}
+    .reallab{font-size:12px;font-weight:700;fill:#9fc0e6;opacity:0;transition:opacity .5s ease .7s;} .reallab.show{opacity:1;}
+    #realdots circle{opacity:0;transition:opacity .5s ease;}
+    #realdots circle.show{opacity:1;}
+    .dctl{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;justify-content:center;padding:.8rem .2rem .4rem;}
+    .dbtn{background:#7c4dff;color:#fff;border:none;border-radius:99px;padding:.6rem 1.3rem;font-weight:800;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;transition:.15s;}
+    .dbtn:hover{filter:brightness(1.1);} .dbtn:disabled{opacity:.4;cursor:not-allowed;}
+    .dbtn.ghost{background:transparent;color:#9fb4cc;border:1px solid #2a3f57;}
+    .dhint{font-size:.78rem;color:#8ea4bc;text-align:center;width:100%;margin-top:.2rem;}
+    .door-reveal{max-width:700px;margin:1.4rem auto 0;background:rgba(124,77,255,.1);border:1px solid #3a3168;border-left:4px solid #9b86f0;border-radius:12px;padding:1.1rem 1.3rem;opacity:0;max-height:0;overflow:hidden;transition:opacity .6s ease,max-height .6s ease,padding .6s ease;}
+    .door-reveal.show{opacity:1;max-height:360px;}
+    .door-reveal h3{margin:0 0 .4rem;font-size:1.2rem;color:#fff;}
+    .door-reveal p{margin:0 0 1rem;color:#dfe8f2;font-size:.98rem;} .door-reveal strong{color:#fff;}
+    .door-reveal .dr-next{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--brand-deep);text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.6rem 1.1rem;border-radius:99px;}
+    @media (prefers-reduced-motion:reduce){ .realfit,.reallab,#realdots circle,.door-reveal{transition:none;} }
+
     /* TWO-COLUMN SCROLLY: chart pinned LEFT (always in view), annotations reveal RIGHT.
        Scroll is the only interaction. */
     .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.55fr 1fr;gap:1.5rem;align-items:start;}
@@ -179,13 +209,50 @@
 
       <p class="tally">Of ten flagship projects, only <b class="g">six</b> could be assessed up front. <b class="a">Three</b> were judged only after they had run. And <b class="r">one</b> cannot be judged at all.</p>
 
-      <div class="scrollcue">scroll to see it &darr;</div>
+      <div class="scrollcue">first, a question &darr;</div>
     </section>
   </div>
 
+  <!-- ============ PREDICT-THEN-REVEAL: draw the slope you expect, then watch it dissolve ============ -->
+  <section class="door">
+    <div class="wrap door-inner">
+      <p class="door-kick">before the chart, your instinct</p>
+      <h2 class="door-h">Draw what you expect: does publishing a project's financing make it <span class="accent">better value</span>?</h2>
+      <p class="door-sub">As more of a project's terms become public (left to right), do you expect its value-for-money to rise? Drag the dots to draw your line, then commit.</p>
+
+      <div class="draw">
+        <svg id="drawsvg" viewBox="0 0 760 380" role="img" aria-label="A blank chart. Horizontal axis: how much of a project's financing is public, from withheld on the left to disclosed on the right. Vertical axis: value-for-money, from harmful at the bottom to worthwhile at the top. Drag the points to draw the line you expect, then commit to reveal the ten real projects.">
+          <g class="dgrid"><line x1="70" y1="90" x2="715" y2="90"/><line x1="70" y1="190" x2="715" y2="190"/><line x1="70" y1="290" x2="715" y2="290"/></g>
+          <line class="dax" x1="70" y1="50" x2="70" y2="330"/>
+          <line class="dax" x1="70" y1="330" x2="715" y2="330"/>
+          <text class="dlab" x="70" y="352" text-anchor="start">terms withheld</text>
+          <text class="dlab" x="715" y="352" text-anchor="end">terms disclosed</text>
+          <text class="dlab" x="58" y="62" text-anchor="end">worthwhile</text>
+          <text class="dlab" x="58" y="326" text-anchor="end">harmful</text>
+          <path class="realfit" id="realfit" d="" />
+          <text class="reallab" id="reallab" x="392" y="86" text-anchor="middle">the real verdicts: no climb</text>
+          <path class="guessline" id="guessline" d="" />
+          <g id="realdots"></g>
+          <g id="ddots"></g>
+        </svg>
+        <div class="dctl">
+          <button class="dbtn" id="commit" type="button">Commit my line &rarr;</button>
+          <button class="dbtn ghost" id="showme" type="button">Just show me</button>
+          <span class="dhint" id="dhint">Drag the points. Keyboard: Tab to a point, then up/down arrows.</span>
+        </div>
+      </div>
+
+      <div class="door-reveal" id="doorReveal">
+        <h3 id="drTitle">You drew a climb. The real verdicts do not.</h3>
+        <p id="drBody">Almost everyone draws that line: more transparency, better value. But the ten real projects do not rise with disclosure. The most transparent project here, <strong>Sankofa</strong>, is one of the harmful ones. Publishing the terms did not make it good. It only made it <em>visible</em>. So if disclosure does not buy value, what is the slope people keep seeing? Scroll on.</p>
+        <a class="dr-next" href="#story">Now watch the slope dissolve &darr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SCROLLYTELLING STORY: chart pinned left, annotations reveal right ============ -->
   <div class="wrap">
-    <div class="story">
+    <div class="story" id="story">
       <!-- LEFT: the chart, pinned, always in the viewport -->
       <div class="chartcol">
         <div class="stage-inner">
@@ -223,9 +290,9 @@
       <div class="anncol">
         <div class="ann" data-stage="0">
           <div class="anncard">
-            <p class="kicker">start here</p>
-            <h3>Ten projects, one line.</h3>
-            <p>Each dot is a project, placed by how much of its financing is public: <strong>withheld</strong> on the left, <strong>disclosed</strong> on the right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. It is tempting to read a slope. Hold that thought.</p>
+            <p class="kicker">the slope you saw</p>
+            <h3>There does seem to be a line.</h3>
+            <p>Here are the same ten projects, each placed by how much of its financing is public: <strong>withheld</strong> left, <strong>disclosed</strong> right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. The greener dots <em>do</em> drift right. It looks like the line you drew. Hold that thought.</p>
           </div>
         </div>
         <div class="ann" data-stage="1">
@@ -237,9 +304,9 @@
         </div>
         <div class="ann" data-stage="2">
           <div class="anncard">
-            <p class="kicker">the slope was an illusion</p>
-            <h3>It comes down to the funder.</h3>
-            <p>Split the projects by who financed them and the slope is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours, and transparency was just riding along.</p>
+            <p class="kicker">your line dissolves</p>
+            <h3>The slope was the lender, not the light.</h3>
+            <p>Split the projects by who financed them and the line you drew is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours. Disclosure was riding along with the lender, not buying the value.</p>
           </div>
         </div>
         <div class="ann" data-stage="3">
@@ -354,9 +421,77 @@
     ];
     var COL = {g:"#1B7A3D", a:"#C77F00", r:"#BE1E2D"};
     var FUND = {cn:"#BE1E2D", wb:"#0071BC", hm:"#2D2D2D"};
+    var COL2 = {g:"#1B7A3D", a:"#C77F00", r:"#BE1E2D"};
     var X0=70, X1=715, YTOP=70, YBOT=380;
     function sx(d){ return X0 + (d/100)*(X1-X0); }
     function rowY(r){ return YTOP + r*((YBOT-YTOP)/4); }
+
+    // ===== PREDICT-THEN-REVEAL door: draw the slope you expect, then watch the real verdicts refuse it =====
+    (function(){
+      var DX0=70, DX1=715, DY0=50, DY1=330, N=5, locked=false;
+      var px=[]; for(var i=0;i<N;i++) px.push(DX0+(DX1-DX0)*i/(N-1));
+      var py=[]; for(var i=0;i<N;i++) py.push(190); // start flat-mid; reader drags into a slope
+      // real verdict height: worthwhile high, marginal mid, harmful low, not-computable = off (the wall point)
+      var VY={g:90, a:200, r:300};
+      function vY(v){ return v===null ? null : VY[v]; }
+      var svg=document.getElementById("drawsvg"),
+          guess=document.getElementById("guessline"), ddots=document.getElementById("ddots"),
+          realdotsG=document.getElementById("realdots"), realfit=document.getElementById("realfit"),
+          reallab=document.getElementById("reallab"),
+          doorReveal=document.getElementById("doorReveal"), dhint=document.getElementById("dhint");
+      function poly(xs,ys){ var d="M "+xs[0]+" "+ys[0]; for(var i=1;i<xs.length;i++) d+=" L "+xs[i]+" "+ys[i]; return d; }
+      function drawGuess(){ guess.setAttribute("d", poly(px,py)); }
+      function clampY(y){ return Math.max(DY0, Math.min(DY1, y)); }
+      var dots=[];
+      for(var i=0;i<N;i++){(function(i){
+        var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",px[i]); c.setAttribute("cy",py[i]); c.setAttribute("r",11);
+        c.setAttribute("class","guessdot"); c.setAttribute("tabindex","0");
+        c.setAttribute("role","slider"); c.setAttribute("aria-label","prediction point "+(i+1)+" of "+N);
+        ddots.appendChild(c); dots.push(c);
+        function setY(y){ py[i]=clampY(y); c.setAttribute("cy",py[i]); drawGuess(); }
+        c.addEventListener("pointerdown",function(e){ if(locked) return; c.setPointerCapture(e.pointerId); c.style.cursor="grabbing"; });
+        c.addEventListener("pointermove",function(e){ if(locked||!c.hasPointerCapture(e.pointerId)) return;
+          var r=svg.getBoundingClientRect(); setY((e.clientY-r.top)/r.height*380); });
+        c.addEventListener("pointerup",function(e){ try{c.releasePointerCapture(e.pointerId);}catch(_){} c.style.cursor="grab"; });
+        c.addEventListener("keydown",function(e){ if(locked) return;
+          if(e.key==="ArrowUp"){ setY(py[i]-10); e.preventDefault(); }
+          if(e.key==="ArrowDown"){ setY(py[i]+10); e.preventDefault(); } });
+      })(i);}
+      drawGuess();
+      // pre-place the real verdict dots (hidden until reveal); not-computable (NASENI) sits ON the axis floor
+      var realNodes=[];
+      P.forEach(function(p){
+        var cx=DX0+(p.disc/100)*(DX1-DX0);
+        var cy = p.verdict===null ? DY1 : VY[p.verdict];
+        var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",cx); c.setAttribute("cy",cy); c.setAttribute("r",7);
+        c.setAttribute("fill", p.verdict===null ? "none" : COL2[p.verdict]);
+        if(p.verdict===null){ c.setAttribute("stroke","#5A6B7B"); c.setAttribute("stroke-width","2"); c.setAttribute("stroke-dasharray","3 2"); }
+        else { c.setAttribute("stroke","#0c1622"); c.setAttribute("stroke-width","1.5"); }
+        realdotsG.appendChild(c); realNodes.push(c);
+      });
+      // the real "fit": flat. Computed from the computable verdicts' mean height, drawn as a near-flat line.
+      var comp=P.filter(function(p){return p.verdict!==null;});
+      var meanY=comp.reduce(function(s,p){return s+VY[p.verdict];},0)/comp.length;
+      realfit.setAttribute("d","M "+DX0+" "+(meanY+4)+" L "+DX1+" "+(meanY-4));
+      function reveal(){
+        if(locked) return; locked=true;
+        dots.forEach(function(c){ c.style.cursor="default"; c.setAttribute("tabindex","-1"); });
+        document.getElementById("commit").disabled=true; document.getElementById("showme").disabled=true;
+        dhint.textContent="Locked in. Here are the ten real projects.";
+        if(reduceMotion){
+          realNodes.forEach(function(c){ c.classList.add("show"); });
+          realfit.style.strokeDashoffset="0"; reallab.style.opacity="1"; doorReveal.classList.add("show");
+        } else {
+          realNodes.forEach(function(c,i){ setTimeout(function(){ c.classList.add("show"); }, i*70); });
+          setTimeout(function(){ realfit.classList.add("show"); reallab.classList.add("show"); }, 700);
+          setTimeout(function(){ doorReveal.classList.add("show"); }, 1100);
+        }
+      }
+      document.getElementById("commit").addEventListener("click", reveal);
+      document.getElementById("showme").addEventListener("click", reveal);
+    })();
 
     var dotsG = document.getElementById("dots");
     var nodes = {};

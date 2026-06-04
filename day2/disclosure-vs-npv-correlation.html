@@ -28,6 +28,12 @@
     h1 .accent{color:var(--cost-red);}
     .subline{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--cost-mid);margin:0;max-width:60ch;}
 
+    /* FRAME (what this artifact demonstrates; strategic note, sits under hero) */
+    .frame{background:#EAF3FA;border:1px solid var(--cost-blue);border-left:5px solid var(--cost-blue);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:1.5rem 0 0;}
+    .frame p{margin:0;font-size:.92rem;color:#0a3b5c;line-height:1.55;}
+    .frame strong{color:#06324f;}
+    .frame-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 .1rem 0 .15rem;vertical-align:middle;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.12);}
+
     /* WARN BAND (sits directly above the chart) */
     .warnband{background:#FCE0E3;border:1px solid var(--cost-red);border-left:5px solid var(--cost-red);border-radius:var(--radius);padding:1rem 1.2rem;margin:.4rem 0 1.25rem;font-size:.9rem;color:#6e1018;line-height:1.5;}
     .warnband strong{color:var(--cost-red);}
@@ -115,6 +121,10 @@
     <div class="hero">
       <h1>Disclosure makes value <span class="accent">testable</span>.</h1>
       <p class="subline">Making a deal public does not make it a good deal. But it is the only way anyone can check whether it is. This page lines up ten infrastructure projects by how much of the deal was made public, against whether the deal looks worth the money. The pattern looks like "openness brings good deals." It is mostly something simpler: who lent the money. Seeing that clearly is the point.</p>
+    </div>
+
+    <div class="frame" role="note">
+      <p><strong>What this actually demonstrates.</strong> Both InfraWatch legs are scored here on one scale, for one set of projects: <span class="frame-dot" style="background:var(--green)"></span> openness, mapped to the <strong>CoST IDS</strong>, and <span class="frame-dot" style="background:var(--amber)"></span> value, run through the <strong>IEA-Kenya NPV toolkit</strong>. They share a project set, a data spine, and a colour system. That is the point worth carrying: the two legs <strong>compose into one method</strong>, and you can see them disagree exactly where the method says they should (Sankofa: public, yet a bad deal). This is proof the method runs end-to-end. It is not yet a finding: ten hand-scored projects show that the machine works, not what it concludes. Give it real disclosure scores and loan-agreement cash flows and the same instrument produces evidence.</p>
     </div>
 
     <!-- ===================== THE 2x2 ===================== -->

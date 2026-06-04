@@ -167,6 +167,28 @@
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
 
 
+    /* THREE PLAIN PANELS (replacing the heavy scrolly chart) */
+    .panels{display:flex;flex-direction:column;gap:1.4rem;margin:2rem 0;}
+    .pnl{background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.6rem 1.7rem;border-left:4px solid var(--brand);}
+    .pnl.warn{border-left-color:var(--red);} .pnl.dark{border-left-color:var(--dark);}
+    .pnl-kick{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);margin:0 0 .4rem;}
+    .pnl.warn .pnl-kick{color:var(--red);} .pnl.dark .pnl-kick{color:var(--dark);}
+    .pnl-h{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;letter-spacing:-.01em;line-height:1.15;margin:0 0 .7rem;color:var(--dark);max-width:24ch;}
+    .pnl-sub{font-size:1rem;line-height:1.55;color:var(--mid);margin:.6rem 0 0;max-width:62ch;} .pnl-sub strong{color:var(--dark);}
+    .pnl-foot{font-size:.86rem;color:var(--mid);margin:1rem 0 0;font-style:italic;}
+    /* two funder groups, side by side, static */
+    .fgroups{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0 .2rem;}
+    .fgroup{border:1px solid var(--light);border-radius:12px;padding:1rem 1.1rem;background:var(--surface);}
+    .fgroup.wb{border-top:3px solid var(--blue);} .fgroup.cn{border-top:3px solid var(--red);}
+    .fg-name{font-weight:800;font-size:1rem;color:var(--dark);margin:0 0 .15rem;}
+    .fgroup.wb .fg-name{color:var(--blue);} .fgroup.cn .fg-name{color:var(--red);}
+    .fg-trait{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.03em;color:var(--mid);margin:0 0 .7rem;}
+    .fg-list{list-style:none;margin:0;padding:0;}
+    .fg-list li{font-size:.9rem;color:var(--dark);padding:.32rem 0;border-top:1px solid var(--light);display:flex;align-items:center;gap:.1rem;}
+    .fg-list li:first-child{border-top:none;}
+    .fg-list li em{color:var(--mid);font-style:normal;font-size:.8rem;margin-left:auto;}
+    @media (max-width:560px){ .fgroups{grid-template-columns:1fr;} }
+
     /* TAKEAWAY: one woven sentence, not a list of cards */
     .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
     .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
@@ -297,8 +319,9 @@
           <text class="dlab good" x="142" y="62" text-anchor="end">worth it</text>
           <text class="dlab bad" x="142" y="328" text-anchor="end">bad deal</text>
           <path class="guessline" id="guessline" d="" />
-          <text class="reallab" id="reallab" x="465" y="74" text-anchor="middle">the real verdicts do not climb</text>
+          <text class="guesslab" id="guesslab" x="780" y="0" text-anchor="end" opacity="0">the line you expected</text>
           <path class="realfit" id="realfit" d="" />
+          <text class="reallab" id="reallab" x="160" y="0" text-anchor="start">what really happens: flat, no climb</text>
           <g id="realdots"></g>
         </svg>
         </div><!-- /chart-side -->
@@ -318,98 +341,67 @@
     </div>
   </section>
 
-  <!-- ============ SCROLLYTELLING STORY: chart pinned left, annotations reveal right ============ -->
-  <div class="wrap">
-    <div class="story" id="story">
-      <!-- LEFT: the chart, pinned, always in the viewport -->
-      <div class="chartcol">
-        <div class="stage-inner">
-          <svg id="viz" viewBox="0 0 760 460" role="img" aria-label="Interactive chart of ten infrastructure projects placed along one axis from financing terms withheld on the left to financing terms disclosed on the right. Projects whose terms are withheld fog over and cannot be assessed. Splitting by funder shows that transparency tracks the funder, not the project's value. Sankofa has fully disclosed terms yet is harmful; NASENI can never be assessed.">
-            <line id="axisLine" x1="70" y1="400" x2="715" y2="400" stroke="#1E2A38" stroke-width="2"/>
-            <text x="70"  y="424" text-anchor="start" class="axis-tick" fill="#BE1E2D">financing terms withheld</text>
-            <text id="axisMid" x="392" y="424" text-anchor="middle" class="axis-title">how much of the project is public</text>
-            <text x="715" y="424" text-anchor="end" class="axis-tick" fill="#1B7A3D">financing terms disclosed</text>
-            <text x="392" y="442" text-anchor="middle" class="axis-tick" fill="#5A6B7B">mapped to the CoST IDS</text>
-            <!-- y axis = value-for-money -->
-            <line x1="70" y1="70" x2="70" y2="400" stroke="#D8D8D8" stroke-width="1"/>
-            <text x="62" y="74" text-anchor="end" class="axis-tick" fill="#1B7A3D" transform="rotate(0)">worthwhile</text>
-            <text x="62" y="372" text-anchor="end" class="axis-tick" fill="#BE1E2D">harmful</text>
-            <!-- the apparent slope: a faint up-trend line, shown early, dies on the funder split -->
-            <line id="trendLine" x1="70" y1="360" x2="715" y2="150" stroke="#9b86f0" stroke-width="2.5" stroke-dasharray="6 5" opacity="0"/>
-            <text id="trendLbl" x="560" y="138" text-anchor="middle" class="axis-tick" fill="#9b86f0" opacity="0">the slope you expected</text>
+  <!-- ============ THREE PLAIN PANELS (no moving chart): the funder, then the two exceptions ============ -->
+  <div class="wrap" id="story">
+    <div class="panels">
 
-            <g id="thresholdG" opacity="0">
-              <line id="threshLine" x1="240" y1="40" x2="240" y2="392" stroke="#28496A" stroke-width="1.5" stroke-dasharray="5 4"/>
-              <text id="threshLabel" x="240" y="34" text-anchor="middle" class="axis-tick" fill="#28496A">&#8592; not enough published to assess value</text>
-            </g>
+      <!-- Panel 1: the slope was the funder, not transparency. Two static groups, side by side. -->
+      <section class="pnl">
+        <p class="pnl-kick">why the line looked real</p>
+        <h3 class="pnl-h">The slope was the lender, not the light.</h3>
+        <p class="pnl-sub">Sort the same ten projects by who paid for them, and the upward line disappears. One group publishes its terms. The other does not. Transparency was just riding along with the funder.</p>
+        <div class="fgroups">
+          <div class="fgroup wb">
+            <p class="fg-name">World Bank &amp; non-Chinese</p>
+            <p class="fg-trait">terms published &middot; can be judged</p>
+            <ul class="fg-list">
+              <li><span class="vd g"></span>Azura-Edo IPP <em>worth it</em></li>
+              <li><span class="vd g"></span>NEP mini-grids <em>worth it</em></li>
+              <li><span class="vd a"></span>Accra interchange <em>borderline</em></li>
+              <li><span class="vd r"></span>Sankofa gas <em>a bad deal, but visible</em></li>
+            </ul>
+          </div>
+          <div class="fgroup cn">
+            <p class="fg-name">Chinese-financed &amp; home</p>
+            <p class="fg-trait">terms withheld &middot; hard or impossible to judge</p>
+            <ul class="fg-list">
+              <li><span class="vd a"></span>GERD transmission <em>marginal</em></li>
+              <li><span class="vd a"></span>Bui hydro &middot; Zungeru <em>marginal</em></li>
+              <li><span class="vd r"></span>SGR &middot; Addis LRT <em>a bad deal</em></li>
+              <li><span class="vd x"></span>NASENI <em>can't tell, terms hidden</em></li>
+            </ul>
+          </div>
+        </div>
+        <p class="pnl-foot">The two groups barely overlap. That gap, not the disclosure axis, is what produced the apparent slope.</p>
+      </section>
 
-            <text id="panelWB" x="577" y="34" text-anchor="middle" class="axis-title" fill="#0071BC" opacity="0">World Bank / non-Chinese</text>
-            <text id="panelCN" x="180" y="34" text-anchor="middle" class="axis-title" fill="#BE1E2D" opacity="0">Chinese-funded (+ home)</text>
+      <!-- Panel 2: Sankofa, published yet a bad deal -->
+      <section class="pnl warn">
+        <p class="pnl-kick">exception one &middot; published, yet a bad deal</p>
+        <h3 class="pnl-h">Sankofa: you could see the trap. It went ahead anyway.</h3>
+        <div class="evcard warn-ev">
+          <div class="evfact">$250m<span>a year</span></div>
+          <p class="evnote">A take-or-pay clause locks Ghana into paying for gas it does not use, about this much, every year. Because the terms were public, the cost could be measured up front.</p>
+        </div>
+        <p class="pnl-sub"><strong>Transparency reveals the trap; it does not prevent it.</strong> Publishing the terms did not make Sankofa a good deal. It only made the bad deal visible, which is the most anyone can ask of disclosure.</p>
+      </section>
 
-            <g id="dots"></g>
+      <!-- Panel 3: NASENI, never published, the wall -->
+      <section class="pnl dark">
+        <p class="pnl-kick">exception two &middot; never published, the wall</p>
+        <h3 class="pnl-h">NASENI: no terms, so no verdict is possible at all.</h3>
+        <figure class="redacted" aria-label="A financing record, almost entirely blacked out, with no figures legible.">
+          <div class="rd-head">NASENI solar &middot; financing terms</div>
+          <div class="rd-body"><span></span><span></span><span class="rd-short"></span><span></span><span class="rd-mid"></span><span></span></div>
+          <div class="rd-stamp">NOT PUBLISHED</div>
+        </figure>
+        <p class="pnl-sub">Its financing was never published anywhere official. No one, expert or citizen, can say whether it is good value-for-money. <strong>Withholding terms is not a footnote. It is a shield against assessment.</strong> That is why NASENI is the one project no chart can place.</p>
+      </section>
 
-            <text x="392" y="456" text-anchor="middle" font-size="9.5" font-weight="700" fill="#28496A" font-family="var(--sans)">Ten flagship projects. An illustration of the method, not a statistical claim.</text>
-          </svg>
-          <canvas id="confetti" aria-hidden="true"></canvas>
-          <!-- verdict colour key, always visible with the pinned chart -->
-          <div class="vkey">
-            <span class="vi"><span class="vc g"></span>worthwhile</span>
-            <span class="vi"><span class="vc a"></span>marginal</span>
-            <span class="vi"><span class="vc r"></span>harmful</span>
-            <span class="vi"><span class="vc x"></span>can't be judged</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: annotations reveal one at a time; the camera flies the chart to each subject in sync -->
-      <div class="anncol">
-        <div class="ann" data-stage="0">
-          <div class="anncard">
-            <p class="kicker">the slope you saw</p>
-            <h3>There does seem to be a line.</h3>
-            <p>Here are the same ten projects, each placed by how much of its financing is public: <strong>withheld</strong> left, <strong>disclosed</strong> right. The dot's <strong>colour is the verdict</strong>: <span style="color:var(--green);font-weight:700">green</span> worthwhile, <span style="color:var(--amber);font-weight:700">amber</span> marginal, <span style="color:var(--red);font-weight:700">red</span> harmful. The greener dots <em>do</em> drift right. There is the upward line you expected. Hold that thought.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="1">
-          <div class="anncard">
-            <p class="kicker">the wall</p>
-            <h3>Withheld terms can't be assessed.</h3>
-            <p>Projects whose financing was never published <strong>fog over with a "?"</strong>. No analysis resolves them. <strong>NASENI never clears.</strong> A lack of transparency is not missing data. It is a wall you cannot see past.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="2">
-          <div class="anncard">
-            <p class="kicker">your line dissolves</p>
-            <h3>The slope was the lender, not the light.</h3>
-            <p>Split the projects by who financed them and the upward line is gone. <span style="color:var(--blue);font-weight:700">World Bank</span> sits disclosed; <span style="color:var(--red);font-weight:700">Chinese-financed</span> sits withheld. Two funders, two behaviours. Disclosure was riding along with the lender, not buying the value.</p>
-          </div>
-        </div>
-        <div class="ann" data-stage="3">
-          <div class="anncard warn">
-            <p class="kicker">exception one</p>
-            <h3>Sankofa: disclosed, yet harmful.</h3>
-            <div class="evcard warn-ev">
-              <div class="evfact">$250m<span>a year</span></div>
-              <p class="evnote">A take-or-pay clause locks Ghana into paying for gas it does not use, about this much, every year. Because the terms were public, the trap could be measured. It went ahead anyway.</p>
-            </div>
-            <p>The value <em>could</em> be seen. <strong>Transparency reveals the trap; it does not prevent it.</strong></p>
-          </div>
-        </div>
-        <div class="ann" data-stage="4">
-          <div class="anncard dark">
-            <p class="kicker">exception two</p>
-            <h3>NASENI: withheld, so unjudgeable.</h3>
-            <figure class="redacted" aria-label="A financing record, almost entirely blacked out, with no figures legible.">
-              <div class="rd-head">NASENI solar &middot; financing terms</div>
-              <div class="rd-body"><span></span><span></span><span class="rd-short"></span><span></span><span class="rd-mid"></span><span></span></div>
-              <div class="rd-stamp">NOT PUBLISHED</div>
-            </figure>
-            <p>Its financing was never published anywhere official. No one, expert or citizen, can say whether it is good value-for-money. <strong>Withholding terms is not a footnote. It is a shield against assessment.</strong></p>
-          </div>
-        </div>
-      </div>
     </div>
+  </div>
 
+  <div class="wrap">
     <!-- ============ TAKEAWAY (woven, not a card dump) ============ -->
     <div class="takeaway">
       <p class="tk-eyebrow">So, in one breath</p>
@@ -533,7 +525,7 @@
       };
       var guess=document.getElementById("guessline"),
           realdotsG=document.getElementById("realdots"), realfit=document.getElementById("realfit"),
-          reallab=document.getElementById("reallab"),
+          reallab=document.getElementById("reallab"), guesslab=document.getElementById("guesslab"),
           revealWrap=document.getElementById("revealWrap"),
           doorReveal=document.getElementById("doorReveal"),
           vote=document.getElementById("vote"),
@@ -571,6 +563,8 @@
       var comp=P.filter(function(p){return p.verdict!==null;});
       var meanY=comp.reduce(function(s,p){return s+VY[p.verdict];},0)/comp.length;
       realfit.setAttribute("d","M "+DX0+" "+(meanY+5)+" L "+DX1+" "+(meanY-5));
+      // label the real (flat) line right on it, so the reader knows what the line IS
+      reallab.setAttribute("y", meanY-12);
 
       // verdict copy, tailored to the reader's exact choice. Each LEADS with whether they were right.
       var COPY={
@@ -579,7 +573,7 @@
           b:"Watch the dots leave the line you expected. The greenest, most published project is not the best deal, and the worst is. <strong>Sankofa</strong> published everything and is still a bad deal. So if it is not transparency lifting these projects, what is?"},
         no:{tag:"Half of it", tagcls:"part",
           t:"You said it makes no difference. Half right, and the other half is the whole point.",
-          b:"Publishing terms does not, on its own, make a project good, you are right there. But it is the only thing that lets anyone <strong>find out</strong>. We can call <strong>Sankofa</strong> a bad deal because its terms were public. <strong>NASENI</strong> may be worse, and no one can say, because they were not."},
+          b:"Publishing terms does not, on its own, make a project good, you are right there. But it is the only thing that lets anyone <strong>find out</strong>. We can call <strong>Sankofa</strong> a bad deal because its terms were published. <strong>NASENI</strong> may be worse, but no one can say, because its terms were never published. That is why it cannot sit anywhere on this chart: it is the fogged dot on the floor, the one project no verdict can reach."},
         dep:{tag:"On one thing", tagcls:"part",
           t:"You said it depends. It does, but not on how much is published.",
           b:"The verdicts do not line up with disclosure at all. They line up with <strong>who financed each project</strong>. Disclosure just rides along with the lender. See it for yourself."}
@@ -653,221 +647,7 @@
       });
     })();
 
-    var dotsG = document.getElementById("dots");
-    var nodes = {};
-    P.forEach(function(p){
-      var g = document.createElementNS("http://www.w3.org/2000/svg","g");
-      g.setAttribute("class","dot"); g.setAttribute("tabindex","0");
-      g.setAttribute("role","img");
-      var cx = sx(p.disc), cy = valueY(p);
-      // stem to axis
-      var stem = mk("line",{x1:cx,y1:cy,x2:cx,y2:YBOT+20,stroke:"#D8D8D8","stroke-width":1});
-      // verdict shape (filled circle) OR fog circle with ?
-      var body = mk("circle",{cx:cx,cy:cy,r:9,stroke:"#fff","stroke-width":2});
-      var q = mk("text",{x:cx,y:cy+4,"text-anchor":"middle","class":"qmark"}); q.textContent="?";
-      var label = mk("text",{x:cx,y:cy-15,"text-anchor":"middle","class":"dot-label"}); label.textContent=p.name;
-      g.appendChild(stem); g.appendChild(body); g.appendChild(q); g.appendChild(label);
-      dotsG.appendChild(g);
-      nodes[p.id] = {g:g, body:body, q:q, label:label, stem:stem, cx:cx, cy:cy, p:p};
-      var aria = p.name+": disclosure "+p.disc+" of 100, "+
-        (p.funder==="cn"?"Chinese-funded":p.funder==="wb"?"World Bank or non-Chinese":"home-funded")+", verdict "+
-        (p.verdict===null?"cannot be tested":p.verdict==="g"?"worthwhile":p.verdict==="a"?"marginal":"harmful");
-      g.setAttribute("aria-label",aria);
-    });
-
-    function mk(t,a){var e=document.createElementNS("http://www.w3.org/2000/svg",t);for(var k in a)e.setAttribute(k,a[k]);return e;}
-
-    var threshLine=document.getElementById("threshLine"),
-        threshLabel=document.getElementById("threshLabel"),
-        threshG=document.getElementById("thresholdG"),
-        panelWB=document.getElementById("panelWB"),
-        panelCN=document.getElementById("panelCN");
-
-    // state is driven entirely by scroll position; no manual controls.
-    // showFog: draw the fog gate.  funder: split into two pools.  focus: project id to spotlight (or null).
-    var state={threshold:55, showFog:false, funder:false, focus:null, trend:false};
-    var trendLine=document.getElementById("trendLine"), trendLbl=document.getElementById("trendLbl");
-
-    function render(){
-      var tx = sx(state.threshold);
-      threshLine.setAttribute("x1",tx); threshLine.setAttribute("x2",tx);
-      threshLabel.setAttribute("x",tx);
-      threshG.setAttribute("opacity", (state.showFog && !state.funder)?"1":"0");
-      panelWB.setAttribute("opacity", state.funder?"1":"0");
-      panelCN.setAttribute("opacity", state.funder?"1":"0");
-      // the apparent slope: visible early, gone once the funder split kills it
-      trendLine.setAttribute("opacity", state.trend?"0.85":"0");
-      trendLbl.setAttribute("opacity", state.trend?"1":"0");
-
-      P.forEach(function(p){
-        var n=nodes[p.id];
-        var targetX, targetY;
-        // y is ALWAYS value-for-money height (worthwhile high, harmful low). Only x changes on the split.
-        targetY = valueY(p);
-        if(state.funder){
-          if(p.funder==="cn"||p.funder==="hm"){ targetX = 95 + (p.disc/100)*175; }
-          else { targetX = 460 + (p.disc/100)*235; }
-        } else {
-          targetX = sx(p.disc);
-        }
-        n.g.style.transition="transform .7s cubic-bezier(.4,0,.2,1), opacity .45s";
-        n.g.style.transform="translate("+(targetX-n.cx)+"px,"+(targetY-n.cy)+"px)";
-
-        // fog: not-computable always fogs; hidden-term projects fog only when the gate is shown
-        var fogged = (p.verdict===null) || (state.showFog && p.hidden && p.disc < state.threshold);
-        if(fogged){
-          n.body.setAttribute("fill", p.verdict===null ? "none" : "#B8B8B8");
-          if(p.verdict===null){ n.body.setAttribute("stroke","#5A6B7B"); n.body.setAttribute("stroke-dasharray","3 2"); }
-          else { n.body.setAttribute("stroke","#fff"); n.body.removeAttribute("stroke-dasharray"); }
-          n.q.style.opacity="1";
-        } else {
-          n.body.setAttribute("fill", COL[p.verdict]);
-          n.body.setAttribute("stroke","#fff"); n.body.removeAttribute("stroke-dasharray");
-          n.q.style.opacity="0";
-        }
-
-        // focus: dim everything but the focused project (and keep NASENI visible as context on the NASENI stage)
-        var dim = state.focus && p.id!==state.focus;
-        n.g.style.opacity = dim ? "0.16" : "1";
-        if(state.focus && p.id===state.focus){ n.body.classList.add("pulse"); }
-        else { n.body.classList.remove("pulse"); }
-      });
-    }
-
-    // ================= CAMERA: the viewBox is the lens. We fly it to each subject. =================
-    var viz=document.getElementById("viz");
-    var FULL=[0,0,760,460];                 // wide establishing shot
-    var camCur=FULL.slice(), camAnim=null;
-    function setVB(v){ viz.setAttribute("viewBox", v[0]+" "+v[1]+" "+v[2]+" "+v[3]);
-      // counter-scale labels/strokes so they stay legible as we zoom in
-      var k = v[2]/FULL[2]; // <1 when zoomed in
-      var lbl = Math.max(8, Math.min(13, 11*Math.pow(k,0.7)));
-      document.querySelectorAll('.dot-label').forEach(function(t){ t.style.fontSize=lbl+"px"; });
-    }
-    function easeIO(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
-    function cameraTo(target, dur){
-      if(reduceMotion){ camCur=target.slice(); setVB(camCur); return; }
-      var from=camCur.slice(), start=null;
-      if(camAnim) cancelAnimationFrame(camAnim);
-      function step(ts){
-        if(start===null) start=ts;
-        var t=Math.min(1,(ts-start)/dur), e=easeIO(t);
-        for(var i=0;i<4;i++) camCur[i]=from[i]+(target[i]-from[i])*e;
-        setVB(camCur);
-        if(t<1) camAnim=requestAnimationFrame(step); else { camCur=target.slice(); camAnim=null; }
-      }
-      camAnim=requestAnimationFrame(step);
-    }
-    // frame a point (cx,cy in scene coords) at a given zoom width
-    function frameOn(cx,cy,w){ var h=w*(FULL[3]/FULL[2]); return [cx-w/2, cy-h/2, w, h]; }
-
-    // ---- scroll stages drive data state AND the camera ----
-    var anns=document.querySelectorAll(".ann");
-    var curStage=-1, confettiFired=false;
-    function camForStage(s){
-      // positions use the post-transition layout; for split stages dots live in two pools
-      if(s===0) return FULL.slice();
-      if(s===1) return [30,40,420,300];                 // push toward the withheld/left + fog gate
-      if(s===2) return FULL.slice();                    // pull back to see both pools split
-      if(s===3){ var k=nodes["sankofa"]; return frameOn(575,235,300); } // fly into Sankofa (right pool pos)
-      if(s===4){ return frameOn(135,250,300); }         // fly to NASENI (left pool pos)
-      return FULL.slice();
-    }
-    function setStage(s){
-      if(s===curStage) return;
-      var prev=curStage; curStage=s;
-      // stage 0 shows the apparent slope (the trend line). It is killed the moment the funder split appears.
-      if(s===0){ state.showFog=false; state.funder=false; state.focus=null; state.trend=true; }
-      if(s===1){ state.showFog=true;  state.funder=false; state.focus=null; state.trend=true; }
-      if(s===2){ state.showFog=false; state.funder=true;  state.focus=null; state.trend=false; }
-      if(s===3){ state.showFog=false; state.funder=true;  state.focus="sankofa"; state.trend=false; }
-      // stage 4 = NASENI, the bleakest beat. No confetti here: a project that shielded itself is not a celebration.
-      if(s===4){ state.showFog=false; state.funder=true;  state.focus="naseni"; state.trend=false; }
-      render();
-      // if the dots are re-laying-out (entering/leaving split), let them settle before flying in
-      var relayout = (s>=2)!==(prev>=2);
-      setTimeout(function(){ if(curStage===s) cameraTo(camForStage(s), 1100); }, relayout?740:30);
-    }
-    // track intersection ratios; the stage in view is the MOST-centered annotation.
-    // (reacting to each crossing causes last-writer-wins races between adjacent stages.)
-    var ratios={};
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        var st=e.target.getAttribute("data-stage");
-        ratios[st]=e.isIntersecting?e.intersectionRatio:0;
-        if(e.isIntersecting) e.target.classList.add("on");
-      });
-      // pick the winner
-      var best=-1, bestR=0;
-      Object.keys(ratios).forEach(function(k){ if(ratios[k]>bestR){ bestR=ratios[k]; best=parseInt(k,10); } });
-      if(best>=0 && bestR>0.2) setStage(best);
-    },{threshold:[0,.25,.5,.75,1]});
-    anns.forEach(function(a){io.observe(a);});
-    window.addEventListener("resize", function(){ setVB(camCur); });
-
-    // ---- export / copy ----
-    var CAPTION="Of 10 flagship infrastructure projects, value could be assessed for only 6. For 3 we knew the cost only after the project ran. For 1, the financing terms were never published, so it cannot be judged at all. Transparency does not make a project good value-for-money. It makes value assessable. #InfraWatch";
-    var LINE="Transparency does not make a project good value-for-money. It is what lets anyone assess whether it is.";
-    function copy(text, el){
-      navigator.clipboard.writeText(text).then(function(){ el.hidden=false; setTimeout(function(){el.hidden=true;},1800); });
-    }
-    document.getElementById("copyCaption").addEventListener("click",function(){copy(CAPTION,document.getElementById("commsCopied"));});
-    document.getElementById("copyLine").addEventListener("click",function(){copy(LINE,document.getElementById("commsCopied"));});
-
-    // download current SVG state
-    document.getElementById("dlSlide").addEventListener("click",function(e){
-      var svg=document.getElementById("viz").cloneNode(true);
-      var s=new XMLSerializer().serializeToString(svg);
-      var blob=new Blob(['<?xml version="1.0"?>\n'+s],{type:"image/svg+xml"});
-      this.href=URL.createObjectURL(blob);
-    });
-
-    // ---- confetti: restrained payoff when the final insight lands ----
-    function fireConfetti(){
-      if(reduceMotion) return;
-      var cv=document.getElementById("confetti");
-      var stage=cv.parentNode, rect=stage.getBoundingClientRect();
-      var dpr=Math.min(window.devicePixelRatio||1, 2);
-      cv.width=rect.width*dpr; cv.height=rect.height*dpr;
-      var ctx=cv.getContext("2d"); ctx.scale(dpr,dpr);
-      var W=rect.width, H=rect.height;
-      var COLORS=["#BE1E2D","#0071BC","#1B7A3D","#C77F00","#2D2D2D"];
-      var bits=[], N=90;
-      for(var i=0;i<N;i++){
-        bits.push({
-          x:W*0.5+(Math.random()-0.5)*W*0.35, y:H*0.42,
-          vx:(Math.random()-0.5)*7, vy:-(4+Math.random()*7),
-          g:0.16+Math.random()*0.06, w:5+Math.random()*5, h:3+Math.random()*4,
-          rot:Math.random()*6.28, vr:(Math.random()-0.5)*0.3,
-          c:COLORS[(i*7)%COLORS.length], life:0
-        });
-      }
-      var start=null, DUR=2200;
-      function frame(ts){
-        if(start===null) start=ts;
-        var t=ts-start;
-        ctx.clearRect(0,0,W,H);
-        var alive=false;
-        for(var i=0;i<bits.length;i++){
-          var b=bits[i];
-          b.vy+=b.g; b.x+=b.vx; b.y+=b.vy; b.rot+=b.vr; b.life=t;
-          var fade=Math.max(0, 1-(t/DUR));
-          if(b.y<H+20 && fade>0){
-            alive=true;
-            ctx.save(); ctx.globalAlpha=fade; ctx.translate(b.x,b.y); ctx.rotate(b.rot);
-            ctx.fillStyle=b.c; ctx.fillRect(-b.w/2,-b.h/2,b.w,b.h); ctx.restore();
-          }
-        }
-        if(alive && t<DUR){ requestAnimationFrame(frame); }
-        else { ctx.clearRect(0,0,W,H); }
-      }
-      requestAnimationFrame(frame);
-    }
-
-    // prime: stage 0 + reveal the first annotation immediately
-    setStage(0);
-    if(anns[0]) anns[0].classList.add("on");
-    render();
+    // (the heavy scrolly chart and its camera/observer were removed; the three static panels above carry the story)
   })();
   </script>
 </body>

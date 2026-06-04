@@ -48,6 +48,11 @@
     .case-head .ht{margin:0;display:flex;flex-direction:column;}
     .case-head .ft{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:#7fa8d6;display:block;margin-bottom:.15rem;}
     .case-head .pn{font-size:1.32rem;font-weight:800;color:#fff;letter-spacing:-.01em;display:block;}
+    /* the real, named project the room presented */
+    .case-head .realtag{margin-left:auto;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.74rem;font-weight:700;color:#cfe0f0;background:rgba(127,168,214,.12);border:1px solid #2a4256;border-radius:99px;padding:.35rem .7rem .35rem .4rem;white-space:nowrap;}
+    .case-head .realtag .flag{font-size:.6rem;font-weight:800;letter-spacing:.06em;color:#0c1622;background:#9fd6b3;border-radius:99px;padding:.18rem .42rem;}
+    .case .human{margin:0 0 1.2rem;font-size:.98rem;line-height:1.55;color:#dfe8f2;border-left:3px solid #3a5571;padding-left:.9rem;}
+    @media (max-width:600px){ .case-head{flex-wrap:wrap;} .case-head .realtag{margin-left:0;margin-top:.5rem;} }
 
     /* the three-part diagnostic, all visible in one view */
     .triplet{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;flex:1;}
@@ -178,11 +183,11 @@
       <p class="lead">The whole diagnostic on one card. See the funding structure, ask for the record that reveals its blind spot. Screenshot it and take it into a real request.</p>
       <div class="triage">
         <div class="th"><div class="t">See this money type, ask for this first</div><div class="s">funding structure &rarr; the record that reveals the blind spot</div></div>
-        <div class="trow"><div class="money">Sovereign loan<small>the state borrows to build</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
-        <div class="trow"><div class="money">Equity stake<small>an investor takes a share</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
-        <div class="trow"><div class="money">PPP / concession<small>private builds and operates</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
-        <div class="trow"><div class="money">EPC + finance<small>one bundled build-and-fund deal</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
-        <div class="trow"><div class="money">Grant / aid<small>a funder gives, with terms</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
+        <div class="trow"><div class="money">Sovereign loan<small>Kenya, the SGR</small></div><div class="ar">reveals</div><div class="rec">loan terms + guarantee</div></div>
+        <div class="trow"><div class="money">Equity stake<small>Ghana, Sankofa gas</small></div><div class="ar">reveals</div><div class="rec">beneficial ownership</div></div>
+        <div class="trow"><div class="money">PPP / concession<small>Kenya, Nairobi Expressway</small></div><div class="ar">reveals</div><div class="rec">contract + fiscal commitments</div></div>
+        <div class="trow"><div class="money">EPC + finance<small>Nigeria, NASENI solar</small></div><div class="ar">reveals</div><div class="rec">cost breakdown + benchmark price</div></div>
+        <div class="trow"><div class="money">Concessional loan<small>Ethiopia, Addis light rail</small></div><div class="ar">reveals</div><div class="rec">source + conditions + tied procurement</div></div>
       </div>
 
       <details class="drawer">
@@ -205,32 +210,44 @@
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Each case is matched to a REAL project the room presented on Day 2.
+    // Figures are "as reported" in session; confirm against loan agreements before external use.
     var CASES=[
       { ft:"Sovereign loan", pn:"A national railway",
+        real:"Kenya · the SGR", country:"KE",
+        human:"Our running example. ~5% of GDP committed at the start; today close to 75 of every 100 shillings of revenue goes to debt service.",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round"><line x1="10" y1="40" x2="44" y2="40"/><line x1="14" y1="30" x2="14" y2="40"/><line x1="27" y1="30" x2="27" y2="40"/><line x1="40" y1="30" x2="40" y2="40"/><line x1="9" y1="30" x2="45" y2="30"/><line x1="9" y1="22" x2="45" y2="22"/></svg>',
-        hidden:"the real debt", hiddenNote:"The project gets announced; the liability it loads onto the treasury stays out of view.",
+        hidden:"the real debt", hiddenNote:"The project is announced; the liability it loads onto the treasury, the interest and the sovereign guarantee, stays out of view.",
         wrong:"the announced cost", wrongNote:"A sticker price is not a loan book.",
         rec:"loan terms + guarantee", recNote:"the interest, the repayment, the contingent liability, all appear" },
-      { ft:"Equity stake", pn:"A power plant",
+      { ft:"Equity stake", pn:"A gas project",
+        real:"Ghana · Sankofa / OCTP gas", country:"GH",
+        human:"A take-or-pay clause means the public keeps paying for gas it never uses, on terms set by an ownership split it cannot see.",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="22" width="20" height="22"/><rect x="33" y="14" width="12" height="30"/><path d="M35 14 q4 -9 8 0"/></svg>',
-        hidden:"who really gains", hiddenNote:"You can know exactly what was paid and still not know who sits behind the stake.",
+        hidden:"who really gains", hiddenNote:"You can know exactly what was paid and still not know who sits behind the stake, and who the value flows to.",
         wrong:"the contract price", wrongNote:"Price and ownership are different questions.",
         rec:"beneficial ownership", recNote:"who is really behind it, and where the value flows" },
-      { ft:"PPP / concession", pn:"A toll road",
+      { ft:"PPP / concession", pn:"A tolled expressway",
+        real:"Kenya · the Nairobi Expressway", country:"KE",
+        human:"A PPP meant to move demand risk off the public balance sheet. Without big toll rises it needs public subsidy, so it did the opposite of what it promised.",
         glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44 L24 18 H30 L46 44"/><rect x="20" y="10" width="14" height="8" rx="2"/></svg>',
-        hidden:"the 25-year bill", hiddenNote:"The guarantees and contingent liabilities run for decades, not one budget year.",
+        hidden:"the long-term bill", hiddenNote:"The guarantees and contingent liabilities run for decades, not one budget year.",
         wrong:"the project budget", wrongNote:"This year is not the whole story.",
         rec:"contract + fiscal commitments", recNote:"the long-term bill to the public becomes visible" },
-      { ft:"EPC + finance", pn:"A container port",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="10" x2="20" y2="44"/><line x1="20" y1="16" x2="40" y2="16"/><line x1="40" y1="16" x2="40" y2="26"/><rect x="8" y="34" width="12" height="10"/><rect x="24" y="37" width="12" height="7"/></svg>',
-        hidden:"the buried mark-up", hiddenNote:"Build and finance are rolled into one number, with nothing to compare it to.",
+      { ft:"EPC + finance", pn:"A solar-cell plant",
+        real:"Nigeria · the NASENI solar plant", country:"NG",
+        human:"The financing figure was attributed to the agency's own CEO at launch, yet it appears on no official NASENI document. The missing record is the finding.",
+        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="34" height="26" rx="2"/><line x1="10" y1="22" x2="44" y2="22"/><line x1="10" y1="30" x2="44" y2="30"/><line x1="21" y1="14" x2="21" y2="40"/><line x1="33" y1="14" x2="33" y2="40"/></svg>',
+        hidden:"the buried mark-up", hiddenNote:"Build and finance are bundled into one number, with nothing to compare it to.",
         wrong:"the total contract value", wrongNote:"A lump sum cannot be benchmarked.",
         rec:"cost breakdown", recNote:"the price can finally be benchmarked, line by line" },
-      { ft:"Grant / aid", pn:"A water system",
-        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="28" r="13"/><line x1="14" y1="28" x2="6" y2="28"/><line x1="40" y1="28" x2="48" y2="28"/><path d="M27 21 v14 M21 28 h12"/></svg>',
-        hidden:"the strings attached", hiddenNote:"The conditions, and any requirement to buy from the funder's own firms, decide who really benefits.",
-        wrong:"the grant amount", wrongNote:"Free money is rarely free of terms.",
-        rec:"source + conditions", recNote:"the real terms, and any tied procurement, show" }
+      { ft:"Concessional loan", pn:"A light-rail line",
+        real:"Ethiopia · Addis Ababa Light Rail", country:"ET",
+        human:"Built on an 85% China EXIM loan with no competitive tender. Years on, only about 8 of its 41 trains run, while the loan is still owed in full.",
+        glyph:'<svg viewBox="0 0 54 54" fill="none" stroke="#7fa8d6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="12" width="26" height="28" rx="4"/><line x1="14" y1="30" x2="40" y2="30"/><circle cx="21" cy="44" r="3"/><circle cx="33" cy="44" r="3"/><line x1="20" y1="18" x2="34" y2="18"/></svg>',
+        hidden:"the real terms", hiddenNote:"Concessional rates can hide tied conditions, no competitive tender, and what was actually delivered for the money.",
+        wrong:"the headline interest rate", wrongNote:"A low rate is not a good deal if half the trains never run.",
+        rec:"source + conditions", recNote:"the conditions, the tender, and any tied procurement show" }
     ];
 
     var track=document.getElementById("track"),
@@ -248,7 +265,9 @@
       slide.innerHTML =
         '<div class="case">'+
           '<div class="case-head"><span class="glyph">'+c.glyph+'</span>'+
-            '<span class="ht"><span class="ft">'+c.ft+'</span><span class="pn">'+c.pn+'</span></span></div>'+
+            '<span class="ht"><span class="ft">'+c.ft+'</span><span class="pn">'+c.pn+'</span></span>'+
+            '<span class="realtag"><span class="flag">'+c.country+'</span>'+c.real+'</span></div>'+
+          '<p class="human">'+c.human+'</p>'+
           '<div class="triplet">'+
             '<div class="cell hide"><p class="lab">what it hides</p>'+
               '<p class="big">'+c.hidden+'</p><p>'+c.hiddenNote+'</p>'+

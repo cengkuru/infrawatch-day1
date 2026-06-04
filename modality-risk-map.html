@@ -3,187 +3,284 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What goes dark, and the field that clears it · InfraWatch</title>
+  <title>What each funding type hides — and the field that clears it</title>
+  <meta name="description" content="Every way of paying for infrastructure has its own blind spot, and a specific disclosure field that clears it. A visual essay from InfraWatch Nairobi, Day 1.">
   <style>
     :root{
-      --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6;
-      --cost-white:#FFFFFF; --cost-blue:#0071BC; --surface:#F8F8F8;
-      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:10px; --ok:#2F7A46; --warn:#A96200;
-      --redact:#15151b;
-      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --brand:#28496A; --brand-deep:#142334;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
       --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
     }
-    *{box-sizing:border-box;}
-    html,body{margin:0;padding:0;}
-    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
-    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red);
-      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 24px;}
-    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
-    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;} .draftbar b{color:#5a410a;}
-    .wrap{max-width:1060px; margin:0 auto; padding:24px 18px 46px;}
-    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
-    h1{font-size:clamp(1.6rem,3.4vw,2.4rem); line-height:1.08; font-weight:800; margin:5px 0 8px; letter-spacing:-.01em;}
-    .sub{font-size:1.02rem; color:var(--cost-mid); margin:0 0 16px; max-width:60ch;}
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.5rem;}
+    .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
+    .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
 
-    .row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;}
-    .chip{border:2px solid var(--cost-light); background:#fff; border-radius:30px; padding:8px 15px; font:inherit; font-weight:700; cursor:pointer; color:var(--cost-mid);}
-    .chip[aria-pressed="true"]{background:var(--cost-dark); color:#fff; border-color:var(--cost-dark);}
-    .seg{margin-left:auto; display:inline-flex; border:2px solid var(--cost-light); border-radius:30px; overflow:hidden; background:#fff;}
-    .seg button{border:none; background:#fff; padding:7px 14px; font:inherit; font-weight:700; cursor:pointer; color:var(--cost-mid);}
-    .seg button[aria-pressed="true"]{background:var(--cost-red); color:#fff;} .seg button:first-child{border-right:1px solid var(--cost-light);}
+    .hero{padding:3rem 0 1.4rem;}
+    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
+    .hook b{color:var(--dark);font-weight:800;}
+    h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:17ch;}
+    h1 .accent{color:var(--brand);}
+    .lede{font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--mid);max-width:54ch;margin:0;}
+    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    /* ---- single chain ---- */
-    .chain{display:grid; grid-template-columns:1fr 30px 1.15fr 30px 1fr; align-items:center; gap:6px;}
-    @media (max-width:760px){ .chain{grid-template-columns:1fr;} .arrow{transform:rotate(90deg); height:26px;} }
-    .arrow{display:flex; align-items:center; justify-content:center; color:#c4c4cc; font-size:1.5rem; font-weight:800;}
-    .box{border:1px solid var(--cost-light); border-radius:var(--radius); background:#fff; box-shadow:var(--shadow); padding:16px; min-height:140px;}
-    .box .t{font-family:var(--mono); font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--cost-mid);}
-    .box h3{margin:6px 0 0; font-size:1.12rem;}
-    .box.mod{border-top:4px solid var(--cost-dark);}
-    .box.risk{border-top:4px solid var(--warn); display:flex; flex-direction:column;}
-    .box.risk h3{color:var(--warn);}
-    .box.field{border-top:4px solid var(--cost-light); transition:border-color .3s, box-shadow .3s;}
-    .box.field.lit{border-top-color:var(--ok); box-shadow:0 0 0 2px color-mix(in srgb,var(--ok) 30%,white), var(--shadow);}
-    .box.field h3{color:#bbb; transition:color .3s;} .box.field.lit h3{color:var(--ok);}
+    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
+    .scenecol{position:sticky;top:3vh;align-self:start;}
+    .stage-inner{position:relative;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);padding:1.2rem;}
+    svg{width:100%;height:auto;display:block;}
+    .scenecap{margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
 
-    /* the redacted bar = the hidden thing */
-    .redact{margin-top:12px; border-radius:8px; background:var(--redact); color:#fff; padding:12px 14px; cursor:pointer; position:relative; user-select:none;
-      display:flex; align-items:center; gap:10px; transition:background .3s;}
-    .redact .bars{flex:1; display:flex; flex-direction:column; gap:5px;}
-    .redact .bar{height:10px; border-radius:3px; background:repeating-linear-gradient(90deg,#3a3a44 0 14px,#15151b 14px 18px);}
-    .redact .bar.b2{width:70%;} .redact .bar.b3{width:85%;}
-    .redact .lock{font-size:1.1rem;}
-    .redact .reveal{display:none; font-size:.92rem; font-weight:600; line-height:1.35;}
-    .redact.open{background:#fff; color:var(--cost-dark); border:1px solid var(--cost-light); cursor:default;}
-    .redact.open .bars,.redact.open .lock{display:none;} .redact.open .reveal{display:block;}
-    .redact .tap{position:absolute; right:12px; bottom:8px; font-size:.64rem; font-family:var(--mono); color:#9aa; text-transform:uppercase;}
-    .redact.open .tap{display:none;}
-    .field .ph{margin-top:10px; font-size:.82rem; font-weight:700; color:#aaa; transition:color .3s;}
-    .field.lit .ph{color:var(--ok);}
-    .field .body{font-size:.9rem; color:var(--cost-mid); margin-top:6px; min-height:1px;}
+    .anncol{position:relative;}
+    .ann{min-height:88vh;display:flex;align-items:center;}
+    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;padding-bottom:6vh;}
+    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
+      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.25rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
+    .ann.on .anncard{opacity:1;transform:translateX(0);}
+    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
+    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
+    .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
+    .anncard strong{color:var(--dark);}
+    .anncard .dark{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem;padding:.12rem .4rem;border-radius:4px;background:#1E2A38;color:#fff;}
+    .anncard .field{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem .3rem;padding:.12rem .4rem;border-radius:4px;background:#eef6f0;color:#1B7A3D;}
 
-    /* ---- matrix ---- */
-    .mx{width:100%; border-collapse:collapse; box-shadow:var(--shadow); background:#fff; border-radius:var(--radius); overflow:hidden;}
-    .mx th,.mx td{border-bottom:1px solid var(--cost-light); padding:12px 14px; text-align:left; vertical-align:middle; font-size:.9rem;}
-    .mx thead th{background:var(--cost-dark); color:#fff; font-size:.72rem; text-transform:uppercase; letter-spacing:.03em;}
-    .mx td.m{font-weight:800;}
-    .mx .rb{display:inline-flex; align-items:center; gap:8px; background:var(--redact); color:#fff; border-radius:6px; padding:6px 10px; cursor:pointer; font-size:.82rem;}
-    .mx .rb .bar{width:60px; height:9px; border-radius:3px; background:repeating-linear-gradient(90deg,#3a3a44 0 12px,#15151b 12px 16px);}
-    .mx .rb.open{background:#eef6f0; color:var(--ok); font-weight:700;} .mx .rb.open .bar{display:none;}
-    .mx td.fld{color:#bbb; font-weight:700;} .mx tr.done td.fld{color:var(--ok);}
-    .mx tr.done td.fld::before{content:"\2713 "; }
+    .scene-label{font-size:13px;font-weight:700;fill:var(--dark);font-family:var(--sans);}
+    .scene-sub{font-size:10px;fill:var(--mid);font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
 
-    .insight{margin-top:18px; padding:14px 18px; background:#fff; border:1px solid var(--cost-light); border-left:4px solid var(--cost-red); border-radius:var(--radius);}
-    .insight .k{font-family:var(--mono); text-transform:uppercase; font-size:.66rem; font-weight:800; letter-spacing:.05em; color:var(--cost-red); margin:0 0 5px;}
-    .insight p{margin:0; font-size:1rem; color:var(--cost-dark);} .insight p b{color:var(--cost-red);}
-    .foot{margin-top:14px; color:var(--cost-mid); font-size:.76rem;} .foot strong{color:var(--cost-dark);}
-    .view{display:none;} .view.on{display:block;}
+    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
+    h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
+    .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
+
+    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
+    .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
+    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
+    .tk-line strong{color:#fff;font-weight:800;}
+
+    /* summary table of all five */
+    .matrix{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:1rem;border:1px solid var(--light);border-radius:12px;overflow:hidden;}
+    .matrix th,.matrix td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--light);}
+    .matrix th{font-family:var(--mono);text-transform:uppercase;font-size:.64rem;letter-spacing:.04em;color:var(--mid);background:var(--surface);}
+    .matrix td.f{color:var(--green);font-weight:700;}
+    .matrix tr:last-child td{border-bottom:none;}
+
+    details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
+    details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
+    details.drawer>summary::-webkit-details-marker{display:none;}
+    details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
+    details.drawer[open]>summary::before{transform:rotate(90deg);}
+    .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
+    .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
+
+    footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+
+    @media (max-width:860px){
+      .story{grid-template-columns:1fr;gap:0;}
+      .scenecol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
+      .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
+      .ann:first-child{min-height:26vh;}
+      .anncard{transform:translateY(20px);} .ann.on .anncard{transform:translateY(0);}
+      .matrix{font-size:.78rem;}
+    }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} }
   </style>
 </head>
 <body>
-  <div class="brandbar"><span class="brand">What Each Funding Type Hides</span><span class="ctx">CoST &middot; InfraWatch</span></div>
-  <div class="draftbar">IN PROGRESS &middot; this sketch is still being built, the narrative is not final. <b>Not for circulation.</b></div>
-  <main class="wrap">
-    <p class="label">Day-1 &middot; foreign-funded infrastructure</p>
-    <h1>Every funding type hides something. Click to see what.</h1>
-    <p class="sub">Pick how a project is paid for. One thing goes dark. Tap the black bar to reveal it, and watch the disclosure field that clears it light up.</p>
+  <div class="brandbar"><a href="./day1/">&larr; InfraWatch &middot; Day 1</a><span class="label">CIPE &middot; funding type x blind spot</span></div>
 
-    <div class="row">
-      <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      <div class="seg" role="group" aria-label="View">
-        <button data-view="chain" aria-pressed="true">One at a time</button>
-        <button data-view="matrix" aria-pressed="false">See all</button>
+  <div class="wrap">
+    <section class="hero">
+      <p class="hook">Two projects can look identical from the outside, and hide completely different things, because they were paid for in different ways. The blind spot is not random. <b>The way the money is structured tells you, in advance, exactly what will go dark.</b></p>
+      <h1>Every funding type hides <span class="accent">something</span>.</h1>
+      <p class="lede">And each blind spot has a single disclosure field that clears it. The funding type is not just how a project is paid for. It is a map of which data point to demand.</p>
+      <div class="scrollcue">scroll to see it &darr;</div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <div class="story">
+      <div class="scenecol">
+        <div class="stage-inner">
+          <svg id="viz" viewBox="0 0 600 420" role="img" aria-label="For each way of funding a project, one thing goes dark, shown as a black bar, and a specific disclosure field clears it, shown lighting up green. Sovereign loans hide debt, cleared by loan terms. Equity stakes hide ownership, cleared by beneficial ownership. PPPs hide the future bill, cleared by contract terms. EPC finance hides mark-up, cleared by the cost breakdown. Grants hide conditions, cleared by funding source and conditions.">
+            <!-- funding type label -->
+            <text id="ftype" x="300" y="48" text-anchor="middle" class="scene-label" fill="#28496A" font-size="17">Sovereign loan</text>
+            <text x="300" y="68" text-anchor="middle" class="scene-sub">how the project is paid for</text>
+
+            <!-- the project panel: rows of data, one goes dark -->
+            <rect x="150" y="95" width="300" height="180" rx="10" fill="#fff" stroke="#1E2A38" stroke-width="2"/>
+            <!-- visible data rows -->
+            <line x1="175" y1="125" x2="425" y2="125" stroke="#C9D3DD" stroke-width="6" stroke-linecap="round"/>
+            <line x1="175" y1="150" x2="400" y2="150" stroke="#C9D3DD" stroke-width="6" stroke-linecap="round"/>
+            <line x1="175" y1="220" x2="415" y2="220" stroke="#C9D3DD" stroke-width="6" stroke-linecap="round"/>
+            <line x1="175" y1="245" x2="380" y2="245" stroke="#C9D3DD" stroke-width="6" stroke-linecap="round"/>
+            <!-- THE DARK BAR (the blind spot) -->
+            <g id="darkbar">
+              <rect x="172" y="178" width="256" height="22" rx="5" fill="#1E2A38"/>
+              <text id="darkLabel" x="300" y="193" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="var(--sans)">Hidden debt</text>
+            </g>
+            <!-- THE FIELD THAT CLEARS IT (lights up over the dark bar) -->
+            <g id="fieldbar" opacity="0">
+              <rect x="172" y="178" width="256" height="22" rx="5" fill="#1B7A3D"/>
+              <text id="fieldLabel" x="300" y="193" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="700" font-family="var(--mono)">LOAN TERMS &amp; GUARANTEE</text>
+            </g>
+
+            <text id="phase" x="300" y="305" text-anchor="middle" class="scene-sub" opacity="0">CoST IDS · Preparation + Implementation</text>
+
+            <text x="300" y="20" text-anchor="middle" font-size="9.5" font-weight="700" fill="#28496A" font-family="var(--sans)">Revealed values illustrate the pattern. Confirm fields against CoST IDS v2.0.</text>
+          </svg>
+          <p class="scenecap" id="scenecap">pick how the project is paid for</p>
+        </div>
       </div>
-    </div>
 
-    <!-- CHAIN -->
-    <section class="view on" id="v-chain">
-      <div class="chain">
-        <div class="box mod"><div class="t">Funding type</div><h3 id="mod-h"></h3></div>
-        <div class="arrow">&rarr;</div>
-        <div class="box risk"><div class="t">What goes dark</div><h3 id="risk-h"></h3>
-          <div class="redact" id="redact">
-            <span class="lock">&#128274;</span>
-            <div class="bars"><div class="bar"></div><div class="bar b2"></div><div class="bar b3"></div></div>
-            <div class="reveal" id="reveal"></div>
-            <span class="tap">tap to reveal</span>
+      <div class="anncol">
+        <div class="ann" data-stage="0">
+          <div class="anncard">
+            <p class="kicker">start here</p>
+            <h3>The blind spot is built into the money.</h3>
+            <p>How a project is financed decides what you can and cannot see about it. Each funding type carries a predictable dark patch. The useful part: a single CoST IDS field already names what is hidden, so you know what to ask for.</p>
           </div>
         </div>
-        <div class="arrow">&rarr;</div>
-        <div class="box field" id="field"><div class="t">The field that clears it</div><h3 id="field-h"></h3>
-          <div class="body" id="field-b"></div><div class="ph" id="field-ph"></div></div>
+        <div class="ann" data-stage="1">
+          <div class="anncard">
+            <p class="kicker">Sovereign loan</p>
+            <h3>Hides the real debt.</h3>
+            <p><span class="dark">goes dark: hidden debt</span><span class="field">clears it: loan terms</span></p>
+            <p>The headline is the project; the liability to the treasury can sit out of view. <strong>Publish the loan terms and the guarantee, and the real debt appears.</strong></p>
+          </div>
+        </div>
+        <div class="ann" data-stage="2">
+          <div class="anncard">
+            <p class="kicker">Equity stake</p>
+            <h3>Hides who really owns it.</h3>
+            <p><span class="dark">goes dark: hidden ownership</span><span class="field">clears it: beneficial ownership</span></p>
+            <p>An ownership stake can obscure who actually captures the value. <strong>Publish the beneficial owners and you see who is really behind it.</strong></p>
+          </div>
+        </div>
+        <div class="ann" data-stage="3">
+          <div class="anncard">
+            <p class="kicker">Concession / PPP</p>
+            <h3>Hides the future bill.</h3>
+            <p><span class="dark">goes dark: hidden future bill</span><span class="field">clears it: contract terms</span></p>
+            <p>The long-term obligation, the payments and guarantees owed for years, can be invisible at the start. <strong>Publish the contract and the future bill becomes visible.</strong></p>
+          </div>
+        </div>
+        <div class="ann" data-stage="4">
+          <div class="anncard">
+            <p class="kicker">EPC + finance</p>
+            <h3>Hides the mark-up.</h3>
+            <p><span class="dark">goes dark: hidden mark-up</span><span class="field">clears it: cost breakdown</span></p>
+            <p>A bundled build-and-finance package can bury the price. <strong>Publish the cost breakdown and the price can be benchmarked.</strong></p>
+          </div>
+        </div>
+        <div class="ann" data-stage="5">
+          <div class="anncard">
+            <p class="kicker">Grant / aid</p>
+            <h3>Hides the conditions.</h3>
+            <p><span class="dark">goes dark: hidden conditions</span><span class="field">clears it: source &amp; conditions</span></p>
+            <p>Tied conditions and the strings attached can stay out of sight. <strong>Publish the source and its conditions and the real terms show.</strong></p>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <!-- MATRIX -->
-    <section class="view" id="v-matrix">
-      <table class="mx" id="mx"></table>
-    </section>
-
-    <div class="insight">
-      <p class="k">The pattern</p>
-      <p>Different money, different blind spot, but each one has a disclosure field that already names it. <b>The funding type tells you, in advance, which data point to demand.</b></p>
     </div>
-    <p class="foot"><strong>Source.</strong> InfraWatch Nairobi, Day-1, 2 Jun 2026. Revealed values are illustrative of the disclosure pattern; field labels shown at CoST phase level, confirm against IDS v2.0 before external use.</p>
-  </main>
+
+    <div class="takeaway">
+      <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
+      <p class="tk-line"><strong>Different money, different blind spot, but every blind spot has a field that already names it.</strong> The funding type is a shortcut: it tells you, before you read a single document, which disclosure field to demand.</p>
+    </div>
+
+    <h2><span class="num">01</span>The five at a glance</h2>
+    <p class="lead">The whole pattern on one page: pick the money, read the field to demand.</p>
+    <table class="matrix">
+      <thead><tr><th>Funding type</th><th>What goes dark</th><th>The field that clears it</th><th>CoST IDS phase</th></tr></thead>
+      <tbody>
+        <tr><td>Sovereign loan</td><td>Hidden debt</td><td class="f">Loan terms &amp; guarantee</td><td>Preparation + Implementation</td></tr>
+        <tr><td>Equity stake</td><td>Hidden ownership</td><td class="f">Beneficial ownership</td><td>Identification</td></tr>
+        <tr><td>Concession / PPP</td><td>Hidden future bill</td><td class="f">Contract terms &amp; cost</td><td>Procurement</td></tr>
+        <tr><td>EPC + finance</td><td>Hidden mark-up</td><td class="f">Cost estimate &amp; price</td><td>Preparation + Procurement</td></tr>
+        <tr><td>Grant / aid</td><td>Hidden conditions</td><td class="f">Funding source &amp; conditions</td><td>Preparation</td></tr>
+      </tbody>
+    </table>
+
+    <details class="drawer">
+      <summary>Where this comes from</summary>
+      <div class="drawer-body">
+        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026). The revealed values are illustrative of the disclosure pattern; field labels are shown at CoST phase level. Confirm against the CoST IDS v2.0 before external use.</p>
+        <p><strong>The point.</strong> The funding modality predicts the blind spot, and the CoST IDS already contains the field that closes it. So a transparency ask does not need to be generic; it can be aimed precisely at the one data point that the money was always going to hide.</p>
+      </div>
+    </details>
+
+    <footer>
+      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026. Revealed values illustrate the disclosure pattern; confirm fields against CoST IDS v2.0. Working visual by Michael Cengkuru, CoST.</p>
+    </footer>
+  </div>
 
   <script>
   (function(){
     "use strict";
-    const DATA=[
-      {id:"loan",  mod:"Sovereign loan", risk:"Hidden debt", reveal:"Interest rate, repayment schedule, and the sovereign guarantee, the true cost to the treasury.",
-        field:"Loan terms & guarantee", body:"Publish the financing terms and the real liability appears.", ph:"IDS: Preparation + Implementation"},
-      {id:"equity",mod:"Equity stake", risk:"Hidden ownership", reveal:"Who actually owns and profits from the asset, including resource value leaving the country.",
-        field:"Beneficial ownership", body:"Publish the real owners and you see who captures the value.", ph:"IDS: Identification"},
-      {id:"conc",  mod:"Concession / PPP", risk:"Hidden future bill", reveal:"Availability payments and guarantees that fall due years later, off today's budget.",
-        field:"Contract terms & cost", body:"Publish the contract and the long-term obligation is visible.", ph:"IDS: Procurement"},
-      {id:"epc",   mod:"EPC + finance", risk:"Hidden mark-up", reveal:"The price, bundled so it cannot be tested against the market, where over-pricing hides.",
-        field:"Cost estimate & price", body:"Publish the breakdown and the price can be benchmarked.", ph:"IDS: Preparation + Procurement"},
-      {id:"grant", mod:"Grant / aid", risk:"Hidden conditions", reveal:"Tied conditions and supplier requirements that quietly erode the value of the money.",
-        field:"Funding source & conditions", body:"Publish the source and its strings and the real terms show.", ph:"IDS: Preparation"}
-    ];
-
-    // chips
-    const chips=document.getElementById("chips");
-    DATA.forEach((d,i)=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.i=i; b.setAttribute("aria-pressed",i===0?"true":"false"); b.textContent=d.mod; chips.appendChild(b); });
-
-    const redact=document.getElementById("redact"), fieldBox=document.getElementById("field");
-    let cur=0;
-    function show(i){ cur=i; const d=DATA[i];
-      document.querySelectorAll(".chip").forEach((c,j)=>c.setAttribute("aria-pressed",j===i?"true":"false"));
-      document.getElementById("mod-h").textContent=d.mod;
-      document.getElementById("risk-h").textContent=d.risk;
-      document.getElementById("reveal").textContent=d.reveal;
-      document.getElementById("field-h").textContent=d.field;
-      document.getElementById("field-b").textContent=d.body;
-      document.getElementById("field-ph").textContent="✓ "+d.ph;
-      // reset to redacted + unlit
-      redact.classList.remove("open"); fieldBox.classList.remove("lit");
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var viz=document.getElementById("viz");
+    var FULL=[0,0,600,420], camCur=FULL.slice(), camAnim=null;
+    function setVB(v){ viz.setAttribute("viewBox", v.join(" ")); }
+    function easeIO(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+    function cameraTo(target,dur){
+      if(reduceMotion){ camCur=target.slice(); setVB(camCur); return; }
+      var from=camCur.slice(), start=null; if(camAnim) cancelAnimationFrame(camAnim);
+      function step(ts){ if(start===null)start=ts; var t=Math.min(1,(ts-start)/dur), e=easeIO(t);
+        for(var i=0;i<4;i++) camCur[i]=from[i]+(target[i]-from[i])*e; setVB(camCur);
+        if(t<1) camAnim=requestAnimationFrame(step); else { camCur=target.slice(); camAnim=null; } }
+      camAnim=requestAnimationFrame(step);
     }
-    redact.addEventListener("click",()=>{ if(redact.classList.contains("open"))return;
-      redact.classList.add("open"); setTimeout(()=>fieldBox.classList.add("lit"),180); });
-    chips.addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(b) show(+b.dataset.i); });
 
-    // matrix
-    (function(){ let h='<thead><tr><th>Funding type</th><th>What goes dark</th><th>The field that clears it</th></tr></thead><tbody>';
-      DATA.forEach((d,i)=>{ h+='<tr data-i="'+i+'"><td class="m">'+d.mod+'</td>'+
-        '<td><span class="rb" data-i="'+i+'"><span class="bar"></span><span class="rev">'+d.risk+'</span></span></td>'+
-        '<td class="fld">'+d.field+' <span style="color:#aaa;font-weight:500;font-size:.78rem">('+d.ph.replace("IDS: ","")+')</span></td></tr>'; });
-      h+='</tbody>'; document.getElementById("mx").innerHTML=h;
-      document.getElementById("mx").addEventListener("click",e=>{ const rb=e.target.closest(".rb"); if(!rb)return;
-        if(rb.classList.contains("open"))return; rb.classList.add("open");
-        rb.querySelector(".rev").textContent=DATA[+rb.dataset.i].risk;
-        rb.closest("tr").classList.add("done"); });
-    })();
+    var ftype=document.getElementById("ftype"),
+        darkbar=document.getElementById("darkbar"), darkLabel=document.getElementById("darkLabel"),
+        fieldbar=document.getElementById("fieldbar"), fieldLabel=document.getElementById("fieldLabel"),
+        phase=document.getElementById("phase"), scenecap=document.getElementById("scenecap");
 
-    document.querySelector(".seg").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b)return;
-      [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
-      const v=b.dataset.view;
-      document.getElementById("v-chain").classList.toggle("on",v==="chain");
-      document.getElementById("v-matrix").classList.toggle("on",v==="matrix");
-    });
+    var D=[
+      null,
+      {t:"Sovereign loan", dark:"Hidden debt", field:"LOAN TERMS & GUARANTEE", ph:"CoST IDS · Preparation + Implementation"},
+      {t:"Equity stake", dark:"Hidden ownership", field:"BENEFICIAL OWNERSHIP", ph:"CoST IDS · Identification"},
+      {t:"Concession / PPP", dark:"Hidden future bill", field:"CONTRACT TERMS & COST", ph:"CoST IDS · Procurement"},
+      {t:"EPC + finance", dark:"Hidden mark-up", field:"COST ESTIMATE & PRICE", ph:"CoST IDS · Preparation + Procurement"},
+      {t:"Grant / aid", dark:"Hidden conditions", field:"FUNDING SOURCE & CONDITIONS", ph:"CoST IDS · Preparation"}
+    ];
+    var CAP=["pick how the project is paid for","loan terms clear the debt","ownership clears the value","the contract clears the bill","the breakdown clears the price","the source clears the conditions"];
 
-    show(0);
+    function setStage(s){
+      var d=D[s];
+      if(!d){ // intro: dark bar showing, field hidden
+        ftype.textContent="Sovereign loan";
+        darkLabel.textContent="Hidden debt"; darkbar.setAttribute("opacity","1");
+        fieldbar.setAttribute("opacity","0"); phase.setAttribute("opacity","0");
+        cameraTo(FULL.slice(), 900);
+      } else {
+        ftype.textContent=d.t;
+        darkLabel.textContent=d.dark; darkbar.setAttribute("opacity","1");
+        // the field lights up OVER the dark bar = it clears it
+        fieldLabel.textContent=d.field; fieldbar.setAttribute("opacity","1");
+        phase.textContent=d.ph; phase.setAttribute("opacity","1");
+        cameraTo([120,80,360,250], 900);  // zoom onto the panel
+      }
+      scenecap.textContent=CAP[s];
+    }
+
+    var ratios={}, cur=-1;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ ratios[e.target.dataset.stage]=e.isIntersecting?e.intersectionRatio:0;
+        if(e.isIntersecting) e.target.classList.add("on"); });
+      var best=-1,bestR=0; for(var k in ratios) if(ratios[k]>bestR){bestR=ratios[k];best=+k;}
+      if(best>=0 && bestR>0.2 && best!==cur){ cur=best; setStage(best); }
+    },{threshold:[0,.25,.5,.75,1]});
+    document.querySelectorAll(".ann").forEach(function(a){ io.observe(a); });
+    window.addEventListener("resize", function(){ setVB(camCur); });
+
+    setStage(0);
+    if(document.querySelector(".ann")) document.querySelector(".ann").classList.add("on");
   })();
   </script>
 </body>

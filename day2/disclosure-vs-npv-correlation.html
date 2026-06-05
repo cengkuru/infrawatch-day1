@@ -196,6 +196,12 @@
     .pchip .pc-fund.wb{background:#7fb2e6;} .pchip .pc-fund.cn{background:#e88a92;} .pchip .pc-fund.hm{background:#c9b27e;}
     @keyframes fundin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
     .pchip.funder{border-color:#3a516b;}
+    /* funder key: appears only when the funder flags are revealed (step 3), so the codes are never unexplained */
+    .gate-key{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.3rem;margin:1rem 0 0;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;}
+    .gate-key.show{opacity:1;transform:none;}
+    .gate-key .gk-item{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.02em;color:#aebfd2;}
+    .gate-key .gk-flag{font-family:var(--mono);font-size:.54rem;font-weight:800;letter-spacing:.04em;border-radius:4px;padding:.1rem .32rem;color:#0c1622;}
+    .gate-key .gk-flag.wb{background:#7fb2e6;} .gate-key .gk-flag.cn{background:#e88a92;} .gate-key .gk-flag.hm{background:#c9b27e;}
     .gate-tally{font-family:var(--mono);font-size:.8rem;letter-spacing:.02em;color:#9fd6b3;margin:1.1rem 0 0;text-align:center;}
     .gate-steps{grid-column:1;grid-row:1;position:relative;z-index:2;padding:0 1.4rem 0 clamp(1rem,3vw,2.4rem);}
     .gstep{min-height:100vh;display:flex;align-items:center;}
@@ -420,6 +426,11 @@
           <div class="gate-lane pass" id="lanePass"><span class="gate-collabel">terms published &middot; can be judged</span></div>
           <div class="gate-lane wall" id="laneWall"><span class="gate-collabel">terms withheld &middot; cannot be judged</span></div>
         </div>
+      </div>
+      <div class="gate-key" id="gateKey" hidden>
+        <span class="gk-item"><span class="gk-flag cn">CN</span>PRC-financed (Chinese state lenders)</span>
+        <span class="gk-item"><span class="gk-flag wb">WB</span>World Bank</span>
+        <span class="gk-item"><span class="gk-flag hm">HM</span>Host-government / mixed</span>
       </div>
       <p class="gate-tally" id="gateTally">Ten projects. The only thing that lets you judge value is whether the terms were published.</p>
     </div>
@@ -736,7 +747,8 @@
     (function(){
       var gateIn=document.getElementById("gateIn"),
           lanePass=document.getElementById("lanePass"), laneWall=document.getElementById("laneWall"),
-          gateDoor=document.getElementById("gateDoor"), gateTally=document.getElementById("gateTally");
+          gateDoor=document.getElementById("gateDoor"), gateTally=document.getElementById("gateTally"),
+          gateKey=document.getElementById("gateKey");
       if(!gateIn) return;
       // ONE job for the gate: did the terms get PUBLISHED (so value can be judged) or WITHHELD?
       // Published = disclosed enough to assess. Withheld = the rest (incl. NASENI, and the outcome-only ones;
@@ -785,8 +797,14 @@
         lanePass.classList.toggle("echo", which==="pass"||which==="both");
         laneWall.classList.toggle("echo", which==="wall"||which==="both");
       }
+      function showKey(on){
+        if(!gateKey) return;
+        if(on){ gateKey.hidden=false; void gateKey.offsetWidth; gateKey.classList.add("show"); }
+        else { gateKey.classList.remove("show"); gateKey.hidden=true; }
+      }
       function setStep(g){
         if(g>=1) gateDoor.classList.add("open"); else gateDoor.classList.remove("open");
+        showKey(g>=3);
         if(g<=0){
           clearFunder(); echo(null);
           var back=[]; P.forEach(function(p){ if(chips[p.id].el.parentNode!==gateIn) back.push({el:chips[p.id].el,lane:gateIn}); });

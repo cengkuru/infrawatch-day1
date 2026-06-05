@@ -175,10 +175,12 @@
     .gate-col,.gate-lane{position:relative;border:1px dashed #2a4259;border-radius:12px;padding:1.8rem .7rem .7rem;display:flex;flex-wrap:wrap;align-content:flex-start;gap:.4rem;}
     .gate-collabel{position:absolute;top:.5rem;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#7e93ab;}
     .gate-out{display:flex;flex-direction:column;gap:.7rem;}
-    .gate-lane{flex:1;min-height:0;}
+    .gate-lane{flex:1;min-height:0;transition:box-shadow .5s ease,border-color .5s ease,background .5s ease;}
     .gate-lane.pass{border-color:#2f6b48;background:rgba(63,208,122,.05);}
-    .gate-lane.late{border-color:#7a5a1a;background:rgba(240,184,96,.05);}
     .gate-lane.wall{border-color:#7a1f27;background:rgba(190,30,45,.06);}
+    /* VISUAL ECHO: the active card's lane glows in its own colour (no arrows, no coordinate math) */
+    .gate-lane.pass.echo{border-color:#3fd07a;background:rgba(63,208,122,.12);box-shadow:0 0 0 1px rgba(63,208,122,.5),0 0 34px rgba(63,208,122,.28);}
+    .gate-lane.wall.echo{border-color:#e88a92;background:rgba(190,30,45,.14);box-shadow:0 0 0 1px rgba(232,138,146,.5),0 0 34px rgba(232,138,146,.28);}
     .gate-door{align-self:center;width:62px;background:linear-gradient(180deg,#1a2c40,#0c1622);border:2px solid #3a5571;border-radius:10px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.6rem .3rem;min-height:55vh;position:relative;transition:border-color .4s,box-shadow .4s;}
     .gate-door.open{border-color:#3fd07a;box-shadow:0 0 24px rgba(63,208,122,.3);}
@@ -191,7 +193,7 @@
     .pchip .pc-dot.x{background:transparent;border:1.5px dashed #7e93ab;}
     /* funder flag: ONE clear added signal at the chip end (no chip recolour that fights the verdict dot) */
     .pchip .pc-fund{margin-left:.35rem;font-family:var(--mono);font-size:.52rem;font-weight:800;letter-spacing:.04em;border-radius:4px;padding:.08rem .28rem;color:#0c1622;animation:fundin .35s ease;}
-    .pchip .pc-fund.wb{background:#7fb2e6;} .pchip .pc-fund.cn{background:#e88a92;}
+    .pchip .pc-fund.wb{background:#7fb2e6;} .pchip .pc-fund.cn{background:#e88a92;} .pchip .pc-fund.hm{background:#c9b27e;}
     @keyframes fundin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
     .pchip.funder{border-color:#3a516b;}
     .gate-tally{font-family:var(--mono);font-size:.8rem;letter-spacing:.02em;color:#9fd6b3;margin:1.1rem 0 0;text-align:center;}
@@ -203,21 +205,13 @@
     .gcard .gkick{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:#9b86f0;margin:0 0 .5rem;}
     .gcard h3{margin:0 0 .6rem;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:800;line-height:1.14;color:#fff;letter-spacing:-.01em;}
     .gcard p{margin:0;font-size:.98rem;line-height:1.55;color:#bcd0e4;} .gcard strong{color:#fff;} .gcard em{color:#cdddec;}
-    /* the in-card label that the big overlay arrow extends from */
+    /* the in-card label that names the lane the active step echoes */
     .gpoint{margin-top:.9rem !important;display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.02em;color:#9fe6bb;}
     .gpoint.amber{color:#f0b860;} .gpoint.red{color:#e88a92;}
     .gpoint b{color:#fff;font-weight:700;}
-    .gpoint svg{display:none;} /* the small inline arrow is replaced by the big cross-section guide arrow */
-    /* the hand-scribbled guide arrow that reaches from the active card across to its lane */
-    .guide-arrow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6;overflow:visible;}
-    .guide-arrow path.gline{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
-      stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));}
-    .guide-arrow path.gline.draw{animation:gdraw .8s ease forwards;}
-    @keyframes gdraw{to{stroke-dashoffset:0}}
-    .guide-arrow path.ghead{opacity:0;transition:opacity .25s ease .55s;}
-    .guide-arrow.show path.ghead{opacity:1;}
-    @media (max-width:820px){ .guide-arrow{display:none;} }
-    @media (prefers-reduced-motion:reduce){ .guide-arrow path.gline{stroke-dashoffset:0;animation:none;} }
+    .gpoint .echo-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+    .gpoint .echo-dot.pass{background:#3fd07a;box-shadow:0 0 8px rgba(63,208,122,.7);}
+    .gpoint .echo-dot.wall{background:#e88a92;box-shadow:0 0 8px rgba(232,138,146,.7);}
     @media (max-width:820px){
       /* stack: gate pinned to the top, steps scroll beneath (no side columns on a phone) */
       .gate-sec{display:block;}
@@ -416,47 +410,38 @@
 
   <!-- ============ THE VALUE GATE (evidence room): ten cards walk a test; published pass, withheld hit the wall ============ -->
   <section class="gate-sec" id="story">
-    <!-- hand-scribbled guide arrow drawn across the section from the active card to the lane it names -->
-    <svg class="guide-arrow" id="guideArrow" aria-hidden="true" preserveAspectRatio="none"></svg>
     <div class="gate-stage" aria-hidden="true">
-      <div class="gate-frame">
-        <div class="gate-col gate-in" id="gateIn"><span class="gate-collabel">awaiting the test</span></div>
+      <div class="gate-frame two">
+        <div class="gate-col gate-in" id="gateIn"><span class="gate-collabel">ten projects</span></div>
         <div class="gate-door" id="gateDoor">
-          <span class="gd-top">THE VALUE TEST</span>
-          <span class="gd-need" id="gateNeed">needs published terms</span>
+          <span class="gd-top">PUBLISHED TERMS?</span>
         </div>
         <div class="gate-out">
-          <div class="gate-lane pass" id="lanePass"><span class="gate-collabel">judged: a verdict</span></div>
-          <div class="gate-lane late" id="laneLate"><span class="gate-collabel">judged late, by outcome</span></div>
-          <div class="gate-lane wall" id="laneWall"><span class="gate-collabel">never published: no verdict</span></div>
+          <div class="gate-lane pass" id="lanePass"><span class="gate-collabel">terms published &middot; can be judged</span></div>
+          <div class="gate-lane wall" id="laneWall"><span class="gate-collabel">terms withheld &middot; cannot be judged</span></div>
         </div>
       </div>
-      <p class="gate-tally" id="gateTally">Ten projects approach the test.</p>
+      <p class="gate-tally" id="gateTally">Ten projects. The only thing that lets you judge value is whether the terms were published.</p>
     </div>
 
     <div class="gate-steps" id="gateSteps">
       <div class="gstep" data-g="0">
-        <div class="gcard"><p class="gkick">the test</p><h3>Ten projects. One question.</h3>
-          <p>To judge whether a project is worth the money, you have to run the value test. The test needs one thing to even start: <strong>the published financing terms</strong>. Scroll, and send the ten projects through.</p></div>
+        <div class="gcard"><p class="gkick">the one question</p><h3>Could anyone even judge it?</h3>
+          <p>To say whether a project is worth the money, you need one thing: <strong>its published financing terms</strong>. So forget the verdicts for a moment. The first question for all ten is simpler. Were the terms published, yes or no? Scroll, and sort them.</p></div>
       </div>
-      <div class="gstep" data-g="1">
-        <div class="gcard"><p class="gkick">the door opens</p><h3>Six had their terms published.</h3>
-          <p>Six projects published enough to run the test up front. They pass through and get a verdict, <span style="color:var(--green);font-weight:700">worth it</span>, <span style="color:var(--amber);font-weight:700">borderline</span>, or <span style="color:var(--red);font-weight:700">a bad deal</span>. Disclosure did not make them good. It made them <em>judgeable</em>.</p>
-          <p class="gpoint"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 14 C 16 12, 28 8, 40 6" fill="none" stroke="#3fd07a" stroke-width="2" stroke-linecap="round"/><path d="M40 6 L33 7 M40 6 L36 12" fill="none" stroke="#3fd07a" stroke-width="2" stroke-linecap="round"/></svg>watch the top lane, <b>judged: a verdict</b></p></div>
+      <div class="gstep" data-g="1" data-echo="pass">
+        <div class="gcard"><p class="gkick">the door opens</p><h3>Six published. Four did not.</h3>
+          <p>Six projects put their terms out, so their value can be judged. Four kept them back. <strong>Disclosure did not make any of them good or bad.</strong> It decided one thing only: whether anyone could find out.</p>
+          <p class="gpoint"><span class="echo-dot pass"></span>watch the <b>published</b> lane fill</p></div>
       </div>
-      <div class="gstep" data-g="2">
-        <div class="gcard"><p class="gkick">judged too late</p><h3>Three could only be judged after the damage.</h3>
-          <p>Three withheld their terms, so no test could run up front. We only know they were bad deals because the outcomes leaked out later, idle trains, debt strain. By then the money was spent.</p>
-          <p class="gpoint amber"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 10 C 16 10, 28 10, 40 10" fill="none" stroke="#f0b860" stroke-width="2" stroke-linecap="round"/><path d="M40 10 L33 7 M40 10 L33 13" fill="none" stroke="#f0b860" stroke-width="2" stroke-linecap="round"/></svg>watch the middle lane, <b>judged late, by outcome</b></p></div>
+      <div class="gstep" data-g="2" data-echo="wall">
+        <div class="gcard"><p class="gkick">the wall</p><h3>One never even tried.</h3>
+          <p><strong>NASENI</strong> published nothing at all. No terms, no test, no verdict, ever. A withheld contract is not missing data. It is a wall built against assessment, and it is the deepest end of that withheld lane.</p>
+          <p class="gpoint red"><span class="echo-dot wall"></span>watch the <b>withheld</b> lane glow</p></div>
       </div>
-      <div class="gstep" data-g="3">
-        <div class="gcard"><p class="gkick">the wall</p><h3>One never entered the room.</h3>
-          <p><strong>NASENI</strong> published nothing. No terms, no test, no verdict, ever. A withheld contract is not missing data. It is a wall built against assessment.</p>
-          <p class="gpoint red"><svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 6 C 16 8, 28 12, 40 14" fill="none" stroke="#e88a92" stroke-width="2" stroke-linecap="round"/><path d="M40 14 L33 13 M40 14 L36 8" fill="none" stroke="#e88a92" stroke-width="2" stroke-linecap="round"/></svg>watch the bottom lane, <b>never published</b></p></div>
-      </div>
-      <div class="gstep" data-g="4">
-        <div class="gcard"><p class="gkick">the real driver</p><h3>So who got let in, and who got the wall?</h3>
-          <p>Group the same ten by who financed them and the answer jumps out. <span style="color:var(--blue);font-weight:700">World Bank</span> projects published; <span style="color:var(--red);font-weight:700">Chinese-financed</span> ones withheld. <strong>The slope you saw at the top was the lender, not transparency.</strong></p></div>
+      <div class="gstep" data-g="3" data-echo="both">
+        <div class="gcard"><p class="gkick">the real driver</p><h3>So who published, and who withheld?</h3>
+          <p>Tag the same ten by who financed them and the answer jumps out. <strong>Every project in the withheld lane is <span style="color:#e88a92;font-weight:700">Chinese-financed</span> or host-government.</strong> Not one <span style="color:#7fb2e6;font-weight:700">World Bank</span> project withheld its terms. <strong>The climb you drew at the top was the lender, not transparency.</strong></p></div>
       </div>
     </div>
   </section>
@@ -502,6 +487,7 @@
 
     <!-- ============ STAKEHOLDER LENSES (as a guided list, not loose cards) ============ -->
     <h2 class="dz-h"><span class="num">01</span>One finding, four rooms</h2>
+    <!-- footer numbering: 01 four-rooms, 02 share (the gate carried the argument; no separate number) -->
     <p class="lead dz-lead">The same line reads differently depending on where you sit. Each row is the sentence that room should leave with.</p>
     <div class="lenses">
       <div class="lens"><span class="lens-who">Government</span><span class="lens-say">Publish financing terms <em>before</em> you commit, not after a project fails. A project you can show is a project you can defend.</span></div>
@@ -514,7 +500,7 @@
 
   <div class="wrap">
     <!-- ============ SHARE / EXPORT ============ -->
-    <h2><span class="num">03</span>Share this</h2>
+    <h2><span class="num">02</span>Share this</h2>
     <div class="export">
       <a class="btn primary" id="dlSlide" download="no-terms-no-test.svg">Download chart</a>
       <button class="btn" id="copyCaption">Copy caption</button>
@@ -749,49 +735,35 @@
     // ===== THE VALUE GATE: ten project cards walk a test; published pass, withheld hit the wall =====
     (function(){
       var gateIn=document.getElementById("gateIn"),
-          lanePass=document.getElementById("lanePass"), laneLate=document.getElementById("laneLate"),
-          laneWall=document.getElementById("laneWall"), gateDoor=document.getElementById("gateDoor"),
-          gateTally=document.getElementById("gateTally"), gateNeed=document.getElementById("gateNeed"),
-          guideArrow=document.getElementById("guideArrow");
+          lanePass=document.getElementById("lanePass"), laneWall=document.getElementById("laneWall"),
+          gateDoor=document.getElementById("gateDoor"), gateTally=document.getElementById("gateTally");
       if(!gateIn) return;
-      // verdict + how each project was judged, from the verified data.
-      // outcome3 = the three withheld-but-judged-by-outcome projects.
-      var OUTCOME={sgr:1, addis:1, gerd:1};
-      var FUNDLANE={cn:"cn", hm:"cn", wb:"wb"};
-      var FLAG={cn:"CN", hm:"HM", wb:"WB"};
-      var FLAGCOL={cn:"#e88a92", wb:"#7fb2e6", hm:"#bbb"};
-      var VCLS={g:"g", a:"a", r:"r", null:"x"};
+      // ONE job for the gate: did the terms get PUBLISHED (so value can be judged) or WITHHELD?
+      // Published = disclosed enough to assess. Withheld = the rest (incl. NASENI, and the outcome-only ones;
+      // "judged later by outcome" is a methodology nuance, kept in the drawer, not a lane here.)
+      var WITHHELD={naseni:1, sgr:1, addis:1, gerd:1};        // 4 projects kept their terms back
+      var FLAG={cn:{cls:"cn",txt:"CN"}, hm:{cls:"hm",txt:"HM"}, wb:{cls:"wb",txt:"WB"}};
       var chips={};
-      // order the chips: NASENI first (the wall), then the rest by disclosure
       P.forEach(function(p){
         var c=document.createElement("span"); c.className="pchip";
         var vk = p.verdict===null?"x":p.verdict;
         c.innerHTML='<span class="pc-dot '+vk+'"></span>'+p.name;
         gateIn.appendChild(c); chips[p.id]={el:c,p:p};
       });
-      // where each project ends up: null verdict -> wall; outcome-judged -> late; else pass
-      function destOf(p){
-        if(p.verdict===null) return laneWall;
-        if(OUTCOME[p.id]) return laneLate;
-        return lanePass;
-      }
+      var pubIds=P.filter(function(p){return !WITHHELD[p.id];}).map(function(p){return p.id;});
+      var heldIds=P.filter(function(p){return WITHHELD[p.id];}).map(function(p){return p.id;});
+
       // FLIP: animate each chip from where it WAS to where it lands, so you watch it travel the gate.
       function flipMove(reparents){
         if(reduceMotion){ reparents.forEach(function(r){ r.lane.appendChild(r.el); }); return; }
-        // First: record current screen rects
         var first=reparents.map(function(r){ return {r:r, rect:r.el.getBoundingClientRect()}; });
-        // Move (reparent) -> Last position
         first.forEach(function(f){ f.r.lane.appendChild(f.r.el); });
-        // Invert + Play
         first.forEach(function(f,i){
           var last=f.r.el.getBoundingClientRect();
           var dx=f.rect.left-last.left, dy=f.rect.top-last.top;
-          if(Math.abs(dx)<1 && Math.abs(dy)<1) return; // already in place
+          if(Math.abs(dx)<1 && Math.abs(dy)<1) return;
           var el=f.r.el;
-          el.style.transition="none";
-          el.style.transform="translate("+dx+"px,"+dy+"px)";
-          el.style.zIndex="5";
-          // force reflow, then play to identity, staggered so the eye can follow each
+          el.style.transition="none"; el.style.transform="translate("+dx+"px,"+dy+"px)"; el.style.zIndex="5";
           void el.offsetWidth;
           setTimeout(function(){
             el.style.transition="transform .85s cubic-bezier(.45,.05,.2,1)";
@@ -800,81 +772,43 @@
           }, i*90);
         });
       }
-      // move ids into a lane, but only the ones not already there (so we only animate new arrivals)
       function move(toLane, ids){
         var reparents=[];
         ids.forEach(function(id){ var ch=chips[id]; if(ch && ch.el.parentNode!==toLane) reparents.push({el:ch.el, lane:toLane}); });
         if(reparents.length) flipMove(reparents);
       }
-      var passIds=P.filter(function(p){return p.verdict!==null && !OUTCOME[p.id];}).map(function(p){return p.id;});
-      var lateIds=Object.keys(OUTCOME);
-      var wallIds=P.filter(function(p){return p.verdict===null;}).map(function(p){return p.id;});
-
       function clearFunder(){
         P.forEach(function(p){ var ch=chips[p.id].el; ch.classList.remove("funder"); var f=ch.querySelector(".pc-fund"); if(f) f.remove(); });
       }
+      // VISUAL ECHO: the active step's data-echo glows the matching lane (bulletproof, no coordinate math)
+      function echo(which){
+        lanePass.classList.toggle("echo", which==="pass"||which==="both");
+        laneWall.classList.toggle("echo", which==="wall"||which==="both");
+      }
       function setStep(g){
         if(g>=1) gateDoor.classList.add("open"); else gateDoor.classList.remove("open");
-        // g0: all waiting. g1: pass. g2: late. g3: wall. g4: tag each chip with its funder (one clear added signal).
         if(g<=0){
-          clearFunder();
-          var back=[];
-          P.forEach(function(p){ if(chips[p.id].el.parentNode!==gateIn) back.push({el:chips[p.id].el,lane:gateIn}); });
+          clearFunder(); echo(null);
+          var back=[]; P.forEach(function(p){ if(chips[p.id].el.parentNode!==gateIn) back.push({el:chips[p.id].el,lane:gateIn}); });
           if(back.length) flipMove(back);
-          gateTally.textContent="Ten projects approach the test."; gateNeed.textContent="needs published terms";
+          gateTally.textContent="Ten projects. The only thing that lets you judge value is whether the terms were published.";
         } else if(g===1){
-          clearFunder(); move(lanePass, passIds);
-          gateTally.textContent="Six had published terms. They pass and get a verdict.";
+          clearFunder(); move(lanePass, pubIds); move(laneWall, heldIds); echo("pass");
+          gateTally.textContent="Six published their terms. Four did not. Now their value can, or cannot, be judged.";
         } else if(g===2){
-          clearFunder(); move(lanePass, passIds); move(laneLate, lateIds);
-          gateTally.textContent="Three more, judged only later, by their outcomes.";
-        } else if(g===3){
-          clearFunder(); move(lanePass, passIds); move(laneLate, lateIds); move(laneWall, wallIds);
-          gateTally.textContent="And one, NASENI, never enters. No terms, no verdict.";
-        } else if(g>=4){
-          // everyone is in place. Add ONE clear funder flag per chip (no chip recolouring that fights the verdict dot).
-          move(lanePass, passIds); move(laneLate, lateIds); move(laneWall, wallIds);
+          clearFunder(); move(lanePass, pubIds); move(laneWall, heldIds); echo("wall");
+          gateTally.textContent="NASENI sits at the deepest end of withheld: nothing published at all.";
+        } else if(g>=3){
+          move(lanePass, pubIds); move(laneWall, heldIds); echo("both");
           P.forEach(function(p){
             var ch=chips[p.id].el; if(ch.querySelector(".pc-fund")) return;
-            var fl=FUNDLANE[p.funder];
-            var f=document.createElement("span"); f.className="pc-fund "+(fl==="wb"?"wb":"cn");
-            f.textContent = fl==="wb" ? "WB" : "CN";
+            var fl=FLAG[p.funder]||FLAG.cn;
+            var f=document.createElement("span"); f.className="pc-fund "+fl.cls;
+            f.textContent=fl.txt;
             ch.appendChild(f); ch.classList.add("funder");
           });
-          gateTally.textContent="WB = World Bank, published. CN = Chinese-financed, withheld. The split is the story.";
+          gateTally.textContent="Every withheld project is Chinese-financed or host-government. No World Bank project withheld. The split is the story.";
         }
-      }
-
-      // draw a hand-scribbled guide arrow from the active card's edge across to its target lane
-      function laneFor(g){ return g===1?lanePass : g===2?laneLate : g===3?laneWall : null; }
-      var arrowColor={1:"#3fd07a",2:"#f0b860",3:"#e88a92"};
-      function drawGuide(g){
-        var card=document.querySelector('.gstep[data-g="'+g+'"] .gcard');
-        var lane=laneFor(g), sec=document.querySelector(".gate-sec");
-        guideArrow.innerHTML=""; guideArrow.classList.remove("show");
-        if(!card||!lane||!sec||reduceMotion && false) {}
-        if(!card||!lane||!sec) return;
-        var sr=sec.getBoundingClientRect(), cr=card.getBoundingClientRect(), lr=lane.getBoundingClientRect();
-        guideArrow.setAttribute("viewBox","0 0 "+sr.width+" "+sr.height);
-        var sx=cr.right-sr.left-4, sy=cr.top+cr.height*0.62-sr.top;       // from the card's lower-right
-        var ex=lr.left-sr.left+10, ey=lr.top+lr.height*0.5-sr.top;        // to the lane's left edge, mid-height
-        var dist=Math.hypot(ex-sx,ey-sy); if(dist<40) return;
-        // a loose, wobbly hand-drawn curve
-        var mx=(sx+ex)/2, my=(sy+ey)/2, wob=(ey>sy?1:-1)*Math.min(60,dist*0.12);
-        var back=16/dist, tx=ex-(ex-sx)*back, ty=ey-(ey-sy)*back;
-        var col=arrowColor[g]||"#9b86f0";
-        var ns="http://www.w3.org/2000/svg";
-        var pe=document.createElementNS(ns,"path");
-        pe.setAttribute("class","gline"); pe.setAttribute("stroke",col);
-        pe.setAttribute("d","M "+sx+" "+sy+" C "+(sx+(mx-sx)*0.4)+" "+(sy+wob)+", "+(mx)+" "+(my-wob)+", "+tx+" "+ty);
-        var len=Math.round(dist*1.3); pe.style.strokeDasharray=len; pe.style.strokeDashoffset=len;
-        guideArrow.appendChild(pe);
-        var ang=Math.atan2(ty-(my-wob), tx-mx), hl=14, hw=0.5;
-        var ah=document.createElementNS(ns,"path"); ah.setAttribute("class","ghead"); ah.setAttribute("fill",col);
-        ah.setAttribute("d","M "+tx+" "+ty+" L "+(tx-Math.cos(ang-hw)*hl)+" "+(ty-Math.sin(ang-hw)*hl)+
-          " L "+(tx-Math.cos(ang+hw)*hl)+" "+(ty-Math.sin(ang+hw)*hl)+" Z");
-        guideArrow.appendChild(ah);
-        void pe.getBBox(); pe.classList.add("draw"); guideArrow.classList.add("show");
       }
 
       var steps=[].slice.call(document.querySelectorAll(".gstep"));
@@ -888,12 +822,9 @@
         es.forEach(function(e){ ratios.set(e.target, e.isIntersecting?e.intersectionRatio:0); });
         var best=null,bestR=0;
         steps.forEach(function(s){ var r=ratios.get(s)||0; if(r>bestR){bestR=r;best=s;} });
-        if(best){ var g=parseInt(best.getAttribute("data-g"),10); if(g!==cur){ cur=g; setStep(g);
-          // draw the guide arrow after the chips have settled into their lanes
-          setTimeout(function(){ if(cur===g) drawGuide(g); }, reduceMotion?0:1100); } }
+        if(best){ var g=parseInt(best.getAttribute("data-g"),10); if(g!==cur){ cur=g; setStep(g); } }
       },{threshold:[0,.25,.5,.75,1]});
       steps.forEach(function(s){ driver.observe(s); });
-      window.addEventListener("resize",function(){ if(cur>=1&&cur<=3) drawGuide(cur); else if(guideArrow){ guideArrow.innerHTML=""; guideArrow.classList.remove("show"); } });
 
       setStep(0);
     })();

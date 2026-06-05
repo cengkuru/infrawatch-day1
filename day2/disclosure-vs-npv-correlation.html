@@ -428,9 +428,8 @@
         </div>
       </div>
       <div class="gate-key" id="gateKey" hidden>
-        <span class="gk-item"><span class="gk-flag cn">CN</span>PRC-financed (Chinese state lenders)</span>
-        <span class="gk-item"><span class="gk-flag wb">WB</span>World Bank</span>
-        <span class="gk-item"><span class="gk-flag hm">HM</span>Host-government / mixed</span>
+        <span class="gk-item"><span class="gk-flag cn">PRC</span>PRC-financed (Chinese state lenders)</span>
+        <span class="gk-item"><span class="gk-flag wb">non-PRC</span>World Bank and other non-Chinese finance</span>
       </div>
       <p class="gate-tally" id="gateTally">Ten projects. The only thing that lets you judge value is whether the terms were published.</p>
     </div>
@@ -452,7 +451,7 @@
       </div>
       <div class="gstep" data-g="3" data-echo="both">
         <div class="gcard"><p class="gkick">the real driver</p><h3>So who published, and who withheld?</h3>
-          <p>Tag the same ten by who financed them and the answer jumps out. <strong>Every project in the withheld lane is <span style="color:#e88a92;font-weight:700">Chinese-financed</span> or host-government.</strong> Not one <span style="color:#7fb2e6;font-weight:700">World Bank</span> project withheld its terms. <strong>The climb you drew at the top was the lender, not transparency.</strong></p></div>
+          <p>Tag the same ten by who financed them and the answer jumps out. <strong>Every project in the withheld lane is <span style="color:#e88a92;font-weight:700">PRC-financed</span>.</strong> Every <span style="color:#7fb2e6;font-weight:700">non-PRC</span> project published its terms. <strong>The climb you drew at the top was the lender, not transparency.</strong></p></div>
       </div>
     </div>
   </section>
@@ -493,7 +492,7 @@
     <div class="wrap">
     <div class="takeaway">
       <p class="tk-eyebrow">So, in one breath</p>
-      <p class="tk-line"><strong>Transparency does not make a project good.</strong> It is what lets anyone <strong>find out</strong> whether it is. Where the terms are public, a bad project like <span class="tk-mark warn">Sankofa</span> can at least be <em>seen</em>. Where they are withheld, a project like <span class="tk-mark dark">NASENI</span> cannot be judged at all. And the pattern that looks like "transparency brings value" is mostly the <strong>funder</strong>, not transparency itself.</p>
+      <p class="tk-line"><strong>Transparency does not make a project good.</strong> It is what lets anyone <strong>find out</strong> whether it is. Where the terms are public, a bad project like <span class="tk-mark warn">Sankofa</span> can at least be <em>seen</em>. Where they are withheld, a project like <span class="tk-mark dark">NASENI</span> cannot be judged at all. And the pattern that looks like "transparency brings value" is really the <strong>funder</strong>: the withheld terms are <strong>PRC-financed</strong>, not transparency itself.</p>
     </div>
 
     <!-- ============ STAKEHOLDER LENSES (as a guided list, not loose cards) ============ -->
@@ -754,7 +753,8 @@
       // Published = disclosed enough to assess. Withheld = the rest (incl. NASENI, and the outcome-only ones;
       // "judged later by outcome" is a methodology nuance, kept in the drawer, not a lane here.)
       var WITHHELD={naseni:1, sgr:1, addis:1, gerd:1};        // 4 projects kept their terms back
-      var FLAG={cn:{cls:"cn",txt:"CN"}, hm:{cls:"hm",txt:"HM"}, wb:{cls:"wb",txt:"WB"}};
+      // strict binary: PRC-financed (Chinese state lenders; GERD's substations are ~$1.2bn PRC) vs non-PRC (World Bank et al.)
+      var FLAG={cn:{cls:"cn",txt:"PRC"}, hm:{cls:"cn",txt:"PRC"}, wb:{cls:"wb",txt:"non-PRC"}};
       var chips={};
       P.forEach(function(p){
         var c=document.createElement("span"); c.className="pchip";
@@ -825,7 +825,7 @@
             f.textContent=fl.txt;
             ch.appendChild(f); ch.classList.add("funder");
           });
-          gateTally.textContent="Every withheld project is Chinese-financed or host-government. No World Bank project withheld. The split is the story.";
+          gateTally.textContent="Every withheld project is PRC-financed. Every non-PRC project published. The split is the story.";
         }
       }
 

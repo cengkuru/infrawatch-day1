@@ -182,7 +182,8 @@
     details.drawer[open]>summary::before{transform:rotate(90deg);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
-    table.evtable{width:100%;border-collapse:collapse;font-size:.8rem;margin:1rem 0 0;}
+    .evtable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0 0;}
+    table.evtable{width:100%;min-width:560px;border-collapse:collapse;font-size:.8rem;}
     table.evtable th,table.evtable td{border:1px solid var(--light);padding:.4rem .55rem;text-align:left;vertical-align:top;}
     table.evtable th{background:#eef2f6;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dark);}
     .conf{font-family:var(--mono);font-size:.58rem;padding:.08rem .3rem;border-radius:4px;}
@@ -210,23 +211,23 @@
   <div class="brandbar"><a href="./day1/">&larr; InfraWatch &middot; Day 1</a><span class="label">CIPE &middot; the foreign-funding definition</span></div>
 
   <div class="wrap">
-    <!-- ============ HERO ============ -->
+    <!-- ============ HERO: lead with the human contradiction, the passport, then the jargon-free setup ============ -->
     <section class="hero">
-      <p class="hook">One sovereign loan. One railway. The exact same financing instrument, with the exact same facts on paper. It sounds like a question with one answer.</p>
-      <h1>Is this railway <span class="accent">foreign-funded?</span></h1>
-      <p class="lede">Hold these four facts in your head. They never change. Watch five countries give five different answers anyway.</p>
+      <p class="hook">One railway takes one loan to five countries. The railway does not change. The stamp does.</p>
+      <h1>The project did not change. <span class="accent">The definition did.</span></h1>
+      <p class="lede">The same railway, the same money, the same citizens repaying it. Yet one country counts it as foreign-funded and the next does not. That is how accountability disappears in plain sight.</p>
 
-      <div class="factpanel">
-        <p class="fp-kick">the project, in full</p>
+      <div class="factpanel" aria-label="The project passport">
+        <p class="fp-kick">the project's passport &middot; four facts that never change</p>
         <div class="factbox">
-          <span class="fk">project</span> &nbsp;<b>a national railway</b><br>
-          <span class="fk">financing</span> &nbsp;<b>a sovereign loan</b> (the state borrows, the state repays)<br>
-          <span class="fk">foreign ownership stake</span> &nbsp;<b>none</b><br>
-          <span class="fk">repayment</span> &nbsp;<b>public debt</b>
+          <span class="fk">what it is</span> &nbsp;<b>a national railway</b><br>
+          <span class="fk">who pays for it</span> &nbsp;<b>the country itself</b>, with borrowed money it must repay<br>
+          <span class="fk">who owns it</span> &nbsp;<b>no foreign owner</b><br>
+          <span class="fk">who carries the cost</span> &nbsp;<b>the public</b>, through the national budget
         </div>
-        <p class="fp-human"><b>Public debt means the public pays.</b> Every citizen helps repay this loan through the national budget, whether or not the railway ever reaches their town. So whether it gets counted as foreign-funded is not a filing detail. It decides whether anyone can hold someone to account for it.</p>
+        <p class="fp-human"><b>The public pays this back.</b> Every citizen helps repay the loan whether or not the railway ever reaches their town. So whether it counts as "foreign-funded" is not paperwork. It decides whether anyone can be held to account for it.</p>
       </div>
-      <div class="scrollcue">scroll, and watch the word split &darr;</div>
+      <div class="scrollcue">take the passport to five counters &darr;</div>
     </section>
   </div>
 
@@ -234,13 +235,13 @@
   <div class="wrap">
     <section class="splitsec">
       <p class="word" id="splitword"><span class="fdim" id="fForeign">FOREIGN</span>-FUNDED</p>
-      <p class="splead">One word. Ask five countries what it means and the word splits into five different tests.</p>
+      <p class="splead">One word. But each counter asks a different question before it stamps, so the same railway gets five different answers.</p>
       <div class="splits" id="splits">
-        <div class="split real" data-echo="caught"><p class="sc">In Kenya, it means</p><p class="sd">it is on the public-debt register</p></div>
-        <div class="split real" data-echo="slips"><p class="sc">In Ghana, it means</p><p class="sd">a foreign entity holds an ownership stake</p></div>
-        <div class="split real" data-echo="slips"><p class="sc">In Nigeria, it means</p><p class="sd">it went through the Public Procurement Act</p></div>
-        <div class="split real" data-echo="caught"><p class="sc">In Ethiopia, it means</p><p class="sd">the financing source is foreign, not domestic</p></div>
-        <div class="split real" data-echo="unclear"><p class="sc">In DR Congo, it means</p><p class="sd">foreign ownership is disclosed at execution</p></div>
+        <div class="split real" data-echo="caught"><p class="sc">Kenya asks</p><p class="sd">Is the loan on the public-debt register?</p></div>
+        <div class="split real" data-echo="slips"><p class="sc">Ghana asks</p><p class="sd">Does a foreign company own a share of it?</p></div>
+        <div class="split real" data-echo="slips"><p class="sc">Nigeria asks</p><p class="sd">Did it go through the open procurement channel?</p></div>
+        <div class="split real" data-echo="caught"><p class="sc">Ethiopia asks</p><p class="sd">Did the money come from abroad?</p></div>
+        <div class="split real" data-echo="unclear"><p class="sc">DR Congo asks</p><p class="sd">Is a foreign owner disclosed once it is being built?</p></div>
       </div>
     </section>
   </div>
@@ -420,16 +421,16 @@
     </div>
 
     <!-- ============ THE PROOF STRIP (screenshot-ready evidence view) ============ -->
-    <h2><span class="num">01</span>One project, five verdicts</h2>
-    <p class="lead">The whole story in one glance. Identical input in every column; the only thing that differs is the rule, and so where the railway lands.</p>
+    <h2><span class="num">01</span>Five counters, five stamps</h2>
+    <p class="lead">The whole story in one glance. The same passport at every counter; only the question changes, and so does the stamp.</p>
     <div class="strip">
-      <div class="scol"><p class="sc-c">Kenya</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">on the public-debt register?</p><p class="sc-stamp caught">CAUGHT</p></div>
-      <div class="scol"><p class="sc-c">Ghana</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">foreign ownership stake?</p><p class="sc-stamp slips">SLIPS</p></div>
-      <div class="scol"><p class="sc-c">Nigeria</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">through the Procurement Act?</p><p class="sc-stamp slips">SLIPS</p></div>
-      <div class="scol"><p class="sc-c">Ethiopia</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">financing source foreign?</p><p class="sc-stamp caught">CAUGHT</p></div>
-      <div class="scol"><p class="sc-c">DR Congo</p><p class="sc-ico unclear">&#9679;</p><p class="sc-test">foreign owner disclosed at execution?</p><p class="sc-stamp unclear">UNCLEAR</p></div>
+      <div class="scol"><p class="sc-c">Kenya</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">on the debt register?</p><p class="sc-stamp caught">CAUGHT</p></div>
+      <div class="scol"><p class="sc-c">Ghana</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">a foreign owner?</p><p class="sc-stamp slips">SLIPS</p></div>
+      <div class="scol"><p class="sc-c">Nigeria</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">through open procurement?</p><p class="sc-stamp slips">SLIPS</p></div>
+      <div class="scol"><p class="sc-c">Ethiopia</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">money from abroad?</p><p class="sc-stamp caught">CAUGHT</p></div>
+      <div class="scol"><p class="sc-c">DR Congo</p><p class="sc-ico unclear">&#9679;</p><p class="sc-test">owner shown during build?</p><p class="sc-stamp unclear">UNCLEAR</p></div>
     </div>
-    <p class="strip-note">Caught in two, slipped in two, unclear in one. Same railway, five rulebooks, no shared reality.</p>
+    <p class="strip-note">Stamped in two, waved through in two, unclear in one. Same railway, five counters, no shared reality.</p>
 
     <div class="takeaway">
       <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
@@ -466,10 +467,12 @@
     <!-- ============ EVIDENCE TABLE + OPEN DATA ============ -->
     <h2 id="evidence"><span class="num">02</span>The five definitions, side by side</h2>
     <p class="lead">Each country's regulatory domain, the test it produces, and what the same railway returns. Confidence is tagged on every row, and the same data drives the downloads below.</p>
-    <table class="evtable">
-      <thead><tr><th>Country</th><th>Regulatory domain</th><th>The test it applies</th><th>Same railway</th><th>Confidence</th></tr></thead>
-      <tbody id="evbody"></tbody>
-    </table>
+    <div class="evtable-wrap">
+      <table class="evtable">
+        <thead><tr><th>Country</th><th>Regulatory domain</th><th>The test it applies</th><th>Same railway</th><th>Confidence</th></tr></thead>
+        <tbody id="evbody"></tbody>
+      </table>
+    </div>
     <div class="export">
       <button class="btn" id="dlJson">Download JSON</button>
       <button class="btn" id="dlCsv">Download CSV</button>

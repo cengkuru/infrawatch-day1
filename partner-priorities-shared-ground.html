@@ -3,17 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Five accents, one sentence</title>
-  <meta name="description" content="Kenya, Ghana, Nigeria, Ethiopia and DRC arrived with five different asks. Watch the local words fall away until only the shared sentence remains: Show us. An InfraWatch visual essay.">
+  <title>Five members, three questions</title>
+  <meta name="description" content="On Day 1 in Nairobi we asked each InfraWatch member three things: the problem you want to tackle, your role in tackling it, and what success looks like to you. Here is what five members answered.">
   <style>
     :root{
-      /* CIPE brand (this work is CIPE-sponsored): navy leads, deep red is the shared-stem accent */
+      /* CIPE brand: navy leads */
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
-      --stem:#BE1E2D; /* the one electric accent, reserved for the shared demand */
-      /* partner accent colours, tuned so each clears WCAG AA 4.5:1 on white (safe at any text size).
-         Originals (Ghana #1B9E77, Nigeria #7570B3, Ethiopia #D95F02, DRC #E7298A) failed normal-text AA. */
+      /* partner accent colours, each clears WCAG AA 4.5:1 on white */
       --c-kenya:#0071BC; --c-ghana:#0F6B50; --c-nigeria:#565299; --c-ethiopia:#A84800; --c-drc:#B51D6B;
-      --green:#1B7A3D; --amber:#8A5800; /* amber darkened from #C77F00 (3.25:1, FAIL) to 6.04:1 */
+      --amber:#8A5800;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED;
       --white:#FFFFFF; --surface:#F6F8FA;
       --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
@@ -30,162 +28,128 @@
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
     .draftbar{background:#fff4d6;border-bottom:1px solid #ecd9a0;color:#7a5a12;font-size:.78rem;font-weight:600;text-align:center;padding:.4rem .9rem;}
     .draftbar b{color:#5a410a;}
-
     .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
 
     /* ============ HERO ============ */
     .hero{padding:3.2rem 0 1.2rem;}
     .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--brand);margin:0 0 1rem;}
-    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
+    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:56ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
     .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2.2rem,7vw,4rem);font-weight:800;line-height:1.02;letter-spacing:-.025em;margin:0 0 1rem;max-width:14ch;}
-    h1 .accent{color:var(--stem);}
-    .lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--mid);max-width:56ch;margin:0 0 1.5rem;}
+    h1{font-size:clamp(2.1rem,6.4vw,3.7rem);font-weight:800;line-height:1.03;letter-spacing:-.025em;margin:0 0 1rem;max-width:16ch;}
+    h1 .accent{color:var(--brand);}
+    .lede{font-size:clamp(1.05rem,2.4vw,1.32rem);color:var(--mid);max-width:58ch;margin:0 0 1.4rem;}
+    /* the three questions, stated up front as the frame */
+    .qset{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.6rem 0 .5rem;}
+    .qcard{background:var(--white);border:1px solid var(--light);border-top:3px solid var(--brand);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 8px 22px rgba(20,35,52,.07);}
+    .qcard .qn{font-family:var(--mono);font-size:.62rem;font-weight:800;color:var(--brand);letter-spacing:.06em;}
+    .qcard h3{margin:.25rem 0 .2rem;font-size:1rem;letter-spacing:-.01em;}
+    .qcard p{margin:0;font-size:.84rem;color:var(--mid);line-height:1.45;}
+    @media (max-width:680px){ .qset{grid-template-columns:1fr;} }
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    /* ============ THE THEATRE: sticky chorus stage LEFT, scrolling beats RIGHT ============ */
-    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem;align-items:start;}
+    /* ============ THE PORTRAITS: sticky member stage LEFT, scrolling member beats RIGHT ============ */
+    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.55fr 1fr;gap:1.5rem;align-items:start;}
     .stickycol{position:sticky;top:3vh;align-self:start;}
     .stage{position:relative;background:var(--white);border:1px solid var(--light);border-radius:16px;box-shadow:var(--shadow);
-      min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:1.8rem clamp(1.1rem,2.6vw,2rem);overflow:hidden;}
-    .stage-kick{position:absolute;top:1.1rem;left:clamp(1.1rem,2.6vw,2rem);font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand-soft);margin:0;}
+      min-height:76vh;padding:0;overflow:hidden;border-top:6px solid var(--ac,var(--brand));transition:border-color .5s ease;}
+    .stage-pad{padding:1.7rem clamp(1.2rem,2.8vw,2rem);}
+    /* member header */
+    .mhead{display:flex;align-items:center;gap:.7rem;margin:0 0 .2rem;}
+    .mflag{display:block;flex:0 0 auto;border-radius:3px;overflow:hidden;box-shadow:0 1px 3px rgba(20,35,52,.22);}
+    .mname{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--ac,var(--brand));transition:color .5s ease;}
+    .morg{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin:.1rem 0 0;}
+    .mconf{display:inline-flex;align-items:center;gap:.3em;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
+      color:var(--amber);background:#fff4e6;border:1px solid #e8d3a8;border-radius:99px;padding:.16em .6em;margin:.5rem 0 0;}
+    .mconf::before{content:"●";font-size:.7em;}
 
-    /* the five chorus lines */
-    .chorus{display:flex;flex-direction:column;gap:clamp(.55rem,1.8vw,1rem);position:relative;width:100%;}
-    .seam{position:absolute;left:var(--seamx,4.6em);top:-.3rem;bottom:-.3rem;width:2px;background:var(--light);
-      opacity:0;transition:opacity .5s ease;}
-    .qline{display:flex;align-items:baseline;gap:.36em;white-space:nowrap;max-width:100%;flex-wrap:wrap;
-      transform:translateX(var(--scatter,0));transition:transform .8s cubic-bezier(.22,1,.36,1);}
-    /* non-colour partner identity: a small label that reads regardless of hue or colour-vision */
-    .qname{flex:0 0 100%;font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
-      color:var(--mid);margin:0 0 .15rem;}
-    .qstem{font-weight:800;letter-spacing:-.015em;line-height:1.02;flex:0 0 auto;
-      font-size:clamp(1.4rem,4.6vw,2.7rem);color:var(--qc);transition:color .55s ease,transform .6s ease;}
-    .qtail{font-weight:600;letter-spacing:-.005em;line-height:1.02;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;
-      font-size:clamp(1.12rem,3.6vw,2.1rem);color:var(--qc);
-      transition:color .55s ease,opacity .55s ease,transform .55s cubic-bezier(.4,0,1,.5);}
-    /* low-confidence: a READABLE chip (text + shape), not a colour-only dashed underline.
-       amber #8A5800 on #fff4e6 clears AA; the word 'lower confidence' carries the meaning without relying on hue. */
-    .qflag{display:inline-flex;align-items:center;gap:.3em;font-family:var(--sans);font-size:.72rem;font-weight:800;
-      text-transform:uppercase;letter-spacing:.03em;color:var(--amber);background:#fff4e6;border:1px solid #e8d3a8;
-      border-radius:99px;padding:.18em .6em;margin-left:.3em;align-self:center;white-space:nowrap;}
-    .qflag::before{content:"●";font-size:.7em;}
+    /* the three answers */
+    .answers{margin:1.5rem 0 0;display:flex;flex-direction:column;gap:0;}
+    .ans{padding:1.1rem 0;border-top:1px solid var(--light);opacity:.32;transform:translateY(6px);
+      transition:opacity .5s ease,transform .5s ease;}
+    .ans:first-child{border-top:none;}
+    .ans.lit{opacity:1;transform:none;}
+    .ans .alabel{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.64rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin:0 0 .35rem;}
+    .ans .anum{width:1.5rem;height:1.5rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+      background:var(--ac,var(--brand));color:#fff;font-size:.72rem;font-weight:800;flex:0 0 auto;transition:background .5s ease;}
+    .ans .atext{font-size:clamp(1.08rem,2.4vw,1.4rem);font-weight:700;color:var(--dark);line-height:1.25;letter-spacing:-.01em;margin:0;}
+    .ans.success .atext{color:var(--ac,var(--brand));transition:color .5s ease;}
 
-    /* the shared-demand line that appears alone when the tails are stripped */
-    .demand{position:absolute;left:0;right:0;bottom:clamp(1.4rem,4vw,2.4rem);text-align:center;padding:0 1.5rem;
-      opacity:0;transform:translateY(8px);transition:opacity .6s ease .35s,transform .6s ease .35s;pointer-events:none;}
-    .demand p{margin:0;font-size:clamp(.95rem,2vw,1.18rem);font-weight:700;color:var(--stem);max-width:32ch;margin:0 auto;line-height:1.3;}
-    .demand .dk{display:block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:.4rem;}
-
-    /* per-line action-lane parts (revealed in the 'lanes' state) */
-    .qmeta{display:none;}
-    /* action lane: three labelled rows (publish / tool / number) in clean sans-serif, NOT mono dump.
-       a grid keeps the labels aligned in their own column so the five lanes read as a system. */
-    .qchain{display:none;margin:.55rem 0 0;grid-template-columns:auto 1fr;gap:.35rem .9rem;align-items:baseline;}
-    .qchain .lbl{font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);padding-top:.12em;}
-    .qchain .ev{color:var(--dark);font-weight:600;font-size:clamp(.86rem,1.7vw,.98rem);line-height:1.35;}
-    .qchain .tool{color:var(--brand-soft);font-weight:600;font-size:clamp(.8rem,1.5vw,.9rem);line-height:1.35;}
-    .qchain .nm{color:var(--brand);font-weight:800;font-size:clamp(.92rem,1.9vw,1.08rem);line-height:1.3;}
-    .qchain .nm .pct{font-variant-numeric:tabular-nums;}
-
-    /* ===== STATE machine on the stage ===== */
-    /* the partner-name label and low-confidence chip show only on the SURFACE beat (the "as they were said" view) */
-    .qname{display:none;} .qflag{display:none;}
-    .stage[data-state="surface"] .qname{display:block;}
-    .stage[data-state="surface"] .qline.lo .qflag{display:inline-flex;}
-    /* SURFACE: stems wear partner colour, full sentence reads, lines left-aligned (no lumpy scatter) */
-
-    /* SPLIT: stems go ink-dark, the seam guide appears between stem and tail */
-    .stage:not([data-state="surface"]) .qstem{color:var(--brand-deep);}
-    .stage[data-state="split"] .seam,
-    .stage[data-state="strip"] .seam{opacity:1;}
-
-    /* STRIP (the hero moment): the local tails peel away ONE AT A TIME, top to bottom,
-       so the reader watches each drop in sequence; then only the 'Show us' column remains
-       and the shared demand rises. Staggered via per-line transition-delay. */
-    .stage[data-state="strip"] .qstem{color:var(--stem);transition:color .55s ease;}
-    .stage[data-state="strip"] .qtail{opacity:0;transform:translateX(46px) translateY(6px);}
-    /* peel cadence: each tail waits a beat longer than the one above it */
-    .stage[data-state="strip"] .qline:nth-child(2) .qtail{transition-delay:.05s;}
-    .stage[data-state="strip"] .qline:nth-child(3) .qtail{transition-delay:.28s;}
-    .stage[data-state="strip"] .qline:nth-child(4) .qtail{transition-delay:.51s;}
-    .stage[data-state="strip"] .qline:nth-child(5) .qtail{transition-delay:.74s;}
-    .stage[data-state="strip"] .qline:nth-child(6) .qtail{transition-delay:.97s;}
-    /* each stem turns red as its own tail finishes leaving, reinforcing the one-at-a-time feel */
-    .stage[data-state="strip"] .qline:nth-child(2) .qstem{transition-delay:.10s;}
-    .stage[data-state="strip"] .qline:nth-child(3) .qstem{transition-delay:.33s;}
-    .stage[data-state="strip"] .qline:nth-child(4) .qstem{transition-delay:.56s;}
-    .stage[data-state="strip"] .qline:nth-child(5) .qstem{transition-delay:.79s;}
-    .stage[data-state="strip"] .qline:nth-child(6) .qstem{transition-delay:1.02s;}
-    /* the shared demand rises only after the last tail has gone */
-    .stage[data-state="strip"] .demand{opacity:1;transform:none;transition:opacity .6s ease 1.25s,transform .6s ease 1.25s;}
-    /* reduced motion: no stagger, snap straight to the resolved state */
-    @media (prefers-reduced-motion:reduce){
-      .stage[data-state="strip"] .qtail,.stage[data-state="strip"] .qstem,.stage[data-state="strip"] .demand{transition-delay:0s !important;}
-    }
-
-    /* LANES: each line becomes a structured three-step card. The coloured 'Show us [tail]' is the
-       header; below it the Publish / Tool / Number rows in clean sans-serif on an aligned label grid.
-       A coloured left border ties the card body to its partner colour (so colour is reinforcement, not the only cue). */
-    .stage[data-state="lanes"]{justify-content:flex-start;overflow-y:auto;}
-    .stage[data-state="lanes"] .chorus{gap:clamp(.7rem,2vw,1.1rem);}
-    .stage[data-state="lanes"] .qline{flex-wrap:wrap;white-space:normal;align-items:baseline;
-      border-left:3px solid var(--qc);padding:.55rem 0 .65rem .85rem;}
-    .stage[data-state="lanes"] .qname{display:block;color:var(--qc);}
-    .stage[data-state="lanes"] .qstem{font-size:clamp(1.1rem,3vw,1.55rem);}
-    .stage[data-state="lanes"] .qtail{font-size:clamp(1rem,2.7vw,1.45rem);white-space:normal;overflow:visible;text-overflow:clip;}
-    .stage[data-state="lanes"] .qchain{display:grid;flex:1 0 100%;}
-    .stage[data-state="lanes"] .seam{opacity:0;}
-    .stage[data-state="lanes"] .qline.lo .qflag{display:inline-flex;}
+    /* progress dots: which member you're on */
+    .mdots{position:absolute;right:1.1rem;top:1.2rem;display:flex;flex-direction:column;gap:.45rem;}
+    .mdots .md{width:9px;height:9px;border-radius:50%;background:var(--light);transition:background .3s,transform .3s;}
+    .mdots .md.on{background:var(--ac,var(--brand));transform:scale(1.35);}
 
     /* annotation column */
-    .ann{min-height:92vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:50vh;}
-    .ann:last-child{min-height:78vh;padding-bottom:6vh;}
+    .ann{min-height:96vh;display:flex;align-items:center;}
+    .ann:first-child{min-height:56vh;}
+    .ann:last-child{min-height:80vh;padding-bottom:6vh;}
     .anncard{position:relative;opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
+      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--ac,var(--brand));border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 10px 30px rgba(20,35,52,.1);transition:opacity .6s ease,transform .6s ease,border-color .5s ease;}
     .ann.on .anncard{opacity:1;transform:translateX(0);}
-    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
-    .anncard h3{margin:0 0 .45rem;font-size:1.22rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
+    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ac,var(--brand));margin:0 0 .35rem;transition:color .5s ease;}
+    .anncard h3{margin:0 0 .45rem;font-size:1.2rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
     .anncard p{margin:0;font-size:.94rem;color:var(--mid);line-height:1.55;}
     .anncard strong{color:var(--dark);}
-    .anncard.hero-beat{border-left-color:var(--stem);}
-    .anncard.hero-beat .kicker{color:var(--stem);}
 
-    /* ============ THE RECEIPTS (demoted proof) ============ */
+    /* ============ SYNTHESIS: all five, three columns ============ */
     h2{font-size:clamp(1.4rem,3.4vw,1.9rem);font-weight:800;letter-spacing:-.015em;margin:2.6rem 0 .3rem;}
-    .closer{font-size:clamp(1.15rem,2.8vw,1.55rem);font-weight:700;color:var(--dark);max-width:34ch;line-height:1.25;margin:.4rem 0 1.6rem;}
-    .closer b{color:var(--stem);}
-    .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
+    .lead{color:var(--mid);max-width:64ch;margin:0 0 1.2rem;}
+    .synth{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:0;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+    .synth .sh{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);background:var(--surface);padding:.7rem .8rem;border-bottom:1px solid var(--light);}
+    .synth .smember{display:flex;align-items:center;gap:.5rem;padding:.85rem .8rem;border-bottom:1px solid var(--light);border-left:4px solid var(--sc);font-weight:800;color:var(--sc);font-size:.92rem;white-space:nowrap;}
+    .synth .scell{padding:.85rem .8rem;border-bottom:1px solid var(--light);font-size:.86rem;color:var(--dark);line-height:1.4;}
+    .synth .scell.role{color:var(--mid);}
+    .synth .scell.success{font-weight:700;color:var(--sc);}
+    .synth>div:nth-last-child(-n+4){border-bottom:none;}
+    .synth .sflag{flex:0 0 auto;border-radius:2.5px;overflow:hidden;box-shadow:0 1px 2px rgba(20,35,52,.2);}
+    @media (max-width:760px){
+      .synth{grid-template-columns:1fr;}
+      .synth .sh{display:none;}
+      .synth .smember{border-left-width:5px;font-size:1rem;padding-top:1rem;}
+      .synth .scell::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:.2rem;}
+      .synth .scell{border-bottom:none;padding-top:.3rem;}
+      .synth .scell.success{padding-bottom:1rem;border-bottom:1px solid var(--light);}
+    }
 
-    .drawer{margin:1rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
+    /* ============ THE TURN ============ */
+    .turn{margin:2.6rem 0 0;padding:2rem clamp(1.2rem,3vw,2.4rem);background:var(--brand-deep);color:#fff;border-radius:16px;box-shadow:var(--shadow);}
+    .turn-kick{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;color:#8aa6c4;margin:0 0 .6rem;}
+    .turn-h{color:#fff;margin:0 0 .8rem;font-size:clamp(1.6rem,4vw,2.4rem);}
+    .turn-lead{color:#cdddec;font-size:clamp(1rem,2.1vw,1.18rem);max-width:60ch;margin:0 0 1.6rem;line-height:1.5;}
+    .turn-lead strong{color:#fff;font-weight:800;}
+    /* convergence: five member chips, each labelled with its surface problem, arrowing into one shared core */
+    .conv{display:grid;grid-template-columns:1fr auto 1.1fr;gap:1rem;align-items:center;margin:1.4rem 0 1.6rem;}
+    .conv .cleft{display:flex;flex-direction:column;gap:.4rem;}
+    .conv .cchip{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+      border-left:3px solid var(--cc);border-radius:8px;padding:.45rem .7rem;font-size:.82rem;color:#dbe6f2;}
+    .conv .cchip .cfl{flex:0 0 auto;border-radius:2px;overflow:hidden;}
+    .conv .cchip b{color:#fff;font-weight:700;}
+    .conv .carrow{font-family:var(--mono);color:#8aa6c4;font-size:1.4rem;text-align:center;}
+    .conv .ccore{background:#fff;color:var(--brand-deep);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 12px 34px rgba(0,0,0,.3);}
+    .conv .ccore .cck{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand);margin:0 0 .4rem;}
+    .conv .ccore .cch{font-size:1.12rem;font-weight:800;letter-spacing:-.01em;margin:0 0 .5rem;line-height:1.2;}
+    .conv .ccore .ccp{font-size:.86rem;color:var(--mid);margin:0;line-height:1.45;}
+    @media (max-width:680px){ .conv{grid-template-columns:1fr;} .conv .carrow{transform:rotate(90deg);} }
+    .onefinding{border-top:1px solid rgba(255,255,255,.16);padding-top:1.4rem;}
+    .onefinding .of-k{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:.66rem;font-weight:800;color:#9fd6b3;margin:0 0 .5rem;}
+    .onefinding .of-h{font-size:clamp(1.5rem,3.6vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:#fff;margin:0 0 .7rem;line-height:1.1;}
+    .onefinding .of-p{color:#cdddec;font-size:clamp(.98rem,2vw,1.12rem);max-width:62ch;margin:0;line-height:1.55;}
+
+    /* drawers + downloads */
+    .drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
     .drawer>summary{cursor:pointer;padding:.9rem 1.1rem;font-weight:700;font-size:.94rem;color:var(--dark);list-style:none;}
     .drawer>summary::-webkit-details-marker{display:none;}
     .drawer>summary::before{content:"▸ ";color:var(--brand);font-family:var(--mono);}
     .drawer[open]>summary::before{content:"▾ ";}
     .drawer-body{padding:0 1.1rem 1.1rem;font-size:.9rem;color:var(--mid);line-height:1.6;}
     .drawer-body strong{color:var(--dark);}
-
-    .gridwrap{overflow-x:auto;margin-top:.8rem;}
-    table.mx{border-collapse:collapse;width:100%;font-size:.84rem;}
-    table.mx th,table.mx td{border-bottom:1px solid var(--light);padding:.55rem .5rem;text-align:center;}
-    table.mx th.rowh{text-align:left;white-space:nowrap;}
-    table.mx thead th{font-family:var(--mono);text-transform:uppercase;font-size:.62rem;letter-spacing:.04em;color:var(--mid);background:var(--surface);vertical-align:bottom;}
-    table.mx thead th.top{color:var(--stem);background:#fbeced;}
-    table.mx td.topcol{background:#fdf5f5;}
-    table.mx .hold{font-weight:800;color:var(--stem);} table.mx .hold.lo{color:var(--mid);font-weight:600;}
-    table.mx tfoot td{font-weight:800;background:var(--surface);font-family:var(--mono);}
-    .mxnote{font-size:.78rem;color:var(--mid);margin-top:.7rem;}
-    .topcallout{margin:.9rem 0 0;padding:.85rem 1.1rem;background:#fbeced;border-left:4px solid var(--stem);border-radius:var(--radius);font-size:.95rem;font-weight:500;color:var(--dark);}
-    .topcallout b{color:var(--stem);font-weight:800;}
-
     .dl-lead{margin:1rem 0 .5rem;}
     .dl{display:flex;gap:.6rem;flex-wrap:wrap;}
     .dlbtn{background:var(--brand);color:#fff;border:none;border-radius:99px;padding:.5rem 1rem;font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:.15s;}
     .dlbtn:hover{background:var(--brand-deep);}
 
-    /* sibling diptych link */
     .diptych{display:flex;align-items:center;gap:.7rem;margin:1.6rem 0 0;padding:1rem 1.2rem;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);text-decoration:none;color:inherit;transition:border-color .15s;}
     .diptych:hover{border-color:var(--brand-soft);}
     .diptych .dx-k{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);}
@@ -195,25 +159,20 @@
     footer{margin:2.4rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
     footer strong{color:var(--dark);}
 
-    /* ============ RESPONSIVE ============ */
     @media (max-width:860px){
       .story{grid-template-columns:1fr;gap:0;}
       .stickycol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;margin-bottom:.5rem;}
-      .stage{min-height:52vh;padding:2.2rem 1rem 1.2rem;}
-      .qline{flex-wrap:wrap;white-space:normal;}
-      .qtail{white-space:normal;overflow:visible;}
-      .stage[data-state="surface"] .qline{--scatter:0 !important;}
-      .seam{display:none;}
-      .ann{min-height:80vh;align-items:flex-start;padding-top:1rem;}
-      .ann:first-child{min-height:22vh;}
+      .stage{min-height:auto;}
+      .mdots{display:none;}
+      .ann{min-height:84vh;align-items:flex-start;padding-top:1rem;}
+      .ann:first-child{min-height:24vh;}
       .ann:last-child{min-height:64vh;}
       .anncard{transform:translateY(20px);}
       .ann.on .anncard{transform:translateY(0);}
     }
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;} .scrollcue{animation:none;}
-      .qline,.qstem,.qtail,.seam,.demand{transition:none;}
-      .anncard{transition:opacity .3s;transform:none;}
+      .ans{transition:none;} .anncard{transition:opacity .3s;transform:none;}
     }
   </style>
 </head>
@@ -222,100 +181,86 @@
     <a href="day1/">&larr; InfraWatch · Day 1</a>
     <span class="label">CIPE · CoST IDS × IEA-Kenya</span>
   </div>
-  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each member.</div>
 
   <div class="wrap">
     <!-- ============ HERO ============ -->
     <section class="hero">
       <p class="eyebrow">InfraWatch Nairobi · Day 1 · the morning round</p>
-      <p class="hook">Five partners sat around one table: <b>Kenya, Ghana, Nigeria, Ethiopia, DRC</b>. Each named a different priority. It sounded like five separate agendas.</p>
-      <h1>Five accents, <span class="accent">one sentence</span>.</h1>
-      <p class="lede">Watch the local words fall away. Underneath the variation, every partner was making the same demand, in the same three words.</p>
-      <div class="scrollcue">scroll to hear them &darr;</div>
+      <p class="hook">We went around the table and asked each member the same three questions. Not "do you agree with us", but: <b>what is the problem you want to tackle, what is your role in tackling it, and what would success look like to you?</b></p>
+      <h1>Five members, <span class="accent">three questions</span>.</h1>
+      <p class="lede">Here is what each member answered, in their own framing. On the surface, five different problems, five different roles, five different pictures of success. Then look again.</p>
+
+      <div class="qset">
+        <div class="qcard"><span class="qn">Q1</span><h3>The problem</h3><p>What do you most want to tackle?</p></div>
+        <div class="qcard"><span class="qn">Q2</span><h3>Your role</h3><p>What part do you play in tackling it?</p></div>
+        <div class="qcard"><span class="qn">Q3</span><h3>Success</h3><p>What would success look like to you?</p></div>
+      </div>
+      <div class="scrollcue">scroll to meet them &darr;</div>
     </section>
   </div>
 
-  <!-- ============ THE THEATRE ============ -->
+  <!-- ============ THE PORTRAITS ============ -->
   <div class="wrap">
     <div class="story">
       <div class="stickycol">
-        <div class="stage" id="stage" data-state="surface" aria-label="Five partner asks. The local words fall away to reveal one shared demand: Show us.">
-          <p class="stage-kick" id="stageKick">The surface · five asks, as they were said</p>
-          <div class="chorus" id="chorus"><div class="seam" aria-hidden="true"></div></div>
-          <div class="demand" id="demand" aria-hidden="true">
-            <span class="dk">the demand that was already in the room</span>
-            <p>Do not ask people to trust what they cannot see.</p>
+        <div class="stage" id="stage" aria-label="One member at a time: their problem, their role, and what success looks like to them.">
+          <div class="mdots" id="mdots" aria-hidden="true"></div>
+          <div class="stage-pad">
+            <div class="mhead">
+              <span class="mflag" id="mflag" aria-hidden="true"></span>
+              <span class="mname" id="mname"></span>
+            </div>
+            <p class="morg" id="morg"></p>
+            <span class="mconf" id="mconf" style="display:none">lower confidence, to confirm</span>
+            <div class="answers" id="answers">
+              <div class="ans" data-k="problem"><div class="alabel"><span class="anum">1</span> The problem they want to tackle</div><p class="atext" id="a-problem"></p></div>
+              <div class="ans" data-k="role"><div class="alabel"><span class="anum">2</span> Their role in tackling it</div><p class="atext" id="a-role"></p></div>
+              <div class="ans success" data-k="success"><div class="alabel"><span class="anum">3</span> What success looks like</div><p class="atext" id="a-success"></p></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="anncol">
-        <section class="ann" data-state="surface">
-          <div class="anncard">
-            <p class="kicker">The surface</p>
-            <h3>They sounded different.</h3>
-            <p>Kenya wanted the appraisal before the build. Ghana, the owner of the resource. Nigeria, the numbers. Ethiopia, the quality of the investment. DRC, the delivery. Five partners, five priorities, in their own words. Ethiopia and DRC are <strong>lower-confidence readings</strong>, still to be confirmed.</p>
-          </div>
-        </section>
-
-        <section class="ann" data-state="split">
-          <div class="anncard">
-            <p class="kicker">The split</p>
-            <h3>Every ask had the same opening.</h3>
-            <p>Look at where each sentence begins. The first two words never change: <strong>Show us</strong>. Only the tail does. The stem is shared; the tail is the local variation.</p>
-          </div>
-        </section>
-
-        <section class="ann" data-state="strip">
-          <div class="anncard hero-beat">
-            <p class="kicker">The strip</p>
-            <h3>Take the local words away.</h3>
-            <p>Strip each tail and the same sentence is left five times over. Not five agendas, one demand wearing five accents: <strong>do not ask people to trust what they cannot see.</strong></p>
-          </div>
-        </section>
-
-        <section class="ann" data-state="lanes">
-          <div class="anncard">
-            <p class="kicker">The lanes</p>
-            <h3>The tails are real, and they each have a tool.</h3>
-            <p>Shared demand does not erase local nuance. Each tail becomes an action lane: the ask, the evidence to publish, and the one number that would prove it. The tool already exists, no new method required.</p>
-          </div>
-        </section>
-      </div>
+      <div class="anncol" id="anncol"><!-- beats injected: one per member --></div>
     </div>
 
-    <!-- ============ CLOSER + RECEIPTS ============ -->
-    <h2>The common ground</h2>
-    <p class="closer">They did not ask for the same project. They asked for the same right: <b>show us enough to judge.</b></p>
+    <!-- ============ SYNTHESIS: the surface difference ============ -->
+    <h2>On the surface, five different answers</h2>
+    <p class="lead">Different problems, different roles, different finish lines. This is how it looked going around the table.</p>
+    <div class="synth" id="synth"></div>
+
+    <!-- ============ THE TURN: same problem, shared solution ============ -->
+    <section class="turn">
+      <p class="turn-kick">Now analyse it</p>
+      <h2 class="turn-h">It is the same problem.</h2>
+      <p class="turn-lead">A white elephant in Kenya, a resource that does not reach Ghanaians, unscrutinised investment in Nigeria, low-quality FDI in Ethiopia, delivery citizens cannot shape in DRC. Strip the local detail and each is the same thing: <strong>money is committed to infrastructure before anyone can see whether it is worth it, or hold it to account once it is.</strong></p>
+      <div class="conv" id="conv"></div>
+      <div class="onefinding">
+        <p class="of-k">The key finding</p>
+        <p class="of-h">We are more alike than we are different.</p>
+        <p class="of-p">Five members arrived with what felt like five agendas. Underneath, one shared problem, and the same family of solutions: publish the evidence before the spend, and let the public follow it after. The coalition was already there. It just had to be found, not declared.</p>
+      </div>
+    </section>
 
     <a class="diptych" href="foreign-funding-untangler.html">
-      <span><span class="dx-k">Day 1 · companion</span><br><span class="dx-t">One railway, five legal definitions</span> <span class="dx-s">— before they can demand disclosure, they must agree what counts as the project.</span></span>
+      <span><span class="dx-k">Day 1 · companion</span><br><span class="dx-t">One railway, five legal definitions</span> <span class="dx-s">— before any of these problems can be tackled, they must agree what counts as the project.</span></span>
       <span class="dx-arr">→</span>
     </a>
 
     <details class="drawer">
-      <summary>Receipts: how we read the overlap</summary>
-      <div class="drawer-body">
-        <p>Beneath the shared sentence, the priorities genuinely overlap. This grid is the proof, not the story. Priorities are sorted by how many of the five partners hold each, so the shared block sits on top.</p>
-        <div class="gridwrap"><table class="mx" id="mx"></table></div>
-        <p class="mxnote">Filled dot = the partner holds that priority. Hollow dot (◌) = lower-confidence reading. Columns sorted by partners-per-priority.</p>
-        <p class="topcallout" id="topcallout"></p>
-      </div>
-    </details>
-
-    <details class="drawer">
       <summary>How we read this, and what stays uncertain</summary>
       <div class="drawer-body">
-        <p><strong>What this is.</strong> A working read of the Day-1 morning session in Nairobi, 2 June 2026, not a completed partner survey. Each partner's ask is captured in their own framing; the priorities grid is an analyst's reading of which themes each emphasised.</p>
-        <p><strong>What stays uncertain.</strong> Ethiopia and DRC are tagged lower-confidence (the dashed tails, the hollow dots). They share the demand; the precise emphasis is still to be confirmed. The piece argues they share the <em>demand</em>, not that they are interchangeable.</p>
-        <p><strong>Method.</strong> InfraWatch, developed by CIPE, with the NPV toolkit led by IEA-Kenya and disclosure mapping to the CoST IDS. The tools named per lane (NPV, PEA, IDS, beneficial ownership) are the existing instruments each priority maps to.</p>
+        <p><strong>What this is.</strong> A working read of the Day-1 morning round in Nairobi, 2 June 2026. Each member was asked the same three questions; the answers are captured in their own framing, not edited into a house line.</p>
+        <p><strong>What stays uncertain.</strong> Ethiopia and DRC are tagged lower-confidence readings, still to be confirmed with each member. Their answers are recorded as heard, to be checked back.</p>
+        <p><strong>Why it matters.</strong> Starting from each member's own problem, role and success, rather than from a shared agenda, is what makes any later coalition real instead of assumed. The common ground has to be found, not declared.</p>
       </div>
     </details>
 
     <details class="drawer" id="evidence">
-      <summary>Open data: every partner, ask, tool and number</summary>
+      <summary>Open data: every member, problem, role and success</summary>
       <div class="drawer-body">
-        <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; each reading tagged "confirmed" or "lower-confidence, to confirm" per partner.</p>
+        <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; each reading tagged "confirmed" or "lower-confidence, to confirm" per member.</p>
         <div class="dl">
           <button class="dlbtn" id="dlJson" type="button">Download JSON</button>
           <button class="dlbtn" id="dlCsv" type="button">Download CSV</button>
@@ -325,127 +270,138 @@
     </details>
 
     <footer>
-      <p><strong>Source.</strong> A working read of Day-1 morning, Nairobi, 2 June 2026. InfraWatch (CIPE) · NPV toolkit led by IEA-Kenya · disclosure maps to the CoST IDS. Dashed tails (Ethiopia, DRC) are lower-confidence readings, to be confirmed with each partner. Tell me where I have you wrong.</p>
+      <p><strong>Source.</strong> A working read of the Day-1 morning round, Nairobi, 2 June 2026. InfraWatch (CIPE) · NPV toolkit led by IEA-Kenya · disclosure maps to the CoST IDS. Ethiopia and DRC are lower-confidence readings, to be confirmed with each member. Tell me where I have you wrong.</p>
     </footer>
   </div>
 
   <script>
   (function(){
     "use strict";
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // ---- data: reused verbatim from the working read, nothing invented ----
+    // ---- data: each member's three answers, verbatim from the Day-1 round. Nothing invented. ----
     var C={
-      kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",
-        quote:"Show us before you build.",
-        evidence:"publish the appraisal / feasibility before award",
-        number:"% of projects with an appraisal published before approval",
-        tool:"NPV tests it · IDS discloses it (Preparation)",conf:"hi"},
-      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#0F6B50",
-        quote:"Show us who benefits.",
-        evidence:"publish the beneficial owner of the resource",
-        number:"% of resource projects with disclosed beneficial owners",
-        tool:"PEA traces the value · IDS + BO disclose the owner",conf:"hi"},
-      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#565299",
-        quote:"Show us the numbers.",
-        evidence:"publish the cost-benefit / fiscal-risk case",
-        number:"% of projects with a cost-benefit test on the record",
-        tool:"NPV runs the numbers · IDS discloses the inputs",conf:"hi"},
-      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#A84800",
-        quote:"Show us the quality.",
-        evidence:"publish the real terms and a quality score",
-        number:"% of FDI projects with disclosed terms and a quality score",
-        tool:"NPV weighs quality · PEA reads the terms",conf:"lo"},
-      drc:{label:"DRC",org:"CDHD",c:"#B51D6B",
-        quote:"Show us the delivery.",
-        evidence:"publish delivery data citizens can check",
-        number:"% of projects with delivery data citizens can check",
-        tool:"PEA powers oversight · IDS discloses delivery (Implementation)",conf:"lo"}
+      kenya:{label:"Kenya",org:"IEA-Kenya",ac:"#0071BC",
+        problem:"White-elephant projects, and no trusted method to test value before they are built.",
+        role:"Build the evaluation method, and put evidence and public participation behind it.",
+        success:"Project appraisals are public.",conf:"hi"},
+      ghana:{label:"Ghana",org:"IEA-Ghana",ac:"#0F6B50",
+        problem:"Growth that does not reach Ghanaians, and resources the country does not truly own.",
+        role:"Research and advocacy, through the Growth Diagnostic and Resource Reform work.",
+        success:"Resource wealth benefits Ghanaians.",conf:"hi"},
+      nigeria:{label:"Nigeria",org:"Dataphyte",ac:"#565299",
+        problem:"Foreign investment that arrives without scrutiny or accountability.",
+        role:"Open data and dashboards, tracking influence and training the media to use them.",
+        success:"Cost-benefit tests become mandatory.",conf:"hi"},
+      ethiopia:{label:"Ethiopia",org:"Stalwart",ac:"#A84800",
+        problem:"Low-quality foreign investment, and a model too dependent on aid over private capital.",
+        role:"Investment-climate work: build capacity and close the information gaps.",
+        success:"Responsible investment pays.",conf:"lo"},
+      drc:{label:"DRC",org:"CDHD",ac:"#B51D6B",
+        problem:"Weak governance during delivery, where citizens feel the project but cannot shape it.",
+        role:"Citizen watchdog: inform the public so they can pressure duty-bearers.",
+        success:"Delivery becomes accountable.",conf:"lo"}
     };
     var ORDER=["kenya","ghana","nigeria","ethiopia","drc"];
-    var THEMES={
-      transparency:{label:"Transparency", members:["kenya","ghana","nigeria","ethiopia","drc"], low:["ethiopia","drc"]},
-      accountable:{label:"Accountable investment", members:["kenya","nigeria","ethiopia","drc"], low:["drc"]},
-      jobs:{label:"Jobs & growth", members:["ghana","ethiopia","kenya"], low:["ethiopia"]},
-      resource:{label:"Resource governance", members:["ghana","drc","nigeria"], low:["drc"]},
-      oversight:{label:"Oversight", members:["nigeria","kenya","drc"], low:[]},
-      debt:{label:"Debt & fiscal", members:["kenya","nigeria"], low:[]},
-      quality:{label:"Quality of investment", members:["ethiopia"], low:[]}
-    };
-    var TKEYS=Object.keys(THEMES).sort(function(a,b){return THEMES[b].members.length-THEMES[a].members.length;});
-    var STEM="Show us";
-    function tailOf(c){ return C[c].quote.slice(STEM.length).replace(/^\s+/,""); }
 
-    // ---- build the five chorus lines ----
-    var chorus=document.getElementById("chorus");
+    // ---- inline SVG national flags (self-contained; render identically everywhere) ----
+    function flag(inner,w,h){ return '<svg viewBox="0 0 24 16" width="'+(w||24)+'" height="'+(h||16)+'" role="img" aria-hidden="true">'+
+      inner+'<rect width="24" height="16" fill="none" stroke="rgba(0,0,0,.14)"/></svg>'; }
+    var FI={
+      kenya:'<rect width="24" height="16" fill="#fff"/><rect width="24" height="4.6" fill="#000"/><rect width="24" height="4.4" y="5.6" fill="#BB0000"/><rect width="24" height="4.6" y="11.4" fill="#006600"/><ellipse cx="12" cy="8" rx="2.6" ry="4.4" fill="#BB0000" stroke="#fff" stroke-width=".5"/><rect x="11.4" y="2.4" width="1.2" height="11.2" fill="#fff"/>',
+      ghana:'<rect width="24" height="5.33" fill="#CE1126"/><rect width="24" height="5.33" y="5.33" fill="#FCD116"/><rect width="24" height="5.34" y="10.66" fill="#006B3F"/><path d="M12 5.4l.9 2.7h2.8l-2.3 1.7.9 2.7-2.3-1.7-2.3 1.7.9-2.7-2.3-1.7h2.8z" fill="#000"/>',
+      nigeria:'<rect width="8" height="16" fill="#008751"/><rect width="8" height="16" x="8" fill="#fff"/><rect width="8" height="16" x="16" fill="#008751"/>',
+      ethiopia:'<rect width="24" height="5.33" fill="#078930"/><rect width="24" height="5.33" y="5.33" fill="#FCDD09"/><rect width="24" height="5.34" y="10.66" fill="#DA121A"/><circle cx="12" cy="8" r="3.4" fill="#0F47AF"/><path d="M12 5.2l.7 2.1h2.2l-1.8 1.3.7 2.1-1.8-1.3-1.8 1.3.7-2.1-1.8-1.3h2.2z" fill="#FCDD09"/>',
+      drc:'<rect width="24" height="16" fill="#007FFF"/><path d="M0 13 L19 0 H24 V3 L5 16 H0 Z" fill="#F7D618"/><path d="M0 12 L17.5 0 H21 L1.5 16 H0 Z" fill="#CE1021"/><path d="M2.4 1.2l.7 2.1h2.2l-1.8 1.3.7 2.1-1.8-1.3-1.8 1.3.7-2.1L1.3 3.3h2.2z" fill="#F7D618"/>'
+    };
+    function flagFor(c,w,h){ return flag(FI[c],w,h); }
+
+    // ---- progress dots ----
+    var mdots=document.getElementById("mdots");
+    ORDER.forEach(function(){ var d=document.createElement("span"); d.className="md"; mdots.appendChild(d); });
+    var dotEls=[].slice.call(mdots.children);
+
+    // ---- the sticky portrait: set the whole stage to a member ----
+    var stage=document.getElementById("stage");
+    var mflag=document.getElementById("mflag"), mname=document.getElementById("mname"), morg=document.getElementById("morg"), mconf=document.getElementById("mconf");
+    var aProblem=document.getElementById("a-problem"), aRole=document.getElementById("a-role"), aSuccess=document.getElementById("a-success");
+    var answers=[].slice.call(document.querySelectorAll("#answers .ans"));
+    var curMember=null;
+    function setMember(c){
+      if(curMember===c) return; curMember=c; var d=C[c];
+      stage.style.setProperty("--ac", d.ac);
+      mflag.innerHTML=flagFor(c,30,20);
+      mname.textContent=d.label;
+      morg.textContent=d.org;
+      mconf.style.display = d.conf==="lo" ? "inline-flex" : "none";
+      aProblem.textContent=d.problem; aRole.textContent=d.role; aSuccess.textContent=d.success;
+      var idx=ORDER.indexOf(c);
+      dotEls.forEach(function(el,i){ el.classList.toggle("on", i===idx); });
+      // light all three answers (they reveal together per member; the member IS the beat)
+      answers.forEach(function(a){ a.classList.add("lit"); });
+    }
+
+    // ---- annotation beats: one per member, each a short framing line ----
+    var NOTE={
+      kenya:{k:"Member 1 · Kenya",h:"The method-builder.",p:"IEA-Kenya wants the tool itself: a trusted way to test a project's value <strong>before</strong> the concrete is poured, with the public in the room."},
+      ghana:{k:"Member 2 · Ghana",h:"The ownership advocate.",p:"IEA-Ghana starts from who the growth is <strong>for</strong>, and whether the country truly owns the resources underneath it."},
+      nigeria:{k:"Member 3 · Nigeria",h:"The data watchdog.",p:"Dataphyte wants foreign investment put under <strong>scrutiny</strong>, with open data and a media trained to read it."},
+      ethiopia:{k:"Member 4 · Ethiopia",h:"The quality-seeker.",p:"Stalwart cares less about the volume of investment than its <strong>quality</strong>, and weaning off aid toward responsible private capital. A lower-confidence reading, to confirm."},
+      drc:{k:"Member 5 · DRC",h:"The citizen voice.",p:"CDHD starts where citizens actually feel a project: <strong>delivery</strong>, and whether the public can hold it to account. A lower-confidence reading, to confirm."}
+    };
+    var anncol=document.getElementById("anncol");
     ORDER.forEach(function(c){
-      var d=C[c], lo=d.conf==="lo";
-      var line=document.createElement("div");
-      line.className="qline"+(lo?" lo":"");
-      line.style.setProperty("--qc", d.c);
-      // non-colour identity: a partner-name label sits with every line, so identity never relies on hue.
-      // low-confidence: a readable text chip ("lower confidence"), redundant with (not reliant on) styling.
-      line.innerHTML=
-        '<span class="qname">'+d.label+'</span>'+
-        '<span class="qstem">'+STEM+'</span>'+
-        '<span class="qtail">'+tailOf(c)+'</span>'+
-        (lo?'<span class="qflag" title="a lower-confidence reading, to be confirmed with this partner">lower confidence</span>':'')+
-        '<div class="qchain">'+
-          '<span class="lbl">Publish</span><span class="ev">'+d.evidence+'</span>'+
-          '<span class="lbl">Tool</span><span class="tool">'+d.tool+'</span>'+
-          '<span class="lbl">Number</span><span class="nm">'+d.number+'</span>'+
-        '</div>';
-      line.setAttribute("aria-label", d.label+" ("+d.org+"): "+d.quote+(lo?" (lower-confidence reading, to be confirmed)":""));
-      chorus.appendChild(line);
+      var n=NOTE[c], sec=document.createElement("section");
+      sec.className="ann"; sec.dataset.member=c;
+      sec.style.setProperty("--ac", C[c].ac);
+      sec.innerHTML='<div class="anncard"><p class="kicker">'+n.k+'</p><h3>'+n.h+'</h3><p>'+n.p+'</p></div>';
+      anncol.appendChild(sec);
     });
 
-    // ---- sticky stage state ----
-    var stage=document.getElementById("stage"), kick=document.getElementById("stageKick");
-    var KICK={
-      surface:"The surface · five asks, as they were said",
-      split:"The split · one stem, five tails",
-      strip:"The strip · the local words fall away",
-      lanes:"The lanes · ask → evidence → one number"
-    };
-    function setState(s){ if(stage.dataset.state===s) return; stage.dataset.state=s; kick.textContent=KICK[s]||KICK.surface; }
-
-    // ---- receipts grid ----
+    // ---- synthesis table ----
     (function(){
-      var topN=THEMES[TKEYS[0]].members.length;
-      var h='<thead><tr><th class="rowh">Partner</th>'+
-        TKEYS.map(function(k,i){return '<th'+(i<2?' class="top"':'')+'>'+THEMES[k].label+'</th>';}).join("")+'<th>Held</th></tr></thead><tbody>';
-      ORDER.forEach(function(c){ var n=0; h+='<tr><th class="rowh" style="color:'+C[c].c+'">'+C[c].label+'</th>';
-        TKEYS.forEach(function(k,i){ var has=THEMES[k].members.indexOf(c)>-1, lo=THEMES[k].low.indexOf(c)>-1; if(has)n++;
-          h+='<td'+(i<2?' class="topcol"':'')+'>'+(has?'<span class="hold'+(lo?' lo':'')+'">'+(lo?"◌":"●")+'</span>':'<span style="color:#cdd6df">·</span>')+'</td>'; });
-        h+='<td><b>'+n+'</b></td></tr>'; });
-      h+='</tbody><tfoot><tr><td class="rowh">Partners per priority</td>'+
-        TKEYS.map(function(k,i){return '<td'+(i<2?' class="topcol"':'')+'>'+THEMES[k].members.length+'</td>';}).join("")+'<td></td></tr></tfoot>';
-      document.getElementById("mx").innerHTML=h;
-      document.getElementById("topcallout").innerHTML=
-        '<b>'+topN+' of 5</b> share the top row, transparency. Four of five share accountable investment. '+
-        'The asks differ in emphasis; the demand sits on common ground.';
+      var s=document.getElementById("synth");
+      var h='<div class="sh">Member</div><div class="sh">The problem</div><div class="sh">Their role</div><div class="sh">Success</div>';
+      ORDER.forEach(function(c){ var d=C[c];
+        h+='<div class="smember" style="--sc:'+d.ac+'">'+flagFor(c,20,13).replace("<svg","<svg class=\"sflag\"")+d.label+'</div>'+
+          '<div class="scell" data-l="The problem">'+d.problem+'</div>'+
+          '<div class="scell role" data-l="Their role">'+d.role+'</div>'+
+          '<div class="scell success" data-l="Success" style="--sc:'+d.ac+'">'+d.success+'</div>';
+      });
+      s.innerHTML=h;
+    })();
+
+    // ---- convergence: five surface problems collapse into one shared problem ----
+    (function(){
+      var SURFACE={ kenya:"a white elephant", ghana:"a resource that does not reach its people",
+        nigeria:"investment with no scrutiny", ethiopia:"low-quality FDI", drc:"delivery citizens cannot shape" };
+      var left=ORDER.map(function(c){ var d=C[c];
+        return '<div class="cchip" style="--cc:'+d.ac+'">'+flagFor(c,18,12).replace("<svg","<svg class=\"cfl\"")+
+          '<span><b>'+d.label+':</b> '+SURFACE[c]+'</span></div>';
+      }).join("");
+      document.getElementById("conv").innerHTML=
+        '<div class="cleft">'+left+'</div>'+
+        '<div class="carrow">&rarr;</div>'+
+        '<div class="ccore"><p class="cck">The one shared problem</p>'+
+          '<p class="cch">Money is committed before anyone can judge it.</p>'+
+          '<p class="ccp">Spend is locked in before the evidence is public, and there is no way for the public to hold delivery to account afterwards. Every member\'s problem is a face of this one.</p></div>';
     })();
 
     // ---- open data ----
     function dataRows(){
       return ORDER.map(function(c){ var d=C[c];
-        return { partner:d.label, org:d.org, ask:d.quote, evidence_to_publish:d.evidence,
-          one_number:d.number, proven_tool:d.tool,
-          confidence:(d.conf==="hi"?"confirmed":"lower-confidence, to confirm"),
-          priorities_held:TKEYS.filter(function(k){return THEMES[k].members.indexOf(c)>-1;}).map(function(k){return THEMES[k].label;}).join("; ") };
+        return { member:d.label, org:d.org, problem:d.problem, role:d.role, success:d.success,
+          confidence:(d.conf==="hi"?"confirmed":"lower-confidence, to confirm") };
       });
     }
-    function dl(name,mime,text){
-      var blob=new Blob([text],{type:mime}); var url=URL.createObjectURL(blob);
+    function dl(name,mime,text){ var blob=new Blob([text],{type:mime}); var url=URL.createObjectURL(blob);
       var a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
-      document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(url);},1500);
-    }
+      document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(url);},1500); }
     function csvCell(v){ v=String(v==null?"":v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
-    var COLS=["partner","org","ask","evidence_to_publish","one_number","proven_tool","confidence","priorities_held"];
-    document.getElementById("dlJson").addEventListener("click",function(){ dl("partner-priorities-shared-ground.json","application/json",JSON.stringify(dataRows(),null,2)); });
+    var COLS=["member","org","problem","role","success","confidence"];
+    document.getElementById("dlJson").addEventListener("click",function(){ dl("five-members-three-questions.json","application/json",JSON.stringify(dataRows(),null,2)); });
     document.getElementById("dlCsv").addEventListener("click",function(){
       var rows=dataRows(); var out=[COLS.join(",")].concat(rows.map(function(r){return COLS.map(function(k){return csvCell(r[k]);}).join(",");}));
-      dl("partner-priorities-shared-ground.csv","text/csv",out.join("\n"));
+      dl("five-members-three-questions.csv","text/csv",out.join("\n"));
     });
     document.getElementById("dlXls").addEventListener("click",function(){
       function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
@@ -454,11 +410,11 @@
       var body=rows.map(function(r){return "<Row>"+COLS.map(function(k){return '<Cell><Data ss:Type="String">'+esc(r[k])+'</Data></Cell>';}).join("")+"</Row>";}).join("");
       var xml='<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>'+
         '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'+
-        '<Worksheet ss:Name="Partner priorities"><Table>'+head+body+'</Table></Worksheet></Workbook>';
-      dl("partner-priorities-shared-ground.xls","application/vnd.ms-excel",xml);
+        '<Worksheet ss:Name="Members"><Table>'+head+body+'</Table></Worksheet></Workbook>';
+      dl("five-members-three-questions.xls","application/vnd.ms-excel",xml);
     });
 
-    // ---- race-proof scroll engine ----
+    // ---- race-proof scroll engine: most-centered member beat drives the sticky portrait ----
     var anns=[].slice.call(document.querySelectorAll(".ann"));
     var onObs=new IntersectionObserver(function(es){
       es.forEach(function(e){ e.target.classList.toggle("on", e.isIntersecting && e.intersectionRatio>0.4); });
@@ -470,11 +426,11 @@
       es.forEach(function(e){ ratios.set(e.target, e.isIntersecting?e.intersectionRatio:0); });
       var best=null,bestR=0;
       anns.forEach(function(a){ var r=ratios.get(a)||0; if(r>bestR){bestR=r;best=a;} });
-      if(best && bestR>0.15){ var s=best.dataset.state; if(s!==cur){ cur=s; setState(s); } }
+      if(best && bestR>0.15){ var m=best.dataset.member; if(m!==cur){ cur=m; setMember(m); } }
     },{threshold:[0,.15,.3,.5,.75,1]});
     anns.forEach(function(a){ driver.observe(a); });
 
-    setState("surface");
+    setMember("kenya");
   })();
   </script>
 </body>

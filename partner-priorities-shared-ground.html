@@ -86,9 +86,12 @@
     .ann{min-height:96vh;display:flex;align-items:center;}
     .ann:first-child{min-height:56vh;}
     .ann:last-child{min-height:80vh;padding-bottom:6vh;}
+    /* SOLID dark card (NOT translucent) — these sit on the LIGHT page background, so a translucent
+       white fill rendered as white-on-white. A solid brand-deep fill makes the light text readable
+       AND matches the dark portrait stage. */
     .anncard{position:relative;opacity:0;transform:translateX(26px);
-      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-left:4px solid var(--ac,var(--brand));
-      border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 14px 40px rgba(0,0,0,.28);
+      background:var(--brand-deep);border:1px solid rgba(255,255,255,.1);border-left:4px solid var(--ac,var(--brand));
+      border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 16px 44px rgba(20,35,52,.28);
       transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),border-color .5s ease;}
     .ann.on .anncard{opacity:1;transform:translateX(0);}
     .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#8aa6c4;margin:0 0 .35rem;transition:color .5s ease;}

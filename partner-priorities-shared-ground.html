@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partner priorities, shared ground · InfraWatch</title>
+  <meta name="description" content="Five partners asked for five different things. Strip the words and it was the same sentence: Show us. An InfraWatch visual essay.">
+  <style>
+    :root{
+      --cost-red:#BE1E2D; --cost-dark:#2D2D2D; --cost-mid:#5A5A5A; --cost-light:#E6E6E6;
+      --cost-white:#FFFFFF; --cost-blue:#0071BC; --surface:#F8F8F8;
+      --shadow:0 16px 44px rgba(45,45,45,.12); --radius:10px; --ok:#2F7A46;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      --c-kenya:#0071BC; --c-ghana:#1B9E77; --c-nigeria:#7570B3; --c-ethiopia:#D95F02; --c-drc:#E7298A;
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{font-family:var(--sans); color:var(--cost-dark); background:var(--surface); line-height:1.5; -webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--cost-dark); color:#fff; border-bottom:5px solid var(--cost-red);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:13px 24px;}
+    .brandbar .brand{font-weight:800;} .brandbar .ctx{font-family:var(--mono); text-transform:uppercase; font-size:.72rem; color:var(--cost-light);}
+    .draftbar{background:#fff4d6; border-bottom:1px solid #ecd9a0; color:#7a5a12; font-size:.78rem; font-weight:600; text-align:center; padding:6px 14px;}
+    .draftbar b{color:#5a410a;}
+    .wrap{max-width:1080px; margin:0 auto; padding:24px 18px 46px;}
+
+    .label{font-family:var(--mono); text-transform:uppercase; font-size:.7rem; letter-spacing:.08em; color:var(--cost-red); font-weight:700;}
+    h1{font-size:clamp(1.7rem,3.6vw,2.5rem); line-height:1.07; font-weight:800; margin:5px 0 8px; letter-spacing:-.01em; transition:opacity .3s;}
+    .lesson{font-size:clamp(1rem,1.7vw,1.18rem); color:var(--cost-mid); margin:0 0 14px; max-width:66ch; min-height:3.0em; transition:opacity .3s;} .lesson b{color:var(--cost-dark);}
+
+    /* beat bar */
+    .beats{display:flex; align-items:center; gap:8px; margin:0 0 16px; flex-wrap:wrap;}
+    .beats .step{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:6px 13px; font:inherit; font-weight:700; font-size:.8rem; color:var(--cost-mid); cursor:pointer;}
+    .beats .step[aria-current="true"]{background:var(--cost-red); color:#fff; border-color:var(--cost-red);}
+
+    /* ===== the reveal stage: five quotes that resolve to one stem ===== */
+    .stage{background:#fff; border:1px solid var(--cost-light); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:34px clamp(18px,4vw,52px); position:relative; overflow:hidden;}
+    .chorus{display:flex; flex-direction:column; gap:clamp(12px,2.4vw,22px);}
+    /* each line: a flex row [stem][tail]. Scattered state offsets it; resolved state left-aligns the stem column. */
+    .qline{display:flex; align-items:baseline; gap:.42em; white-space:nowrap; max-width:100%;
+      transform:translateX(var(--scatter,0)); transition:transform .85s cubic-bezier(.22,1,.36,1);}
+    .qstem{font-weight:800; letter-spacing:-.01em; color:var(--cost-dark);
+      font-size:clamp(1.5rem,5.4vw,3.1rem); line-height:1; flex:0 0 auto;
+      /* in scattered state the stem wears the partner colour; on resolve it goes ink-dark and uniform */
+      color:var(--qc); transition:color .6s ease;}
+    .qtail{font-weight:600; letter-spacing:-.005em; color:var(--qc);
+      font-size:clamp(1.28rem,4.4vw,2.55rem); line-height:1; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis;
+      transition:color .6s ease, opacity .5s ease;}
+    .qmeta{display:none; font-family:var(--mono); font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+      color:var(--cost-mid); margin-left:.5em; align-self:center; white-space:nowrap;}
+    /* low-confidence tails (Ethiopia, DRC): lighter, dashed underline, a tag — unity never flattens into interchangeability */
+    .qline.lo .qtail{font-weight:500; border-bottom:2px dashed currentColor; padding-bottom:1px; opacity:.92;}
+    .qline.lo .qflag{display:inline; font-family:var(--mono); font-size:.58rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.04em; color:#A96200; margin-left:.55em; align-self:center; white-space:nowrap;}
+    .qflag{display:none;}
+
+    /* BEAT 0 scattered: stems coloured, each line nudged horizontally, full sentence */
+    body[data-beat="0"] .qline:nth-child(1){--scatter:6%;}
+    body[data-beat="0"] .qline:nth-child(2){--scatter:18%;}
+    body[data-beat="0"] .qline:nth-child(3){--scatter:9%;}
+    body[data-beat="0"] .qline:nth-child(4){--scatter:24%;}
+    body[data-beat="0"] .qline:nth-child(5){--scatter:14%;}
+
+    /* BEAT 1+ resolved: every line flush-left, stems form one ink column, tails fan to the right in colour */
+    body:not([data-beat="0"]) .qline{--scatter:0 !important;}
+    body:not([data-beat="0"]) .qstem{--qc:var(--cost-dark);}
+    /* a hairline guide marks the shared column once resolved */
+    .stemguide{position:absolute; top:34px; bottom:34px; width:2px; background:linear-gradient(#fff,var(--cost-light),var(--cost-light),#fff);
+      opacity:0; transition:opacity .6s ease .35s; left:clamp(18px,4vw,52px);}
+    body:not([data-beat="0"]) .stemguide{opacity:1;}
+
+    /* BEAT 2: each tail trails its proven tool */
+    body[data-beat="2"] .qmeta, body[data-beat="3"] .qmeta{display:inline;}
+    /* BEAT 3: each tail resolves to its one number, shown beneath as a measured figure */
+    .qnum{display:none; font-family:var(--mono); font-size:clamp(.62rem,1.5vw,.78rem); font-weight:700; color:var(--cost-red);
+      margin:.25em 0 0 0; padding-left:.1em; white-space:normal;}
+    body[data-beat="3"] .qnum{display:block;}
+    body[data-beat="3"] .chorus{gap:clamp(16px,2.8vw,26px);}
+    body[data-beat="3"] .qmeta{display:none;}
+
+    /* mobile: shrink the stem so the stem+tail still fit one line; tail wraps under if needed */
+    @media (max-width:560px){
+      .qline{flex-wrap:wrap; white-space:normal;}
+      .qstem{font-size:clamp(1.35rem,9vw,2rem);}
+      .qtail{font-size:clamp(1.05rem,6.5vw,1.6rem); white-space:normal; overflow:visible;}
+      body[data-beat="0"] .qline{--scatter:0 !important;} /* no horizontal scatter on phone, vertical rhythm carries it */
+      body[data-beat="0"] .qline{opacity:.96;}
+    }
+
+    /* story navigation, below the stage */
+    .storynav{display:flex; align-items:center; gap:14px; justify-content:center; margin:18px 0 6px;}
+    .storynav button{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:9px 22px; font:inherit; font-weight:800; cursor:pointer; color:var(--cost-dark); min-width:104px;}
+    .storynav button:hover{border-color:var(--cost-mid);}
+    .storynav button:disabled{opacity:.4; cursor:not-allowed;}
+    .storynav button#next{background:var(--cost-red); color:#fff; border-color:var(--cost-red);}
+    .storynav-mid{font-family:var(--mono); font-size:.74rem; color:var(--cost-mid); min-width:84px; text-align:center;}
+    .keyhint{font-family:var(--mono); font-size:.7rem; color:var(--cost-mid); text-align:center; margin:0 0 4px; opacity:.75;}
+
+    /* proof coda: the evidence grid */
+    .proofhead{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:30px 0 8px;}
+    .proofhead h2{font-size:1.15rem; margin:0;}
+    .proofhead .k{font-family:var(--mono); font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--cost-red); margin:0 0 3px;}
+    .dl{display:inline-flex; gap:6px; flex-wrap:wrap;}
+    .dl button{border:1px solid var(--cost-light); background:#fff; border-radius:30px; padding:6px 12px; font:inherit; font-weight:700; font-size:.76rem; color:var(--cost-mid); cursor:pointer;}
+    .dl button:hover{border-color:var(--cost-mid); color:var(--cost-dark);}
+    .gridwrap{background:#fff; border:1px solid var(--cost-light); border-radius:var(--radius); box-shadow:var(--shadow); padding:8px; overflow:auto;}
+    table.mx{border-collapse:collapse; width:100%; font-size:.84rem;}
+    table.mx th,table.mx td{border:1px solid var(--cost-light); padding:8px 6px; text-align:center;}
+    table.mx th.rowh{text-align:left; white-space:nowrap;}
+    table.mx thead th{background:var(--cost-dark); color:#fff; font-size:.71rem; vertical-align:bottom;}
+    table.mx thead th.top{background:#7a1019;}
+    table.mx tbody th{background:#fafafa;}
+    table.mx td.topcol{background:color-mix(in srgb,var(--cost-red) 6%,white);}
+    table.mx .hold{font-weight:800; color:var(--cost-red);} table.mx .hold.lo{color:var(--cost-mid); font-weight:600;}
+    table.mx tfoot td{font-weight:800; background:#fafafa;}
+    .mxnote{font-size:.78rem; color:var(--cost-mid); margin-top:8px;}
+    .topcallout{margin:10px 0 0; padding:11px 15px; background:color-mix(in srgb,var(--cost-red) 6%,white); border-left:4px solid var(--cost-red);
+      border-radius:var(--radius); font-size:.95rem; font-weight:600; color:var(--cost-dark);}
+    .topcallout b{color:var(--cost-red);}
+
+    /* day-2 handoff: hidden until the close */
+    .day2{margin:16px 0 4px; padding:13px 18px; background:#fff; border:1px solid var(--cost-light); border-left:4px solid var(--cost-red);
+      border-radius:var(--radius); font-size:1.04rem; font-weight:600; color:var(--cost-dark); display:none;}
+    body[data-beat="3"] .day2{display:block;}
+    .day2 b{color:var(--cost-red);}
+
+    .foot{margin-top:18px; color:var(--cost-mid); font-size:.78rem;} .foot strong{color:var(--cost-dark);}
+
+    @media (prefers-reduced-motion: reduce){
+      .qline,.qstem,.qtail,.stemguide,h1,.lesson{transition:none !important;}
+    }
+  </style>
+</head>
+<body data-beat="0">
+  <div class="brandbar"><span class="brand">Partner priorities, shared ground</span><span class="ctx">CoST &middot; InfraWatch</span></div>
+  <div class="draftbar">Working draft, shared for this session. <b>Not for circulation.</b> A working read of the room, to be confirmed with each partner.</div>
+  <main class="wrap">
+    <p class="label">Day-1 morning &middot; what each partner asked for</p>
+    <h1 id="h1"></h1>
+    <p class="lesson" id="lesson"></p>
+
+    <div class="beats" role="group" aria-label="Story beats">
+      <button class="step" data-b="0">Five asks</button>
+      <button class="step" data-b="1">One demand</button>
+      <button class="step" data-b="2">One name</button>
+      <button class="step" data-b="3">One number</button>
+    </div>
+
+    <div class="stage" id="stage" aria-label="Five partner asks resolving into one shared demand">
+      <div class="stemguide" aria-hidden="true"></div>
+      <div class="chorus" id="chorus"></div>
+    </div>
+
+    <div class="storynav">
+      <button id="back">&larr; Back</button>
+      <span class="storynav-mid" id="storyprogress"></span>
+      <button id="next">Next &rarr;</button>
+    </div>
+    <p class="keyhint">Arrow keys or Space move through the story.</p>
+
+    <div class="proofhead">
+      <div>
+        <p class="k">The proof</p>
+        <h2>Where the asks actually overlap</h2>
+      </div>
+      <div class="dl" role="group" aria-label="Download the data">
+        <button data-dl="json">Data: JSON</button>
+        <button data-dl="csv">CSV</button>
+        <button data-dl="xls">Excel</button>
+      </div>
+    </div>
+    <div class="gridwrap"><table class="mx" id="mx"></table></div>
+    <p class="mxnote">Filled dot = the partner holds that priority. Hollow dot (◌) = lower-confidence reading. Columns are sorted by how many partners hold each priority.</p>
+    <p class="topcallout" id="topcallout"></p>
+
+    <p class="day2" id="day2">Today's test &rarr; every partner can name the change they want. The next question is whether each can name the <b>one number</b> that would prove it moved.</p>
+
+    <p class="foot"><strong>Source.</strong> A working read of Day-1 morning, Nairobi, 2 Jun 2026. Dashed tails (Ethiopia, DRC) are lower-confidence readings, to be confirmed with each partner. Tell me where I have you wrong. <span style="opacity:.5;font-family:var(--mono)">v4-resolve</span></p>
+  </main>
+
+  <script>
+  (function(){
+    "use strict";
+    // ---- data: reused verbatim from the working read, nothing invented ----
+    const C={
+      kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",strat:"Published appraisals",
+        quote:"Show us before you build.",sub:"Can't see the appraisal yet.",
+        number:"% of projects with a published appraisal before approval",
+        ids:"NPV tests it, IDS discloses it (Preparation)",conf:"hi"},
+      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",strat:"Local value capture",
+        quote:"Show us who benefits.",sub:"Can't see who owns the resource yet.",
+        number:"% of resource projects with disclosed beneficial owners",
+        ids:"PEA traces the value, IDS + BO disclose the owner",conf:"hi"},
+      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",strat:"Economic scrutiny",
+        quote:"Show us the numbers.",sub:"Can't see the cost-benefit case yet.",
+        number:"% of projects with a cost-benefit test on the record",
+        ids:"NPV runs the numbers, IDS discloses the inputs",conf:"hi"},
+      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",strat:"Quality of investment",
+        quote:"Show us the quality.",sub:"Can't see the real terms yet.",
+        number:"% of FDI projects with disclosed terms and a quality score",
+        ids:"NPV weighs quality, PEA reads the terms",conf:"lo"},
+      drc:{label:"DRC",org:"CDHD",c:"#E7298A",strat:"Citizen oversight",
+        quote:"Show us the delivery.",sub:"Can't see how it's delivered yet.",
+        number:"% of projects with delivery data citizens can check",
+        ids:"PEA powers oversight, IDS discloses delivery (Implementation)",conf:"lo"}
+    };
+    const ORDER=["kenya","ghana","nigeria","ethiopia","drc"];
+    const THEMES={
+      transparency:{label:"Transparency", members:["kenya","ghana","nigeria","ethiopia","drc"], low:["ethiopia","drc"], phase:"runs across all five disclosure phases"},
+      accountable:{label:"Accountable investment", members:["kenya","nigeria","ethiopia","drc"], low:["drc"], phase:"the Preparation phase (funding sources, terms)"},
+      jobs:{label:"Jobs & growth", members:["ghana","ethiopia","kenya"], low:["ethiopia"], phase:"the Preparation phase (appraisal, economic analysis)"},
+      resource:{label:"Resource governance", members:["ghana","drc","nigeria"], low:["drc"], phase:"Identification + Preparation (owner, funding)"},
+      oversight:{label:"Oversight", members:["nigeria","kenya","drc"], low:[], phase:"the Implementation + Completion phases"},
+      debt:{label:"Debt & fiscal", members:["kenya","nigeria"], low:[], phase:"the Preparation phase (funding, cost estimate)"},
+      quality:{label:"Quality of investment", members:["ethiopia"], low:[], phase:"the Preparation phase (funding sources)"}
+    };
+    // sort priorities by how many partners hold them, so the shared block sits on top
+    const TKEYS=Object.keys(THEMES).sort((a,b)=>THEMES[b].members.length-THEMES[a].members.length);
+
+    // split each quote into the shared stem and the local tail
+    const STEM="Show us";
+    function tailOf(c){ return C[c].quote.slice(STEM.length).replace(/^\s+/,""); } // "before you build." etc.
+
+    // ---- build the chorus of five lines ----
+    const chorus=document.getElementById("chorus");
+    ORDER.forEach(c=>{
+      const d=C[c], lo=d.conf==="lo";
+      const tool=d.ids;
+      const line=document.createElement("div");
+      line.className="qline"+(lo?" lo":"");
+      line.style.setProperty("--qc", d.c);
+      line.innerHTML=
+        '<span class="qstem">'+STEM+'</span>'+
+        '<span class="qtail">'+tailOf(c)+
+          '<span class="qflag" title="lower-confidence reading">to confirm</span>'+
+          '<span class="qmeta">'+tool+'</span>'+
+        '</span>'+
+        '<div class="qnum">'+d.label+': '+d.number+'</div>';
+      // a label so each line is still attributable when the stems are uniform
+      line.setAttribute("aria-label", d.label+" ("+d.org+"): "+d.quote);
+      chorus.appendChild(line);
+    });
+
+    // ---- evidence grid (sorted, top block highlighted) ----
+    (function(){
+      const topN=THEMES[TKEYS[0]].members.length; // transparency = 5
+      let h='<thead><tr><th class="rowh">Partner</th>'+
+        TKEYS.map((k,i)=>'<th'+(i<2?' class="top"':'')+'>'+THEMES[k].label+'</th>').join("")+'<th>Held</th></tr></thead><tbody>';
+      ORDER.forEach(c=>{ let n=0; h+='<tr><th class="rowh" style="color:'+C[c].c+'">'+C[c].label+'</th>';
+        TKEYS.forEach((k,i)=>{ const has=THEMES[k].members.includes(c),lo=THEMES[k].low.includes(c); if(has)n++;
+          h+='<td'+(i<2?' class="topcol"':'')+'>'+(has?'<span class="hold'+(lo?' lo':'')+'">'+(lo?"◌":"●")+'</span>':'<span style="color:#ddd">·</span>')+'</td>'; });
+        h+='<td><b>'+n+'</b></td></tr>'; });
+      h+='</tbody><tfoot><tr><td class="rowh">Partners per priority</td>'+
+        TKEYS.map((k,i)=>'<td'+(i<2?' class="topcol"':'')+'>'+THEMES[k].members.length+'</td>').join("")+'<td></td></tr></tfoot>';
+      document.getElementById("mx").innerHTML=h;
+      document.getElementById("topcallout").innerHTML=
+        '<b>'+topN+' of 5</b> share the top row, transparency. Four of five share accountable investment. '+
+        'The asks differ in emphasis, but the demand sits on common ground.';
+    })();
+
+    // ---- open data: JSON / CSV / Excel, generated from the same arrays on screen ----
+    function dataRows(){
+      return ORDER.map(c=>{ const d=C[c];
+        return { partner:d.label, org:d.org, ask:d.quote, shortfall:d.sub,
+          one_number:d.number, proven_tools:d.ids, confidence:(d.conf==="hi"?"confirmed":"lower-confidence, to confirm"),
+          priorities_held:TKEYS.filter(k=>THEMES[k].members.includes(c)).map(k=>THEMES[k].label).join("; ") };
+      });
+    }
+    function dl(name, mime, text){
+      const blob=new Blob([text],{type:mime}); const url=URL.createObjectURL(blob);
+      const a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+      a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500);
+    }
+    function toCSV(rows){
+      const cols=Object.keys(rows[0]);
+      const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
+      return cols.join(",")+"\n"+rows.map(r=>cols.map(k=>esc(r[k])).join(",")).join("\n");
+    }
+    function toXLS(rows){ // SpreadsheetML 2003 — opens in Excel with no library
+      const cols=Object.keys(rows[0]);
+      const esc=v=>String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      const cell=v=>'<Cell><Data ss:Type="String">'+esc(v)+'</Data></Cell>';
+      const head='<Row>'+cols.map(cell).join("")+'</Row>';
+      const body=rows.map(r=>'<Row>'+cols.map(k=>cell(r[k])).join("")+'</Row>').join("");
+      return '<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>'+
+        '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'+
+        '<Worksheet ss:Name="Partner priorities"><Table>'+head+body+'</Table></Worksheet></Workbook>';
+    }
+    document.querySelector(".dl").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b)return;
+      const rows=dataRows();
+      if(b.dataset.dl==="json") dl("partner-priorities-shared-ground.json","application/json",JSON.stringify(rows,null,2));
+      if(b.dataset.dl==="csv")  dl("partner-priorities-shared-ground.csv","text/csv",toCSV(rows));
+      if(b.dataset.dl==="xls")  dl("partner-priorities-shared-ground.xls","application/vnd.ms-excel",toXLS(rows));
+    });
+
+    // ---- the four-beat story (written for a reader alone with the page, no presenter) ----
+    const BEATS=[
+      { h:"Five partners arrived with five different asks.",
+        l:"Kenya, Ghana, Nigeria, Ethiopia, DRC. Five countries, five organizations, five priorities. On the surface, five separate agendas. Read them as they were said, then move to the next beat." },
+      { h:"Strip the words, and it was one sentence.",
+        l:"Every ask begins the same way. The stem is identical, <b>Show us</b>; only the tail changes. That shared demand is the common ground: <b>do not ask citizens to trust what they cannot see.</b> The tails are the legitimate local variation, not five different agendas." },
+      { h:"And the language to act on it already exists.",
+        l:"None of these needs inventing. Proven tools already name each tail, disclosure standards, political-economy analysis, NPV, beneficial-ownership data, so a shared push can skip the fight over definitions and go straight to the ask." },
+      { h:"So each ask resolves to one number.",
+        l:"A demand a government can dismiss. A single figure it cannot. Each tail becomes one measurable number, the thing that would prove the change actually moved." }
+    ];
+    const h1=document.getElementById("h1"), lesson=document.getElementById("lesson");
+    let beat=0;
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function renderBeat(){
+      document.body.dataset.beat=beat;
+      [...document.querySelectorAll(".beats .step")].forEach(s=>s.setAttribute("aria-current", +s.dataset.b===beat?"true":"false"));
+      const apply=()=>{ h1.innerHTML=BEATS[beat].h; lesson.innerHTML=BEATS[beat].l; h1.style.opacity=1; lesson.style.opacity=1; };
+      if(reduce){ apply(); }
+      else { h1.style.opacity=0; lesson.style.opacity=0; setTimeout(apply,150); }
+      document.getElementById("back").disabled = beat===0;
+      const nx=document.getElementById("next"); nx.disabled = beat===3; nx.textContent = beat===3 ? "Done" : "Next →";
+      document.getElementById("storyprogress").textContent = (beat+1)+" / 4";
+    }
+    function go(b){ beat=Math.max(0,Math.min(3,b)); renderBeat(); }
+    document.getElementById("next").onclick=()=>go(beat+1);
+    document.getElementById("back").onclick=()=>go(beat-1);
+    [...document.querySelectorAll(".beats .step")].forEach(s=>s.onclick=()=>go(+s.dataset.b));
+    window.addEventListener("keydown",e=>{
+      if(e.key==="ArrowRight"||e.key===" "){ e.preventDefault(); go(beat+1); }
+      if(e.key==="ArrowLeft"){ e.preventDefault(); go(beat-1); }
+    });
+
+    renderBeat();
+  })();
+  </script>
+</body>
+</html>

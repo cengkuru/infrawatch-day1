@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>One railway, five counts: what counts as foreign-funded?</title>
-  <meta name="description" content="The same sovereign-loan railway, counted five different ways by five countries. A map-jump visual essay from InfraWatch Nairobi, Day 1.">
+  <title>The project did not change. The definition did. One railway through five legal gates</title>
+  <meta name="description" content="The same sovereign-loan railway, run through five countries' legal definitions of foreign funding. It is caught in one, slips through another, and three gates are still being written. A definition machine from InfraWatch Nairobi, Day 1.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
-      --sea:#0e1a28; --land:#22364d; --land-lit:#2f4d6e;
+      --ink:#0c1622; --panel:#16273a; --line:#2a4259;
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
       --mono:"SFMono-Regular",Consolas,monospace;
     }
@@ -20,169 +20,392 @@
     .brandbar a{color:#fff;text-decoration:none;font-weight:800;font-size:.95rem;}
     .brandbar .label{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
     .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
-    .hero{padding:3rem 0 1.4rem;}
-    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
+
+    /* ============ HERO + PREDICT ============ */
+    .hero{padding:3rem 0 1rem;}
+    .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:56ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
     .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:16ch;}
+    h1{font-size:clamp(1.9rem,5.4vw,3rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:18ch;}
     h1 .accent{color:var(--brand);}
-    .lede{font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--mid);max-width:54ch;margin:0;}
-    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
+    .lede{font-size:clamp(1.02rem,2.2vw,1.22rem);color:var(--mid);max-width:54ch;margin:0;}
+
+    .predict{background:var(--brand-deep);color:#fff;border-radius:16px;padding:1.6rem 1.5rem 1.5rem;margin:2rem 0 1rem;box-shadow:0 18px 50px rgba(20,35,52,.2);}
+    .pq-kick{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .8rem;}
+    .factbox{background:rgba(255,255,255,.05);border:1px solid #2c4660;border-radius:10px;padding:.9rem 1rem;margin:0 0 1.2rem;font-family:var(--mono);font-size:.8rem;color:#cfe0f0;line-height:1.9;}
+    .factbox .fk{color:#8fa8c4;} .factbox b{color:#fff;}
+    .pq{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:800;line-height:1.2;margin:0 0 1.1rem;color:#fff;letter-spacing:-.01em;}
+    .votes{display:flex;gap:.7rem;flex-wrap:wrap;}
+    .vote{flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1.5px solid #38597c;color:#eaf0f6;border-radius:10px;padding:.85rem .6rem;font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .1s;font-family:var(--sans);}
+    .vote:hover{background:rgba(255,255,255,.12);border-color:#5fa0e6;}
+    .vote:active{transform:translateY(1px);}
+    .vote.picked{background:#28496A;border-color:#7fb2e6;}
+    .vote .vsub{display:block;font-size:.66rem;font-weight:600;color:#9fb4cc;margin-top:.25rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    .vresult{margin:1.2rem 0 0;font-size:.98rem;line-height:1.55;color:#dfe8f2;opacity:0;max-height:0;overflow:hidden;transition:opacity .5s,max-height .5s;}
+    .vresult.show{opacity:1;max-height:340px;}
+    .vresult strong{color:#fff;}
+    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:1.8rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
-    .mapcol{position:sticky;top:3vh;}
-    .stage-inner{position:relative;background:var(--sea);border:1px solid var(--brand-deep);border-radius:14px;box-shadow:0 16px 44px rgba(20,35,52,.18);padding:.6rem;overflow:hidden;}
-    svg{width:100%;height:auto;display:block;}
-    .scenecap{margin-top:.5rem;padding:.5rem;font-size:.78rem;color:#9fb4cc;text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    /* ============ THE SPLITTING WORD (title device, mirror of the converging constellation) ============ */
+    .splitsec{padding:2.4rem 0 1rem;text-align:center;}
+    .splitsec .word{font-family:var(--mono);font-weight:800;font-size:clamp(1.5rem,6vw,3rem);letter-spacing:.02em;color:var(--brand-deep);margin:0 0 .3rem;}
+    .splitsec .word .fdim{transition:color .8s,opacity .8s;}
+    .splitsec .splead{color:var(--mid);max-width:48ch;margin:.4rem auto 1.6rem;font-size:1.02rem;}
+    .splits{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;max-width:840px;margin:0 auto;}
+    .split{background:var(--white);border:1px solid var(--light);border-top:3px solid var(--mid);border-radius:10px;padding:.85rem .75rem;text-align:left;opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s;}
+    .split.on{opacity:1;transform:none;}
+    .split .sc{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin:0 0 .3rem;}
+    .split .sd{font-size:.86rem;font-weight:700;color:var(--dark);line-height:1.35;}
+    .split.real{border-top-color:var(--brand);}
+    .split.pending{border-top-color:var(--amber);border-style:dashed;background:#fffdf8;}
+    .split.pending .sd{color:var(--amber);font-weight:800;}
 
-    .anncol{position:relative;}
-    .ann{min-height:90vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:55vh;} .ann:last-child{min-height:80vh;padding-bottom:6vh;}
-    .anncard{opacity:0;transform:translateX(26px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.25rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
-    .ann.on .anncard{opacity:1;transform:translateX(0);}
-    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
-    .anncard h3{margin:0 0 .4rem;font-size:1.08rem;font-weight:800;color:var(--dark);}
-    .anncard p{margin:0;font-size:.9rem;color:var(--mid);line-height:1.55;}
-    .anncard strong{color:var(--dark);}
-    .anncard .verdictline{display:inline-block;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;margin:.15rem 0 .5rem;padding:.12rem .4rem;border-radius:4px;}
-    .anncard .verdictline.caught{background:#eef6f0;color:#1B7A3D;}
-    .anncard .verdictline.missed{background:#fdecee;color:#BE1E2D;}
+    /* ============ THE DEFINITION MACHINE (sticky stage + scrolling gate steps) ============ */
+    .machine{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);gap:1.4rem;align-items:start;}
+    .mstage{position:sticky;top:2.5vh;}
+    .stage-inner{background:var(--ink);border:1px solid var(--brand-deep);border-radius:16px;box-shadow:0 16px 44px rgba(20,35,52,.2);padding:1rem;overflow:hidden;}
+    /* the unchanging object */
+    .railcard{background:#0f1d2e;border:1px solid var(--line);border-radius:11px;padding:.7rem .85rem;margin:0 0 .25rem;}
+    .railcard.flash{animation:railflash .7s ease;}
+    @keyframes railflash{0%,100%{box-shadow:0 0 0 0 rgba(127,178,230,0)}40%{box-shadow:0 0 0 3px rgba(127,178,230,.45)}}
+    .railcard .rc-h{display:flex;align-items:center;gap:.5rem;font-weight:800;color:#fff;font-size:.92rem;margin:0 0 .4rem;}
+    .railcard .rc-ico{width:24px;height:24px;flex:0 0 auto;}
+    .railcard .rc-facts{display:flex;flex-wrap:wrap;gap:.3rem;}
+    .railcard .rc-fact{font-family:var(--mono);font-size:.6rem;color:#bcd0e4;background:#1a2c40;border:1px solid #2c4660;border-radius:5px;padding:.16rem .4rem;}
+    .machine .same-note{text-align:center;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#5f7da0;margin:.2rem 0 .55rem;}
+    /* the gates */
+    .gates{display:flex;flex-direction:column;gap:.5rem;}
+    .gate{display:flex;align-items:center;gap:.6rem;background:#0f1d2e;border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;transition:border-color .5s,box-shadow .5s,background .5s,opacity .5s;opacity:.4;}
+    .gate.live{opacity:1;}
+    .gate .g-flag{width:30px;height:20px;flex:0 0 auto;border-radius:3px;border:1px solid rgba(255,255,255,.25);}
+    .gate .g-body{flex:1;min-width:0;}
+    .gate .g-country{display:block;font-weight:800;color:#fff;font-size:.82rem;line-height:1.1;}
+    .gate .g-test{display:block;font-family:var(--mono);font-size:.6rem;color:#9fb4cc;line-height:1.35;margin-top:.15rem;}
+    .gate .g-stamp{font-family:var(--mono);font-weight:800;font-size:.64rem;letter-spacing:.04em;border-radius:5px;padding:.22rem .45rem;flex:0 0 auto;text-align:center;min-width:74px;
+      opacity:0;transform:scale(.6) rotate(-8deg);transition:opacity .4s,transform .4s;}
+    .gate.stamped .g-stamp{opacity:1;transform:none;}
+    .g-stamp.caught{background:#10331f;color:#7fd6a0;border:1px solid #2f6b48;}
+    .g-stamp.slips{background:#3a1419;color:#ff9aa3;border:1px solid #7a1f27;}
+    .g-stamp.pending{background:#3a2e12;color:#f0c674;border:1px dashed #7a5a1a;}
+    .gate.echo-caught{border-color:#2f6b48;box-shadow:0 0 0 1px rgba(63,208,122,.4),0 0 24px rgba(63,208,122,.22);background:#0d2417;}
+    .gate.echo-slips{border-color:#7a1f27;box-shadow:0 0 0 1px rgba(232,138,146,.4),0 0 24px rgba(232,138,146,.22);background:#23121580;}
+    .gate.echo-pending{border-color:#7a5a1a;box-shadow:0 0 0 1px rgba(240,198,116,.4),0 0 24px rgba(240,198,116,.2);background:#211c10;}
+    .scenecap{margin-top:.6rem;padding:.45rem;font-size:.74rem;color:#9fb4cc;text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
 
-    .country{fill:var(--land);stroke:#0e1a28;stroke-width:1;transition:fill .6s;}
-    .country.lit{fill:var(--land-lit);}
-    .clabel{font-size:11px;font-weight:700;fill:#cfe0f0;font-family:var(--sans);}
-    .ccap{font-size:8px;fill:#7fa0c4;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
-    .pin{transition:opacity .5s, transform .5s;}
+    /* scrolling gate narration */
+    .msteps{position:relative;}
+    .mstep{min-height:92vh;display:flex;align-items:center;}
+    .mstep:first-child{min-height:50vh;} .mstep:last-child{min-height:78vh;padding-bottom:5vh;}
+    .mcard{opacity:.25;transform:translateX(22px);transition:opacity .55s,transform .55s cubic-bezier(.2,.7,.2,1);
+      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.3rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
+    .mstep.on .mcard{opacity:1;transform:none;}
+    .mcard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
+    .mcard h3{margin:0 0 .5rem;font-size:1.12rem;font-weight:800;color:var(--dark);letter-spacing:-.01em;}
+    .mcard p{margin:0;font-size:.92rem;color:var(--mid);line-height:1.55;} .mcard strong{color:var(--dark);}
+    .mcard .verdictline{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.04em;margin:.1rem 0 .55rem;padding:.16rem .45rem;border-radius:5px;}
+    .verdictline.caught{background:#eef6f0;color:#1B7A3D;} .verdictline.slips{background:#fdecee;color:#BE1E2D;} .verdictline.pending{background:#fff7e8;color:#9a6a00;}
+    .echo-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;}
+    .echo-dot.caught{background:#1B7A3D;} .echo-dot.slips{background:#BE1E2D;} .echo-dot.pending{background:var(--amber);}
+    .mcard .fromroom{margin-top:.7rem;padding-top:.6rem;border-top:1px dashed var(--light);font-size:.74rem;color:var(--mid);font-family:var(--mono);}
+    .mcard .fromroom b{color:var(--dark);}
+    /* the human voice from the room (attributed, only what the named speaker actually owned) */
+    .voice{display:flex;gap:.65rem;margin-top:.8rem;padding-top:.7rem;border-top:1px dashed var(--light);align-items:flex-start;}
+    .voice .vbubble{width:34px;height:34px;flex:0 0 auto;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;font-family:var(--mono);}
+    .voice .vbubble.cipe{background:#7a3a8c;} .voice .vbubble.iea{background:#1f6f54;} .voice .vbubble.data{background:#9a6a00;}
+    .voice .vq{font-size:.82rem;color:var(--dark);line-height:1.45;font-style:italic;}
+    .voice .vq .vwho{display:block;font-style:normal;font-family:var(--mono);font-size:.62rem;color:var(--mid);text-transform:uppercase;letter-spacing:.03em;margin-top:.3rem;}
+    .humanize{margin-top:.7rem;background:#f3f6f9;border-left:3px solid var(--brand);border-radius:0 8px 8px 0;padding:.55rem .7rem;font-size:.8rem;color:var(--dark);line-height:1.5;}
 
+    /* ============ THE REVEAL STRIP (proof: same input, five stamps) ============ */
     h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.6rem 0 .5rem;}
     h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-    .takeaway{background:var(--brand-deep);color:#fff;border-radius:14px;padding:2rem 2.1rem;margin:2.8rem 0;}
+    .strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:1.2rem 0 .5rem;}
+    .scol{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.7rem .55rem;text-align:center;}
+    .scol .sc-c{font-weight:800;font-size:.82rem;color:var(--dark);margin:0 0 .35rem;}
+    .scol .sc-test{font-family:var(--mono);font-size:.58rem;color:var(--mid);line-height:1.3;min-height:3.2em;margin:0 0 .5rem;}
+    .scol .sc-stamp{font-family:var(--mono);font-weight:800;font-size:.62rem;letter-spacing:.03em;border-radius:5px;padding:.25rem .2rem;}
+    .sc-stamp.caught{background:#10331f;color:#1B7A3D;background:#eef6f0;}
+    .sc-stamp.slips{background:#fdecee;color:#BE1E2D;}
+    .sc-stamp.pending{background:#fff7e8;color:#9a6a00;border:1px dashed #e0c184;}
+    .strip-note{text-align:center;font-size:.84rem;color:var(--mid);margin:.6rem 0 0;font-style:italic;}
+    @media (max-width:680px){ .strip{grid-template-columns:repeat(2,1fr);} }
+
+    .takeaway{background:var(--brand-deep);color:#fff;border-radius:16px;padding:2rem 2.1rem;margin:2.8rem 0;}
     .tk-eyebrow{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:#9fb4cc;margin:0 0 .7rem;}
-    .tk-line{margin:0;font-size:clamp(1.1rem,2.5vw,1.45rem);line-height:1.5;color:#eaf0f6;font-weight:500;}
+    .tk-line{margin:0;font-size:clamp(1.15rem,2.6vw,1.5rem);line-height:1.45;color:#eaf0f6;font-weight:600;}
     .tk-line strong{color:#fff;font-weight:800;}
+    .tk-sub{margin:1rem 0 0;font-size:.98rem;color:#cfe0f0;line-height:1.6;}
+
+    /* the fix: convergence (the diptych payoff) */
+    .converge{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin:1.4rem 0 0;}
+    .converge .cv-many{display:flex;flex-direction:column;gap:.35rem;}
+    .converge .cv-chip{font-family:var(--mono);font-size:.62rem;background:rgba(255,255,255,.07);border:1px solid #2c4660;border-radius:5px;padding:.25rem .45rem;color:#cfe0f0;}
+    .converge .cv-arrow{font-size:1.4rem;color:#7fb2e6;text-align:center;}
+    .converge .cv-one{background:#1f3a57;border:1px solid #3a5a7c;border-radius:10px;padding:.9rem;text-align:center;}
+    .converge .cv-one .cv-k{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin:0 0 .3rem;}
+    .converge .cv-one .cv-t{font-weight:800;color:#fff;font-size:.95rem;line-height:1.25;}
+    @media (max-width:680px){ .converge{grid-template-columns:1fr;} .converge .cv-arrow{transform:rotate(90deg);} }
+
+    .siblingnote{margin:1.6rem 0;padding:1rem 1.2rem;background:#eef2f6;border:1px solid var(--light);border-radius:10px;font-size:.88rem;color:var(--mid);}
+    .siblingnote b{color:var(--dark);} .siblingnote a{color:var(--brand);font-weight:700;}
+
+    /* export + drawers */
+    .export{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.2rem 0;}
+    .btn{font-family:var(--sans);font-size:.86rem;font-weight:700;border:1px solid var(--brand);background:var(--white);color:var(--brand);border-radius:8px;padding:.55rem .9rem;cursor:pointer;text-decoration:none;display:inline-block;}
+    .btn.primary{background:var(--brand);color:#fff;}
+    .btn:hover{filter:brightness(.96);}
+    .copied{font-size:.8rem;color:var(--green);font-weight:700;align-self:center;}
     details.drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:10px;background:var(--white);}
     details.drawer>summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-weight:700;font-size:.95rem;display:flex;gap:.6rem;align-items:center;}
     details.drawer>summary::-webkit-details-marker{display:none;}
-    details.drawer>summary::before{content:"▸";color:var(--brand);transition:transform .15s;}
+    details.drawer>summary::before{content:"\25B8";color:var(--brand);transition:transform .15s;}
     details.drawer[open]>summary::before{transform:rotate(90deg);}
     .drawer-body{padding:0 1.3rem 1.3rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}
     .drawer-body p{margin:1rem 0 0;} .drawer-body strong{color:var(--dark);}
+    table.evtable{width:100%;border-collapse:collapse;font-size:.8rem;margin:1rem 0 0;}
+    table.evtable th,table.evtable td{border:1px solid var(--light);padding:.4rem .55rem;text-align:left;vertical-align:top;}
+    table.evtable th{background:#eef2f6;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dark);}
+    .conf{font-family:var(--mono);font-size:.58rem;padding:.08rem .3rem;border-radius:4px;}
+    .conf.v{background:#eef6f0;color:#1B7A3D;} .conf.p{background:#fff7e8;color:#9a6a00;}
     footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
 
     @media (max-width:860px){
-      .story{grid-template-columns:1fr;gap:0;}
-      .mapcol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
-      .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
-      .ann:first-child{min-height:26vh;}
-      .anncard{transform:translateY(20px);} .ann.on .anncard{transform:translateY(0);}
+      .machine{grid-template-columns:1fr;gap:0;}
+      .mstage{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;}
+      .mstep{min-height:80vh;align-items:flex-start;padding-top:1rem;}
+      .mstep:first-child{min-height:24vh;}
+      .mcard{transform:translateY(18px);} .mstep.on .mcard{transform:translateY(0);}
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} .railcard.flash{animation:none;} .gate,.split,.mcard,.g-stamp{transition:none;} }
   </style>
 </head>
 <body>
   <div class="brandbar"><a href="./day1/">&larr; InfraWatch &middot; Day 1</a><span class="label">CIPE &middot; the foreign-funding definition</span></div>
 
   <div class="wrap">
+    <!-- ============ HERO + PREDICT-THEN-REVEAL ============ -->
     <section class="hero">
-      <p class="hook">One sovereign loan. One railway. The exact same financing instrument. Send it to five countries' record-keepers and you get five different answers to a single question: <b>is this foreign-funded?</b></p>
-      <h1>One railway. <span class="accent">Five counts.</span></h1>
-      <p class="lede">"Foreign-funded" is not one thing. Each country's law draws the line somewhere different, so the same project is logged in one register and invisible in the next. Travel the map and watch it slip through the net.</p>
-      <div class="scrollcue">scroll to travel the map &darr;</div>
+      <p class="hook">One sovereign loan. One railway. The exact same financing instrument, with the exact same facts on paper. Before we send it anywhere, answer one flat question.</p>
+      <h1>Is this railway <span class="accent">foreign-funded?</span></h1>
+      <p class="lede">It sounds like a question with one answer. Commit to yours, then watch five countries disagree.</p>
+
+      <div class="predict" id="predict">
+        <p class="pq-kick">the project, in full</p>
+        <div class="factbox">
+          <span class="fk">project</span> &nbsp;<b>a national railway</b><br>
+          <span class="fk">financing</span> &nbsp;<b>a sovereign loan</b> (the state borrows, the state repays)<br>
+          <span class="fk">foreign ownership stake</span> &nbsp;<b>none</b><br>
+          <span class="fk">repayment</span> &nbsp;<b>public debt</b>
+        </div>
+        <p style="font-size:.82rem;color:#bcd0e4;margin:0 0 1.1rem;line-height:1.5;"><b style="color:#fff;">Public debt means the public pays.</b> Every citizen helps repay this loan through the national budget, whether or not the railway ever reaches their town. So whether it gets counted as foreign-funded is not a filing detail. It decides whether anyone can hold someone to account for it.</p>
+        <p class="pq">Is this project foreign-funded?</p>
+        <div class="votes" role="group" aria-label="Predict whether the railway is foreign-funded">
+          <button class="vote" data-v="yes">Yes<span class="vsub">obviously</span></button>
+          <button class="vote" data-v="no">No<span class="vsub">it is sovereign debt</span></button>
+          <button class="vote" data-v="depends">It depends<span class="vsub">on who is asking</span></button>
+        </div>
+        <p class="vresult" id="vresult"></p>
+      </div>
+      <div class="scrollcue">scroll to find out who agrees with you &darr;</div>
     </section>
   </div>
 
+  <!-- ============ THE SPLITTING WORD (mirror of the constellation's converging words) ============ -->
   <div class="wrap">
-    <div class="story">
-      <div class="mapcol">
+    <section class="splitsec">
+      <p class="word" id="splitword"><span class="fdim" id="fForeign">FOREIGN</span>-FUNDED</p>
+      <p class="splead">One word. Ask five countries what it means and the word splits into five different tests.</p>
+      <div class="splits" id="splits">
+        <div class="split real" data-echo="caught"><p class="sc">In Kenya, it means</p><p class="sd">on the public-debt register</p></div>
+        <div class="split real" data-echo="slips"><p class="sc">In Ghana, it means</p><p class="sd">a foreign entity holds an ownership stake</p></div>
+        <div class="split pending"><p class="sc">In Nigeria, it means</p><p class="sd">definition pending &middot; from Ria's exercise</p></div>
+        <div class="split pending"><p class="sc">In Ethiopia, it means</p><p class="sd">definition pending &middot; from Ria's exercise</p></div>
+        <div class="split pending"><p class="sc">In DR Congo, it means</p><p class="sd">definition pending &middot; from Ria's exercise</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ THE DEFINITION MACHINE ============ -->
+  <div class="wrap">
+    <div class="machine">
+      <div class="mstage" aria-hidden="true">
         <div class="stage-inner">
-          <!-- map: equirectangular projection of the relevant region; country nodes placed by real centroid -->
-          <svg id="map" viewBox="0 0 600 520" role="img" aria-label="A map of five African countries. The same railway project is plotted in each. The camera flies to Kenya, Ghana, Nigeria, Ethiopia and DR Congo in turn; each country's definition of foreign funding either catches the project (green) or lets it slip through (red).">
-            <rect x="0" y="0" width="600" height="520" fill="#0e1a28"/>
-            <!-- simple lat/lng grid for orientation -->
-            <g stroke="#16273a" stroke-width="1">
-              <line x1="0" y1="173" x2="600" y2="173"/><line x1="0" y1="346" x2="600" y2="346"/>
-              <line x1="200" y1="0" x2="200" y2="520"/><line x1="400" y1="0" x2="400" y2="520"/>
-            </g>
-            <text x="8" y="167" class="ccap" fill="#3a5a7a">equator</text>
-
-            <!-- country nodes: rough blobs at projected centroids (positions geographically ordered W->E, lat correct) -->
-            <!-- Ghana (8N,1W)  Nigeria (9N,8E)  Ethiopia (9N,40E)  Kenya (0,38E)  DRC (2S,23E) -->
-            <g id="c_ghana"   class="cnode"><ellipse class="country" cx="150" cy="150" rx="34" ry="30"/><text x="150" y="150" text-anchor="middle" class="clabel">Ghana</text></g>
-            <g id="c_nigeria" class="cnode"><ellipse class="country" cx="245" cy="150" rx="40" ry="34"/><text x="245" y="150" text-anchor="middle" class="clabel">Nigeria</text></g>
-            <g id="c_drc"     class="cnode"><ellipse class="country" cx="365" cy="240" rx="52" ry="44"/><text x="365" y="240" text-anchor="middle" class="clabel">DR Congo</text></g>
-            <g id="c_ethiopia"class="cnode"><ellipse class="country" cx="470" cy="135" rx="40" ry="34"/><text x="470" y="135" text-anchor="middle" class="clabel">Ethiopia</text></g>
-            <g id="c_kenya"   class="cnode"><ellipse class="country" cx="475" cy="200" rx="30" ry="30"/><text x="475" y="200" text-anchor="middle" class="clabel">Kenya</text></g>
-
-            <!-- the project pin (drawn into the active country); verdict = colour -->
-            <g id="pin" class="pin" opacity="0">
-              <circle id="pinDot" cx="475" cy="200" r="9" fill="#1B7A3D" stroke="#fff" stroke-width="2.5"/>
-              <text id="pinVerdict" x="475" y="178" text-anchor="middle" font-size="9" font-weight="800" font-family="var(--mono)" fill="#1B7A3D">CAUGHT</text>
-            </g>
-
-            <text x="300" y="508" text-anchor="middle" font-size="9" font-weight="700" fill="#3a5a7a" font-family="var(--sans)">Positions schematic, west to east. Definition rows are field notes, not legal citations.</text>
-          </svg>
-          <p class="scenecap" id="scenecap">the same railway, before anyone counts it</p>
+          <div class="railcard" id="railcard">
+            <p class="rc-h"><svg class="rc-ico" viewBox="0 0 24 24" fill="none" stroke="#7fb2e6" stroke-width="2"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16M9 16l-2 4M15 16l2 4"/><circle cx="8.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/><circle cx="15.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/></svg> The same railway</p>
+            <div class="rc-facts">
+              <span class="rc-fact">sovereign loan</span>
+              <span class="rc-fact">no foreign ownership stake</span>
+              <span class="rc-fact">repaid as public debt</span>
+            </div>
+          </div>
+          <p class="same-note">these facts never change &darr;</p>
+          <div class="gates" id="gates">
+            <div class="gate" id="gate-kenya">
+              <span class="g-flag" style="background:linear-gradient(180deg,#000 33%,#bb0000 33% 66%,#006600 66%);"></span>
+              <span class="g-body"><span class="g-country">Kenya</span><span class="g-test">on the public-debt register?</span></span>
+              <span class="g-stamp caught">CAUGHT</span>
+            </div>
+            <div class="gate" id="gate-ghana">
+              <span class="g-flag" style="background:linear-gradient(180deg,#ce1126 33%,#fcd116 33% 66%,#006b3f 66%);"></span>
+              <span class="g-body"><span class="g-country">Ghana</span><span class="g-test">does a foreign entity hold an ownership stake?</span></span>
+              <span class="g-stamp slips">SLIPS</span>
+            </div>
+            <div class="gate" id="gate-nigeria">
+              <span class="g-flag" style="background:linear-gradient(90deg,#008751 33%,#fff 33% 66%,#008751 66%);"></span>
+              <span class="g-body"><span class="g-country">Nigeria</span><span class="g-test">test not yet captured</span></span>
+              <span class="g-stamp pending">PENDING</span>
+            </div>
+            <div class="gate" id="gate-ethiopia">
+              <span class="g-flag" style="background:linear-gradient(180deg,#078930 33%,#fcdd09 33% 66%,#da121a 66%);"></span>
+              <span class="g-body"><span class="g-country">Ethiopia</span><span class="g-test">test not yet captured</span></span>
+              <span class="g-stamp pending">PENDING</span>
+            </div>
+            <div class="gate" id="gate-drc">
+              <span class="g-flag" style="background:linear-gradient(135deg,#007fff 60%,#f7d618 60%);"></span>
+              <span class="g-body"><span class="g-country">DR Congo</span><span class="g-test">test not yet captured</span></span>
+              <span class="g-stamp pending">PENDING</span>
+            </div>
+          </div>
+          <p class="scenecap" id="scenecap">one project, about to meet five different rules</p>
         </div>
       </div>
 
-      <div class="anncol">
-        <div class="ann" data-stage="0">
-          <div class="anncard">
-            <p class="kicker">start here</p>
-            <h3>One instrument, five jurisdictions.</h3>
-            <p>A sovereign loan that builds a railway is the same financing instrument in every country. On paper, nothing about it changes as it crosses a border. What changes is how each country's law decides to count it. Travel east and watch.</p>
+      <div class="msteps" id="msteps">
+        <div class="mstep" data-stage="0">
+          <div class="mcard">
+            <p class="kicker">the machine</p>
+            <h3>One project. Five rulebooks.</h3>
+            <p>On paper, the railway and its loan are identical everywhere. Nothing about the project changes as it crosses a border. What changes is the <strong>test each country applies</strong> to decide if it counts as foreign-funded. Drop the same project through all five and watch the stamps disagree.</p>
+            <div class="voice">
+              <span class="vbubble cipe">RO</span>
+              <p class="vq">She ran the exercise to build one common definition of foreign-funded infrastructure, so the country findings could be synthesised and compared at all.
+                <span class="vwho">Ria Orca, BRI Monitoring Coordinator, CIPE Manila &middot; the funding-definition session, Day 1</span></p>
+            </div>
           </div>
         </div>
-        <div class="ann" data-stage="1">
-          <div class="anncard">
-            <p class="kicker">Kenya</p>
-            <h3>Logged through the public-debt register.</h3>
-            <p class="verdictline caught">Caught &middot; counts as foreign-funded</p>
-            <p>Kenya captures the loan through its public-debt register, so the railway shows up as foreign-funded. Here, the net catches it.</p>
+        <div class="mstep" data-stage="1" data-echo="caught" data-gate="kenya">
+          <div class="mcard">
+            <p class="kicker">Kenya &middot; the test that catches it</p>
+            <h3>The public-debt register catches it.</h3>
+            <p class="verdictline caught"><span class="echo-dot caught"></span>Caught &middot; counts as foreign-funded</p>
+            <p>Kenya asks one thing: is this on the public-debt register? A sovereign loan is, so the railway is logged as foreign-funded. <strong>Here, the net catches it.</strong></p>
+            <p class="fromroom"><b>Source:</b> Ria's funding-definition exercise, Nairobi Day 1. <b>Confidence:</b> field note, verified against the debt-register criterion.</p>
           </div>
         </div>
-        <div class="ann" data-stage="2">
-          <div class="anncard">
-            <p class="kicker">Ghana</p>
-            <h3>Captured mainly on an ownership stake.</h3>
-            <p class="verdictline missed">Slips through &middot; not counted the same way</p>
-            <p>Fly west to Ghana and the same project changes status. Ghana captures foreign funding mainly when a foreign entity holds an ownership stake. A sovereign loan without that stake can slip through. Same railway, now invisible.</p>
+        <div class="mstep" data-stage="2" data-echo="slips" data-gate="ghana">
+          <div class="mcard">
+            <p class="kicker">Ghana &middot; the test that misses it</p>
+            <h3>The ownership test lets it slip.</h3>
+            <p class="verdictline slips"><span class="echo-dot slips"></span>Slips through &middot; not counted the same way</p>
+            <p>Ghana asks something else entirely: does a foreign entity hold an ownership stake? A sovereign loan carries no such stake, so the <strong>exact same railway slips straight through</strong> and never appears as foreign-funded. The project did not change. The question did.</p>
+            <p class="fromroom"><b>Source:</b> Ria's funding-definition exercise, Nairobi Day 1. <b>Confidence:</b> field note, verified against the ownership-stake criterion.</p>
           </div>
         </div>
-        <div class="ann" data-stage="3">
-          <div class="anncard">
-            <p class="kicker">Nigeria, Ethiopia, DR Congo</p>
-            <h3>Each draws the line somewhere else again.</h3>
-            <p>Move across the rest of the map and the line keeps shifting. Each country's law puts it in a different place, so the same project appears in some registers and vanishes from others, with no harmonised view across them.</p>
+        <div class="mstep" data-stage="3" data-echo="pending" data-gate="nigeria">
+          <div class="mcard">
+            <p class="kicker">Nigeria, Ethiopia, DR Congo &middot; three tests not yet written here</p>
+            <h3>Three gates still being defined.</h3>
+            <p class="verdictline pending"><span class="echo-dot pending"></span>Pending &middot; definition not yet captured</p>
+            <p>These three countries each draw the line somewhere else again, but their exact legal tests were described in <strong>Ria's funding-definition exercise</strong> and are not yet captured as criteria. We are not going to invent them. The gates are built and waiting; the moment the three real tests come back from the exercise, each one stamps its own verdict here.</p>
+            <div class="voice">
+              <span class="vbubble data">DP</span>
+              <p class="vq">Nigeria's own partners call themselves "glorified Excel" treasure-hunters, and they flagged that Auditor-General reports run about four years late, so the verdict on a project lands long after the money is spent.
+                <span class="vwho">Dataphyte, Nigeria partner &middot; the funding-definition session, Day 1</span></p>
+            </div>
+            <p class="fromroom"><b>Status:</b> placeholder, awaiting Ria's slide export. We mark it pending rather than guess.</p>
           </div>
         </div>
-        <div class="ann" data-stage="4">
-          <div class="anncard">
+        <div class="mstep" data-stage="4" data-echo="all">
+          <div class="mcard">
+            <p class="kicker">the reveal</p>
+            <h3>The project did not change. The definition did.</h3>
+            <p>Same loan. Same railway. Same facts. Run it through the gates and the stamps come back <strong>different</strong>: caught here, slipped there, three still being written. "Foreign-funded" turned out not to be a fact about the project at all. It was a <strong>decision</strong>, made differently by each rulebook.</p>
+          </div>
+        </div>
+        <div class="mstep" data-stage="5" data-echo="all">
+          <div class="mcard">
             <p class="kicker">the fix</p>
             <h3>One shared definition every country maps up to.</h3>
-            <p>The answer is not to rewrite five countries' laws. It is <strong>one shared, OC4IDS-anchored definition</strong> of foreign-funded infrastructure that each country can map its own records up to, so the same railway counts the same way everywhere.</p>
+            <p>The answer is not to rewrite five countries' laws. It is <strong>one shared, OC4IDS-anchored definition</strong> of foreign-funded infrastructure that each country maps its own records up to. Keep the national tests; add one common layer above them, so the same railway finally counts the same way everywhere, and cross-country comparison can be trusted.</p>
+            <div class="voice">
+              <span class="vbubble cipe">CT</span>
+              <p class="vq">The risk the CIPE leads named at the close was keeping this simple and untangled, and making it stick beyond the conference room. A shared definition is how it sticks.
+                <span class="vwho">Cathy Tai, Director, China in the World, CIPE &middot; plenary close, Day 1</span></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- ============ THE PROOF STRIP (screenshot-ready evidence view) ============ -->
+    <h2><span class="num">01</span>One project, five verdicts</h2>
+    <p class="lead">The evidence in one frame. Identical input across the top of every column; the only thing that differs is the rule, and so the stamp.</p>
+    <div class="strip">
+      <div class="scol"><p class="sc-c">Kenya</p><p class="sc-test">on the public-debt register?</p><p class="sc-stamp caught">CAUGHT</p></div>
+      <div class="scol"><p class="sc-c">Ghana</p><p class="sc-test">foreign ownership stake?</p><p class="sc-stamp slips">SLIPS</p></div>
+      <div class="scol"><p class="sc-c">Nigeria</p><p class="sc-test">test not yet captured</p><p class="sc-stamp pending">PENDING</p></div>
+      <div class="scol"><p class="sc-c">Ethiopia</p><p class="sc-test">test not yet captured</p><p class="sc-stamp pending">PENDING</p></div>
+      <div class="scol"><p class="sc-c">DR Congo</p><p class="sc-test">test not yet captured</p><p class="sc-stamp pending">PENDING</p></div>
+    </div>
+    <p class="strip-note">Counted in one, invisible in another, undefined in three. No shared reality, yet.</p>
 
     <div class="takeaway">
       <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
-      <p class="tk-line"><strong>"Foreign-funded" is not a fact about a project. It is a decision each country's law makes differently.</strong> Until there is one shared definition to map up to, the same railway is counted in one country and invisible in the next, and no cross-country comparison can be trusted.</p>
+      <p class="tk-line"><strong>"Foreign-funded" is not a fact about a project. It is a decision each country's law makes differently.</strong></p>
+      <p class="tk-sub">Until there is one shared definition to map up to, the same railway is counted in one country and invisible in the next, and no cross-country comparison can be trusted.</p>
+
+      <div class="converge">
+        <div class="cv-many">
+          <span class="cv-chip">Kenya: debt register</span>
+          <span class="cv-chip">Ghana: ownership stake</span>
+          <span class="cv-chip">Nigeria: pending</span>
+          <span class="cv-chip">Ethiopia: pending</span>
+          <span class="cv-chip">DR Congo: pending</span>
+        </div>
+        <div class="cv-arrow">&rarr;</div>
+        <div class="cv-one">
+          <p class="cv-k">map every test up to</p>
+          <p class="cv-t">one OC4IDS-anchored definition of foreign-funded infrastructure</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="siblingnote">
+      <b>A pair, read together.</b> Its sibling, <a href="./partner-priorities-constellation.html">Partner Priorities: Same Themes, Different Paths</a>, shows five partners' visions <b>converging</b> on one shared demand. This piece is its mirror: one shared word <b>diverging</b> into five definitions. Same coalition, opposite motion. The first shows the partners already want the same thing; the second shows why the technical terms they must standardise still mean different things, which is exactly the case for a shared definition.
+    </div>
+
+    <div class="export">
+      <button class="btn primary" id="copyLine">Copy the headline</button>
+      <button class="btn" id="copyCaption">Copy caption</button>
+      <a class="btn" href="#evidence">See the evidence</a>
+      <span class="copied" id="commsCopied" hidden>Copied</span>
+    </div>
+
+    <!-- ============ EVIDENCE TABLE + OPEN DATA ============ -->
+    <h2 id="evidence"><span class="num">02</span>The five definitions, as captured so far</h2>
+    <p class="lead">Two tests verified against Ria's exercise; three still to come from the slide export. Confidence is tagged on every row, and the same data drives the downloads below.</p>
+    <table class="evtable">
+      <thead><tr><th>Country</th><th>The test it applies</th><th>Same railway</th><th>Maps up to</th><th>Confidence</th></tr></thead>
+      <tbody id="evbody"></tbody>
+    </table>
+    <div class="export">
+      <button class="btn" id="dlJson">Download JSON</button>
+      <button class="btn" id="dlCsv">Download CSV</button>
+      <button class="btn" id="dlXls">Download Excel</button>
     </div>
 
     <details class="drawer">
-      <summary>Where this comes from</summary>
+      <summary>Where this comes from, and what is still pending</summary>
       <div class="drawer-body">
-        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026), Ria's funding-definition exercise, where each country partner described how their framework actually defines foreign funding. The definition rows here are first-pass field notes, not legal citations. The map positions are schematic (ordered west to east), not a survey-grade projection. Verify against statute before external use.</p>
-        <p><strong>The fix.</strong> A shared definition anchored to the OC4IDS financial fields lets every country map its own records up to a common view. That common view is what makes cross-country comparison credible.</p>
+        <p><strong>Source.</strong> InfraWatch Nairobi, Day 1 (2 Jun 2026), Ria's funding-definition exercise, where each country partner described how their framework actually defines foreign funding. Kenya (public-debt register) and Ghana (foreign ownership stake) are captured here as field notes verified against those two criteria.</p>
+        <p><strong>What is pending.</strong> Nigeria, Ethiopia, and DR Congo each described a different legal test in the same exercise, recorded on Ria's shared Google-Slides deck. Those exact criteria are not yet exported into this piece, so their gates are marked <strong>pending</strong> rather than filled with a guess. Naming a country's legal test wrong is worse than leaving it openly undefined. When the three real tests return from the exercise, they drop straight into the built gates.</p>
+        <p><strong>The fix.</strong> A shared definition anchored to the OC4IDS financial fields lets every country map its own records up to one common view. That common view is what makes cross-country comparison credible, and it is the shared demand the partner-priorities piece shows the room already reaching for.</p>
       </div>
     </details>
 
     <footer>
-      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026, funding-definition exercise. Definition rows are first-pass field notes; map positions schematic. Working visual by Michael Cengkuru, CoST.</p>
+      <p>InfraWatch (CIPE), Nairobi Day 1, 2 Jun 2026, funding-definition exercise. Kenya and Ghana tests are verified field notes; Nigeria, Ethiopia and DR Congo are pending Ria's slide export. Working visual by Michael Cengkuru, CoST.</p>
     </footer>
   </div>
 
@@ -190,47 +413,80 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var map=document.getElementById("map");
-    var FULL=[0,0,600,520], camCur=FULL.slice(), camAnim=null;
-    function setVB(v){ map.setAttribute("viewBox", v.join(" ")); }
-    function easeIO(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
-    function cameraTo(target,dur){
-      if(reduceMotion){ camCur=target.slice(); setVB(camCur); return; }
-      var from=camCur.slice(), start=null; if(camAnim) cancelAnimationFrame(camAnim);
-      function step(ts){ if(start===null)start=ts; var t=Math.min(1,(ts-start)/dur), e=easeIO(t);
-        for(var i=0;i<4;i++) camCur[i]=from[i]+(target[i]-from[i])*e; setVB(camCur);
-        if(t<1) camAnim=requestAnimationFrame(step); else { camCur=target.slice(); camAnim=null; } }
-      camAnim=requestAnimationFrame(step);
-    }
-    function frameOn(cx,cy,w){ var h=w*(FULL[3]/FULL[2]); return [cx-w/2,cy-h/2,w,h]; }
 
-    var pin=document.getElementById("pin"), pinDot=document.getElementById("pinDot"),
-        pinVerdict=document.getElementById("pinVerdict"), scenecap=document.getElementById("scenecap");
-    var nodes={ kenya:[475,200], ghana:[150,150], nigeria:[245,150], ethiopia:[470,135], drc:[365,240] };
+    /* ---------- the data (drives gates, strip, table, downloads) ---------- */
+    var DATA=[
+      {country:"Kenya", test:"On the public-debt register?", same_project:"Caught (counts as foreign-funded)", stamp:"caught", maps_up_to:"foreign-financed public infrastructure", confidence:"field note, verified"},
+      {country:"Ghana", test:"Does a foreign entity hold an ownership stake?", same_project:"Slips through (not counted)", stamp:"slips", maps_up_to:"foreign-financed public infrastructure", confidence:"field note, verified"},
+      {country:"Nigeria", test:"Definition pending, from Ria's exercise", same_project:"Pending", stamp:"pending", maps_up_to:"foreign-financed public infrastructure", confidence:"pending, awaiting source"},
+      {country:"Ethiopia", test:"Definition pending, from Ria's exercise", same_project:"Pending", stamp:"pending", maps_up_to:"foreign-financed public infrastructure", confidence:"pending, awaiting source"},
+      {country:"DR Congo", test:"Definition pending, from Ria's exercise", same_project:"Pending", stamp:"pending", maps_up_to:"foreign-financed public infrastructure", confidence:"pending, awaiting source"}
+    ];
 
-    function litOnly(id){ document.querySelectorAll(".country").forEach(function(c){ c.classList.remove("lit"); });
-      if(id){ var g=document.getElementById("c_"+id); if(g) g.querySelector(".country").classList.add("lit"); } }
+    /* ---------- predict-then-reveal ---------- */
+    var voted=false;
+    var COPY={
+      yes:"You said <strong>yes</strong>, and in Kenya you are right: the public-debt register catches it. But carry that same confidence to Ghana and you are wrong. The ownership test lets the identical loan slip through. Your answer did not change. The rulebook did.",
+      no:"You said <strong>no</strong>, it is sovereign debt, and in Ghana the law agrees: with no foreign ownership stake, it slips through. But in Kenya the same project is caught and logged as foreign-funded. One word, two opposite answers, same railway.",
+      depends:"You said <strong>it depends on who is asking</strong>, which is the whole finding. \"Foreign-funded\" is not a property of the project. It is a verdict each country's test returns, and the tests disagree."
+    };
+    document.querySelectorAll(".vote").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        document.querySelectorAll(".vote").forEach(function(b){ b.classList.remove("picked"); });
+        btn.classList.add("picked");
+        var v=btn.getAttribute("data-v");
+        var box=document.getElementById("vresult");
+        box.innerHTML=COPY[v]+" <br><br>Scroll on and watch it happen, gate by gate.";
+        box.classList.add("show");
+        voted=true;
+      });
+    });
 
-    function placePin(id, caught){
-      var n=nodes[id]; pin.setAttribute("opacity","1");
-      pinDot.setAttribute("cx",n[0]); pinDot.setAttribute("cy",n[1]);
-      pinVerdict.setAttribute("x",n[0]); pinVerdict.setAttribute("y",n[1]-22);
-      if(caught){ pinDot.setAttribute("fill","#1B7A3D"); pinVerdict.textContent="CAUGHT"; pinVerdict.setAttribute("fill","#7fd6a0"); pinDot.removeAttribute("stroke-dasharray"); }
-      else { pinDot.setAttribute("fill","#BE1E2D"); pinVerdict.textContent="SLIPS THROUGH"; pinVerdict.setAttribute("fill","#ff9aa3"); pinDot.setAttribute("stroke-dasharray","3 2"); }
-    }
+    /* ---------- the splitting word: dim FOREIGN as the splits appear ---------- */
+    var splits=[].slice.call(document.querySelectorAll(".split"));
+    var splitIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        var i=splits.indexOf(e.target);
+        setTimeout(function(){ e.target.classList.add("on"); }, reduceMotion?0:i*120);
+      }});
+    },{threshold:.4});
+    splits.forEach(function(s){ splitIO.observe(s); });
+    var fForeign=document.getElementById("fForeign");
+    var wordIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ fForeign.style.color="#9aa7b5"; fForeign.style.opacity=".55"; } });
+    },{threshold:.6});
+    if(document.getElementById("splits")) wordIO.observe(document.getElementById("splits"));
+
+    /* ---------- the definition machine: stamps + echo glow ---------- */
+    var gateOf={ kenya:document.getElementById("gate-kenya"), ghana:document.getElementById("gate-ghana"),
+                 nigeria:document.getElementById("gate-nigeria"), ethiopia:document.getElementById("gate-ethiopia"),
+                 drc:document.getElementById("gate-drc") };
+    var railcard=document.getElementById("railcard"), scenecap=document.getElementById("scenecap");
+    var ECHOCLS={caught:"echo-caught", slips:"echo-slips", pending:"echo-pending"};
+    var allGates=[gateOf.kenya,gateOf.ghana,gateOf.nigeria,gateOf.ethiopia,gateOf.drc];
+
+    function clearEcho(){ allGates.forEach(function(g){ g.classList.remove("echo-caught","echo-slips","echo-pending"); }); }
+    function liveOn(ids){ allGates.forEach(function(g){ g.classList.remove("live"); });
+      ids.forEach(function(id){ gateOf[id] && gateOf[id].classList.add("live"); }); }
+    function stamp(ids){ ids.forEach(function(id){ gateOf[id] && gateOf[id].classList.add("stamped"); }); }
+    function flashRail(){ if(reduceMotion) return; railcard.classList.remove("flash"); void railcard.offsetWidth; railcard.classList.add("flash"); }
+
+    var CAPS=["one project, about to meet five different rules",
+              "Kenya: the register catches it",
+              "Ghana: the identical loan slips through",
+              "three gates still being written",
+              "same input, different stamps",
+              "one shared definition to map up to"];
 
     function setStage(s){
-      if(s===0){ pin.setAttribute("opacity","0"); litOnly(null); cameraTo(FULL.slice(),1000); scenecap.textContent="the same railway, before anyone counts it"; }
-      if(s===1){ litOnly("kenya"); placePin("kenya",true);   cameraTo(frameOn(475,200,230),1100); scenecap.textContent="Kenya: the net catches it"; }
-      if(s===2){ litOnly("ghana"); placePin("ghana",false);  cameraTo(frameOn(150,150,230),1100); scenecap.textContent="Ghana: the net misses it"; }
-      if(s===3){ litOnly(null);
-                 document.getElementById("c_nigeria").querySelector(".country").classList.add("lit");
-                 document.getElementById("c_ethiopia").querySelector(".country").classList.add("lit");
-                 document.getElementById("c_drc").querySelector(".country").classList.add("lit");
-                 placePin("nigeria",false); cameraTo([60,40,480,420],1100); scenecap.textContent="each country, a different line"; }
-      if(s===4){ pin.setAttribute("opacity","0");
-                 document.querySelectorAll(".country").forEach(function(c){ c.classList.add("lit"); });
-                 cameraTo(FULL.slice(),1100); scenecap.textContent="one shared definition to map up to"; }
+      clearEcho();
+      if(s===0){ liveOn([]); scenecap.textContent=CAPS[0]; }
+      else if(s===1){ liveOn(["kenya"]); stamp(["kenya"]); gateOf.kenya.classList.add(ECHOCLS.caught); flashRail(); scenecap.textContent=CAPS[1]; }
+      else if(s===2){ liveOn(["kenya","ghana"]); stamp(["kenya","ghana"]); gateOf.ghana.classList.add(ECHOCLS.slips); flashRail(); scenecap.textContent=CAPS[2]; }
+      else if(s===3){ liveOn(["kenya","ghana","nigeria","ethiopia","drc"]); stamp(["kenya","ghana","nigeria","ethiopia","drc"]);
+                      [gateOf.nigeria,gateOf.ethiopia,gateOf.drc].forEach(function(g){ g.classList.add(ECHOCLS.pending); }); scenecap.textContent=CAPS[3]; }
+      else if(s===4){ liveOn(["kenya","ghana","nigeria","ethiopia","drc"]); stamp(["kenya","ghana","nigeria","ethiopia","drc"]); flashRail(); scenecap.textContent=CAPS[4]; }
+      else if(s>=5){ liveOn(["kenya","ghana","nigeria","ethiopia","drc"]); stamp(["kenya","ghana","nigeria","ethiopia","drc"]); scenecap.textContent=CAPS[5]; }
     }
 
     var ratios={}, cur=-1;
@@ -240,9 +496,49 @@
       var best=-1,bestR=0; for(var k in ratios) if(ratios[k]>bestR){bestR=ratios[k];best=+k;}
       if(best>=0 && bestR>0.2 && best!==cur){ cur=best; setStage(best); }
     },{threshold:[0,.25,.5,.75,1]});
-    document.querySelectorAll(".ann").forEach(function(a){ io.observe(a); });
+    document.querySelectorAll(".mstep").forEach(function(a){ io.observe(a); });
     setStage(0);
-    if(document.querySelector(".ann")) document.querySelector(".ann").classList.add("on");
+    var first=document.querySelector(".mstep"); if(first) first.classList.add("on");
+
+    /* ---------- evidence table from DATA ---------- */
+    var evbody=document.getElementById("evbody");
+    DATA.forEach(function(d){
+      var tr=document.createElement("tr");
+      var cc=d.confidence.indexOf("verified")>=0?"v":"p";
+      tr.innerHTML="<td><b>"+d.country+"</b></td><td>"+d.test+"</td><td>"+d.same_project+"</td><td>"+d.maps_up_to+"</td><td><span class='conf "+cc+"'>"+d.confidence+"</span></td>";
+      evbody.appendChild(tr);
+    });
+
+    /* ---------- open-data downloads (generated from DATA, never drift) ---------- */
+    function dl(name, text, mime){
+      var blob=new Blob([text],{type:mime}), url=URL.createObjectURL(blob);
+      var a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+      document.body.removeChild(a); setTimeout(function(){ URL.revokeObjectURL(url); },500);
+    }
+    function csvCell(s){ s=String(s==null?"":s); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+    var COLS=["country","test","same_project","maps_up_to","confidence"];
+    document.getElementById("dlJson").addEventListener("click",function(){
+      dl("foreign-funding-definitions.json", JSON.stringify({source:"InfraWatch Nairobi Day 1, Ria funding-definition exercise, 2 Jun 2026", note:"Kenya and Ghana verified field notes; Nigeria, Ethiopia, DR Congo pending slide export", rows:DATA}, null, 2), "application/json");
+    });
+    document.getElementById("dlCsv").addEventListener("click",function(){
+      var rows=[COLS.join(",")]; DATA.forEach(function(d){ rows.push(COLS.map(function(c){return csvCell(d[c]);}).join(",")); });
+      dl("foreign-funding-definitions.csv", rows.join("\n"), "text/csv");
+    });
+    document.getElementById("dlXls").addEventListener("click",function(){
+      var head="<tr>"+COLS.map(function(c){return "<th>"+c+"</th>";}).join("")+"</tr>";
+      var body=DATA.map(function(d){ return "<tr>"+COLS.map(function(c){return "<td>"+String(d[c]).replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</td>";}).join("")+"</tr>"; }).join("");
+      var xls='<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40"><ss:Worksheet xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" ss:Name="Definitions"><table>'+head+body+'</table></ss:Worksheet></Workbook>';
+      // simple HTML-table .xls (Excel-openable, no library)
+      dl("foreign-funding-definitions.xls", '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1">'+head+body+'</table></body></html>', "application/vnd.ms-excel");
+    });
+
+    /* ---------- comms copy ---------- */
+    var HEADLINE="The project did not change. The definition did.";
+    var CAPTION="The same sovereign-loan railway, run through five countries' definitions of foreign funding: caught in Kenya, slips through Ghana, three still being defined. \"Foreign-funded\" is not a fact about a project; it is a decision each country's law makes differently. The fix: one shared OC4IDS-anchored definition every country maps up to. InfraWatch (CIPE), Nairobi Day 1.";
+    function flashCopied(){ var c=document.getElementById("commsCopied"); c.hidden=false; setTimeout(function(){ c.hidden=true; },1600); }
+    function copy(t){ if(navigator.clipboard){ navigator.clipboard.writeText(t).then(flashCopied,function(){}); } }
+    document.getElementById("copyLine").addEventListener("click",function(){ copy(HEADLINE); });
+    document.getElementById("copyCaption").addEventListener("click",function(){ copy(CAPTION); });
   })();
   </script>
 </body>

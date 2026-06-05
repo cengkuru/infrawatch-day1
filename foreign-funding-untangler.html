@@ -63,23 +63,48 @@
     .railcard .rc-facts{display:flex;flex-wrap:wrap;gap:.3rem;}
     .railcard .rc-fact{font-family:var(--mono);font-size:.6rem;color:#bcd0e4;background:#1a2c40;border:1px solid #2c4660;border-radius:5px;padding:.16rem .4rem;}
     .machine .same-note{text-align:center;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#5f7da0;margin:.2rem 0 .55rem;}
-    /* the gates */
-    .gates{display:flex;flex-direction:column;gap:.5rem;}
-    .gate{display:flex;align-items:center;gap:.6rem;background:#0f1d2e;border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;transition:border-color .5s,box-shadow .5s,background .5s,opacity .5s;opacity:.4;}
-    .gate.live{opacity:1;}
-    .gate .g-flag{width:30px;height:20px;flex:0 0 auto;border-radius:3px;border:1px solid rgba(255,255,255,.25);}
-    .gate .g-body{flex:1;min-width:0;}
-    .gate .g-country{display:block;font-weight:800;color:#fff;font-size:.82rem;line-height:1.1;}
-    .gate .g-test{display:block;font-family:var(--mono);font-size:.6rem;color:#9fb4cc;line-height:1.35;margin-top:.15rem;}
-    .gate .g-stamp{font-family:var(--mono);font-weight:800;font-size:.64rem;letter-spacing:.04em;border-radius:5px;padding:.22rem .45rem;flex:0 0 auto;text-align:center;min-width:74px;
-      opacity:0;transform:scale(.6) rotate(-8deg);transition:opacity .4s,transform .4s;}
-    .gate.stamped .g-stamp{opacity:1;transform:none;}
-    .g-stamp.caught{background:#10331f;color:#7fd6a0;border:1px solid #2f6b48;}
-    .g-stamp.slips{background:#3a1419;color:#ff9aa3;border:1px solid #7a1f27;}
-    .g-stamp.unclear{background:#3a2e12;color:#f0c674;border:1px solid #7a5a1a;}
-    .gate.echo-caught{border-color:#2f6b48;box-shadow:0 0 0 1px rgba(63,208,122,.4),0 0 24px rgba(63,208,122,.22);background:#0d2417;}
-    .gate.echo-slips{border-color:#7a1f27;box-shadow:0 0 0 1px rgba(232,138,146,.4),0 0 24px rgba(232,138,146,.22);background:#23121580;}
-    .gate.echo-unclear{border-color:#7a5a1a;box-shadow:0 0 0 1px rgba(240,198,116,.4),0 0 24px rgba(240,198,116,.2);background:#211c10;}
+    /* THE FILTER ARRAY: each filter is a differently-shaped sieve; the token catches / slips / falls */
+    .farray{display:flex;flex-direction:column;gap:.45rem;}
+    .filter{position:relative;background:#0f1d2e;border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem .4rem;opacity:.38;
+      transition:opacity .5s,border-color .5s,box-shadow .5s,background .5s;}
+    .filter.live{opacity:1;}
+    .f-head{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;}
+    .f-country{font-weight:800;color:#fff;font-size:.8rem;}
+    .f-test{font-family:var(--mono);font-size:.58rem;color:#9fb4cc;}
+    .f-svg{width:100%;height:auto;display:block;margin:.1rem 0 0;}
+    /* the filter meshes / shapes */
+    .f-mesh{stroke:#5f7da0;stroke-width:2.4;fill:none;stroke-linecap:round;}
+    .f-mesh.thin{stroke-width:1.4;stroke:#3f566f;}
+    .f-slot{fill:none;stroke:#7a1f27;stroke-width:2;} .f-slotlab{fill:#7e93ab;font-size:7px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
+    .f-maze{fill:none;stroke:#5f7da0;stroke-width:2;stroke-linejoin:round;}
+    .f-bypass{fill:none;stroke:#7a1f27;stroke-width:1.4;stroke-dasharray:3 3;opacity:0;transition:opacity .5s;}
+    .f-hole{fill:none;stroke:#7a5a1a;stroke-width:2;}
+    .f-slotlab.hole{fill:#b88a2a;} .f-slotlab.ghost{fill:#7a5a1a;}
+    .f-ghost{stroke:#3f566f;stroke-width:2;fill:none;stroke-dasharray:4 4;stroke-linecap:round;opacity:.7;}
+    .f-ghost.thin{stroke-width:1.2;}
+    /* the token (the unchanging project) */
+    .f-token{fill:#7fb2e6;stroke:#cfe0f0;stroke-width:1.5;transition:none;}
+    /* verdict colours light the filter when active */
+    .filter.active[data-verdict="caught"]{border-color:#2f6b48;box-shadow:0 0 0 1px rgba(63,208,122,.4),0 0 22px rgba(63,208,122,.2);background:#0d2417;}
+    .filter.active[data-verdict="slips"]{border-color:#7a1f27;box-shadow:0 0 0 1px rgba(232,138,146,.4),0 0 22px rgba(232,138,146,.2);background:#1f1113;}
+    .filter.active[data-verdict="unclear"]{border-color:#7a5a1a;box-shadow:0 0 0 1px rgba(240,198,116,.4),0 0 22px rgba(240,198,116,.2);background:#1d1810;}
+    /* the verdict line under each filter, revealed only when the drop finishes */
+    .f-stamp{display:block;font-family:var(--mono);font-weight:800;font-size:.6rem;letter-spacing:.02em;margin:.15rem 0 .1rem;opacity:0;transform:translateY(4px);transition:opacity .4s .5s,transform .4s .5s;}
+    .filter.active .f-stamp{opacity:1;transform:none;}
+    .f-stamp.caught{color:#7fd6a0;} .f-stamp.slips{color:#ff9aa3;} .f-stamp.unclear{color:#f0c674;}
+    /* the drop animations: token starts at top (cy ~14), plays when .active is added */
+    .filter.active .f-token{animation-duration:1s;animation-timing-function:cubic-bezier(.45,.05,.3,1);animation-fill-mode:forwards;}
+    .filter.active[data-verdict="caught"] .f-token{animation-name:dropLand;}
+    .filter.active[data-verdict="slips"] .f-token{animation-name:dropSlip;}
+    .filter.active[data-verdict="unclear"] .f-token{animation-name:dropGhost;}
+    .filter.active#f-ethiopia .f-token{animation-name:dropLandEth;}
+    .filter.active#f-nigeria  .f-token{animation-name:dropBypass;}
+    .filter.active#f-nigeria .f-bypass{opacity:1;}
+    @keyframes dropLand{ 0%{transform:translateY(0)} 70%{transform:translateY(38px)} 82%{transform:translateY(34px)} 100%{transform:translateY(38px)} }
+    @keyframes dropLandEth{ 0%{transform:translate(0,0)} 70%{transform:translate(0,38px)} 100%{transform:translate(0,38px)} }
+    @keyframes dropSlip{ 0%{transform:translate(0,0)} 55%{transform:translate(20px,40px)} 100%{transform:translate(150px,86px);opacity:.2} }
+    @keyframes dropBypass{ 0%{transform:translate(0,0)} 45%{transform:translate(40px,26px)} 100%{transform:translate(64px,86px);opacity:.2} }
+    @keyframes dropGhost{ 0%{transform:translate(0,0);opacity:1} 60%{transform:translate(0,40px);opacity:.55} 100%{transform:translate(0,86px);opacity:.15} }
     .scenecap{margin-top:.6rem;padding:.45rem;font-size:.74rem;color:#9fb4cc;text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;}
 
     /* scrolling gate narration */
@@ -114,7 +139,9 @@
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
     .strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:1.2rem 0 .5rem;}
     .scol{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.7rem .55rem;text-align:center;}
-    .scol .sc-c{font-weight:800;font-size:.82rem;color:var(--dark);margin:0 0 .35rem;}
+    .scol .sc-c{font-weight:800;font-size:.82rem;color:var(--dark);margin:0 0 .25rem;}
+    .scol .sc-ico{font-size:1.1rem;line-height:1;margin:0 0 .3rem;}
+    .scol .sc-ico.caught{color:var(--green);} .scol .sc-ico.slips{color:var(--red);} .scol .sc-ico.unclear{color:var(--amber);}
     .scol .sc-test{font-family:var(--mono);font-size:.58rem;color:var(--mid);line-height:1.3;min-height:3.2em;margin:0 0 .5rem;}
     .scol .sc-stamp{font-family:var(--mono);font-weight:800;font-size:.62rem;letter-spacing:.03em;border-radius:5px;padding:.25rem .2rem;}
     .sc-stamp.caught{background:#eef6f0;color:#1B7A3D;}
@@ -169,7 +196,14 @@
       .mstep:first-child{min-height:24vh;}
       .mcard{transform:translateY(18px);} .mstep.on .mcard{transform:translateY(0);}
     }
-    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} .railcard.flash{animation:none;} .gate,.split,.mcard,.g-stamp{transition:none;} }
+    @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} .scrollcue{animation:none;} .railcard.flash{animation:none;}
+      .filter,.split,.mcard{transition:none;} .filter.active .f-token{animation:none !important;}
+      /* reduced motion: show each token at rest in its final outcome instead of animating */
+      .filter[data-verdict="caught"] .f-token{transform:translateY(38px);}
+      .filter[data-verdict="slips"] .f-token{transform:translate(150px,86px);opacity:.2;}
+      .filter#f-nigeria .f-token{transform:translate(64px,86px);opacity:.2;}
+      .filter[data-verdict="unclear"] .f-token{transform:translate(0,86px);opacity:.15;}
+      .filter#f-nigeria .f-bypass{opacity:1;} .filter .f-stamp{opacity:1;transform:none;} }
   </style>
 </head>
 <body>
@@ -216,43 +250,76 @@
     <div class="machine">
       <div class="mstage" aria-hidden="true">
         <div class="stage-inner">
+          <!-- the CONTROL: the one project that never changes, dropped through every filter -->
           <div class="railcard" id="railcard">
-            <p class="rc-h"><svg class="rc-ico" viewBox="0 0 24 24" fill="none" stroke="#7fb2e6" stroke-width="2"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16M9 16l-2 4M15 16l2 4"/><circle cx="8.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/><circle cx="15.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/></svg> The same railway</p>
+            <p class="rc-h"><svg class="rc-ico" viewBox="0 0 24 24" fill="none" stroke="#7fb2e6" stroke-width="2"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M4 11h16M9 16l-2 4M15 16l2 4"/><circle cx="8.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/><circle cx="15.5" cy="13" r="1" fill="#7fb2e6" stroke="none"/></svg> The same project, every time</p>
             <div class="rc-facts">
               <span class="rc-fact">sovereign loan</span>
               <span class="rc-fact">no foreign ownership stake</span>
               <span class="rc-fact">repaid as public debt</span>
             </div>
           </div>
-          <p class="same-note">these facts never change &darr;</p>
-          <div class="gates" id="gates">
-            <div class="gate" id="gate-kenya">
-              <span class="g-flag" style="background:linear-gradient(180deg,#000 33%,#bb0000 33% 66%,#006600 66%);"></span>
-              <span class="g-body"><span class="g-country">Kenya</span><span class="g-test">on the public-debt register?</span></span>
-              <span class="g-stamp caught">CAUGHT</span>
+          <p class="same-note">drop it through five filters &darr;</p>
+
+          <!-- THE FILTER ARRAY: five differently-shaped filters; the same token catches, slips, or falls -->
+          <div class="farray" id="farray">
+            <div class="filter" id="f-kenya" data-verdict="caught">
+              <div class="f-head"><span class="f-country">Kenya</span><span class="f-test">on the public-debt register?</span></div>
+              <svg class="f-svg" viewBox="0 0 240 78" aria-hidden="true">
+                <!-- wide register tray: token lands and rests -->
+                <path class="f-mesh" d="M30 56 H210" />
+                <path class="f-mesh thin" d="M40 56 V48 M70 56 V48 M100 56 V48 M130 56 V48 M160 56 V48 M190 56 V48" />
+                <circle class="f-token" cx="120" cy="14" r="8" />
+              </svg>
+              <span class="f-stamp caught">CAUGHT &middot; it lands on the register</span>
             </div>
-            <div class="gate" id="gate-ghana">
-              <span class="g-flag" style="background:linear-gradient(180deg,#ce1126 33%,#fcd116 33% 66%,#006b3f 66%);"></span>
-              <span class="g-body"><span class="g-country">Ghana</span><span class="g-test">does a foreign entity hold an ownership stake?</span></span>
-              <span class="g-stamp slips">SLIPS</span>
+            <div class="filter" id="f-ghana" data-verdict="slips">
+              <div class="f-head"><span class="f-country">Ghana</span><span class="f-test">foreign ownership stake?</span></div>
+              <svg class="f-svg" viewBox="0 0 240 78" aria-hidden="true">
+                <!-- narrow ownership slot off to one side; token slides past it -->
+                <path class="f-mesh" d="M30 56 H150 M178 56 H210" />
+                <rect class="f-slot" x="150" y="44" width="28" height="12" rx="2" />
+                <text class="f-slotlab" x="164" y="72" text-anchor="middle">owner?</text>
+                <circle class="f-token" cx="120" cy="14" r="8" />
+              </svg>
+              <span class="f-stamp slips">SLIPS &middot; no foreign owner to catch on</span>
             </div>
-            <div class="gate" id="gate-nigeria">
-              <span class="g-flag" style="background:linear-gradient(90deg,#008751 33%,#fff 33% 66%,#008751 66%);"></span>
-              <span class="g-body"><span class="g-country">Nigeria</span><span class="g-test">did it go through the Public Procurement Act?</span></span>
-              <span class="g-stamp slips">SLIPS</span>
+            <div class="filter" id="f-nigeria" data-verdict="slips">
+              <div class="f-head"><span class="f-country">Nigeria</span><span class="f-test">through the Procurement Act?</span></div>
+              <svg class="f-svg" viewBox="0 0 240 78" aria-hidden="true">
+                <!-- the Act is a labyrinth in the middle; a direct-award token detours around it -->
+                <path class="f-maze" d="M96 30 H144 V62 H96 Z M108 30 V50 M132 42 V62" />
+                <text class="f-slotlab" x="120" y="74" text-anchor="middle">the Act</text>
+                <path class="f-bypass" d="M120 14 q 60 6 64 54" />
+                <circle class="f-token" cx="120" cy="14" r="8" />
+              </svg>
+              <span class="f-stamp slips">SLIPS &middot; the direct award goes around it</span>
             </div>
-            <div class="gate" id="gate-ethiopia">
-              <span class="g-flag" style="background:linear-gradient(180deg,#078930 33%,#fcdd09 33% 66%,#da121a 66%);"></span>
-              <span class="g-body"><span class="g-country">Ethiopia</span><span class="g-test">is the financing source foreign, not domestic?</span></span>
-              <span class="g-stamp caught">CAUGHT</span>
+            <div class="filter" id="f-ethiopia" data-verdict="caught">
+              <div class="f-head"><span class="f-country">Ethiopia</span><span class="f-test">financing source foreign?</span></div>
+              <svg class="f-svg" viewBox="0 0 240 78" aria-hidden="true">
+                <!-- catches foreign source, but a visible hole (the domestic blind spot) sits beside it -->
+                <path class="f-mesh" d="M30 56 H150 M186 56 H210" />
+                <path class="f-mesh thin" d="M40 56 V48 M70 56 V48 M100 56 V48 M130 56 V48 M198 56 V48" />
+                <path class="f-hole" d="M150 56 a18 9 0 0 0 36 0" />
+                <text class="f-slotlab hole" x="168" y="74" text-anchor="middle">domestic? falls through</text>
+                <circle class="f-token" cx="100" cy="14" r="8" />
+              </svg>
+              <span class="f-stamp caught">CAUGHT &middot; the source is foreign (watch the hole)</span>
             </div>
-            <div class="gate" id="gate-drc">
-              <span class="g-flag" style="background:linear-gradient(135deg,#007fff 60%,#f7d618 60%);"></span>
-              <span class="g-body"><span class="g-country">DR Congo</span><span class="g-test">is foreign ownership disclosed at execution?</span></span>
-              <span class="g-stamp unclear">UNCLEAR</span>
+            <div class="filter" id="f-drc" data-verdict="unclear">
+              <div class="f-head"><span class="f-country">DR Congo</span><span class="f-test">ownership disclosed at execution?</span></div>
+              <svg class="f-svg" viewBox="0 0 240 78" aria-hidden="true">
+                <!-- the filter is dashed/ghosted: it only activates later, at execution -->
+                <path class="f-ghost" d="M30 56 H210" />
+                <path class="f-ghost thin" d="M70 56 V48 M120 56 V48 M170 56 V48" />
+                <text class="f-slotlab ghost" x="120" y="74" text-anchor="middle">activates only at execution</text>
+                <circle class="f-token" cx="120" cy="14" r="8" />
+              </svg>
+              <span class="f-stamp unclear">UNCLEAR &middot; nothing tests it at the loan</span>
             </div>
           </div>
-          <p class="scenecap" id="scenecap">one project, about to meet five different rules</p>
+          <p class="scenecap" id="scenecap">one project, five differently-shaped filters</p>
         </div>
       </div>
 
@@ -261,7 +328,7 @@
           <div class="mcard">
             <p class="kicker">the machine</p>
             <h3>One project. Five rulebooks.</h3>
-            <p>On paper, the railway and its loan are identical everywhere. Nothing about the project changes as it crosses a border. What changes is the <strong>test each country applies</strong> to decide if it counts as foreign-funded. Drop the same project through all five and watch the stamps disagree.</p>
+            <p>On paper, the railway and its loan are identical everywhere. Nothing about the project changes as it crosses a border. What changes is the <strong>shape of the filter each country holds up</strong> to decide if it counts as foreign-funded. Drop the same token through all five and watch where it comes to rest.</p>
             <div class="voice">
               <span class="vbubble cipe">RO</span>
               <p class="vq">She ran the exercise to build one common definition of foreign-funded infrastructure, so the country findings could be synthesised and compared at all.
@@ -274,7 +341,7 @@
             <p class="kicker">Kenya &middot; the test that catches it</p>
             <h3>The public-debt register catches it.</h3>
             <p class="verdictline caught"><span class="echo-dot caught"></span>Caught &middot; counts as foreign-funded</p>
-            <p>Kenya asks one thing: is this on the public-debt register? A sovereign loan is, so the railway is logged as foreign-funded. <strong>Here, the net catches it.</strong></p>
+            <p>Kenya's filter is wide: is this on the public-debt register? A sovereign loan is, so the token drops in and <strong>lands</strong>. The railway is logged as foreign-funded.</p>
             <p class="fromroom"><b>Source:</b> Ria's funding-definition exercise, Nairobi Day 1. <b>Confidence:</b> field note, verified against the debt-register criterion.</p>
           </div>
         </div>
@@ -333,7 +400,7 @@
           <div class="mcard">
             <p class="kicker">the reveal</p>
             <h3>The project did not change. The definition did.</h3>
-            <p>Same loan. Same railway. Same facts. Run it through the five gates and the stamps come back <strong>different</strong>: caught in Kenya and Ethiopia, slipped in Ghana and Nigeria, and in DR Congo no clear answer at all. "Foreign-funded" turned out not to be a fact about the project. It was a <strong>decision</strong>, made differently by each rulebook.</p>
+            <p>Same loan. Same railway. Same facts. Drop it through the five filters and it comes to rest in five different places: caught in Kenya and Ethiopia, slipped past Ghana and Nigeria, and in DR Congo nothing caught it at all. "Foreign-funded" turned out not to be a fact about the project. It was a <strong>decision</strong>, made differently by each rulebook.</p>
           </div>
         </div>
         <div class="mstep" data-stage="7" data-echo="all">
@@ -354,20 +421,20 @@
 
     <!-- ============ THE PROOF STRIP (screenshot-ready evidence view) ============ -->
     <h2><span class="num">01</span>One project, five verdicts</h2>
-    <p class="lead">The evidence in one frame. Identical input across the top of every column; the only thing that differs is the rule, and so the stamp.</p>
+    <p class="lead">The whole story in one glance. Identical input in every column; the only thing that differs is the rule, and so where the railway lands.</p>
     <div class="strip">
-      <div class="scol"><p class="sc-c">Kenya</p><p class="sc-test">on the public-debt register?</p><p class="sc-stamp caught">CAUGHT</p></div>
-      <div class="scol"><p class="sc-c">Ghana</p><p class="sc-test">foreign ownership stake?</p><p class="sc-stamp slips">SLIPS</p></div>
-      <div class="scol"><p class="sc-c">Nigeria</p><p class="sc-test">through the Procurement Act?</p><p class="sc-stamp slips">SLIPS</p></div>
-      <div class="scol"><p class="sc-c">Ethiopia</p><p class="sc-test">financing source foreign?</p><p class="sc-stamp caught">CAUGHT</p></div>
-      <div class="scol"><p class="sc-c">DR Congo</p><p class="sc-test">foreign owner disclosed at execution?</p><p class="sc-stamp unclear">UNCLEAR</p></div>
+      <div class="scol"><p class="sc-c">Kenya</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">on the public-debt register?</p><p class="sc-stamp caught">CAUGHT</p></div>
+      <div class="scol"><p class="sc-c">Ghana</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">foreign ownership stake?</p><p class="sc-stamp slips">SLIPS</p></div>
+      <div class="scol"><p class="sc-c">Nigeria</p><p class="sc-ico slips">&#9679;</p><p class="sc-test">through the Procurement Act?</p><p class="sc-stamp slips">SLIPS</p></div>
+      <div class="scol"><p class="sc-c">Ethiopia</p><p class="sc-ico caught">&#9679;</p><p class="sc-test">financing source foreign?</p><p class="sc-stamp caught">CAUGHT</p></div>
+      <div class="scol"><p class="sc-c">DR Congo</p><p class="sc-ico unclear">&#9679;</p><p class="sc-test">foreign owner disclosed at execution?</p><p class="sc-stamp unclear">UNCLEAR</p></div>
     </div>
     <p class="strip-note">Caught in two, slipped in two, unclear in one. Same railway, five rulebooks, no shared reality.</p>
 
     <div class="takeaway">
       <p class="tk-eyebrow">The Day 1 finding, in one breath</p>
-      <p class="tk-line"><strong>"Foreign-funded" is not a fact about a project. It is a decision each country's law makes differently.</strong></p>
-      <p class="tk-sub">Until there is one shared definition to map up to, the same railway is counted in one country and invisible in the next, and no cross-country comparison can be trusted.</p>
+      <p class="tk-line"><strong>Where the filter catches this railway, it is someone's problem. Where it slips, it is no one's.</strong> Same money, same risk, same citizens repaying the loan, and a different rule decides whether anyone is accountable for it.</p>
+      <p class="tk-sub">"Foreign-funded" is not a fact about a project. It is a decision each country's law makes differently, and the decision is what sets who can be held to account. Until there is one shared definition to map up to, no cross-country comparison can be trusted.</p>
 
       <div class="converge">
         <div class="cv-many">
@@ -453,39 +520,48 @@
     },{threshold:.6});
     if(document.getElementById("splits")) wordIO.observe(document.getElementById("splits"));
 
-    /* ---------- the definition machine: stamps + echo glow ---------- */
-    var gateOf={ kenya:document.getElementById("gate-kenya"), ghana:document.getElementById("gate-ghana"),
-                 nigeria:document.getElementById("gate-nigeria"), ethiopia:document.getElementById("gate-ethiopia"),
-                 drc:document.getElementById("gate-drc") };
+    /* ---------- the filter array: drop the same token through each filter ---------- */
+    var filterOf={ kenya:document.getElementById("f-kenya"), ghana:document.getElementById("f-ghana"),
+                   nigeria:document.getElementById("f-nigeria"), ethiopia:document.getElementById("f-ethiopia"),
+                   drc:document.getElementById("f-drc") };
     var railcard=document.getElementById("railcard"), scenecap=document.getElementById("scenecap");
-    var ECHOCLS={caught:"echo-caught", slips:"echo-slips", unclear:"echo-unclear"};
-    var allGates=[gateOf.kenya,gateOf.ghana,gateOf.nigeria,gateOf.ethiopia,gateOf.drc];
-
-    function clearEcho(){ allGates.forEach(function(g){ g.classList.remove("echo-caught","echo-slips","echo-unclear"); }); }
-    function liveOn(ids){ allGates.forEach(function(g){ g.classList.remove("live"); });
-      ids.forEach(function(id){ gateOf[id] && gateOf[id].classList.add("live"); }); }
-    function stamp(ids){ ids.forEach(function(id){ gateOf[id] && gateOf[id].classList.add("stamped"); }); }
-    function flashRail(){ if(reduceMotion) return; railcard.classList.remove("flash"); void railcard.offsetWidth; railcard.classList.add("flash"); }
-
-    // each beat: which gates are live so far, the new gate to echo, its verdict class, and the caption
     var ALL=["kenya","ghana","nigeria","ethiopia","drc"];
+    var allFilters=ALL.map(function(k){ return filterOf[k]; });
+
+    function flashRail(){ if(reduceMotion) return; railcard.classList.remove("flash"); void railcard.offsetWidth; railcard.classList.add("flash"); }
+    // a filter is .live once visited (settled), .active while it is the current beat (plays the drop)
+    function activate(id){
+      allFilters.forEach(function(f){ if(f) f.classList.remove("active"); });
+      ALL.forEach(function(k){ if(filterOf[k]) filterOf[k].classList.add("live"); });
+      // only mark live up to and including the active one, dim the rest, on first passes
+      if(id && filterOf[id]){
+        var idx=ALL.indexOf(id);
+        ALL.forEach(function(k,i){ filterOf[k].classList.toggle("live", i<=idx); });
+        // re-trigger the drop animation cleanly
+        var f=filterOf[id], tok=f.querySelector(".f-token");
+        if(tok && !reduceMotion){ tok.style.animation="none"; void tok.offsetWidth; tok.style.animation=""; }
+        f.classList.add("active"); flashRail();
+      }
+    }
+    function allLive(){ ALL.forEach(function(k){ filterOf[k].classList.add("live"); filterOf[k].classList.add("active"); }); }
+
+    // each beat: which single filter is the focus (drops now), and the caption
     var BEATS={
-      0:{live:[],                                  echo:null,       caption:"one project, about to meet five different rules"},
-      1:{live:["kenya"],                           echo:["kenya","caught"],   caption:"Kenya: the debt register catches it"},
-      2:{live:["kenya","ghana"],                   echo:["ghana","slips"],    caption:"Ghana: no foreign owner, it slips"},
-      3:{live:["kenya","ghana","nigeria"],         echo:["nigeria","slips"],  caption:"Nigeria: it bypassed the Procurement Act"},
-      4:{live:["kenya","ghana","nigeria","ethiopia"], echo:["ethiopia","caught"], caption:"Ethiopia: foreign source, so it is caught"},
-      5:{live:ALL,                                 echo:["drc","unclear"],    caption:"DR Congo: no clear answer at the loan"},
-      6:{live:ALL,                                 echo:null,       caption:"same input, five different stamps"},
-      7:{live:ALL,                                 echo:null,       caption:"one shared definition to map up to"}
+      0:{focus:null, all:false, caption:"one project, five differently-shaped filters"},
+      1:{focus:"kenya",    caption:"Kenya: it lands on the debt register"},
+      2:{focus:"ghana",    caption:"Ghana: no foreign owner, it slips past"},
+      3:{focus:"nigeria",  caption:"Nigeria: a direct award goes around the Act"},
+      4:{focus:"ethiopia", caption:"Ethiopia: caught as foreign, but see the hole"},
+      5:{focus:"drc",      caption:"DR Congo: nothing tests it at the loan"},
+      6:{focus:null, all:true, caption:"same project, five different outcomes"},
+      7:{focus:null, all:true, caption:"one shared definition to map up to"}
     };
 
     function setStage(s){
-      clearEcho();
       var b=BEATS[s]||BEATS[7];
-      liveOn(b.live); stamp(b.live);
-      if(b.echo){ var g=gateOf[b.echo[0]]; if(g){ g.classList.add(ECHOCLS[b.echo[1]]); flashRail(); } }
-      else if(s===6){ flashRail(); }
+      if(b.all){ allLive(); flashRail(); }
+      else if(b.focus){ activate(b.focus); }
+      else { allFilters.forEach(function(f){ if(f) f.classList.remove("active","live"); }); }
       scenecap.textContent=b.caption;
     }
 

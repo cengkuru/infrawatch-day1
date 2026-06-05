@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Five partners asked for five different things. It was the same sentence.</title>
-  <meta name="description" content="Kenya, Ghana, Nigeria, Ethiopia, DRC arrived with five different asks. Strip the words and every one began the same way: Show us. An InfraWatch visual essay.">
+  <title>Five accents, one sentence</title>
+  <meta name="description" content="Kenya, Ghana, Nigeria, Ethiopia and DRC arrived with five different asks. Watch the local words fall away until only the shared sentence remains: Show us. An InfraWatch visual essay.">
   <style>
     :root{
-      /* CIPE brand (this work is CIPE-sponsored): navy is the lead accent */
+      /* CIPE brand (this work is CIPE-sponsored): navy leads, deep red is the shared-stem accent */
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
-      /* partner accent colours (used ONLY on the five tails, never as chrome) */
+      --stem:#BE1E2D; /* the one electric accent, reserved for the shared demand */
+      /* partner accent colours (used ONLY on the five tails) */
       --c-kenya:#0071BC; --c-ghana:#1B9E77; --c-nigeria:#7570B3; --c-ethiopia:#D95F02; --c-drc:#E7298A;
-      /* SEMANTIC colours (do NOT rebrand) */
-      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --green:#1B7A3D; --amber:#C77F00;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED;
       --white:#FFFFFF; --surface:#F6F8FA;
       --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
@@ -33,125 +33,156 @@
     .wrap{max-width:980px;margin:0 auto;padding:0 1.2rem;}
 
     /* ============ HERO ============ */
-    .hero{padding:3rem 0 1.5rem;}
+    .hero{padding:3.2rem 0 1.2rem;}
+    .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--brand);margin:0 0 1rem;}
     .hook{font-size:clamp(1rem,2.2vw,1.18rem);line-height:1.55;color:var(--mid);max-width:54ch;margin:0 0 1.6rem;padding-left:1rem;border-left:3px solid var(--brand);}
     .hook b{color:var(--dark);font-weight:800;}
-    h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 0 1rem;max-width:18ch;}
-    h1 .accent{color:var(--brand);}
+    h1{font-size:clamp(2.2rem,7vw,4rem);font-weight:800;line-height:1.02;letter-spacing:-.025em;margin:0 0 1rem;max-width:14ch;}
+    h1 .accent{color:var(--stem);}
     .lede{font-size:clamp(1.05rem,2.4vw,1.35rem);color:var(--mid);max-width:56ch;margin:0 0 1.5rem;}
-    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2.2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
+    .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-    /* ============ THE SCROLLY: sticky 'Show us' stack LEFT, annotation cards reveal RIGHT ============ */
-    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.5fr 1fr;gap:1.5rem;align-items:start;}
-    .stickycol{position:sticky;top:4vh;align-self:start;}
-    .stage-inner{position:relative;background:var(--white);border:1px solid var(--light);border-radius:14px;box-shadow:var(--shadow);
-      padding:1.6rem clamp(1rem,2.4vw,1.8rem);min-height:60vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;}
-    .stage-kick{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 1.1rem;}
+    /* ============ THE THEATRE: sticky chorus stage LEFT, scrolling beats RIGHT ============ */
+    .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem;align-items:start;}
+    .stickycol{position:sticky;top:3vh;align-self:start;}
+    .stage{position:relative;background:var(--white);border:1px solid var(--light);border-radius:16px;box-shadow:var(--shadow);
+      min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:1.8rem clamp(1.1rem,2.6vw,2rem);overflow:hidden;}
+    .stage-kick{position:absolute;top:1.1rem;left:clamp(1.1rem,2.6vw,2rem);font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand-soft);margin:0;}
 
-    /* the five lines */
-    .chorus{display:flex;flex-direction:column;gap:clamp(.7rem,2vw,1.15rem);position:relative;}
-    .stemguide{position:absolute;left:-.1rem;top:-.2rem;bottom:-.2rem;width:2px;background:var(--light);opacity:0;transition:opacity .5s ease .35s;}
-    .qline{display:flex;align-items:baseline;gap:.4em;white-space:nowrap;max-width:100%;
+    /* the five chorus lines */
+    .chorus{display:flex;flex-direction:column;gap:clamp(.55rem,1.8vw,1rem);position:relative;width:100%;}
+    .seam{position:absolute;left:var(--seamx,4.6em);top:-.3rem;bottom:-.3rem;width:2px;background:var(--light);
+      opacity:0;transition:opacity .5s ease;}
+    .qline{display:flex;align-items:baseline;gap:.36em;white-space:nowrap;max-width:100%;
       transform:translateX(var(--scatter,0));transition:transform .8s cubic-bezier(.22,1,.36,1);}
-    .qstem{font-weight:800;letter-spacing:-.01em;line-height:1.04;flex:0 0 auto;
-      font-size:clamp(1.35rem,4.4vw,2.5rem);color:var(--qc);transition:color .55s ease;}
-    .qtail{font-weight:600;letter-spacing:-.005em;line-height:1.04;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;
-      font-size:clamp(1.12rem,3.6vw,2.05rem);color:var(--qc);transition:color .55s ease,opacity .5s ease;}
-    .qmeta{display:none;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
-      color:var(--mid);margin-left:.5em;align-self:center;white-space:nowrap;}
-    .qnum{display:none;font-family:var(--mono);font-size:clamp(.6rem,1.4vw,.74rem);font-weight:700;color:var(--brand);
-      margin:.2em 0 0;white-space:normal;}
-    .qflag{display:none;font-family:var(--mono);font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
-      color:var(--amber);margin-left:.5em;align-self:center;white-space:nowrap;}
-    /* low-confidence tails (Ethiopia, DRC) keep an honest marker so unity never flattens into interchangeability */
+    .qstem{font-weight:800;letter-spacing:-.015em;line-height:1.02;flex:0 0 auto;
+      font-size:clamp(1.4rem,4.6vw,2.7rem);color:var(--qc);transition:color .55s ease,transform .6s ease;}
+    .qtail{font-weight:600;letter-spacing:-.005em;line-height:1.02;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;
+      font-size:clamp(1.12rem,3.6vw,2.1rem);color:var(--qc);
+      transition:color .55s ease,opacity .55s ease,transform .55s cubic-bezier(.4,0,1,.5);}
+    /* low-confidence tails keep an honest dashed marker */
     .qline.lo .qtail{border-bottom:2px dashed currentColor;padding-bottom:1px;}
+    .qflag{display:none;font-family:var(--mono);font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--amber);margin-left:.5em;align-self:center;}
 
-    /* STATE: scattered (default) — stems wear partner colour, lines nudged apart */
-    .stage-inner[data-state="scatter"] .qstem{--qc-stem:var(--qc);color:var(--qc);}
-    .stage-inner[data-state="scatter"] .qline:nth-child(2){--scatter:7%;}
-    .stage-inner[data-state="scatter"] .qline:nth-child(3){--scatter:18%;}
-    .stage-inner[data-state="scatter"] .qline:nth-child(4){--scatter:10%;}
-    .stage-inner[data-state="scatter"] .qline:nth-child(5){--scatter:22%;}
-    .stage-inner[data-state="scatter"] .qline:nth-child(6){--scatter:14%;}
-    .stage-inner[data-state="scatter"] .qline.lo .qflag{display:inline;}
+    /* the shared-demand line that appears alone when the tails are stripped */
+    .demand{position:absolute;left:0;right:0;bottom:clamp(1.4rem,4vw,2.4rem);text-align:center;padding:0 1.5rem;
+      opacity:0;transform:translateY(8px);transition:opacity .6s ease .35s,transform .6s ease .35s;pointer-events:none;}
+    .demand p{margin:0;font-size:clamp(.95rem,2vw,1.18rem);font-weight:700;color:var(--stem);max-width:32ch;margin:0 auto;line-height:1.3;}
+    .demand .dk{display:block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:.4rem;}
 
-    /* STATE: collapsed — stems go ink-dark, flush left, one column; tails fan in colour */
-    .stage-inner:not([data-state="scatter"]) .qline{--scatter:0 !important;}
-    .stage-inner:not([data-state="scatter"]) .qstem{color:var(--brand-deep);}
-    .stage-inner:not([data-state="scatter"]) .stemguide{opacity:1;}
+    /* per-line action-lane parts (revealed in the 'lanes' state) */
+    .qmeta{display:none;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--mid);margin-left:.55em;align-self:center;white-space:nowrap;}
+    .qchain{display:none;margin:.2em 0 0;font-size:clamp(.62rem,1.4vw,.78rem);color:var(--mid);white-space:normal;line-height:1.4;}
+    .qchain .arr{color:var(--brand-soft);font-family:var(--mono);margin:0 .35em;}
+    .qchain .ev{color:var(--dark);font-weight:600;}
+    .qchain .nm{color:var(--stem);font-family:var(--mono);font-weight:700;}
+    .qchain .tool{display:block;font-family:var(--mono);font-size:.92em;color:var(--brand-soft);margin-top:.15em;}
 
-    /* STATE: tools — each tail trails its proven instrument */
-    .stage-inner[data-state="tools"] .qmeta,
-    .stage-inner[data-state="numbers"] .qmeta{display:inline;}
-    /* STATE: numbers — each tail resolves to one measurable figure */
-    .stage-inner[data-state="numbers"] .qmeta{display:none;}
-    .stage-inner[data-state="numbers"] .qnum{display:block;}
-    .stage-inner[data-state="numbers"] .chorus{gap:clamp(.9rem,2.2vw,1.4rem);}
+    /* ===== STATE machine on the stage ===== */
+    /* SURFACE: stems wear partner colour, lines scattered, full sentence reads */
+    .stage[data-state="surface"] .qline:nth-child(2){--scatter:7%;}
+    .stage[data-state="surface"] .qline:nth-child(3){--scatter:17%;}
+    .stage[data-state="surface"] .qline:nth-child(4){--scatter:10%;}
+    .stage[data-state="surface"] .qline:nth-child(5){--scatter:21%;}
+    .stage[data-state="surface"] .qline:nth-child(6){--scatter:13%;}
+    .stage[data-state="surface"] .qline.lo .qflag{display:inline;}
 
-    /* annotation column: each block a scroll track + a card that reveals */
-    .ann{min-height:90vh;display:flex;align-items:center;}
-    .ann:first-child{min-height:55vh;}
-    .ann:last-child{min-height:80vh;padding-bottom:6vh;}
+    /* SPLIT: lines flush-left, stems go ink-dark, the seam guide appears between stem and tail */
+    .stage:not([data-state="surface"]) .qline{--scatter:0 !important;}
+    .stage:not([data-state="surface"]) .qstem{color:var(--brand-deep);}
+    .stage[data-state="split"] .seam,
+    .stage[data-state="strip"] .seam{opacity:1;}
+
+    /* STRIP (the hero moment): the local tails peel away and fade; only the 'Show us' column remains; the shared demand rises */
+    .stage[data-state="strip"] .qstem{color:var(--stem);}
+    .stage[data-state="strip"] .qtail{opacity:0;transform:translateX(40px);}
+    .stage[data-state="strip"] .demand{opacity:1;transform:none;}
+
+    /* LANES: tails return, now as action lanes (ask -> evidence -> one number), tools folded under.
+       Let the line wrap so the full coloured tail shows as a lane header above its chain. */
+    .stage[data-state="lanes"] .qline{flex-wrap:wrap;white-space:normal;align-items:baseline;}
+    .stage[data-state="lanes"] .qstem{font-size:clamp(1.15rem,3.4vw,1.75rem);}
+    .stage[data-state="lanes"] .qtail{font-size:clamp(1.05rem,3vw,1.6rem);white-space:normal;overflow:visible;text-overflow:clip;}
+    .stage[data-state="lanes"] .qmeta{display:none;}
+    .stage[data-state="lanes"] .qchain{display:block;flex:1 0 100%;}
+    .stage[data-state="lanes"] .chorus{gap:clamp(.8rem,2.4vw,1.35rem);}
+    .stage[data-state="lanes"] .seam{opacity:0;}
+
+    /* annotation column */
+    .ann{min-height:92vh;display:flex;align-items:center;}
+    .ann:first-child{min-height:50vh;}
+    .ann:last-child{min-height:78vh;padding-bottom:6vh;}
     .anncard{position:relative;opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
+      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 10px 30px rgba(20,35,52,.1);}
     .ann.on .anncard{opacity:1;transform:translateX(0);}
     .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin:0 0 .35rem;}
-    .anncard h3{margin:0 0 .45rem;font-size:1.18rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
+    .anncard h3{margin:0 0 .45rem;font-size:1.22rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
     .anncard p{margin:0;font-size:.94rem;color:var(--mid);line-height:1.55;}
     .anncard strong{color:var(--dark);}
-    .anncard.reveal{border-left-color:var(--brand-deep);}
+    .anncard.hero-beat{border-left-color:var(--stem);}
+    .anncard.hero-beat .kicker{color:var(--stem);}
 
-    /* ============ EVIDENCE GRID (the proof) ============ */
-    h2{font-size:clamp(1.3rem,3.2vw,1.7rem);font-weight:800;letter-spacing:-.01em;margin:2.4rem 0 .3rem;}
-    h2 .num{color:var(--brand);font-family:var(--mono);font-size:.95rem;margin-right:.5rem;}
+    /* ============ THE RECEIPTS (demoted proof) ============ */
+    h2{font-size:clamp(1.4rem,3.4vw,1.9rem);font-weight:800;letter-spacing:-.015em;margin:2.6rem 0 .3rem;}
+    .closer{font-size:clamp(1.15rem,2.8vw,1.55rem);font-weight:700;color:var(--dark);max-width:34ch;line-height:1.25;margin:.4rem 0 1.6rem;}
+    .closer b{color:var(--stem);}
     .lead{color:var(--mid);max-width:62ch;margin:0 0 1.2rem;}
-    .gridwrap{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.6rem;overflow-x:auto;}
-    table.mx{border-collapse:collapse;width:100%;font-size:.84rem;}
-    table.mx th,table.mx td{border-bottom:1px solid var(--light);padding:.6rem .5rem;text-align:center;}
-    table.mx th.rowh{text-align:left;white-space:nowrap;}
-    table.mx thead th{font-family:var(--mono);text-transform:uppercase;font-size:.64rem;letter-spacing:.04em;color:var(--mid);background:var(--surface);vertical-align:bottom;}
-    table.mx thead th.top{color:var(--brand);background:#eaf0f6;}
-    table.mx td.topcol{background:#f2f6fa;}
-    table.mx .hold{font-weight:800;color:var(--brand);} table.mx .hold.lo{color:var(--mid);font-weight:600;}
-    table.mx tfoot td{font-weight:800;background:var(--surface);font-family:var(--mono);}
-    .mxnote{font-size:.78rem;color:var(--mid);margin-top:.7rem;}
-    .topcallout{margin:.9rem 0 0;padding:.9rem 1.1rem;background:#eaf0f6;border-left:4px solid var(--brand);border-radius:var(--radius);font-size:.96rem;font-weight:500;color:var(--dark);}
-    .topcallout b{color:var(--brand);font-weight:800;}
 
-    /* ============ DRAWERS + DOWNLOADS ============ */
-    .drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
-    .drawer summary{cursor:pointer;padding:.85rem 1.1rem;font-weight:700;font-size:.92rem;color:var(--dark);list-style:none;}
-    .drawer summary::-webkit-details-marker{display:none;}
-    .drawer summary::before{content:"+ ";color:var(--brand);font-family:var(--mono);}
-    .drawer[open] summary::before{content:"– ";}
+    .drawer{margin:1rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
+    .drawer>summary{cursor:pointer;padding:.9rem 1.1rem;font-weight:700;font-size:.94rem;color:var(--dark);list-style:none;}
+    .drawer>summary::-webkit-details-marker{display:none;}
+    .drawer>summary::before{content:"▸ ";color:var(--brand);font-family:var(--mono);}
+    .drawer[open]>summary::before{content:"▾ ";}
     .drawer-body{padding:0 1.1rem 1.1rem;font-size:.9rem;color:var(--mid);line-height:1.6;}
     .drawer-body strong{color:var(--dark);}
+
+    .gridwrap{overflow-x:auto;margin-top:.8rem;}
+    table.mx{border-collapse:collapse;width:100%;font-size:.84rem;}
+    table.mx th,table.mx td{border-bottom:1px solid var(--light);padding:.55rem .5rem;text-align:center;}
+    table.mx th.rowh{text-align:left;white-space:nowrap;}
+    table.mx thead th{font-family:var(--mono);text-transform:uppercase;font-size:.62rem;letter-spacing:.04em;color:var(--mid);background:var(--surface);vertical-align:bottom;}
+    table.mx thead th.top{color:var(--stem);background:#fbeced;}
+    table.mx td.topcol{background:#fdf5f5;}
+    table.mx .hold{font-weight:800;color:var(--stem);} table.mx .hold.lo{color:var(--mid);font-weight:600;}
+    table.mx tfoot td{font-weight:800;background:var(--surface);font-family:var(--mono);}
+    .mxnote{font-size:.78rem;color:var(--mid);margin-top:.7rem;}
+    .topcallout{margin:.9rem 0 0;padding:.85rem 1.1rem;background:#fbeced;border-left:4px solid var(--stem);border-radius:var(--radius);font-size:.95rem;font-weight:500;color:var(--dark);}
+    .topcallout b{color:var(--stem);font-weight:800;}
+
     .dl-lead{margin:1rem 0 .5rem;}
     .dl{display:flex;gap:.6rem;flex-wrap:wrap;}
     .dlbtn{background:var(--brand);color:#fff;border:none;border-radius:99px;padding:.5rem 1rem;font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:.15s;}
     .dlbtn:hover{background:var(--brand-deep);}
 
-    footer{margin:2.6rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    /* sibling diptych link */
+    .diptych{display:flex;align-items:center;gap:.7rem;margin:1.6rem 0 0;padding:1rem 1.2rem;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);text-decoration:none;color:inherit;transition:border-color .15s;}
+    .diptych:hover{border-color:var(--brand-soft);}
+    .diptych .dx-k{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);}
+    .diptych .dx-t{font-weight:800;font-size:1rem;} .diptych .dx-s{color:var(--mid);font-size:.85rem;}
+    .diptych .dx-arr{margin-left:auto;color:var(--brand);font-family:var(--mono);}
+
+    footer{margin:2.4rem 0 4rem;padding-top:1.4rem;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
     footer strong{color:var(--dark);}
 
     /* ============ RESPONSIVE ============ */
     @media (max-width:860px){
       .story{grid-template-columns:1fr;gap:0;}
       .stickycol{position:sticky;top:0;z-index:5;background:var(--surface);padding:.5rem 0;margin-bottom:.5rem;}
-      .stage-inner{min-height:44vh;padding:1.1rem 1rem;}
+      .stage{min-height:52vh;padding:2.2rem 1rem 1.2rem;}
       .qline{flex-wrap:wrap;white-space:normal;}
       .qtail{white-space:normal;overflow:visible;}
-      .stage-inner[data-state="scatter"] .qline{--scatter:0 !important;}
-      .ann{min-height:78vh;align-items:flex-start;padding-top:1rem;}
-      .ann:first-child{min-height:24vh;}
+      .stage[data-state="surface"] .qline{--scatter:0 !important;}
+      .seam{display:none;}
+      .ann{min-height:80vh;align-items:flex-start;padding-top:1rem;}
+      .ann:first-child{min-height:22vh;}
       .ann:last-child{min-height:64vh;}
       .anncard{transform:translateY(20px);}
       .ann.on .anncard{transform:translateY(0);}
     }
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto;} .scrollcue{animation:none;}
-      .qline,.qstem,.qtail,.stemguide{transition:none;}
+      .qline,.qstem,.qtail,.seam,.demand{transition:none;}
       .anncard{transition:opacity .3s;transform:none;}
     }
   </style>
@@ -166,79 +197,95 @@
   <div class="wrap">
     <!-- ============ HERO ============ -->
     <section class="hero">
-      <p class="hook">Day 1 in Nairobi opened with five partners around one table: <b>Kenya, Ghana, Nigeria, Ethiopia, DRC</b>. Five countries, five organizations, and what looked at first like five separate agendas.</p>
-      <h1>Five partners asked for five different things. It was the <span class="accent">same sentence</span>.</h1>
-      <p class="lede">Read their asks as they were said, then watch the words fall away. Underneath the local variation, every partner was making one demand.</p>
+      <p class="eyebrow">InfraWatch Nairobi · Day 1 · the morning round</p>
+      <p class="hook">Five partners sat around one table: <b>Kenya, Ghana, Nigeria, Ethiopia, DRC</b>. Each named a different priority. It sounded like five separate agendas.</p>
+      <h1>Five accents, <span class="accent">one sentence</span>.</h1>
+      <p class="lede">Watch the local words fall away. Underneath the variation, every partner was making the same demand, in the same three words.</p>
       <div class="scrollcue">scroll to hear them &darr;</div>
     </section>
   </div>
 
-  <!-- ============ THE SCROLLY ============ -->
+  <!-- ============ THE THEATRE ============ -->
   <div class="wrap">
     <div class="story">
       <div class="stickycol">
-        <div class="stage-inner" id="stage" data-state="scatter" aria-label="Five partner asks resolving into one shared demand: Show us.">
-          <p class="stage-kick" id="stageKick">Day-1 morning · five asks, as they were said</p>
-          <div class="chorus" id="chorus"><div class="stemguide" aria-hidden="true"></div></div>
+        <div class="stage" id="stage" data-state="surface" aria-label="Five partner asks. The local words fall away to reveal one shared demand: Show us.">
+          <p class="stage-kick" id="stageKick">The surface · five asks, as they were said</p>
+          <div class="chorus" id="chorus"><div class="seam" aria-hidden="true"></div></div>
+          <div class="demand" id="demand" aria-hidden="true">
+            <span class="dk">the demand that was already in the room</span>
+            <p>Do not ask people to trust what they cannot see.</p>
+          </div>
         </div>
       </div>
 
       <div class="anncol">
-        <section class="ann" data-state="scatter">
+        <section class="ann" data-state="surface">
           <div class="anncard">
-            <p class="kicker">Five asks</p>
-            <h3>Five countries, five priorities.</h3>
-            <p>Kenya wants the appraisal before the build. Ghana, the owner of the resource. Nigeria, the numbers. Ethiopia, the quality of the investment. DRC, the delivery. Five different priorities, in five partners' own words. Ethiopia and DRC are <strong>lower-confidence readings</strong>, still to be confirmed with each partner.</p>
+            <p class="kicker">The surface</p>
+            <h3>They sounded different.</h3>
+            <p>Kenya wanted the appraisal before the build. Ghana, the owner of the resource. Nigeria, the numbers. Ethiopia, the quality of the investment. DRC, the delivery. Five partners, five priorities, in their own words. Ethiopia and DRC are <strong>lower-confidence readings</strong>, still to be confirmed.</p>
           </div>
         </section>
 
-        <section class="ann" data-state="collapse">
-          <div class="anncard reveal">
-            <p class="kicker">One demand</p>
-            <h3>Strip the words, and it was one sentence.</h3>
-            <p>Every ask begins the same way. The stem is identical, <strong>Show us</strong>; only the tail changes. That shared stem is the common ground: <strong>do not ask citizens to trust what they cannot see.</strong> The tails are the legitimate local variation, not five competing agendas.</p>
-          </div>
-        </section>
-
-        <section class="ann" data-state="tools">
+        <section class="ann" data-state="split">
           <div class="anncard">
-            <p class="kicker">One name</p>
-            <h3>The language to act on it already exists.</h3>
-            <p>None of these needs inventing. Proven tools already name each tail, disclosure standards, political-economy analysis, NPV, beneficial-ownership data, so a shared push can skip the fight over definitions and go straight to the ask.</p>
+            <p class="kicker">The split</p>
+            <h3>Every ask had the same opening.</h3>
+            <p>Look at where each sentence begins. The first two words never change: <strong>Show us</strong>. Only the tail does. The stem is shared; the tail is the local variation.</p>
           </div>
         </section>
 
-        <section class="ann" data-state="numbers">
-          <div class="anncard reveal">
-            <p class="kicker">One number</p>
-            <h3>So each ask resolves to one number.</h3>
-            <p>A demand a government can dismiss. A single figure it cannot. Each tail becomes one measurable number, the thing that would prove the change actually moved. The next question for the room is whether each partner can name theirs.</p>
+        <section class="ann" data-state="strip">
+          <div class="anncard hero-beat">
+            <p class="kicker">The strip</p>
+            <h3>Take the local words away.</h3>
+            <p>Strip each tail and the same sentence is left five times over. Not five agendas, one demand wearing five accents: <strong>do not ask people to trust what they cannot see.</strong></p>
+          </div>
+        </section>
+
+        <section class="ann" data-state="lanes">
+          <div class="anncard">
+            <p class="kicker">The lanes</p>
+            <h3>The tails are real, and they each have a tool.</h3>
+            <p>Shared demand does not erase local nuance. Each tail becomes an action lane: the ask, the evidence to publish, and the one number that would prove it. The tool already exists, no new method required.</p>
           </div>
         </section>
       </div>
     </div>
 
-    <!-- ============ THE PROOF: evidence grid ============ -->
-    <h2><span class="num">→</span>Where the asks actually overlap</h2>
-    <p class="lead">The reveal is one sentence; this is the proof behind it. Priorities are sorted by how many of the five partners hold each, so the shared block sits on top.</p>
-    <div class="gridwrap"><table class="mx" id="mx"></table></div>
-    <p class="mxnote">Filled dot = the partner holds that priority. Hollow dot (◌) = lower-confidence reading. Columns sorted by partners-per-priority.</p>
-    <p class="topcallout" id="topcallout"></p>
+    <!-- ============ CLOSER + RECEIPTS ============ -->
+    <h2>The common ground</h2>
+    <p class="closer">They did not ask for the same project. They asked for the same right: <b>show us enough to judge.</b></p>
 
-    <!-- ============ DRAWERS ============ -->
+    <a class="diptych" href="foreign-funding-untangler.html">
+      <span><span class="dx-k">Day 1 · companion</span><br><span class="dx-t">One railway, five legal definitions</span> <span class="dx-s">— before they can demand disclosure, they must agree what counts as the project.</span></span>
+      <span class="dx-arr">→</span>
+    </a>
+
+    <details class="drawer">
+      <summary>Receipts: how we read the overlap</summary>
+      <div class="drawer-body">
+        <p>Beneath the shared sentence, the priorities genuinely overlap. This grid is the proof, not the story. Priorities are sorted by how many of the five partners hold each, so the shared block sits on top.</p>
+        <div class="gridwrap"><table class="mx" id="mx"></table></div>
+        <p class="mxnote">Filled dot = the partner holds that priority. Hollow dot (◌) = lower-confidence reading. Columns sorted by partners-per-priority.</p>
+        <p class="topcallout" id="topcallout"></p>
+      </div>
+    </details>
+
     <details class="drawer">
       <summary>How we read this, and what stays uncertain</summary>
       <div class="drawer-body">
-        <p><strong>What this is.</strong> A working read of the Day-1 morning session in Nairobi, 2 June 2026, not a completed partner survey. Each partner's ask is captured in their own framing; the priorities grid is an analyst's reading of which themes each partner emphasised, to be confirmed with each partner before any external use.</p>
-        <p><strong>What stays uncertain.</strong> Ethiopia and DRC are tagged as lower-confidence readings (the dashed tails, and the hollow dots in the grid). They share the demand; the precise emphasis is still to be confirmed. The point of the piece is that the five share the <em>demand</em>, not that they are interchangeable.</p>
-        <p><strong>Method.</strong> InfraWatch, developed by CIPE, with the NPV toolkit led by IEA-Kenya and disclosure mapping to the CoST IDS. The "proven tools" named per ask (NPV, PEA, IDS, beneficial ownership) are the existing instruments each priority maps to, no new method required.</p>
+        <p><strong>What this is.</strong> A working read of the Day-1 morning session in Nairobi, 2 June 2026, not a completed partner survey. Each partner's ask is captured in their own framing; the priorities grid is an analyst's reading of which themes each emphasised.</p>
+        <p><strong>What stays uncertain.</strong> Ethiopia and DRC are tagged lower-confidence (the dashed tails, the hollow dots). They share the demand; the precise emphasis is still to be confirmed. The piece argues they share the <em>demand</em>, not that they are interchangeable.</p>
+        <p><strong>Method.</strong> InfraWatch, developed by CIPE, with the NPV toolkit led by IEA-Kenya and disclosure mapping to the CoST IDS. The tools named per lane (NPV, PEA, IDS, beneficial ownership) are the existing instruments each priority maps to.</p>
       </div>
     </details>
 
     <details class="drawer" id="evidence">
       <summary>Open data: every partner, ask, tool and number</summary>
       <div class="drawer-body">
-        <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; readings tagged "confirmed" or "lower-confidence, to confirm" per partner.</p>
+        <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; each reading tagged "confirmed" or "lower-confidence, to confirm" per partner.</p>
         <div class="dl">
           <button class="dlbtn" id="dlJson" type="button">Download JSON</button>
           <button class="dlbtn" id="dlCsv" type="button">Download CSV</button>
@@ -259,26 +306,31 @@
 
     // ---- data: reused verbatim from the working read, nothing invented ----
     var C={
-      kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",strat:"Published appraisals",
-        quote:"Show us before you build.",sub:"Can't see the appraisal yet.",
-        number:"% of projects with a published appraisal before approval",
-        ids:"NPV tests it, IDS discloses it (Preparation)",conf:"hi"},
-      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",strat:"Local value capture",
-        quote:"Show us who benefits.",sub:"Can't see who owns the resource yet.",
+      kenya:{label:"Kenya",org:"IEA-Kenya",c:"#0071BC",
+        quote:"Show us before you build.",
+        evidence:"publish the appraisal / feasibility before award",
+        number:"% of projects with an appraisal published before approval",
+        tool:"NPV tests it · IDS discloses it (Preparation)",conf:"hi"},
+      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",
+        quote:"Show us who benefits.",
+        evidence:"publish the beneficial owner of the resource",
         number:"% of resource projects with disclosed beneficial owners",
-        ids:"PEA traces the value, IDS + BO disclose the owner",conf:"hi"},
-      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",strat:"Economic scrutiny",
-        quote:"Show us the numbers.",sub:"Can't see the cost-benefit case yet.",
+        tool:"PEA traces the value · IDS + BO disclose the owner",conf:"hi"},
+      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",
+        quote:"Show us the numbers.",
+        evidence:"publish the cost-benefit / fiscal-risk case",
         number:"% of projects with a cost-benefit test on the record",
-        ids:"NPV runs the numbers, IDS discloses the inputs",conf:"hi"},
-      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",strat:"Quality of investment",
-        quote:"Show us the quality.",sub:"Can't see the real terms yet.",
+        tool:"NPV runs the numbers · IDS discloses the inputs",conf:"hi"},
+      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",
+        quote:"Show us the quality.",
+        evidence:"publish the real terms and a quality score",
         number:"% of FDI projects with disclosed terms and a quality score",
-        ids:"NPV weighs quality, PEA reads the terms",conf:"lo"},
-      drc:{label:"DRC",org:"CDHD",c:"#E7298A",strat:"Citizen oversight",
-        quote:"Show us the delivery.",sub:"Can't see how it's delivered yet.",
+        tool:"NPV weighs quality · PEA reads the terms",conf:"lo"},
+      drc:{label:"DRC",org:"CDHD",c:"#E7298A",
+        quote:"Show us the delivery.",
+        evidence:"publish delivery data citizens can check",
         number:"% of projects with delivery data citizens can check",
-        ids:"PEA powers oversight, IDS discloses delivery (Implementation)",conf:"lo"}
+        tool:"PEA powers oversight · IDS discloses delivery (Implementation)",conf:"lo"}
     };
     var ORDER=["kenya","ghana","nigeria","ethiopia","drc"];
     var THEMES={
@@ -291,11 +343,10 @@
       quality:{label:"Quality of investment", members:["ethiopia"], low:[]}
     };
     var TKEYS=Object.keys(THEMES).sort(function(a,b){return THEMES[b].members.length-THEMES[a].members.length;});
-
     var STEM="Show us";
     function tailOf(c){ return C[c].quote.slice(STEM.length).replace(/^\s+/,""); }
 
-    // ---- build the chorus of five lines ----
+    // ---- build the five chorus lines ----
     var chorus=document.getElementById("chorus");
     ORDER.forEach(function(c){
       var d=C[c], lo=d.conf==="lo";
@@ -304,26 +355,26 @@
       line.style.setProperty("--qc", d.c);
       line.innerHTML=
         '<span class="qstem">'+STEM+'</span>'+
-        '<span class="qtail">'+tailOf(c)+
-          '<span class="qmeta">'+d.ids+'</span>'+
-          '<span class="qflag">to confirm</span>'+
-        '</span>'+
-        '<div class="qnum">'+d.label+': '+d.number+'</div>';
+        '<span class="qtail">'+tailOf(c)+'<span class="qflag">to confirm</span></span>'+
+        '<span class="qmeta">'+d.label+'</span>'+
+        '<div class="qchain"><span class="ev">'+d.evidence+'</span>'+
+          '<span class="arr">→</span><span class="nm">'+d.number+'</span>'+
+          '<span class="tool">'+d.tool+'</span></div>';
       line.setAttribute("aria-label", d.label+" ("+d.org+"): "+d.quote);
       chorus.appendChild(line);
     });
 
-    // ---- the sticky stage state, driven by scroll ----
+    // ---- sticky stage state ----
     var stage=document.getElementById("stage"), kick=document.getElementById("stageKick");
     var KICK={
-      scatter:"Day-1 morning · five asks, as they were said",
-      collapse:"One stem, five tails",
-      tools:"Each tail already has a tool",
-      numbers:"Each tail resolves to one number"
+      surface:"The surface · five asks, as they were said",
+      split:"The split · one stem, five tails",
+      strip:"The strip · the local words fall away",
+      lanes:"The lanes · ask → evidence → one number"
     };
-    function setState(s){ if(stage.dataset.state===s) return; stage.dataset.state=s; kick.textContent=KICK[s]||KICK.scatter; }
+    function setState(s){ if(stage.dataset.state===s) return; stage.dataset.state=s; kick.textContent=KICK[s]||KICK.surface; }
 
-    // ---- evidence grid (sorted, top block highlighted) ----
+    // ---- receipts grid ----
     (function(){
       var topN=THEMES[TKEYS[0]].members.length;
       var h='<thead><tr><th class="rowh">Partner</th>'+
@@ -340,11 +391,11 @@
         'The asks differ in emphasis; the demand sits on common ground.';
     })();
 
-    // ---- open data: JSON / CSV / Excel from the same arrays on screen ----
+    // ---- open data ----
     function dataRows(){
       return ORDER.map(function(c){ var d=C[c];
-        return { partner:d.label, org:d.org, ask:d.quote, shortfall:d.sub,
-          one_number:d.number, proven_tools:d.ids,
+        return { partner:d.label, org:d.org, ask:d.quote, evidence_to_publish:d.evidence,
+          one_number:d.number, proven_tool:d.tool,
           confidence:(d.conf==="hi"?"confirmed":"lower-confidence, to confirm"),
           priorities_held:TKEYS.filter(function(k){return THEMES[k].members.indexOf(c)>-1;}).map(function(k){return THEMES[k].label;}).join("; ") };
       });
@@ -355,7 +406,7 @@
       document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(url);},1500);
     }
     function csvCell(v){ v=String(v==null?"":v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v; }
-    var COLS=["partner","org","ask","shortfall","one_number","proven_tools","confidence","priorities_held"];
+    var COLS=["partner","org","ask","evidence_to_publish","one_number","proven_tool","confidence","priorities_held"];
     document.getElementById("dlJson").addEventListener("click",function(){ dl("partner-priorities-shared-ground.json","application/json",JSON.stringify(dataRows(),null,2)); });
     document.getElementById("dlCsv").addEventListener("click",function(){
       var rows=dataRows(); var out=[COLS.join(",")].concat(rows.map(function(r){return COLS.map(function(k){return csvCell(r[k]);}).join(",");}));
@@ -372,7 +423,7 @@
       dl("partner-priorities-shared-ground.xls","application/vnd.ms-excel",xml);
     });
 
-    // ---- race-proof scroll engine: most-centered .ann drives the sticky stage ----
+    // ---- race-proof scroll engine ----
     var anns=[].slice.call(document.querySelectorAll(".ann"));
     var onObs=new IntersectionObserver(function(es){
       es.forEach(function(e){ e.target.classList.toggle("on", e.isIntersecting && e.intersectionRatio>0.4); });
@@ -388,7 +439,7 @@
     },{threshold:[0,.15,.3,.5,.75,1]});
     anns.forEach(function(a){ driver.observe(a); });
 
-    setState("scatter");
+    setState("surface");
   })();
   </script>
 </body>

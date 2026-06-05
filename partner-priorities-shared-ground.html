@@ -94,10 +94,29 @@
     .stage[data-state="split"] .seam,
     .stage[data-state="strip"] .seam{opacity:1;}
 
-    /* STRIP (the hero moment): the local tails peel away and fade; only the 'Show us' column remains; the shared demand rises */
-    .stage[data-state="strip"] .qstem{color:var(--stem);}
-    .stage[data-state="strip"] .qtail{opacity:0;transform:translateX(40px);}
-    .stage[data-state="strip"] .demand{opacity:1;transform:none;}
+    /* STRIP (the hero moment): the local tails peel away ONE AT A TIME, top to bottom,
+       so the reader watches each drop in sequence; then only the 'Show us' column remains
+       and the shared demand rises. Staggered via per-line transition-delay. */
+    .stage[data-state="strip"] .qstem{color:var(--stem);transition:color .55s ease;}
+    .stage[data-state="strip"] .qtail{opacity:0;transform:translateX(46px) translateY(6px);}
+    /* peel cadence: each tail waits a beat longer than the one above it */
+    .stage[data-state="strip"] .qline:nth-child(2) .qtail{transition-delay:.05s;}
+    .stage[data-state="strip"] .qline:nth-child(3) .qtail{transition-delay:.28s;}
+    .stage[data-state="strip"] .qline:nth-child(4) .qtail{transition-delay:.51s;}
+    .stage[data-state="strip"] .qline:nth-child(5) .qtail{transition-delay:.74s;}
+    .stage[data-state="strip"] .qline:nth-child(6) .qtail{transition-delay:.97s;}
+    /* each stem turns red as its own tail finishes leaving, reinforcing the one-at-a-time feel */
+    .stage[data-state="strip"] .qline:nth-child(2) .qstem{transition-delay:.10s;}
+    .stage[data-state="strip"] .qline:nth-child(3) .qstem{transition-delay:.33s;}
+    .stage[data-state="strip"] .qline:nth-child(4) .qstem{transition-delay:.56s;}
+    .stage[data-state="strip"] .qline:nth-child(5) .qstem{transition-delay:.79s;}
+    .stage[data-state="strip"] .qline:nth-child(6) .qstem{transition-delay:1.02s;}
+    /* the shared demand rises only after the last tail has gone */
+    .stage[data-state="strip"] .demand{opacity:1;transform:none;transition:opacity .6s ease 1.25s,transform .6s ease 1.25s;}
+    /* reduced motion: no stagger, snap straight to the resolved state */
+    @media (prefers-reduced-motion:reduce){
+      .stage[data-state="strip"] .qtail,.stage[data-state="strip"] .qstem,.stage[data-state="strip"] .demand{transition-delay:0s !important;}
+    }
 
     /* LANES: tails return, now as action lanes (ask -> evidence -> one number), tools folded under.
        Let the line wrap so the full coloured tail shows as a lane header above its chain. */

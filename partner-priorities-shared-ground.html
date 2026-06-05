@@ -177,7 +177,8 @@
     }
 
     /* drawers + downloads */
-    .drawer{margin:1.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
+    .receipts-label{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--mid);margin:2.6rem 0 .2rem;}
+    .drawer{margin:.4rem 0 0;border:1px solid var(--light);border-radius:var(--radius);background:var(--white);}
     .drawer>summary{cursor:pointer;padding:.9rem 1.1rem;font-weight:700;font-size:.94rem;color:var(--dark);list-style:none;}
     .drawer>summary::-webkit-details-marker{display:none;}
     .drawer>summary::before{content:"▸ ";color:var(--brand);font-family:var(--mono);}
@@ -297,18 +298,14 @@
       <span class="dx-arr">→</span>
     </a>
 
-    <details class="drawer">
-      <summary>How we read this, and what stays uncertain</summary>
+    <!-- ============ RECEIPTS: one collapsed block at the very bottom, off the narrative path ============ -->
+    <p class="receipts-label">Receipts</p>
+    <details class="drawer" id="evidence">
+      <summary>Data, methodology &amp; uncertainties</summary>
       <div class="drawer-body">
         <p><strong>What this is.</strong> A working read of the Day-1 morning round in Nairobi, 2 June 2026. Each member was asked the same three questions; the answers are captured in their own framing, not edited into a house line.</p>
         <p><strong>What stays uncertain.</strong> Ethiopia and DRC are tagged lower-confidence readings, still to be confirmed with each member. Their answers are recorded as heard, to be checked back.</p>
         <p><strong>Why it matters.</strong> Starting from each member's own problem, role and success, rather than from a shared agenda, is what makes any later coalition real instead of assumed. The common ground has to be found, not declared.</p>
-      </div>
-    </details>
-
-    <details class="drawer" id="evidence">
-      <summary>Open data: every member, problem, role and success</summary>
-      <div class="drawer-body">
         <p class="dl-lead"><strong>Open data.</strong> This visualization is powered by the dataset below. Download it and use it freely; each reading tagged "confirmed" or "lower-confidence, to confirm" per member.</p>
         <div class="dl">
           <button class="dlbtn" id="dlJson" type="button">Download JSON</button>
@@ -415,8 +412,8 @@
         el.innerHTML='<div class="cnh">'+flagFor(c,18,12).replace("<svg","<svg class=\"cnfl\"")+d.label+'</div>'+SURFACE[c];
       });
       var turn=document.getElementById("turnstory"), tcap=document.getElementById("tcap");
-      var TCAP={ spread:"Five members. Five problems.", converge:"Strip the local detail.",
-        merged:"It was the same problem.", finding:"It was the same problem." };
+      var TCAP={ spread:"Five members. Five different problems.", converge:"But watch them begin to align.",
+        merged:"One shared problem. One coalition.", finding:"One shared problem. One coalition." };
       function setT(s){ if(turn.dataset.tstate===s) return; turn.dataset.tstate=s; tcap.textContent=TCAP[s]||""; }
       tcap.textContent=TCAP.spread;
       var tbeats=[].slice.call(document.querySelectorAll(".tbeat"));

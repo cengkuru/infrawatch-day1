@@ -38,80 +38,66 @@
     h1{font-size:clamp(2.1rem,6.4vw,3.7rem);font-weight:800;line-height:1.03;letter-spacing:-.025em;margin:0 0 1rem;max-width:16ch;}
     h1 .accent{color:var(--brand);}
     .lede{font-size:clamp(1.05rem,2.4vw,1.32rem);color:var(--mid);max-width:58ch;margin:0 0 1.4rem;}
-    /* the three questions, stated up front as the frame */
-    .qset{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.6rem 0 .5rem;}
-    .qcard{background:var(--white);border:1px solid var(--light);border-top:3px solid var(--brand);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 8px 22px rgba(20,35,52,.07);}
-    .qcard .qn{font-family:var(--mono);font-size:.62rem;font-weight:800;color:var(--brand);letter-spacing:.06em;}
-    .qcard h3{margin:.25rem 0 .2rem;font-size:1rem;letter-spacing:-.01em;}
-    .qcard p{margin:0;font-size:.84rem;color:var(--mid);line-height:1.45;}
-    @media (max-width:680px){ .qset{grid-template-columns:1fr;} }
+    /* the three questions as one quiet line, not heavy cards */
+    .qline-mini{font-family:var(--mono);font-size:.82rem;color:var(--mid);margin:1.2rem 0 .5rem;letter-spacing:.01em;}
+    .qline-mini span{text-transform:uppercase;font-size:.66rem;font-weight:800;letter-spacing:.08em;color:var(--brand);margin-right:.4rem;}
+    .qline-mini b{color:var(--dark);font-weight:800;}
     .scrollcue{text-align:center;color:var(--mid);font-size:.85rem;margin:2rem 0 .5rem;animation:bob 2s ease-in-out infinite;}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
     /* ============ THE PORTRAITS: sticky member stage LEFT, scrolling member beats RIGHT ============ */
     .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.55fr 1fr;gap:1.5rem;align-items:start;}
     .stickycol{position:sticky;top:3vh;align-self:start;}
-    .stage{position:relative;background:var(--white);border:1px solid var(--light);border-radius:16px;box-shadow:var(--shadow);
+    /* DARK portrait stage — shares the merge section's cinematic DNA so the whole essay reads as one surface */
+    .stage{position:relative;background:var(--brand-deep);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 22px 60px rgba(0,0,0,.3);
       min-height:76vh;padding:0;overflow:hidden;border-top:6px solid var(--ac,var(--brand));transition:border-color .5s ease;}
-    .stage-pad{padding:1.7rem clamp(1.2rem,2.8vw,2rem);}
+    .stage-pad{padding:1.9rem clamp(1.2rem,2.8vw,2.2rem);}
     /* member header */
     .mhead{display:flex;align-items:center;gap:.7rem;margin:0 0 .2rem;}
-    .mflag{display:block;flex:0 0 auto;border-radius:3px;overflow:hidden;box-shadow:0 1px 3px rgba(20,35,52,.22);}
-    .mname{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--ac,var(--brand));transition:color .5s ease;}
-    .morg{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin:.1rem 0 0;}
+    .mflag{display:block;flex:0 0 auto;border-radius:3px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.4);}
+    .mname{font-size:clamp(1.7rem,4.2vw,2.5rem);font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff;transition:color .5s ease;}
+    .morg{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#8aa6c4;margin:.15rem 0 0;}
     .mconf{display:inline-flex;align-items:center;gap:.3em;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
-      color:var(--amber);background:#fff4e6;border:1px solid #e8d3a8;border-radius:99px;padding:.16em .6em;margin:.5rem 0 0;}
+      color:#e3b667;background:rgba(227,182,103,.12);border:1px solid rgba(227,182,103,.35);border-radius:99px;padding:.16em .6em;margin:.6rem 0 0;}
     .mconf::before{content:"●";font-size:.7em;}
 
-    /* the three answers */
-    .answers{margin:1.5rem 0 0;display:flex;flex-direction:column;gap:0;}
-    .ans{padding:1.1rem 0;border-top:1px solid var(--light);opacity:.32;transform:translateY(6px);
+    /* the three answers, on the dark stage */
+    .answers{margin:1.8rem 0 0;display:flex;flex-direction:column;gap:0;}
+    .ans{padding:1.2rem 0;border-top:1px solid rgba(255,255,255,.12);opacity:.3;transform:translateY(6px);
       transition:opacity .5s ease,transform .5s ease;}
     .ans:first-child{border-top:none;}
     .ans.lit{opacity:1;transform:none;}
-    .ans .alabel{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.64rem;font-weight:800;
-      text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin:0 0 .35rem;}
-    .ans .anum{width:1.5rem;height:1.5rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-      background:var(--ac,var(--brand));color:#fff;font-size:.72rem;font-weight:800;flex:0 0 auto;transition:background .5s ease;}
-    .ans .atext{font-size:clamp(1.08rem,2.4vw,1.4rem);font-weight:700;color:var(--dark);line-height:1.25;letter-spacing:-.01em;margin:0;}
-    .ans.success .atext{color:var(--ac,var(--brand));transition:color .5s ease;}
+    .ans .alabel{display:flex;align-items:center;gap:.55rem;font-family:var(--mono);font-size:.64rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.08em;color:#8aa6c4;margin:0 0 .45rem;}
+    .ans .anum{width:1.6rem;height:1.6rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+      background:var(--ac,var(--brand));color:#fff;font-size:.74rem;font-weight:800;flex:0 0 auto;transition:background .5s ease;box-shadow:0 2px 10px rgba(0,0,0,.3);}
+    .ans .atext{font-size:clamp(1.12rem,2.5vw,1.5rem);font-weight:700;color:#eaf1f8;line-height:1.25;letter-spacing:-.01em;margin:0;}
+    /* success uses a lightened member tint so it pops on dark and stays AA-legible */
+    .ans.success .atext{color:#fff;}
+    .ans.success{position:relative;}
+    .ans.success::after{content:"";position:absolute;left:0;top:1.2rem;bottom:1.2rem;width:3px;border-radius:2px;background:var(--ac,var(--brand));margin-left:-.85rem;}
 
-    /* progress dots: which member you're on */
-    .mdots{position:absolute;right:1.1rem;top:1.2rem;display:flex;flex-direction:column;gap:.45rem;}
-    .mdots .md{width:9px;height:9px;border-radius:50%;background:var(--light);transition:background .3s,transform .3s;}
-    .mdots .md.on{background:var(--ac,var(--brand));transform:scale(1.35);}
+    /* progress dots */
+    .mdots{position:absolute;right:1.1rem;top:1.3rem;display:flex;flex-direction:column;gap:.5rem;}
+    .mdots .md{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s,transform .3s;}
+    .mdots .md.on{background:#fff;transform:scale(1.4);}
 
-    /* annotation column */
+    /* annotation column — dark cards to match the stage */
     .ann{min-height:96vh;display:flex;align-items:center;}
     .ann:first-child{min-height:56vh;}
     .ann:last-child{min-height:80vh;padding-bottom:6vh;}
-    .anncard{position:relative;opacity:0;transform:translateX(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);
-      background:var(--white);border:1px solid var(--light);border-left:4px solid var(--ac,var(--brand));border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 10px 30px rgba(20,35,52,.1);transition:opacity .6s ease,transform .6s ease,border-color .5s ease;}
+    .anncard{position:relative;opacity:0;transform:translateX(26px);
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-left:4px solid var(--ac,var(--brand));
+      border-radius:12px;padding:1.2rem 1.3rem;box-shadow:0 14px 40px rgba(0,0,0,.28);
+      transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1),border-color .5s ease;}
     .ann.on .anncard{opacity:1;transform:translateX(0);}
-    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ac,var(--brand));margin:0 0 .35rem;transition:color .5s ease;}
-    .anncard h3{margin:0 0 .45rem;font-size:1.2rem;font-weight:800;letter-spacing:-.01em;color:var(--dark);}
-    .anncard p{margin:0;font-size:.94rem;color:var(--mid);line-height:1.55;}
-    .anncard strong{color:var(--dark);}
+    .anncard .kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#8aa6c4;margin:0 0 .35rem;transition:color .5s ease;}
+    .anncard h3{margin:0 0 .45rem;font-size:1.2rem;font-weight:800;letter-spacing:-.01em;color:#fff;}
+    .anncard p{margin:0;font-size:.94rem;color:#cdddec;line-height:1.55;}
+    .anncard strong{color:#fff;}
 
-    /* ============ SYNTHESIS: all five, three columns ============ */
     h2{font-size:clamp(1.4rem,3.4vw,1.9rem);font-weight:800;letter-spacing:-.015em;margin:2.6rem 0 .3rem;}
     .lead{color:var(--mid);max-width:64ch;margin:0 0 1.2rem;}
-    .synth{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:0;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-    .synth .sh{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);background:var(--surface);padding:.7rem .8rem;border-bottom:1px solid var(--light);}
-    .synth .smember{display:flex;align-items:center;gap:.5rem;padding:.85rem .8rem;border-bottom:1px solid var(--light);border-left:4px solid var(--sc);font-weight:800;color:var(--sc);font-size:.92rem;white-space:nowrap;}
-    .synth .scell{padding:.85rem .8rem;border-bottom:1px solid var(--light);font-size:.86rem;color:var(--dark);line-height:1.4;}
-    .synth .scell.role{color:var(--mid);}
-    .synth .scell.success{font-weight:700;color:var(--sc);}
-    .synth>div:nth-last-child(-n+4){border-bottom:none;}
-    .synth .sflag{flex:0 0 auto;border-radius:2.5px;overflow:hidden;box-shadow:0 1px 2px rgba(20,35,52,.2);}
-    @media (max-width:760px){
-      .synth{grid-template-columns:1fr;}
-      .synth .sh{display:none;}
-      .synth .smember{border-left-width:5px;font-size:1rem;padding-top:1rem;}
-      .synth .scell::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:.2rem;}
-      .synth .scell{border-bottom:none;padding-top:.3rem;}
-      .synth .scell.success{padding-bottom:1rem;border-bottom:1px solid var(--light);}
-    }
 
     /* ============ THE TURN: scroll-driven visual event ============
        A sticky dark stage. Five problem nodes start spread around the frame, then on scroll
@@ -237,15 +223,9 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <p class="eyebrow">InfraWatch Nairobi · Day 1 · the morning round</p>
-      <p class="hook">We went around the table and asked each member the same three questions. Not "do you agree with us", but: <b>what is the problem you want to tackle, what is your role in tackling it, and what would success look like to you?</b></p>
-      <h1>Five members, <span class="accent">three questions</span>.</h1>
-      <p class="lede">Here is what each member answered, in their own framing. On the surface, five different problems, five different roles, five different pictures of success. Then look again.</p>
-
-      <div class="qset">
-        <div class="qcard"><span class="qn">Q1</span><h3>The problem</h3><p>What do you most want to tackle?</p></div>
-        <div class="qcard"><span class="qn">Q2</span><h3>Your role</h3><p>What part do you play in tackling it?</p></div>
-        <div class="qcard"><span class="qn">Q3</span><h3>Success</h3><p>What would success look like to you?</p></div>
-      </div>
+      <h1>Five members, <span class="accent">three questions</span>, <span class="accent">one shared problem</span>.</h1>
+      <p class="lede">We asked each member the same three things, the problem they want to tackle, their role in it, and what success looks like. Their answers sounded different. Then the words started to line up.</p>
+      <p class="qline-mini"><span>The three questions:</span> <b>the problem</b> · <b>the role</b> · <b>success</b></p>
       <div class="scrollcue">scroll to meet them &darr;</div>
     </section>
   </div>
@@ -274,11 +254,6 @@
 
       <div class="anncol" id="anncol"><!-- beats injected: one per member --></div>
     </div>
-
-    <!-- ============ SYNTHESIS: the surface difference ============ -->
-    <h2>On the surface, five different answers</h2>
-    <p class="lead">Different problems, different roles, different finish lines. This is how it looked going around the table.</p>
-    <div class="synth" id="synth"></div>
 
     <!-- ============ THE TURN: a scroll-driven visual event — five problems converge into one ============ -->
     <section class="turnstory" id="turnstory" data-tstate="spread" aria-label="The five members' problems converge into one shared problem.">
@@ -427,19 +402,6 @@
       sec.innerHTML='<div class="anncard"><p class="kicker">'+n.k+'</p><h3>'+n.h+'</h3><p>'+n.p+'</p></div>';
       anncol.appendChild(sec);
     });
-
-    // ---- synthesis table ----
-    (function(){
-      var s=document.getElementById("synth");
-      var h='<div class="sh">Member</div><div class="sh">The problem</div><div class="sh">Their role</div><div class="sh">Success</div>';
-      ORDER.forEach(function(c){ var d=C[c];
-        h+='<div class="smember" style="--sc:'+d.ac+'">'+flagFor(c,20,13).replace("<svg","<svg class=\"sflag\"")+d.label+'</div>'+
-          '<div class="scell" data-l="The problem">'+d.problem+'</div>'+
-          '<div class="scell role" data-l="Their role">'+d.role+'</div>'+
-          '<div class="scell success" data-l="Success" style="--sc:'+d.ac+'">'+d.success+'</div>';
-      });
-      s.innerHTML=h;
-    })();
 
     // ---- the TURN: populate the five problem nodes + drive the convergence by scroll ----
     (function(){

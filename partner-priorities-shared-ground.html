@@ -10,9 +10,10 @@
       /* CIPE brand (this work is CIPE-sponsored): navy leads, deep red is the shared-stem accent */
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
       --stem:#BE1E2D; /* the one electric accent, reserved for the shared demand */
-      /* partner accent colours (used ONLY on the five tails) */
-      --c-kenya:#0071BC; --c-ghana:#1B9E77; --c-nigeria:#7570B3; --c-ethiopia:#D95F02; --c-drc:#E7298A;
-      --green:#1B7A3D; --amber:#C77F00;
+      /* partner accent colours, tuned so each clears WCAG AA 4.5:1 on white (safe at any text size).
+         Originals (Ghana #1B9E77, Nigeria #7570B3, Ethiopia #D95F02, DRC #E7298A) failed normal-text AA. */
+      --c-kenya:#0071BC; --c-ghana:#0F6B50; --c-nigeria:#565299; --c-ethiopia:#A84800; --c-drc:#B51D6B;
+      --green:#1B7A3D; --amber:#8A5800; /* amber darkened from #C77F00 (3.25:1, FAIL) to 6.04:1 */
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED;
       --white:#FFFFFF; --surface:#F6F8FA;
       --radius:10px; --shadow:0 16px 44px rgba(20,35,52,.12);
@@ -54,16 +55,22 @@
     .chorus{display:flex;flex-direction:column;gap:clamp(.55rem,1.8vw,1rem);position:relative;width:100%;}
     .seam{position:absolute;left:var(--seamx,4.6em);top:-.3rem;bottom:-.3rem;width:2px;background:var(--light);
       opacity:0;transition:opacity .5s ease;}
-    .qline{display:flex;align-items:baseline;gap:.36em;white-space:nowrap;max-width:100%;
+    .qline{display:flex;align-items:baseline;gap:.36em;white-space:nowrap;max-width:100%;flex-wrap:wrap;
       transform:translateX(var(--scatter,0));transition:transform .8s cubic-bezier(.22,1,.36,1);}
+    /* non-colour partner identity: a small label that reads regardless of hue or colour-vision */
+    .qname{flex:0 0 100%;font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
+      color:var(--mid);margin:0 0 .15rem;}
     .qstem{font-weight:800;letter-spacing:-.015em;line-height:1.02;flex:0 0 auto;
       font-size:clamp(1.4rem,4.6vw,2.7rem);color:var(--qc);transition:color .55s ease,transform .6s ease;}
     .qtail{font-weight:600;letter-spacing:-.005em;line-height:1.02;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;
       font-size:clamp(1.12rem,3.6vw,2.1rem);color:var(--qc);
       transition:color .55s ease,opacity .55s ease,transform .55s cubic-bezier(.4,0,1,.5);}
-    /* low-confidence tails keep an honest dashed marker */
-    .qline.lo .qtail{border-bottom:2px dashed currentColor;padding-bottom:1px;}
-    .qflag{display:none;font-family:var(--mono);font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--amber);margin-left:.5em;align-self:center;}
+    /* low-confidence: a READABLE chip (text + shape), not a colour-only dashed underline.
+       amber #8A5800 on #fff4e6 clears AA; the word 'lower confidence' carries the meaning without relying on hue. */
+    .qflag{display:inline-flex;align-items:center;gap:.3em;font-family:var(--sans);font-size:.72rem;font-weight:800;
+      text-transform:uppercase;letter-spacing:.03em;color:var(--amber);background:#fff4e6;border:1px solid #e8d3a8;
+      border-radius:99px;padding:.18em .6em;margin-left:.3em;align-self:center;white-space:nowrap;}
+    .qflag::before{content:"●";font-size:.7em;}
 
     /* the shared-demand line that appears alone when the tails are stripped */
     .demand{position:absolute;left:0;right:0;bottom:clamp(1.4rem,4vw,2.4rem);text-align:center;padding:0 1.5rem;
@@ -72,24 +79,24 @@
     .demand .dk{display:block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:.4rem;}
 
     /* per-line action-lane parts (revealed in the 'lanes' state) */
-    .qmeta{display:none;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--mid);margin-left:.55em;align-self:center;white-space:nowrap;}
-    .qchain{display:none;margin:.2em 0 0;font-size:clamp(.62rem,1.4vw,.78rem);color:var(--mid);white-space:normal;line-height:1.4;}
-    .qchain .arr{color:var(--brand-soft);font-family:var(--mono);margin:0 .35em;}
-    .qchain .ev{color:var(--dark);font-weight:600;}
-    .qchain .nm{color:var(--stem);font-family:var(--mono);font-weight:700;}
-    .qchain .tool{display:block;font-family:var(--mono);font-size:.92em;color:var(--brand-soft);margin-top:.15em;}
+    .qmeta{display:none;}
+    /* action lane: three labelled rows (publish / tool / number) in clean sans-serif, NOT mono dump.
+       a grid keeps the labels aligned in their own column so the five lanes read as a system. */
+    .qchain{display:none;margin:.55rem 0 0;grid-template-columns:auto 1fr;gap:.35rem .9rem;align-items:baseline;}
+    .qchain .lbl{font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);padding-top:.12em;}
+    .qchain .ev{color:var(--dark);font-weight:600;font-size:clamp(.86rem,1.7vw,.98rem);line-height:1.35;}
+    .qchain .tool{color:var(--brand-soft);font-weight:600;font-size:clamp(.8rem,1.5vw,.9rem);line-height:1.35;}
+    .qchain .nm{color:var(--brand);font-weight:800;font-size:clamp(.92rem,1.9vw,1.08rem);line-height:1.3;}
+    .qchain .nm .pct{font-variant-numeric:tabular-nums;}
 
     /* ===== STATE machine on the stage ===== */
-    /* SURFACE: stems wear partner colour, lines scattered, full sentence reads */
-    .stage[data-state="surface"] .qline:nth-child(2){--scatter:7%;}
-    .stage[data-state="surface"] .qline:nth-child(3){--scatter:17%;}
-    .stage[data-state="surface"] .qline:nth-child(4){--scatter:10%;}
-    .stage[data-state="surface"] .qline:nth-child(5){--scatter:21%;}
-    .stage[data-state="surface"] .qline:nth-child(6){--scatter:13%;}
-    .stage[data-state="surface"] .qline.lo .qflag{display:inline;}
+    /* the partner-name label and low-confidence chip show only on the SURFACE beat (the "as they were said" view) */
+    .qname{display:none;} .qflag{display:none;}
+    .stage[data-state="surface"] .qname{display:block;}
+    .stage[data-state="surface"] .qline.lo .qflag{display:inline-flex;}
+    /* SURFACE: stems wear partner colour, full sentence reads, lines left-aligned (no lumpy scatter) */
 
-    /* SPLIT: lines flush-left, stems go ink-dark, the seam guide appears between stem and tail */
-    .stage:not([data-state="surface"]) .qline{--scatter:0 !important;}
+    /* SPLIT: stems go ink-dark, the seam guide appears between stem and tail */
     .stage:not([data-state="surface"]) .qstem{color:var(--brand-deep);}
     .stage[data-state="split"] .seam,
     .stage[data-state="strip"] .seam{opacity:1;}
@@ -118,15 +125,19 @@
       .stage[data-state="strip"] .qtail,.stage[data-state="strip"] .qstem,.stage[data-state="strip"] .demand{transition-delay:0s !important;}
     }
 
-    /* LANES: tails return, now as action lanes (ask -> evidence -> one number), tools folded under.
-       Let the line wrap so the full coloured tail shows as a lane header above its chain. */
-    .stage[data-state="lanes"] .qline{flex-wrap:wrap;white-space:normal;align-items:baseline;}
-    .stage[data-state="lanes"] .qstem{font-size:clamp(1.15rem,3.4vw,1.75rem);}
-    .stage[data-state="lanes"] .qtail{font-size:clamp(1.05rem,3vw,1.6rem);white-space:normal;overflow:visible;text-overflow:clip;}
-    .stage[data-state="lanes"] .qmeta{display:none;}
-    .stage[data-state="lanes"] .qchain{display:block;flex:1 0 100%;}
-    .stage[data-state="lanes"] .chorus{gap:clamp(.8rem,2.4vw,1.35rem);}
+    /* LANES: each line becomes a structured three-step card. The coloured 'Show us [tail]' is the
+       header; below it the Publish / Tool / Number rows in clean sans-serif on an aligned label grid.
+       A coloured left border ties the card body to its partner colour (so colour is reinforcement, not the only cue). */
+    .stage[data-state="lanes"]{justify-content:flex-start;overflow-y:auto;}
+    .stage[data-state="lanes"] .chorus{gap:clamp(.7rem,2vw,1.1rem);}
+    .stage[data-state="lanes"] .qline{flex-wrap:wrap;white-space:normal;align-items:baseline;
+      border-left:3px solid var(--qc);padding:.55rem 0 .65rem .85rem;}
+    .stage[data-state="lanes"] .qname{display:block;color:var(--qc);}
+    .stage[data-state="lanes"] .qstem{font-size:clamp(1.1rem,3vw,1.55rem);}
+    .stage[data-state="lanes"] .qtail{font-size:clamp(1rem,2.7vw,1.45rem);white-space:normal;overflow:visible;text-overflow:clip;}
+    .stage[data-state="lanes"] .qchain{display:grid;flex:1 0 100%;}
     .stage[data-state="lanes"] .seam{opacity:0;}
+    .stage[data-state="lanes"] .qline.lo .qflag{display:inline-flex;}
 
     /* annotation column */
     .ann{min-height:92vh;display:flex;align-items:center;}
@@ -330,22 +341,22 @@
         evidence:"publish the appraisal / feasibility before award",
         number:"% of projects with an appraisal published before approval",
         tool:"NPV tests it · IDS discloses it (Preparation)",conf:"hi"},
-      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#1B9E77",
+      ghana:{label:"Ghana",org:"IEA-Ghana",c:"#0F6B50",
         quote:"Show us who benefits.",
         evidence:"publish the beneficial owner of the resource",
         number:"% of resource projects with disclosed beneficial owners",
         tool:"PEA traces the value · IDS + BO disclose the owner",conf:"hi"},
-      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#7570B3",
+      nigeria:{label:"Nigeria",org:"Dataphyte",c:"#565299",
         quote:"Show us the numbers.",
         evidence:"publish the cost-benefit / fiscal-risk case",
         number:"% of projects with a cost-benefit test on the record",
         tool:"NPV runs the numbers · IDS discloses the inputs",conf:"hi"},
-      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#D95F02",
+      ethiopia:{label:"Ethiopia",org:"Stalwart",c:"#A84800",
         quote:"Show us the quality.",
         evidence:"publish the real terms and a quality score",
         number:"% of FDI projects with disclosed terms and a quality score",
         tool:"NPV weighs quality · PEA reads the terms",conf:"lo"},
-      drc:{label:"DRC",org:"CDHD",c:"#E7298A",
+      drc:{label:"DRC",org:"CDHD",c:"#B51D6B",
         quote:"Show us the delivery.",
         evidence:"publish delivery data citizens can check",
         number:"% of projects with delivery data citizens can check",
@@ -372,14 +383,19 @@
       var line=document.createElement("div");
       line.className="qline"+(lo?" lo":"");
       line.style.setProperty("--qc", d.c);
+      // non-colour identity: a partner-name label sits with every line, so identity never relies on hue.
+      // low-confidence: a readable text chip ("lower confidence"), redundant with (not reliant on) styling.
       line.innerHTML=
+        '<span class="qname">'+d.label+'</span>'+
         '<span class="qstem">'+STEM+'</span>'+
-        '<span class="qtail">'+tailOf(c)+'<span class="qflag">to confirm</span></span>'+
-        '<span class="qmeta">'+d.label+'</span>'+
-        '<div class="qchain"><span class="ev">'+d.evidence+'</span>'+
-          '<span class="arr">→</span><span class="nm">'+d.number+'</span>'+
-          '<span class="tool">'+d.tool+'</span></div>';
-      line.setAttribute("aria-label", d.label+" ("+d.org+"): "+d.quote);
+        '<span class="qtail">'+tailOf(c)+'</span>'+
+        (lo?'<span class="qflag" title="a lower-confidence reading, to be confirmed with this partner">lower confidence</span>':'')+
+        '<div class="qchain">'+
+          '<span class="lbl">Publish</span><span class="ev">'+d.evidence+'</span>'+
+          '<span class="lbl">Tool</span><span class="tool">'+d.tool+'</span>'+
+          '<span class="lbl">Number</span><span class="nm">'+d.number+'</span>'+
+        '</div>';
+      line.setAttribute("aria-label", d.label+" ("+d.org+"): "+d.quote+(lo?" (lower-confidence reading, to be confirmed)":""));
       chorus.appendChild(line);
     });
 

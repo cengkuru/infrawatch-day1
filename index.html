@@ -55,6 +55,10 @@
     .daycol .ddate{font-family:var(--mono);font-size:.62rem;color:var(--mid);float:right;}
     .daycol h2{margin:.2rem 0 .35rem;font-size:1.18rem;font-weight:800;letter-spacing:-.01em;}
     .daycol .dq{margin:0 0 .9rem;font-size:.88rem;color:var(--mid);flex:1;}
+    .status{display:inline-block;font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.18rem .5rem;border-radius:99px;margin:.5rem 0 0;}
+    .status.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
+    .status.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .status.probe{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
     .daycol a.go{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--light);padding:.6rem 0 0;margin-top:.2rem;font-size:.86rem;font-weight:700;transition:color .12s;}
     .daycol a.go:hover{color:var(--brand);}
     .daycol a.go .sub{display:block;font-weight:400;color:var(--mid);font-size:.78rem;margin-top:.1rem;}
@@ -82,15 +86,15 @@
   <!-- ===================== THE MAP ===================== -->
   <section class="stage" id="map">
     <div class="stage-inner">
-      <p class="kicker">Nairobi workshop &middot; 2 to 4 June 2026 &middot; the three days</p>
-      <h1 class="arc">From a project you <span class="a1">cannot see</span>, to a value you <span class="a2">can test</span>, to a public that can <span class="a3">finally speak</span>.</h1>
-      <p class="lede">Three days, one question: can the public hold infrastructure to account? This is the map. Each day builds on the last. Follow the line, then open the day you want.</p>
+      <p class="kicker">InfraWatch Nairobi &middot; a reusable method, not a workshop recap</p>
+      <h1 class="arc">InfraWatch does not prove publication makes a project <span class="a1">good</span>. It proves publication makes value <span class="a2">testable</span>, and gives the public standing to <span class="a3">challenge the terms</span>.</h1>
+      <p class="lede">One method, three moves: <b>see</b> what is being funded and by whom, <b>test</b> whether its value can be judged, then surface the public <b>voice</b> that contract publication unlocks. The same three moves run on any foreign-funded project on the watch list.</p>
 
-      <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-station map across the three workshop days. Day 1 is a map with location pins: five countries, one project. Day 2 is a set of colour-coded verdicts: which projects can be judged. Day 3 is a photograph of a project with a lone figure beneath it. Each station links to that day's visuals.">
+      <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-move method. Move 1, See it: a map with location pins, five countries and one project. Move 2, Test it: a set of colour-coded verdicts, which projects can be judged. Move 3, Voice it: a photograph of a project with a lone figure beneath it. Each move links to its visuals.">
         <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
         <path class="spine-fill" id="spineFill" d="M 130 120 L 460 120 L 790 120"/>
 
-        <a class="stationhit" id="hit1" href="day1/" aria-label="Day 1: reading the room">
+        <a class="stationhit" id="hit1" href="modality-risk-map.html" aria-label="Move 1: See it">
           <circle class="st-ring" id="ring1" cx="130" cy="120" r="40" stroke="#8aa6c4"/>
           <g id="d1">
             <path d="M112 102 q 8 -8 20 -5 q 14 4 16 16 q 2 12 -8 18 q -10 7 -22 2 q -12 -6 -10 -18 q 1 -8 4 -13 Z" fill="#3a5571" stroke="#5a7798" stroke-width="1"/>
@@ -98,12 +102,12 @@
             <circle cx="128" cy="128" r="3.4" fill="#C77F00"/><circle cx="142" cy="130" r="3.4" fill="#8aa6c4"/>
           </g>
           <text class="st-num" x="130" y="66" text-anchor="middle" id="num1">1</text>
-          <text class="st-title" x="130" y="182" text-anchor="middle" id="t1">Reading the room</text>
-          <text class="st-sub" x="130" y="198" text-anchor="middle" id="s1">2 Jun · five countries, one map</text>
-          <text class="enter-pill" x="130" y="214" text-anchor="middle" id="e1">enter day 1 &rarr;</text>
+          <text class="st-title" x="130" y="182" text-anchor="middle" id="t1">See it</text>
+          <text class="st-sub" x="130" y="198" text-anchor="middle" id="s1">what is funded, by whom</text>
+          <text class="enter-pill" x="130" y="214" text-anchor="middle" id="e1">open the visuals &rarr;</text>
         </a>
 
-        <a class="stationhit" id="hit2" href="day2/" aria-label="Day 2: can the value be tested">
+        <a class="stationhit" id="hit2" href="day2/disclosure-vs-npv-correlation.html" aria-label="Move 2: Test it">
           <circle class="st-ring" id="ring2" cx="460" cy="120" r="40" stroke="#cfe0d6"/>
           <g id="d2">
             <circle cx="446" cy="110" r="6" fill="#1B7A3D"/><circle cx="468" cy="106" r="6" fill="#C77F00"/>
@@ -111,12 +115,12 @@
             <rect x="458" y="120" width="11" height="11" rx="2" fill="none" stroke="#9fb4cc" stroke-width="2" stroke-dasharray="3 2"/>
           </g>
           <text class="st-num" x="460" y="66" text-anchor="middle" id="num2">2</text>
-          <text class="st-title" x="460" y="182" text-anchor="middle" id="t2">Can the value be tested?</text>
-          <text class="st-sub" x="460" y="198" text-anchor="middle" id="s2">3 Jun · which can be judged</text>
-          <text class="enter-pill" x="460" y="214" text-anchor="middle" id="e2">enter day 2 &rarr;</text>
+          <text class="st-title" x="460" y="182" text-anchor="middle" id="t2">Test it</text>
+          <text class="st-sub" x="460" y="198" text-anchor="middle" id="s2">can its value be judged</text>
+          <text class="enter-pill" x="460" y="214" text-anchor="middle" id="e2">open the visuals &rarr;</text>
         </a>
 
-        <a class="stationhit" id="hit3" href="day3/" aria-label="Day 3: whose voice decides">
+        <a class="stationhit" id="hit3" href="day3/the-unlock.html" aria-label="Move 3: Voice it">
           <circle class="st-ring" id="ring3" cx="790" cy="120" r="40" stroke="#fff"/>
           <g id="d3">
             <rect x="770" y="104" width="40" height="32" rx="3" fill="#16273a" stroke="#5a7798" stroke-width="1.4"/>
@@ -127,48 +131,45 @@
             <circle class="voice" cx="803" cy="129" r="2.1" fill="#ffb3ba" opacity="0"/>
           </g>
           <text class="st-num" x="790" y="66" text-anchor="middle" id="num3">3</text>
-          <text class="st-title" x="790" y="182" text-anchor="middle" id="t3">Whose voice decides</text>
-          <text class="st-sub" x="790" y="198" text-anchor="middle" id="s3">4 Jun · the public, beneath it</text>
-          <text class="enter-pill" x="790" y="214" text-anchor="middle" id="e3">enter day 3 &rarr;</text>
+          <text class="st-title" x="790" y="182" text-anchor="middle" id="t3">Voice it</text>
+          <text class="st-sub" x="790" y="198" text-anchor="middle" id="s3">who decides if it was worth it</text>
+          <text class="enter-pill" x="790" y="214" text-anchor="middle" id="e3">open the visuals &rarr;</text>
         </a>
       </svg>
 
-      <button class="replay" id="replay" aria-label="Replay the animation">&#8635; replay the map</button>
+      <button class="replay" id="replay" aria-label="Replay the animation">&#8635; replay the method</button>
     </div>
   </section>
 
   <!-- ===================== DAY DETAIL STRIP ===================== -->
   <div class="wrap">
-    <p class="doorslede">Three days, <b>three doors</b>. Each card opens that day's visual essays.</p>
+    <p class="doorslede">Three moves, <b>one library</b>. Each piece answers one question and carries its own evidence status, so you can see at a glance what is ready to share and what still needs a check.</p>
     <div class="days">
       <div class="daycol">
-        <span class="ddate">2 Jun</span><span class="dtag">Day 1</span>
-        <h2>Reading the room</h2>
-        <p class="dq">Where the partners stand, and the one problem underneath their five different answers.</p>
-        <a class="go" href="partner-priorities-shared-ground.html">Five members, three questions <span class="arr">&rarr;</span><span class="sub">Five different answers, one shared problem</span></a>
-        <a class="enter" href="day1/">Enter Day 1</a>
+        <span class="dtag">Move 1 &middot; See it</span>
+        <h2>What is being funded, by whom</h2>
+        <p class="dq">Before value, comparability: where the partners align, and how much you get to see depends on where the money comes from.</p>
+        <a class="go" href="modality-risk-map.html">What each funding source hides <span class="arr">&rarr;</span><span class="sub">A matrix that flips dark to clear, source by source</span><span class="status check">figures to confirm</span></a>
+        <a class="go" href="partner-priorities-shared-ground.html">Five members, three questions <span class="arr">&rarr;</span><span class="sub">Five different answers, one shared problem</span><span class="status probe">workshop synthesis</span></a>
       </div>
       <div class="daycol">
-        <span class="ddate">3 Jun</span><span class="dtag">Day 2</span>
-        <h2>Can the value be tested?</h2>
+        <span class="dtag">Move 2 &middot; Test it</span>
+        <h2>Can its value be judged at all</h2>
         <p class="dq">The question sharpens: not "is it good?" but "are we even allowed to find out?"</p>
-        <a class="go" href="day2/disclosure-vs-npv-correlation.html">You cannot assess what you are not allowed to see <span class="arr">&rarr;</span><span class="sub">Disclosure does not make a project good, it is the only thing that lets you find out</span></a>
-        <a class="go" href="modality-risk-map.html">What each funding source hides <span class="arr">&rarr;</span><span class="sub">How much you get to see depends on where the money comes from</span></a>
-        <a class="enter" href="day2/">Enter Day 2</a>
+        <a class="go" href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden <span class="arr">&rarr;</span><span class="sub">Six of ten projects you can judge, one you never will</span><span class="status ready">figures verified, n=10</span></a>
       </div>
       <div class="daycol">
-        <span class="ddate">4 Jun</span><span class="dtag">Day 3</span>
-        <h2>Whose voice decides</h2>
-        <p class="dq">The method's real power: synthesising the public's voice, unlocked by contract disclosure.</p>
-        <a class="go" href="day3/the-unlock.html">The unlock <span class="arr">&rarr;</span><span class="sub">A real corridor, a sealed contract, a public beneath it</span></a>
-        <a class="enter" href="day3/">Enter Day 3</a>
+        <span class="dtag">Move 3 &middot; Voice it</span>
+        <h2>Who decides if it was worth it</h2>
+        <p class="dq">The method's real power: surfacing the public's voice, unlocked by contract publication.</p>
+        <a class="go" href="day3/the-unlock.html">The unlock <span class="arr">&rarr;</span><span class="sub">A real corridor, a sealed contract, a public beneath it</span><span class="status probe">teaching probe</span></a>
       </div>
     </div>
 
-    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. The visual is chosen so its first reading is the finding, and where the evidence is thin it says so on the chart itself.</p>
+    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. The visual is chosen so its first reading is the finding, and where the evidence is thin it says so on the chart itself. The same three moves run on any foreign-funded project on the watch list.</p>
 
     <footer>
-      <p><strong>InfraWatch Nairobi</strong>, 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Working visuals by Michael Cengkuru, CoST.</p>
+      <p><strong>InfraWatch Nairobi</strong>, from the workshop of 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. The draw-your-guess chart is illustrative of the pattern, not a single dataset. Working visuals by Michael Cengkuru, CoST.</p>
       <p class="visit-counter" hidden style="margin:.6rem 0 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--mid);text-transform:uppercase;"><span class="vc-num" style="font-weight:700;color:var(--dark);"></span> visits</p>
     </footer>
     <script src="counter.js" defer></script>

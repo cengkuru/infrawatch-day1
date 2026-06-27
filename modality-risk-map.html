@@ -241,7 +241,8 @@
         </tbody>
       </table>
 
-      <p class="tokennote" id="tokennote">Map note: running on the stylized Africa fallback. To enable the live Mapbox basemap, append <b>?mbtoken=pk...</b> to the URL with your own public, domain-restricted Mapbox token. Never commit a secret (sk.) token.</p>
+      <!-- Reader-facing token note suppressed by default; the fallback map is the intended experience. Kept hidden for power users who want the live basemap. -->
+      <p class="tokennote" id="tokennote" hidden>Map note: running on the stylized Africa fallback. To enable the live Mapbox basemap, append <b>?mbtoken=pk...</b> to the URL with your own public, domain-restricted Mapbox token. Never commit a secret (sk.) token.</p>
 
       <details class="drawer">
         <summary>Where this comes from, and where it maps</summary>

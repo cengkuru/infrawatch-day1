@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What CoST adds: the publication grammar that makes InfraWatch runnable</title>
+  <meta name="description" content="CoST is not just the data standard. It is the publication grammar that makes the InfraWatch value test runnable. Each InfraWatch question maps to a CoST IDS field that has to be published before the question can be answered.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .brandbar a{color:#cfe0f0;text-decoration:none;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;}
+    .brandbar a:hover{color:#fff;}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.6rem 1.2rem 2.4rem;}
+    .hero-inner{max-width:1000px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;letter-spacing:-.02em;margin:0 0 1rem;max-width:26ch;}
+    .hero h1 .hl{color:#b9d4f0;}
+    .hero p{color:#cdddec;font-size:clamp(1rem,2vw,1.14rem);max-width:62ch;margin:0 0 .6rem;}
+
+    .claim{max-width:1000px;margin:1.8rem auto 0;padding:0 1.2rem;}
+    .claim-card{background:var(--white);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:12px;box-shadow:var(--shadow);padding:1.3rem 1.4rem;}
+    .claim-card b{color:var(--brand);}
+    .claim-card .small{display:block;margin-top:.6rem;color:var(--mid);font-size:.9rem;}
+
+    .wrap{max-width:1000px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin:1.6rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.9rem;}
+    thead th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:.7rem .85rem;}
+    tbody td{padding:.85rem;border-top:1px solid var(--light);vertical-align:top;}
+    tbody tr:nth-child(even){background:#fbfcfd;}
+    .q{font-weight:700;color:var(--dark);}
+    .field{font-family:var(--mono);font-size:.78rem;color:var(--brand);font-weight:700;}
+    .without{color:var(--red);font-size:.84rem;}
+    .move{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);}
+
+    .legs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.2rem 0 0;}
+    .leg{background:var(--white);border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:var(--shadow);}
+    .leg h3{margin:0 0 .3rem;font-size:1rem;}
+    .leg .who{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);display:block;margin-bottom:.5rem;}
+    .leg p{margin:0;font-size:.86rem;color:var(--mid);}
+    @media (max-width:760px){ .legs{grid-template-columns:1fr;} table,thead,tbody,th,td,tr{display:block;} thead{display:none;} tbody tr{border:1px solid var(--light);border-radius:12px;margin:0 0 .8rem;} tbody td{border-top:none;} tbody td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:.15rem;} }
+
+    footer{max-width:1000px;margin:2rem auto 3.5rem;padding:1.3rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+  </style>
+</head>
+<body>
+  <div class="brandbar">
+    <span class="brand">InfraWatch Nairobi</span>
+    <span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span>
+    <a href="index.html">&larr; back to the method</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">What CoST adds &middot; the publication grammar</p>
+      <h1>CoST is not just the data standard. It is what makes the value test <span class="hl">runnable</span>.</h1>
+      <p>InfraWatch asks whether a foreign-funded project was worth it. That question cannot be answered from the outside unless specific records are published first. The CoST Infrastructure Data Standard names those records. Without the standard, every InfraWatch question stalls at a sealed file.</p>
+    </div>
+  </section>
+
+  <div class="claim">
+    <div class="claim-card">
+      <b>The claim, stated plainly.</b> CIPE owns the InfraWatch method and its comparative scoring. IEA-Kenya owns the net-present-value test. CoST supplies the one thing both depend on: a shared, published list of fields that turns a hidden project into an assessable one. Move the standard, and the method has nothing to run on.
+      <span class="small">This is why "CoST = the data standard" undersells it. The standard is the precondition, not a side input.</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="sec">Each InfraWatch question maps to a field that has to be published</h2>
+    <p class="sub">Read across: the question InfraWatch asks, the CoST IDS field that answers it, and what stays unknowable if that field is never published. The third column is the cost of the standard not being run.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5.5rem">Move</th>
+          <th>InfraWatch asks</th>
+          <th>CoST IDS field that answers it</th>
+          <th>Without it, you cannot know</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-l="Move"><span class="move">See it</span></td>
+          <td class="q" data-l="InfraWatch asks">Who is actually funding this, and on what terms?</td>
+          <td class="field" data-l="CoST field">Funding source &middot; financing terms</td>
+          <td class="without" data-l="Without it">whether the debt, not the asset, is the real story</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">See it</span></td>
+          <td class="q" data-l="InfraWatch asks">Who really gains from the project?</td>
+          <td class="field" data-l="CoST field">Beneficial ownership &middot; offtake</td>
+          <td class="without" data-l="Without it">whether public money is routed to a private interest</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">See it</span></td>
+          <td class="q" data-l="InfraWatch asks">What will this commit the state to, long term?</td>
+          <td class="field" data-l="CoST field">Contract &middot; fiscal commitments</td>
+          <td class="without" data-l="Without it">the size of the bill that lands years after the ribbon-cutting</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">Test it</span></td>
+          <td class="q" data-l="InfraWatch asks">Was the cost honest, or marked up?</td>
+          <td class="field" data-l="CoST field">Itemised cost &middot; appraisal</td>
+          <td class="without" data-l="Without it">whether the price reflects the work or a buried margin</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">Test it</span></td>
+          <td class="q" data-l="InfraWatch asks">Can the project's value be judged at all?</td>
+          <td class="field" data-l="CoST field">Published terms (the precondition for the NPV test)</td>
+          <td class="without" data-l="Without it">anything: a withheld contract is a wall against assessment</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">Test it</span></td>
+          <td class="q" data-l="InfraWatch asks">Did it perform as promised?</td>
+          <td class="field" data-l="CoST field">Implementation &middot; performance</td>
+          <td class="without" data-l="Without it">whether delivery matched the deal that was signed</td>
+        </tr>
+        <tr>
+          <td data-l="Move"><span class="move">Voice it</span></td>
+          <td class="q" data-l="InfraWatch asks">Can the affected public challenge the terms?</td>
+          <td class="field" data-l="CoST field">Contract disclosure reaching funder + contractor</td>
+          <td class="without" data-l="Without it">the public has no standing, because it has no record to point to</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="sec">Three legs, three owners, one dependency</h2>
+    <p class="sub">InfraWatch runs on three method legs. Two are owned by others. All three sit on top of the CoST publication layer.</p>
+    <div class="legs">
+      <div class="leg">
+        <h3>The method &amp; scoring</h3>
+        <span class="who">owned by CIPE / Verit&eacute;</span>
+        <p>The comparative case design and the sequential scoring scale that rank disclosure across projects and countries.</p>
+      </div>
+      <div class="leg">
+        <h3>The value test</h3>
+        <span class="who">owned by IEA-Kenya</span>
+        <p>The net-present-value and political-economy work that turns published terms into a verdict on whether a project was worth it.</p>
+      </div>
+      <div class="leg">
+        <h3>The publication grammar</h3>
+        <span class="who">CoST IDS</span>
+        <p>The shared list of fields that has to be published before either of the other two legs has anything to work on. The precondition the whole method rests on.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>InfraWatch Nairobi</strong> &middot; what CoST adds. Field labels are indicative and should be confirmed against the CoST IDS v2.0 before external use. Method developed by CIPE with the NPV toolkit led by IEA-Kenya; the publication layer maps to the CoST Infrastructure Data Standard. Working resource by Michael Cengkuru, CoST.</p>
+  </footer>
+</body>
+</html>

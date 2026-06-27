@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>InfraWatch validation room (private, by invitation)</title>
+  <meta name="description" content="Private review page for named InfraWatch reviewers. Confirm, correct, or flag each finding. Not linked from the public site.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    .privatebar{background:#5a1620;color:#fff;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;text-align:center;padding:.5rem 1rem;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero h1{font-size:clamp(1.5rem,3.2vw,2.1rem);font-weight:800;line-height:1.16;margin:0 0 .9rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1rem;max-width:64ch;margin:0 0 .5rem;}
+    .hero .who{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#9fb4cc;margin-top:.8rem;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.4rem 1.2rem;}
+    .ask{background:var(--white);border:1px solid var(--light);border-radius:12px;padding:.9rem 1.1rem;margin:0 0 1.2rem;font-size:.9rem;color:var(--mid);}
+    .ask b{color:var(--dark);}
+
+    .row{background:var(--white);border:1px solid var(--light);border-radius:12px;box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin:0 0 1rem;}
+    .row .top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline;}
+    .row .fnum{font-family:var(--mono);font-size:.7rem;color:var(--mid);}
+    .row .move{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);}
+    .row .finding{font-weight:600;margin:.4rem 0 .3rem;}
+    .row .meta{font-size:.8rem;color:var(--mid);margin:0 0 .8rem;}
+    .row .meta a{color:var(--brand);text-decoration:none;}
+    .verdicts{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .v{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;text-decoration:none;padding:.42rem .8rem;border-radius:99px;border:1px solid;}
+    .v.safe{color:var(--green);border-color:rgba(27,122,61,.4);background:rgba(27,122,61,.08);}
+    .v.confirm{color:var(--brand);border-color:rgba(40,73,106,.4);background:rgba(40,73,106,.06);}
+    .v.correct{color:var(--amber);border-color:rgba(199,127,0,.4);background:rgba(199,127,0,.08);}
+    .v.notready{color:var(--red);border-color:rgba(190,30,45,.4);background:rgba(190,30,45,.06);}
+    .v:hover{filter:brightness(.95);}
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.3rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+  </style>
+</head>
+<body>
+  <div class="privatebar">Private &middot; by invitation &middot; not linked from the public site &middot; please do not forward this URL</div>
+  <div class="brandbar">
+    <span class="brand">InfraWatch Nairobi &mdash; validation room</span>
+    <span class="ctx">CIPE &middot; CoST &middot; IEA-Kenya</span>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Confirm, correct, or flag each finding before it goes wider.</h1>
+      <p>This is the working review of the InfraWatch Nairobi findings. Each one carries a draft status. Your steer decides what is safe to share, what needs a fix, and what is not ready. Nothing here is published externally until it has been through this room.</p>
+      <p class="who">For: Cathy Tai &middot; Mercy Ria Orca (CIPE) &middot; Evelyn Hernandez (CoST) &middot; IEA-Kenya</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="ask"><b>How to use this.</b> For each finding, click one of the four chips. It opens a pre-filled email to Michael with the finding referenced, so you can add your correction or confirmation in one line. No account, no login, nothing stored on this page.</div>
+
+    <!-- Rows mirror the public findings ledger; verdict chips are mailto: actions. -->
+    <div class="row">
+      <div class="top"><span class="move">Move 1 &middot; See it</span><span class="fnum">Finding 1</span></div>
+      <p class="finding">Where the money comes from predicts the blind spot; the financing type tells you which record to demand first.</p>
+      <p class="meta">Source: <a href="modality-risk-map.html">The financing type predicts the blind spot</a> &middot; current status: figures to confirm</p>
+      <div class="verdicts">
+        <a class="v safe" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%201%3A%20SAFE%20TO%20SHARE&body=Finding%201%20(financing%20predicts%20blind%20spot)%20%E2%80%94%20safe%20to%20share.%20Note%3A%20">Safe to share</a>
+        <a class="v confirm" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%201%3A%20CONFIRMED&body=Finding%201%20%E2%80%94%20confirmed%20as%20stated.%20Note%3A%20">Confirm</a>
+        <a class="v correct" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%201%3A%20CORRECTION&body=Finding%201%20%E2%80%94%20correction%20needed%3A%20">Correct this</a>
+        <a class="v notready" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%201%3A%20NOT%20READY&body=Finding%201%20%E2%80%94%20not%20ready%20because%3A%20">Not ready</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="top"><span class="move">Move 1 &middot; See it</span><span class="fnum">Finding 7</span></div>
+      <p class="finding">Five InfraWatch members arrived with five agendas; underneath, one shared problem: money is committed before anyone can judge it.</p>
+      <p class="meta">Source: <a href="partner-priorities-shared-ground.html">Five members, three questions</a> &middot; current status: working read (Ethiopia + DRC lower-confidence)</p>
+      <div class="verdicts">
+        <a class="v safe" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%207%3A%20SAFE%20TO%20SHARE&body=Finding%207%20(five%20members%2C%20one%20problem)%20%E2%80%94%20safe%20to%20share.%20Note%3A%20">Safe to share</a>
+        <a class="v confirm" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%207%3A%20CONFIRMED&body=Finding%207%20%E2%80%94%20confirmed.%20Note%3A%20">Confirm</a>
+        <a class="v correct" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%207%3A%20CORRECTION&body=Finding%207%20%E2%80%94%20correction%20(esp.%20Ethiopia%2FDRC)%3A%20">Correct this</a>
+        <a class="v notready" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Finding%207%3A%20NOT%20READY&body=Finding%207%20%E2%80%94%20not%20ready%20because%3A%20">Not ready</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="top"><span class="move">Move 2 &middot; Test it</span><span class="fnum">Findings 8&ndash;10</span></div>
+      <p class="finding">Of ten flagship projects, only six could be assessed up front, three only after running, one never; the only thing that lets you judge value is whether terms were published; and the apparent disclosure-to-value link is really the funder (PRC vs non-PRC).</p>
+      <p class="meta">Source: <a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a> &middot; current status: figures verified, n=10</p>
+      <div class="verdicts">
+        <a class="v safe" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%208-10%3A%20SAFE%20TO%20SHARE&body=Findings%208-10%20(the%20n%3D10%20assessability%20set)%20%E2%80%94%20safe%20to%20share.%20Note%3A%20">Safe to share</a>
+        <a class="v confirm" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%208-10%3A%20CONFIRMED&body=Findings%208-10%20%E2%80%94%20confirmed.%20Note%3A%20">Confirm</a>
+        <a class="v correct" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%208-10%3A%20CORRECTION&body=Findings%208-10%20%E2%80%94%20correction%20needed%3A%20">Correct this</a>
+        <a class="v notready" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%208-10%3A%20NOT%20READY&body=Findings%208-10%20%E2%80%94%20not%20ready%20because%3A%20">Not ready</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="top"><span class="move">Move 3 &middot; Voice it</span><span class="fnum">Findings 11&ndash;12</span></div>
+      <p class="finding">Publication of the contract decides whether the affected public gets a say; and the disclosure ask must reach the foreign funder and private contractor, not stop at the state.</p>
+      <p class="meta">Source: <a href="day3/the-unlock.html">The unlock</a> &middot; current status: teaching probe (Day-3 outcomes not yet captured)</p>
+      <div class="verdicts">
+        <a class="v safe" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%2011-12%3A%20SAFE%20TO%20SHARE&body=Findings%2011-12%20(public%20voice%20unlock)%20%E2%80%94%20safe%20to%20share.%20Note%3A%20">Safe to share</a>
+        <a class="v confirm" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%2011-12%3A%20CONFIRMED&body=Findings%2011-12%20%E2%80%94%20confirmed.%20Note%3A%20">Confirm</a>
+        <a class="v correct" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%2011-12%3A%20CORRECTION&body=Findings%2011-12%20%E2%80%94%20correction%20needed%3A%20">Correct this</a>
+        <a class="v notready" href="mailto:michael@cengkuru.com?subject=InfraWatch%20review%20%E2%80%94%20Findings%2011-12%3A%20NOT%20READY&body=Findings%2011-12%20%E2%80%94%20not%20ready%20because%3A%20">Not ready</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Private validation room for named reviewers. Not indexed, not linked from the public InfraWatch site. The public findings ledger reflects the status shown here; corrections from this room update it. InfraWatch (CIPE), Nairobi, June 2026. Compiled by Michael Cengkuru, CoST.</p>
+  </footer>
+</body>
+</html>

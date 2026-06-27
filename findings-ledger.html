@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InfraWatch findings ledger: every claim, its source, its status</title>
+  <meta name="description" content="The evidence behind the InfraWatch Nairobi method. Every finding the visual essays make, with its source, the CoST IDS or method leg it maps to, its evidence status, and who it is for. A buyer reads it as proof, a partner as a worked example, the public as what was found.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;letter-spacing:.01em;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .brandbar a{color:#cfe0f0;text-decoration:none;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;}
+    .brandbar a:hover{color:#fff;}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.6rem 1.2rem 2.4rem;}
+    .hero-inner{max-width:1080px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;line-height:1.14;letter-spacing:-.02em;margin:0 0 1rem;max-width:24ch;}
+    .hero p{color:#cdddec;font-size:clamp(1rem,2vw,1.12rem);max-width:62ch;margin:0 0 .6rem;}
+    .hero .reads{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.4rem 0 0;}
+    .read{flex:1;min-width:200px;background:rgba(127,168,214,.1);border:1px solid #2a3f57;border-radius:12px;padding:.9rem 1rem;}
+    .read b{display:block;color:#fff;font-size:.86rem;margin-bottom:.2rem;}
+    .read span{color:#9fb4cc;font-size:.82rem;}
+
+    .wrap{max-width:1080px;margin:0 auto;padding:1.6rem 1.2rem;}
+    .legend{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 1.2rem;font-size:.8rem;color:var(--mid);}
+    .status{display:inline-block;font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.2rem .55rem;border-radius:99px;white-space:nowrap;}
+    .status.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
+    .status.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .status.probe{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
+
+    table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.88rem;}
+    thead th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:.7rem .8rem;}
+    tbody td{padding:.8rem;border-top:1px solid var(--light);vertical-align:top;}
+    tbody tr:nth-child(even){background:#fbfcfd;}
+    .grp td{background:var(--brand-deep);color:#fff;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;padding:.55rem .8rem;}
+    .grp td .gq{color:#9fb4cc;font-weight:400;text-transform:none;letter-spacing:0;}
+    .num{font-family:var(--mono);color:var(--mid);font-size:.78rem;}
+    .finding{font-weight:600;color:var(--dark);}
+    .src{font-size:.78rem;color:var(--mid);}
+    .src a{color:var(--brand);text-decoration:none;} .src a:hover{text-decoration:underline;}
+    .leg{font-family:var(--mono);font-size:.66rem;color:var(--brand-soft);text-transform:uppercase;letter-spacing:.04em;}
+    .use{display:inline-block;font-size:.68rem;color:var(--mid);border:1px solid var(--light);border-radius:99px;padding:.12rem .45rem;margin:.1rem .2rem .1rem 0;white-space:nowrap;}
+
+    .note{max-width:1080px;margin:1.4rem auto 0;padding:0 1.2rem;color:var(--mid);font-size:.86rem;}
+    .note b{color:var(--dark);}
+    footer{max-width:1080px;margin:2rem auto 3.5rem;padding:1.3rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+
+    @media (max-width:820px){
+      table,thead,tbody,th,td,tr{display:block;}
+      thead{display:none;}
+      tbody tr{border:1px solid var(--light);border-radius:12px;margin:0 0 .8rem;padding:.4rem;background:var(--white);}
+      tbody tr:nth-child(even){background:var(--white);}
+      .grp td{border-radius:8px;}
+      tbody td{border-top:none;padding:.35rem .6rem;}
+      tbody td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:.15rem;}
+      .grp td::before{content:"";}
+    }
+  </style>
+</head>
+<body>
+  <div class="brandbar">
+    <span class="brand">InfraWatch Nairobi</span>
+    <span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span>
+    <a href="index.html">&larr; back to the method</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">The evidence behind the method &middot; as of June 2026</p>
+      <h1>Every finding the essays make, with its source and its status.</h1>
+      <p>The visual essays argue. This is the ledger underneath them: each finding, where it came from, the CoST IDS field or method leg it maps to, how solid the evidence is, and who it is for. Nothing here is dressed up. Where a finding is a working read or a teaching probe, it says so.</p>
+      <div class="reads">
+        <div class="read"><b>For a funder or buyer</b><span>Read it as proof the method produces real, sourced findings, not just visuals.</span></div>
+        <div class="read"><b>For a partner</b><span>Read it as a worked example you can run on your own country's projects.</span></div>
+        <div class="read"><b>For the public</b><span>Read it as what was found, and the one record to demand next.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="legend">
+      <span>Evidence status:</span>
+      <span class="status ready">figures verified</span>
+      <span class="status check">figures to confirm</span>
+      <span class="status probe">working read / teaching probe</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:2.2rem">#</th>
+          <th>Finding</th>
+          <th>Source</th>
+          <th>Maps to</th>
+          <th>Status</th>
+          <th>For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="grp"><td colspan="6">Move 1 &middot; See it <span class="gq">what is being funded, and by whom &middot; Days 1&ndash;2</span></td></tr>
+        <tr>
+          <td class="num" data-l="#">1</td>
+          <td class="finding" data-l="Finding">Where the money comes from predicts the blind spot. The financing type tells you which record to demand first.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a> &middot; Day 2, 3 Jun</td>
+          <td class="leg" data-l="Maps to">CoST IDS v2.0</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">2</td>
+          <td class="finding" data-l="Finding">Sovereign loan (Kenya, the SGR) hides the real debt. Ask for loan terms and the guarantee.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a></td>
+          <td class="leg" data-l="Maps to">IDS &middot; financing</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">3</td>
+          <td class="finding" data-l="Finding">Equity / project finance (Ghana, Sankofa gas) hides who really gains. Ask for beneficial ownership and the offtake.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a></td>
+          <td class="leg" data-l="Maps to">IDS &middot; ownership</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">4</td>
+          <td class="finding" data-l="Finding">PPP / concession (Kenya, Nairobi Expressway) hides the long-term bill. Ask for the contract and fiscal commitments.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a></td>
+          <td class="leg" data-l="Maps to">IDS &middot; fiscal</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">5</td>
+          <td class="finding" data-l="Finding">EPC + finance (Nigeria, NASENI solar) hides the buried mark-up. Ask for the itemised cost breakdown.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a></td>
+          <td class="leg" data-l="Maps to">IDS &middot; cost</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">6</td>
+          <td class="finding" data-l="Finding">Concessional loan (Ethiopia, Addis light rail) hides the real terms. Ask for source, conditions and the tender.</td>
+          <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a></td>
+          <td class="leg" data-l="Maps to">IDS &middot; financing</td>
+          <td data-l="Status"><span class="status check">figures to confirm</span></td>
+          <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">7</td>
+          <td class="finding" data-l="Finding">Five InfraWatch members arrived with what felt like five agendas. Underneath, one shared problem: money is committed before anyone can judge it.</td>
+          <td class="src" data-l="Source"><a href="partner-priorities-shared-ground.html">Five members, three questions</a> &middot; Day 1, 2 Jun</td>
+          <td class="leg" data-l="Maps to">PEA</td>
+          <td data-l="Status"><span class="status probe">working read</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
+        </tr>
+
+        <tr class="grp"><td colspan="6">Move 2 &middot; Test it <span class="gq">can its value be judged at all &middot; Day 2</span></td></tr>
+        <tr>
+          <td class="num" data-l="#">8</td>
+          <td class="finding" data-l="Finding">Of ten flagship projects, only six could be assessed up front. Three could be judged only after they had run. One cannot be judged at all.</td>
+          <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a> &middot; Day 2, 3 Jun</td>
+          <td class="leg" data-l="Maps to">IDS + NPV</td>
+          <td data-l="Status"><span class="status ready">figures verified &middot; n=10</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">9</td>
+          <td class="finding" data-l="Finding">The only thing that lets you judge value is whether the terms were published, not whether the project was good. Publication does not make a project good; it is the only thing that lets anyone find out.</td>
+          <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a></td>
+          <td class="leg" data-l="Maps to">IDS + NPV</td>
+          <td data-l="Status"><span class="status ready">figures verified &middot; n=10</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">partner</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">10</td>
+          <td class="finding" data-l="Finding">The apparent link between disclosure and value is really the funder, PRC versus non-PRC, not transparency itself. The slope dies once you split by who financed it.</td>
+          <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a></td>
+          <td class="leg" data-l="Maps to">PEA</td>
+          <td data-l="Status"><span class="status ready">figures verified &middot; n=10</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
+        </tr>
+
+        <tr class="grp"><td colspan="6">Move 3 &middot; Voice it <span class="gq">who decides if it was worth it &middot; Day 3</span></td></tr>
+        <tr>
+          <td class="num" data-l="#">11</td>
+          <td class="finding" data-l="Finding">Scoring and NPV measure the project. Publication of the contract decides whether the people living with it get a say. A sealed contract has no public; a published one hands the affected community standing to be heard.</td>
+          <td class="src" data-l="Source"><a href="day3/the-unlock.html">The unlock</a> &middot; Day 3, 4 Jun</td>
+          <td class="leg" data-l="Maps to">public voice</td>
+          <td data-l="Status"><span class="status probe">teaching probe</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">public</span></td>
+        </tr>
+        <tr>
+          <td class="num" data-l="#">12</td>
+          <td class="finding" data-l="Finding">Disclosure has to reach the foreign funder and the private contractor, the two parties who actually hold the confidential terms, not stop at the state.</td>
+          <td class="src" data-l="Source"><a href="day3/the-unlock.html">The unlock</a></td>
+          <td class="leg" data-l="Maps to">public voice</td>
+          <td data-l="Status"><span class="status probe">teaching probe</span></td>
+          <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note"><b>How to read the status.</b> <span class="status ready">figures verified</span> means the underlying dataset is fixed and checked (the ten-project set, n=10). <span class="status check">figures to confirm</span> means the pattern holds but exact field labels should be confirmed against the CoST IDS v2.0 and figures against the loan agreements before external use. <span class="status probe">working read / teaching probe</span> means it is a read of the room or a conceptual argument from the workshop, recorded as heard, to be confirmed with each member or against a clean source. This ledger is a snapshot as of June 2026; re-running the method later will move some rows, and that movement is itself a finding.</p>
+  </div>
+
+  <footer>
+    <p><strong>InfraWatch Nairobi</strong> findings ledger, compiled from the visual essays of the workshop of 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Projects were presented by the country teams (IEA-Kenya, IEA-Ghana, Dataphyte, Stalwart); figures as reported, confirm against source before external circulation. Working visuals and ledger by Michael Cengkuru, CoST.</p>
+  </footer>
+</body>
+</html>

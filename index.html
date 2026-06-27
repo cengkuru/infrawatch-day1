@@ -78,10 +78,31 @@
       html{scroll-behavior:auto;}
       .spine-fill{stroke-dashoffset:0;} .st-ring,.st-title,.st-sub,.enter-pill{opacity:1;}
     }
+    /* ===== shared intent nav ===== */
+    .nav{background:var(--brand-deep);border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
+    .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
+    .nav a:hover{color:#fff;}
+    .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
+    /* ===== Start-here entry grid ===== */
+    .entry{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1rem auto 0;}
+    .ecard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.2rem 1.1rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.15s;border-top:4px solid var(--brand);}
+    .ecard:hover{transform:translateY(-2px);border-top-color:var(--brand-soft);}
+    .ecard .en{font-family:var(--mono);font-size:.66rem;font-weight:800;color:var(--brand-soft);letter-spacing:.06em;}
+    .ecard b{font-size:1.12rem;margin:.25rem 0 .35rem;letter-spacing:-.01em;}
+    .ecard .ed{font-size:.84rem;color:var(--mid);}
+    @media (max-width:760px){ .entry{grid-template-columns:1fr 1fr;} }
   </style>
 </head>
 <body>
   <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
+  <nav class="nav"><div class="nav-inner">
+    <a href="index.html" aria-current="page">Start here</a>
+    <a href="method.html">The method</a>
+    <a href="findings-ledger.html">The evidence</a>
+    <a href="cases.html">The cases</a>
+    <a href="use-this.html">Use this</a>
+  </div></nav>
 
   <!-- ===================== THE MAP ===================== -->
   <section class="stage" id="map">
@@ -89,11 +110,6 @@
       <p class="kicker">InfraWatch Nairobi &middot; a reusable method, not a workshop recap</p>
       <h1 class="arc">Publication does not make a project <span class="a1">good</span>. It makes its value <span class="a2">testable</span>, and gives the public standing to <span class="a3">challenge the terms</span>.</h1>
       <p class="lede">That is the principle. InfraWatch is the method that runs on it, in three moves: <b>see</b> what is being funded and by whom, <b>test</b> whether its value can be judged, then surface the public <b>voice</b> that contract publication unlocks. The same three moves run on any foreign-funded project on the watch list.</p>
-      <p class="lede" style="margin-top:.6rem;display:flex;flex-wrap:wrap;gap:.4rem 1.3rem;font-size:.95rem;">
-        <a href="findings-ledger.html" style="color:#b9d4f0;font-weight:700;text-decoration:none;border-bottom:1px solid #3d6491;">The evidence &rarr;</a>
-        <a href="method.html" style="color:#b9d4f0;font-weight:700;text-decoration:none;border-bottom:1px solid #3d6491;">The method, step by step &rarr;</a>
-        <a href="cost-link.html" style="color:#b9d4f0;font-weight:700;text-decoration:none;border-bottom:1px solid #3d6491;">What CoST adds &rarr;</a>
-      </p>
 
       <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-move method. Move 1, See it: a map with location pins, five countries and one project. Move 2, Test it: a set of colour-coded verdicts, which projects can be judged. Move 3, Voice it: a photograph of a project with a lone figure beneath it. Each move links to its visuals.">
         <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
@@ -146,32 +162,17 @@
     </div>
   </section>
 
-  <!-- ===================== DAY DETAIL STRIP ===================== -->
+  <!-- ===================== START HERE: how to use this resource ===================== -->
   <div class="wrap">
-    <p class="doorslede">Three moves, <b>one library</b>. Each piece answers one question and carries its own evidence status, so you can see at a glance what is ready to share and what still needs a check.</p>
-    <div class="days">
-      <div class="daycol">
-        <span class="ddate">Days 1&ndash;2</span><span class="dtag">Move 1 &middot; See it</span>
-        <h2>What is being funded, by whom</h2>
-        <p class="dq">Before value, comparability: where the partners align, and how much you get to see depends on where the money comes from.</p>
-        <a class="go" href="modality-risk-map.html">What each funding source hides <span class="arr">&rarr;</span><span class="sub">A matrix that flips dark to clear, source by source</span><span class="status check">figures to confirm</span></a>
-        <a class="go" href="partner-priorities-shared-ground.html">Five members, three questions <span class="arr">&rarr;</span><span class="sub">Five different answers, one shared problem</span><span class="status probe">workshop synthesis</span></a>
-      </div>
-      <div class="daycol">
-        <span class="ddate">Day 2 &middot; 3 Jun</span><span class="dtag">Move 2 &middot; Test it</span>
-        <h2>Can its value be judged at all</h2>
-        <p class="dq">The question sharpens: not "is it good?" but "are we even allowed to find out?"</p>
-        <a class="go" href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden <span class="arr">&rarr;</span><span class="sub">Six of ten projects you can judge, one you never will</span><span class="status ready">figures verified, n=10</span></a>
-      </div>
-      <div class="daycol">
-        <span class="ddate">Day 3 &middot; 4 Jun</span><span class="dtag">Move 3 &middot; Voice it</span>
-        <h2>Who decides if it was worth it</h2>
-        <p class="dq">The method's real power: surfacing the public's voice, unlocked by contract publication.</p>
-        <a class="go" href="day3/the-unlock.html">The unlock <span class="arr">&rarr;</span><span class="sub">A real corridor, a sealed contract, a public beneath it</span><span class="status probe">teaching probe</span></a>
-      </div>
+    <p class="doorslede">This is a <b>proof resource</b>, not a slideshow. The cinematic essays carry the story; the evidence layer carries the proof. Four ways in, depending on what you need.</p>
+    <div class="entry">
+      <a class="ecard" href="method.html"><span class="en">01</span><b>The Method</b><span class="ed">See it, test it, voice it. The logic, in three moves.</span></a>
+      <a class="ecard" href="findings-ledger.html"><span class="en">02</span><b>The Evidence</b><span class="ed">Every claim, its source, its status, the CoST field it maps to.</span></a>
+      <a class="ecard" href="cases.html"><span class="en">03</span><b>The Cases</b><span class="ed">The visual essays and worked examples, grouped under the method.</span></a>
+      <a class="ecard" href="use-this.html"><span class="en">04</span><b>Use This</b><span class="ed">For partner validation, funder briefing, training, publication.</span></a>
     </div>
 
-    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. The visual is chosen so its first reading is the finding, and where the evidence is thin it says so on the chart itself. The same three moves run on any foreign-funded project on the watch list.</p>
+    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. Where the evidence is thin it says so on the chart itself. Day labels (<b>from Day 1, 2 or 3</b>) are provenance, not navigation.</p>
 
     <footer>
       <p><strong>InfraWatch Nairobi</strong>, from the workshop of 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. The draw-your-guess chart is illustrative of the pattern, not a single dataset. Working visuals by Michael Cengkuru, CoST.</p>

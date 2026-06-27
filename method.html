@@ -22,6 +22,10 @@
     .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
     .brandbar a{color:#cfe0f0;text-decoration:none;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;}
     .brandbar a:hover{color:#fff;}
+    .nav{background:#0c1622;border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
+    .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
+    .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
 
     .page{max-width:1080px;margin:0 auto;padding:3rem 1.3rem 2rem;color:#fff;}
     .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;text-align:center;margin:0 0 .9rem;}
@@ -62,8 +66,14 @@
   <div class="brandbar">
     <span class="brand">InfraWatch Nairobi</span>
     <span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span>
-    <a href="index.html">&larr; back to the method</a>
   </div>
+  <nav class="nav"><div class="nav-inner">
+    <a href="index.html">Start here</a>
+    <a href="method.html" aria-current="page">The method</a>
+    <a href="findings-ledger.html">The evidence</a>
+    <a href="cases.html">The cases</a>
+    <a href="use-this.html">Use this</a>
+  </div></nav>
 
   <div class="page">
     <p class="kicker">The method, at a glance</p>

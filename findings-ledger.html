@@ -39,6 +39,10 @@
     .status.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
     .status.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
     .status.probe{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
+    .nav{background:var(--brand-deep);border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
+    .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
+    .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
 
     table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.88rem;}
     thead th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:.7rem .8rem;}
@@ -74,8 +78,14 @@
   <div class="brandbar">
     <span class="brand">InfraWatch Nairobi</span>
     <span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span>
-    <a href="index.html">&larr; back to the method</a>
   </div>
+  <nav class="nav"><div class="nav-inner">
+    <a href="index.html">Start here</a>
+    <a href="method.html">The method</a>
+    <a href="findings-ledger.html" aria-current="page">The evidence</a>
+    <a href="cases.html">The cases</a>
+    <a href="use-this.html">Use this</a>
+  </div></nav>
 
   <section class="hero">
     <div class="hero-inner">
@@ -111,7 +121,7 @@
       </thead>
       <tbody>
         <tr class="grp"><td colspan="6">Move 1 &middot; See it <span class="gq">what is being funded, and by whom &middot; Days 1&ndash;2</span></td></tr>
-        <tr>
+        <tr id="f1" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">1</td>
           <td class="finding" data-l="Finding">Where the money comes from predicts the blind spot. The financing type tells you which record to demand first.</td>
           <td class="src" data-l="Source"><a href="modality-risk-map.html">The financing type predicts the blind spot</a> &middot; Day 2, 3 Jun</td>
@@ -159,7 +169,7 @@
           <td data-l="Status"><span class="status check">figures to confirm</span></td>
           <td data-l="For"><span class="use">partner</span><span class="use">public</span></td>
         </tr>
-        <tr>
+        <tr id="f7" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">7</td>
           <td class="finding" data-l="Finding">Five InfraWatch members arrived with what felt like five agendas. Underneath, one shared problem: money is committed before anyone can judge it.</td>
           <td class="src" data-l="Source"><a href="partner-priorities-shared-ground.html">Five members, three questions</a> &middot; Day 1, 2 Jun</td>
@@ -169,7 +179,7 @@
         </tr>
 
         <tr class="grp"><td colspan="6">Move 2 &middot; Test it <span class="gq">can its value be judged at all &middot; Day 2</span></td></tr>
-        <tr>
+        <tr id="f8" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">8</td>
           <td class="finding" data-l="Finding">Of ten flagship projects, only six could be assessed up front. Three could be judged only after they had run. One cannot be judged at all.</td>
           <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a> &middot; Day 2, 3 Jun</td>
@@ -195,7 +205,7 @@
         </tr>
 
         <tr class="grp"><td colspan="6">Move 3 &middot; Voice it <span class="gq">who decides if it was worth it &middot; Day 3</span></td></tr>
-        <tr>
+        <tr id="f11" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">11</td>
           <td class="finding" data-l="Finding">Scoring and NPV measure the project. Publication of the contract decides whether the people living with it get a say. A sealed contract has no public; a published one hands the affected community standing to be heard.</td>
           <td class="src" data-l="Source"><a href="day3/the-unlock.html">The unlock</a> &middot; Day 3, 4 Jun</td>
@@ -213,6 +223,8 @@
         </tr>
       </tbody>
     </table>
+
+    <p class="note" style="margin-top:1.2rem;"><b>The "maps to" column has a page of its own.</b> Every finding traces back to a CoST IDS field that has to be published before the finding can be made. <a href="cost-link.html" style="color:var(--brand);font-weight:700;">See what CoST adds &rarr;</a> the publication grammar that makes the value test runnable.</p>
 
     <p class="note"><b>How to read the status.</b> <span class="status ready">figures verified</span> means the underlying dataset is fixed and checked (the ten-project set, n=10). <span class="status check">figures to confirm</span> means the pattern holds but exact field labels should be confirmed against the CoST IDS v2.0 and figures against the loan agreements before external use. <span class="status probe">working read / teaching probe</span> means it is a read of the room or a conceptual argument from the workshop, recorded as heard, to be confirmed with each member or against a clean source. This ledger is a snapshot as of June 2026; re-running the method later will move some rows, and that movement is itself a finding.</p>
   </div>

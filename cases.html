@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The cases: InfraWatch worked examples, grouped under the method</title>
+  <meta name="description" content="The InfraWatch visual essays and worked examples, grouped by the three moves. Each case has two views: a story view (the cinematic essay) and an evidence view (its claims, sources and status).">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --see:#8aa6c4; --test:#7cb89a; --voice:#cda6ff;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .nav{background:var(--brand-deep);border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
+    .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
+    .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.9rem;}
+    .hero-inner{max-width:1080px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:800;line-height:1.16;margin:0 0 .9rem;max-width:24ch;}
+    .hero p{color:#cdddec;font-size:1rem;max-width:60ch;margin:0;}
+    .hero .toggle{margin-top:1rem;font-size:.86rem;color:#9fb4cc;}
+    .hero .toggle b{color:#fff;}
+
+    .wrap{max-width:1080px;margin:0 auto;padding:1.4rem 1.2rem;}
+    .moveblock{margin:0 0 1.6rem;}
+    .moveband{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;border-left:4px solid var(--brand);padding-left:.8rem;margin:0 0 .8rem;}
+    .moveband.see{border-color:var(--see);} .moveband.test{border-color:var(--test);} .moveband.voice{border-color:var(--voice);}
+    .moveband h2{font-size:1.3rem;margin:0;letter-spacing:-.01em;}
+    .moveband .mq{color:var(--mid);font-size:.92rem;}
+    .moveband .day{font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);background:var(--white);border:1px solid var(--light);border-radius:99px;padding:.16rem .5rem;}
+
+    .case{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem 1.2rem;margin:0 0 .9rem;}
+    .case h3{margin:0 0 .25rem;font-size:1.08rem;}
+    .case .desc{color:var(--mid);font-size:.88rem;margin:0 0 .9rem;}
+    .views{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;}
+    .view{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.5rem .9rem;border-radius:99px;border:1px solid;}
+    .view.story{background:var(--brand);color:#fff;border-color:var(--brand);}
+    .view.story:hover{background:var(--brand-deep);}
+    .view.evidence{background:transparent;color:var(--brand);border-color:var(--light);}
+    .view.evidence:hover{border-color:var(--brand);}
+    .status{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;margin-left:auto;}
+    .status.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
+    .status.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .status.probe{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
+
+    footer{max-width:1080px;margin:1.4rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    @media (max-width:600px){ .status{margin-left:0;} }
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
+  <nav class="nav"><div class="nav-inner">
+    <a href="index.html">Start here</a>
+    <a href="method.html">The method</a>
+    <a href="findings-ledger.html">The evidence</a>
+    <a href="cases.html" aria-current="page">The cases</a>
+    <a href="use-this.html">Use this</a>
+  </div></nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">The cases &middot; grouped under the method</p>
+      <h1>The worked examples, each in two views.</h1>
+      <p>Every case has a <b>story view</b> and an <b>evidence view</b>. Story helps you understand; evidence helps you trust. The story is the cinematic essay. The evidence is its claims, sources and status.</p>
+      <p class="toggle"><b>Story</b> the cinematic essay &nbsp;|&nbsp; <b>Evidence</b> the claims behind it</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <div class="moveblock">
+      <div class="moveband see"><h2>See it</h2><span class="mq">what is being funded, and by whom</span><span class="day">from Days 1&ndash;2</span></div>
+
+      <div class="case">
+        <h3>What each funding source hides</h3>
+        <p class="desc">One railway counted five ways. The financing type predicts the blind spot, and names the record to demand first.</p>
+        <div class="views">
+          <a class="view story" href="modality-risk-map.html">Story view &rarr;</a>
+          <a class="view evidence" href="findings-ledger.html#f1">Evidence view &rarr;</a>
+          <span class="status check">figures to confirm</span>
+        </div>
+      </div>
+
+      <div class="case">
+        <h3>Five members, three questions</h3>
+        <p class="desc">Five partners arrived with five agendas. Underneath, one shared problem: money is committed before anyone can judge it.</p>
+        <div class="views">
+          <a class="view story" href="partner-priorities-shared-ground.html">Story view &rarr;</a>
+          <a class="view evidence" href="findings-ledger.html#f7">Evidence view &rarr;</a>
+          <span class="status probe">workshop synthesis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="moveblock">
+      <div class="moveband test"><h2>Test it</h2><span class="mq">can its value be judged at all</span><span class="day">from Day 2</span></div>
+
+      <div class="case">
+        <h3>You cannot price what is hidden</h3>
+        <p class="desc">Ten flagship projects. Six you can judge up front, three only after they run, one never. The only thing that lets you judge value is whether the terms were published.</p>
+        <div class="views">
+          <a class="view story" href="day2/disclosure-vs-npv-correlation.html">Story view &rarr;</a>
+          <a class="view evidence" href="findings-ledger.html#f8">Evidence view &rarr;</a>
+          <span class="status ready">figures verified, n=10</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="moveblock">
+      <div class="moveband voice"><h2>Voice it</h2><span class="mq">who decides if it was worth it</span><span class="day">from Day 3</span></div>
+
+      <div class="case">
+        <h3>The unlock</h3>
+        <p class="desc">A real corridor, a sealed contract, a public beneath it. Publication of the contract decides whether the affected community gets a say.</p>
+        <div class="views">
+          <a class="view story" href="day3/the-unlock.html">Story view &rarr;</a>
+          <a class="view evidence" href="findings-ledger.html#f11">Evidence view &rarr;</a>
+          <span class="status probe">teaching probe</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><strong>InfraWatch Nairobi</strong> &middot; the cases. Four worked examples from the workshop of 2 to 4 June 2026, grouped by the three moves. Day labels are provenance, not navigation. Where evidence is still a working read or a teaching probe, the status chip says so. Working visuals by Michael Cengkuru, CoST.</p>
+  </footer>
+</body>
+</html>

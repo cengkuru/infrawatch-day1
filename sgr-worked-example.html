@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Worked example: the Kenya SGR run through the InfraWatch method</title>
+  <meta name="description" content="One real foreign-funded project run through the InfraWatch method end to end: the Kenya Standard Gauge Railway. Evidence checklist, publication ask, finding row, one-page brief, and validation status.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --see:#8aa6c4; --test:#7cb89a; --voice:#cda6ff;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:14px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .nav{background:var(--brand-deep);border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
+    .nav-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
+    .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.9rem;}
+    .hero-inner{max-width:1000px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:800;line-height:1.16;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1rem;max-width:62ch;margin:0;}
+    .hero .meta{margin-top:.9rem;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:#9fb4cc;}
+
+    .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;}
+    .sec{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin:0 0 1.1rem;}
+    .sec .step{font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .sec h2{font-size:1.2rem;margin:.15rem 0 .2rem;letter-spacing:-.01em;}
+    .sec .lead{color:var(--mid);font-size:.9rem;margin:0 0 .9rem;}
+    .grid2{display:grid;grid-template-columns:auto 1fr;gap:.4rem .9rem;font-size:.92rem;}
+    .grid2 dt{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand);font-weight:700;padding-top:.1rem;}
+    .grid2 dd{margin:0;}
+    .checklist{list-style:none;margin:0;padding:0;}
+    .checklist li{padding:.45rem 0 .45rem 1.7rem;position:relative;font-size:.92rem;border-bottom:1px solid var(--surface);}
+    .checklist li::before{position:absolute;left:0;top:.45rem;font-family:var(--mono);font-weight:700;}
+    .checklist li.have::before{content:"\2713";color:var(--green);}
+    .checklist li.miss::before{content:"\2717";color:var(--red);}
+    .checklist li small{color:var(--mid);}
+    .ask{background:rgba(40,73,106,.05);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:8px;padding:1rem 1.2rem;}
+    .ask b{display:block;font-size:1.1rem;margin-bottom:.3rem;}
+    .ask span{color:var(--mid);font-size:.88rem;}
+    .statuschip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;}
+    .statuschip.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .val{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 0;}
+    .vtag{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.32rem .7rem;border-radius:99px;border:1px solid var(--light);color:var(--mid);}
+    .vtag.on{border-color:var(--amber);color:var(--amber);background:rgba(199,127,0,.08);}
+    .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0;}
+    .cta a{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;padding:.55rem 1rem;border-radius:99px;}
+    .cta a.solid{background:var(--brand);color:#fff;} .cta a.solid:hover{background:var(--brand-deep);}
+    .cta a.ghost{color:var(--brand);border:1px solid var(--light);} .cta a.ghost:hover{border-color:var(--brand);}
+
+    footer{max-width:1000px;margin:1.4rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    @media print{ .nav,.cta,.brandbar{display:none;} .sec{box-shadow:none;} }
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">InfraWatch Nairobi</span><span class="ctx">CIPE &middot; CoST IDS &middot; IEA-Kenya</span></div>
+  <nav class="nav"><div class="nav-inner">
+    <a href="index.html">Start here</a>
+    <a href="method.html">The method</a>
+    <a href="workbench.html">Workbench</a>
+    <a href="findings-ledger.html">The evidence</a>
+    <a href="cases.html">The cases</a>
+    <a href="use-this.html">Use this</a>
+  </div></nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Worked example &middot; one project, run end to end</p>
+      <h1>The Kenya SGR, run through the InfraWatch method.</h1>
+      <p>This is the proof: one real foreign-funded project taken through see, test, voice, producing an evidence checklist, the publication ask that matters, a finding row, and a partner action note. The figures are as reported across this resource, to be confirmed against loan agreements before external use.</p>
+      <p class="meta">Standard Gauge Railway &middot; Kenya &middot; partner: IEA-Kenya &middot; status: as-reported, figures to confirm</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <div class="sec">
+      <span class="step">Move 1 &middot; See it</span>
+      <h2>What is being funded, and by whom</h2>
+      <dl class="grid2">
+        <dt>Project</dt><dd>Standard Gauge Railway (SGR), Kenya, Mombasa&ndash;Nairobi corridor</dd>
+        <dt>Funder</dt><dd>Chinese state lenders (Exim Bank of China)</dd>
+        <dt>Financing type</dt><dd>Sovereign loan</dd>
+        <dt>What this type hides</dt><dd>the real debt and contingent liability, in the loan agreement, not the press release</dd>
+      </dl>
+    </div>
+
+    <div class="sec">
+      <span class="step">Move 2 &middot; Test it</span>
+      <h2>Can its value be judged</h2>
+      <dl class="grid2">
+        <dt>Terms published</dt><dd>Partly. The sovereign guarantee is known; the full loan terms are confidential.</dd>
+        <dt>Value (NPV)</dt><dd>Judged only from outcomes, not up front. Loan ~5% of GDP, debt-service strain on Kenya Railways; no full NPV possible without the terms.</dd>
+        <dt>Verdict basis</dt><dd>Outcome-based, as reported. The point is not the announced cost; it is the debt-service exposure and contingent liability that stayed in the agreement.</dd>
+      </dl>
+    </div>
+
+    <div class="sec">
+      <span class="step">Move 3 &middot; Voice it</span>
+      <h2>Who needs standing to challenge the terms</h2>
+      <dl class="grid2">
+        <dt>Affected</dt><dd>Communities along the corridor, and Kenyan taxpayers carrying the debt service</dd>
+        <dt>Holds the terms</dt><dd>The foreign funder (lender confidentiality) and the EPC contractor, not only the state</dd>
+      </dl>
+    </div>
+
+    <div class="sec">
+      <span class="step">Output 1</span>
+      <h2>Evidence checklist</h2>
+      <ul class="checklist">
+        <li class="have">Funder identified <small>(Exim Bank of China)</small></li>
+        <li class="have">Financing type classified <small>(sovereign loan)</small></li>
+        <li class="miss">Terms published <small>(partly; full loan terms withheld)</small></li>
+        <li class="miss">Value assessable up front <small>(only from outcomes)</small></li>
+        <li class="have">Affected public identified</li>
+        <li class="have">Holder of terms identified <small>(funder + contractor)</small></li>
+      </ul>
+    </div>
+
+    <div class="sec">
+      <span class="step">Output 2</span>
+      <h2>The publication ask that matters most</h2>
+      <div class="ask">
+        <b>Publish the loan agreement and the sovereign guarantee.</b>
+        <span>A sovereign loan hides the real debt and contingent liability. In CoST IDS terms: loan terms + guarantee. Until these are published, no minister, auditor, or citizen can independently judge whether the SGR was worth its debt-service cost.</span>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="step">Output 3</span>
+      <h2>Finding row</h2>
+      <p style="font-size:.94rem;margin:0;"><b>SGR, Kenya</b> &middot; Exim Bank of China &middot; sovereign loan. Terms partly published; value judged only from outcomes, not up front. <span class="statuschip check">as-reported, figures to confirm</span></p>
+    </div>
+
+    <div class="sec">
+      <span class="step">Output 4</span>
+      <h2>Partner action note</h2>
+      <p style="font-size:.94rem;margin:0;">Take to the <b>foreign funder and the EPC contractor</b>: a request to publish the loan agreement and the sovereign guarantee, so that corridor communities and Kenyan taxpayers gain the standing to challenge the debt-service terms. Route via IEA-Kenya as the anchor partner. Confirm figures against the loan agreement before external circulation.</p>
+    </div>
+
+    <div class="sec">
+      <span class="step">Output 5</span>
+      <h2>Validation status</h2>
+      <p class="lead">Where this finding sits before it goes wider. Reviewers update this in the private validation room.</p>
+      <div class="val">
+        <span class="vtag on">needs source check</span>
+        <span class="vtag">correct</span>
+        <span class="vtag">needs legal check</span>
+        <span class="vtag">safe internally</span>
+        <span class="vtag">safe externally</span>
+      </div>
+      <p style="font-size:.82rem;color:var(--mid);margin:.7rem 0 0;">Current: as-reported, figures to confirm against the loan agreement. Not yet cleared for external publication.</p>
+    </div>
+
+    <div class="cta">
+      <a class="solid" href="workbench.html">Run your own project &rarr;</a>
+      <a class="ghost" href="findings-ledger.html">See the full evidence ledger &rarr;</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><strong>InfraWatch Nairobi</strong> &middot; SGR worked example. Figures as reported across this resource (loan ~5% of GDP; sovereign guarantee known, full terms confidential), to be confirmed against the loan agreement before external use. Method: CoST IDS disclosure mapping, political-economy analysis, and NPV, developed by CIPE with the NPV toolkit led by IEA-Kenya. Built by Michael Cengkuru, CoST.</p>
+  </footer>
+</body>
+</html>

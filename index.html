@@ -91,6 +91,11 @@
     .ecard .en{font-family:var(--mono);font-size:.66rem;font-weight:800;color:var(--brand-soft);letter-spacing:.06em;}
     .ecard b{font-size:1.12rem;margin:.25rem 0 .35rem;letter-spacing:-.01em;}
     .ecard .ed{font-size:.84rem;color:var(--mid);}
+    .workcard{display:block;background:var(--brand);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.5rem;text-decoration:none;margin:1rem auto 0;transition:.15s;border:1px solid var(--brand-deep);}
+    .workcard:hover{background:var(--brand-deep);transform:translateY(-2px);}
+    .workcard .wlab{font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b9d4f0;}
+    .workcard b{display:block;font-size:1.5rem;letter-spacing:-.02em;margin:.2rem 0 .4rem;}
+    .workcard .wd{display:block;color:#cfe0f0;font-size:.92rem;max-width:60ch;}
     @media (max-width:760px){ .entry{grid-template-columns:1fr 1fr;} }
   </style>
 </head>
@@ -99,6 +104,7 @@
   <nav class="nav"><div class="nav-inner">
     <a href="index.html" aria-current="page">Start here</a>
     <a href="method.html">The method</a>
+    <a href="workbench.html">Workbench</a>
     <a href="findings-ledger.html">The evidence</a>
     <a href="cases.html">The cases</a>
     <a href="use-this.html">Use this</a>
@@ -164,7 +170,12 @@
 
   <!-- ===================== START HERE: how to use this resource ===================== -->
   <div class="wrap">
-    <p class="doorslede">This is a <b>proof resource</b>, not a slideshow. The cinematic essays carry the story; the evidence layer carries the proof. Four ways in, depending on what you need.</p>
+    <p class="doorslede">This is a <b>proof resource</b>, not a slideshow. Bring a foreign-funded project: it will show you what is hidden, whether the value can be judged, which publication field matters, and what the public needs to challenge the terms.</p>
+    <a class="workcard" href="workbench.html">
+      <span class="wlab">The core tool</span>
+      <b>Open the workbench &rarr;</b>
+      <span class="wd">Run a project through the method and leave with an evidence checklist, the publication ask that matters, and a defensible finding. Worked example loaded: the Kenya SGR.</span>
+    </a>
     <div class="entry">
       <a class="ecard" href="method.html"><span class="en">01</span><b>The Method</b><span class="ed">See it, test it, voice it. The logic, in three moves.</span></a>
       <a class="ecard" href="findings-ledger.html"><span class="en">02</span><b>The Evidence</b><span class="ed">Every claim, its source, its status, the CoST field it maps to.</span></a>

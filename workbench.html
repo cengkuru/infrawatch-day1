@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>InfraWatch Project Diagnostic: run a project through the method</title>
-  <meta name="description" content="The InfraWatch Project Diagnostic. Bring a foreign-funded project, run it through see, test, voice, and watch the method resolve into an evidence checklist, a publication ask, and a defensible finding. Worked example: Kenya SGR.">
+  <meta name="description" content="Run one infrastructure project through the InfraWatch method in three short steps. Leave with the records needed to judge its value, a clear request for project information, and a partner action. Worked example: Kenya SGR.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -42,6 +42,16 @@
     .btn:hover{background:var(--brand-deep);transform:translateY(-1px);} .btn:active{transform:translateY(0);}
     .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--light);} .btn.ghost:hover{border-color:var(--brand);background:var(--white);}
 
+    /* ===== stepper ===== */
+    .stepspine{display:flex;align-items:center;justify-content:center;gap:.3rem;margin:0 0 1.2rem;flex-wrap:wrap;}
+    .stepdot{display:inline-flex;align-items:center;gap:.45rem;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);padding:.3rem .2rem;transition:.15s;}
+    .stepdot .sd-num{width:1.5rem;height:1.5rem;border-radius:99px;border:2px solid var(--light);display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--mid);transition:.2s var(--ease);}
+    .stepdot.active{color:var(--brand);} .stepdot.active .sd-num{background:var(--brand);border-color:var(--brand);color:#fff;}
+    .stepdot.done .sd-num{background:var(--green);border-color:var(--green);color:#fff;}
+    .stepconn{width:2.5rem;height:2px;background:var(--light);}
+    .steps{margin:0 0 1.3rem;}
+    .step-pane{display:none;}
+    .step-pane.active{display:block;animation:fade .3s var(--ease);}
     /* ===== input moves ===== */
     .moves{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:0 0 1.3rem;}
     .mcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;border-top:4px solid var(--brand);transition:transform .3s var(--ease), box-shadow .3s var(--ease);}
@@ -133,9 +143,9 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="kicker">Project Diagnostic &middot; run a project through the method</p>
-      <h1>Bring a foreign-funded project. Watch the method resolve it.</h1>
-      <p>Answer the questions, then run the method. It works through the project move by move, and resolves into the publication ask that matters. See the <a href="sgr-worked-example.html">Kenya SGR run end to end &rarr;</a>, or edit it below.</p>
+      <p class="kicker">Run a project &middot; three short steps</p>
+      <h1>Bring one infrastructure project. Leave with a clear request for information.</h1>
+      <p>Answer a few plain questions about the project, one step at a time. You will leave knowing which records are needed to judge its value, and what a partner can request next. See the <a href="sgr-worked-example.html">Kenya SGR worked through end to end &rarr;</a>, or start your own below.</p>
     </div>
   </section>
 
@@ -150,54 +160,63 @@
     </div>
 
     <div id="panel-input">
-    <div class="moves">
-      <div class="mcol see" id="mc-see">
+    <div class="stepspine" id="stepspine">
+      <button class="stepdot active" data-step="0" type="button"><span class="sd-num">1</span> See it</button>
+      <span class="stepconn"></span>
+      <button class="stepdot" data-step="1" type="button"><span class="sd-num">2</span> Test it</button>
+      <span class="stepconn"></span>
+      <button class="stepdot" data-step="2" type="button"><span class="sd-num">3</span> Voice it</button>
+    </div>
+    <div class="steps">
+      <div class="mcol see step-pane active" id="mc-see" data-step="0">
         <span class="mtag"><span class="tick">&#10003;</span> Move 1 &middot; See it</span>
         <h2>See it</h2>
         <div class="field"><label for="proj">What is the project?</label><input id="proj" type="text" placeholder="Project name and country"></div>
-        <div class="field"><label for="funder">Who funds it?</label><input id="funder" type="text" placeholder="Lender or financier"></div>
+        <div class="field"><label for="funder">Who funds it?</label><input id="funder" type="text" placeholder="The lender or financier"></div>
         <div class="field">
-          <label for="ftype">What financing type is it?</label>
-          <p class="hint">This decides which record to demand first.</p>
+          <label for="ftype">How is it financed?</label>
+          <p class="hint">This decides which records you need to ask for first.</p>
           <select id="ftype">
             <option value="">Select...</option>
-            <option value="sovereign">Sovereign loan</option>
-            <option value="equity">Equity / project finance</option>
-            <option value="ppp">PPP / concession</option>
-            <option value="epc">EPC + finance</option>
-            <option value="concessional">Concessional loan</option>
+            <option value="sovereign">A loan the government guarantees (sovereign loan)</option>
+            <option value="equity">Private investment (equity / project finance)</option>
+            <option value="ppp">A long-term contract (PPP / concession)</option>
+            <option value="epc">A build-and-finance package (EPC)</option>
+            <option value="concessional">A low-interest development loan (concessional)</option>
           </select>
         </div>
       </div>
 
-      <div class="mcol test" id="mc-test">
+      <div class="mcol test step-pane" id="mc-test" data-step="1">
         <span class="mtag"><span class="tick">&#10003;</span> Move 2 &middot; Test it</span>
         <h2>Test it</h2>
         <div class="field">
-          <label for="published">Are the terms published?</label>
-          <select id="published"><option value="">Select...</option><option value="yes">Yes, published</option><option value="partial">Partly (some terms known)</option><option value="no">No, withheld</option></select>
+          <label for="published">Are the financing terms in the public records?</label>
+          <select id="published"><option value="">Select...</option><option value="yes">Yes, published</option><option value="partial">Partly (some known)</option><option value="no">Not found in public records</option></select>
         </div>
         <div class="field">
-          <label for="npv">Can value (NPV) be assessed?</label>
-          <select id="npv"><option value="">Select...</option><option value="yes">Yes, up front</option><option value="outcome">Only from outcomes after it ran</option><option value="no">No, cannot be judged</option></select>
+          <label for="npv">Can value for money be judged from those records?</label>
+          <select id="npv"><option value="">Select...</option><option value="yes">Yes, before the project</option><option value="outcome">Only later, from outcomes</option><option value="no">Not yet, records missing</option></select>
         </div>
-        <div class="field"><label for="basis">On what basis? (evidence note)</label><textarea id="basis" rows="2" placeholder="What is known, and how solid is it?"></textarea></div>
+        <div class="field"><label for="basis">What is known so far? (optional note)</label><textarea id="basis" rows="2" placeholder="What the public records show, and how solid it is"></textarea></div>
       </div>
 
-      <div class="mcol voice" id="mc-voice">
+      <div class="mcol voice step-pane" id="mc-voice" data-step="2">
         <span class="mtag"><span class="tick">&#10003;</span> Move 3 &middot; Voice it</span>
         <h2>Voice it</h2>
         <div class="field"><label for="affected">Who is affected?</label><input id="affected" type="text" placeholder="The community living with the project"></div>
-        <div class="field"><label for="holder">Who holds the confidential terms?</label><input id="holder" type="text" placeholder="Funder and/or contractor, not just the state"></div>
+        <div class="field"><label for="holder">Where might the records sit?</label><input id="holder" type="text" placeholder="The funder and/or the builder, not just the state"></div>
         <div class="field">
-          <label for="status">Evidence status of this finding</label>
-          <select id="status"><option value="probe">Working read / teaching probe</option><option value="check">As-reported, figures to confirm</option><option value="ready">Source-checked</option></select>
+          <label for="status">How solid is this, so far?</label>
+          <select id="status"><option value="probe">Working read / teaching example</option><option value="check">Based on available reports</option><option value="ready">Checked against source records</option></select>
         </div>
       </div>
     </div>
 
     <div class="runrow">
-      <button class="runbtn" id="runbtn" type="button">Run the method &rarr;</button>
+      <button class="btn ghost" id="backbtn" type="button" hidden>&larr; Back</button>
+      <button class="runbtn" id="nextbtn" type="button">Next: can it be judged? &rarr;</button>
+      <button class="runbtn" id="runbtn" type="button" hidden>Run the test &rarr;</button>
       <span class="runstatus" id="runstatus"></span>
     </div>
     </div><!-- /panel-input -->
@@ -213,27 +232,27 @@
       </div>
       <div class="out-card test" id="oc-test">
         <span class="ostep">Move 2 resolved &middot; Test it</span>
-        <h3>Can its value be judged</h3>
+        <h3>Can value for money be judged?</h3>
         <p class="resolveline" id="test-line"></p>
         <ul class="checklist" id="o-checklist"></ul>
       </div>
       <div class="out-card voice" id="oc-voice">
         <span class="ostep">Move 3 resolved &middot; Voice it</span>
-        <h3>Who needs standing</h3>
+        <h3>Who needs the information</h3>
         <p class="resolveline" id="voice-line"></p>
       </div>
       <div class="out-card ask" id="oc-ask">
         <div class="askbox">
-          <span class="alab">The publication ask that matters most</span>
+          <span class="alab">The request for project information</span>
           <b id="ask-b"></b>
           <span id="ask-why"></span>
         </div>
         <div class="outgrid">
-          <div><span class="olab">Record to publish</span><span id="missing-row"></span></div>
-          <div><span class="olab">Assessability verdict</span><span id="verdict-row"></span></div>
+          <div><span class="olab">Records to request</span><span id="missing-row"></span></div>
+          <div><span class="olab">Can value be judged?</span><span id="verdict-row"></span></div>
         </div>
-        <p style="margin:1rem 0 .2rem;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Finding row</span><br><span id="finding-row"></span></p>
-        <p style="margin:.6rem 0 0;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Partner action</span><br><span id="action-row"></span></p>
+        <p style="margin:1rem 0 .2rem;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Summary finding</span><br><span id="finding-row"></span></p>
+        <p style="margin:.6rem 0 0;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">What a partner does next</span><br><span id="action-row"></span></p>
       </div>
       <div class="actions" id="o-actions">
         <button class="btn" id="savebtn" type="button">Save to tracker</button>
@@ -256,7 +275,7 @@
   </div>
 
   <footer>
-    <p><strong>InfraWatch Nairobi</strong> &middot; the Project Diagnostic. The publication-ask logic comes from the financing-type field tool (see <a href="modality-risk-map.html">the modality essay</a>) and maps to the CoST IDS (see <a href="cost-link.html">what CoST adds</a>). The Kenya SGR worked example uses figures as reported across this site, to be confirmed against loan agreements before external use. Built by Michael Cengkuru, CoST.</p>
+    <p><strong>InfraWatch Nairobi</strong> &middot; run a project. The request logic comes from the financing-type field tool (see <a href="modality-risk-map.html">the modality essay</a>) and maps to the CoST publication fields (see <a href="cost-link.html">what CoST adds</a>). The Kenya SGR example uses figures as reported across this site, to be confirmed against the loan agreement before external use. Built by Michael Cengkuru, CoST.</p>
   </footer>
 
   <script>
@@ -264,7 +283,7 @@
     "use strict";
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var ASK = {
-      sovereign:    {record:"the loan agreement and the sovereign guarantee", untested:"the real debt and contingent liability", idsline:"loan terms + guarantee"},
+      sovereign:    {record:"the loan agreement and the guarantee terms", untested:"the real cost of the debt and what the state is liable for", idsline:"loan terms + guarantee"},
       equity:       {record:"the beneficial ownership register and the offtake agreement", untested:"who benefits", idsline:"beneficial ownership + offtake"},
       ppp:          {record:"the concession contract and the schedule of fiscal commitments", untested:"the long-term fiscal commitment", idsline:"contract + fiscal commitments"},
       epc:          {record:"the itemised cost breakdown", untested:"whether the cost is justified", idsline:"itemised cost breakdown"},
@@ -275,9 +294,9 @@
     var SGR = {
       proj:"Standard Gauge Railway (SGR), Kenya", funder:"Chinese state lenders (Exim Bank of China)",
       ftype:"sovereign", published:"partial", npv:"outcome",
-      basis:"Sovereign guarantee known; full loan terms confidential. Verdict from outcomes: loan ~5% of GDP, debt-service strain on Kenya Railways; no full NPV. Figures as reported.",
+      basis:"The guarantee is publicly known; the full loan terms are not in the public records. Judged from outcomes: the loan is around 5% of national income and has strained the national railway's finances. Figures as reported.",
       affected:"Communities along the corridor and Kenyan taxpayers carrying the debt service",
-      holder:"The foreign funder (lender confidentiality) and the EPC contractor, not only the state",
+      holder:"the lender and the company that built the line, not only the government",
       status:"check"
     };
     var ids = ["proj","funder","ftype","published","npv","basis","affected","holder","status"];
@@ -289,7 +308,7 @@
 
     var OUT=["oc-see","oc-test","oc-voice","oc-ask"];
     function resetOutput(){ OUT.forEach(function(id){ $(id).classList.remove("show"); }); $("o-actions").classList.remove("show"); ["mc-see","mc-test","mc-voice"].forEach(function(id){ $(id).classList.remove("active","done"); }); }
-    function showInput(){ $("panel-output").hidden=true; $("panel-input").hidden=false; window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+    function showInput(){ $("panel-output").hidden=true; $("panel-input").hidden=false; if(typeof showStep==="function") showStep(0); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
     function showOutput(){ $("panel-input").hidden=true; $("panel-output").hidden=false; window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
     function setStatus(html){ $("runstatus").innerHTML=html; var s2=$("runstatus2"); if(s2) s2.innerHTML=html; }
 
@@ -297,6 +316,30 @@
     $("resetbtn").addEventListener("click", function(){ load({}); $("preset").value="blank"; resetOutput(); showInput(); setStatus(""); });
     $("editbtn").addEventListener("click", function(){ showInput(); });
     load(SGR);
+
+    // ===== stepper: one move at a time =====
+    var STEP_LABELS = ["Next: can it be judged? →", "Next: who needs it? →", ""];
+    var currentStep = 0;
+    var panes = [].slice.call(document.querySelectorAll(".step-pane"));
+    var dots = [].slice.call(document.querySelectorAll(".stepdot"));
+    function showStep(n){
+      currentStep = Math.max(0, Math.min(2, n));
+      panes.forEach(function(p){ p.classList.toggle("active", +p.getAttribute("data-step")===currentStep); });
+      dots.forEach(function(d){ var i=+d.getAttribute("data-step");
+        d.classList.toggle("active", i===currentStep);
+        d.classList.toggle("done", i<currentStep);
+      });
+      $("backbtn").hidden = currentStep===0;
+      var last = currentStep===2;
+      $("nextbtn").hidden = last;
+      $("runbtn").hidden = !last;
+      if(!last) $("nextbtn").textContent = STEP_LABELS[currentStep];
+      setStatus("");
+    }
+    $("nextbtn").addEventListener("click", function(){ showStep(currentStep+1); });
+    $("backbtn").addEventListener("click", function(){ showStep(currentStep-1); });
+    dots.forEach(function(d){ d.addEventListener("click", function(){ showStep(+d.getAttribute("data-step")); }); });
+    showStep(0);
 
     async function run(){
       var o = gather();
@@ -315,24 +358,24 @@
       // Move 2: Test it
       setStatus('Testing <b>can its value be judged</b>…');
       await delay(700);
-      var verdict = o.npv==="no" ? "<b>cannot be judged at all</b>" : (o.npv==="outcome" ? "can be judged <b>only from outcomes</b>, not up front" : (o.npv==="yes"?"<b>can be assessed</b> up front":"assessability yet to set"));
-      var pubword = o.published==="yes"?"published":(o.published==="partial"?"only partly published":(o.published==="no"?"withheld":"of unknown status"));
+      var verdict = o.npv==="no" ? "<b>not yet, from public records</b>" : (o.npv==="outcome" ? "<b>only later</b>, from outcomes, not before" : (o.npv==="yes"?"<b>yes</b>, before the project":"not set"));
+      var pubword = o.published==="yes"?"in the public records":(o.published==="partial"?"only partly in the public records":(o.published==="no"?"not found in public records":"of unknown status"));
       $("test-line").innerHTML = 'Terms are <b>'+esc(pubword)+'</b>. On that basis the value '+verdict+'.';
       var pubHave=o.published==="yes", npvHave=o.npv==="yes";
       $("o-checklist").innerHTML =
         li(o.funder,"Funder identified","",o.funder?"have":"miss") +
         li(o.ftype,"Financing type classified",o.ftype?FTLABEL[o.ftype]:"",o.ftype?"have":"miss") +
-        li(true,"Terms published",o.published==="partial"?"partly":(o.published==="no"?"withheld":""),pubHave?"have":"miss") +
-        li(true,"Value assessable up front",o.npv==="outcome"?"only from outcomes":(o.npv==="no"?"no":""),npvHave?"have":"miss") +
+        li(true,"Financing terms in public records",o.published==="partial"?"partly":(o.published==="no"?"not found":""),pubHave?"have":"miss") +
+        li(true,"Value judgeable before the project",o.npv==="outcome"?"only later":(o.npv==="no"?"not yet":""),npvHave?"have":"miss") +
         li(o.affected,"Affected public identified","",o.affected?"have":"miss") +
-        li(o.holder,"Holder of terms identified","",o.holder?"have":"miss");
+        li(o.holder,"Where the records sit, identified","",o.holder?"have":"miss");
       $("oc-test").classList.add("show");
       await delay(750);
 
       // Move 3: Voice it
       setStatus('Tracing <b>who needs standing</b>…');
       await delay(700);
-      $("voice-line").innerHTML = '<b>'+esc(o.affected||"the affected public")+'</b> need standing to challenge the terms. Those terms are held by <b>'+esc(o.holder||"the funder and contractor")+'</b>.';
+      $("voice-line").innerHTML = '<b>'+esc(o.affected||"the affected public")+'</b> need the information to judge the project. The records most likely sit with <b>'+esc(o.holder||"the funder and the builder")+'</b>.';
       $("oc-voice").classList.add("show");
       await delay(750);
 
@@ -340,13 +383,13 @@
       setStatus('&rarr; The ask that matters');
       var a = o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
       $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select a financing type to generate the ask.";
-      $("ask-why").innerHTML = a ? "For this financing type, "+esc(a.untested)+" sits in that record. In CoST IDS terms: "+esc(a.idsline)+". Until it is published, the value cannot be independently judged." : "";
-      var vshort = o.npv==="no"?"cannot be judged":(o.npv==="outcome"?"judged only from outcomes":"assessable");
+      $("ask-why").innerHTML = a ? "For this kind of financing, "+esc(a.untested)+" sits in that record. Mapped to CoST publication fields: "+esc(a.idsline)+". Until it is published, value for money cannot be independently judged." : "";
+      var vshort = o.npv==="no"?"not yet, from public records":(o.npv==="outcome"?"judged only from outcomes":"can be judged");
       $("missing-row").innerHTML = a ? esc(a.record)+' <span style="color:var(--mid);">('+esc(a.idsline)+')</span>' : "select a financing type";
-      var vfull = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not enough on the public record to judge</span> — records not yet published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Assessable</span> up front':"set the value question"));
+      var vfull = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not enough on the public record to judge</span> — records not yet published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Yes</span>, before the project':"set the value question"));
       $("verdict-row").innerHTML = vfull;
       $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b> &middot; '+esc(o.funder||"funder t.b.c.")+' &middot; '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Terms '+esc(pubword)+'; value '+esc(vshort)+'. <span class="statuschip '+esc(o.status)+'">'+esc(STLABEL[o.status]||o.status)+'</span>';
-      $("action-row").innerHTML = 'Take to <b>'+esc(o.holder||"the party holding the terms")+'</b>: publish '+esc(a?a.record:"the record needed to test value")+', so '+esc(o.affected||"the affected public")+' gains standing to challenge the deal. Validate figures against source first.';
+      $("action-row").innerHTML = 'Ask <b>'+esc(o.holder||"whoever holds the records")+'</b> to publish '+esc(a?a.record:"the record needed to test value")+', so '+esc(o.affected||"the affected public")+' has the information to judge the project. Verify figures against the source record first.';
       $("oc-ask").classList.add("show");
       await delay(400);
       $("o-actions").classList.add("show");
@@ -374,7 +417,7 @@
     $("printbtn").addEventListener("click", function(){ window.print(); });
     $("copybtn").addEventListener("click", function(){
       var o=gather(), a=(o.ftype&&ASK[o.ftype])?ASK[o.ftype]:null;
-      var txt="INFRAWATCH FINDING\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nFinancing type: "+(FTLABEL[o.ftype]||"")+"\nTerms published: "+(o.published||"")+"\nValue assessable: "+(o.npv||"")+"\nBasis: "+(o.basis||"")+"\n\nPUBLICATION ASK: Publish "+(a?a.record:"the record needed to test value")+".\nWhy: needed to test "+(a?a.untested:"")+" ("+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nHolder of terms: "+(o.holder||"")+"\nEvidence status: "+(STLABEL[o.status]||o.status||"")+"\n\nValidate figures against source before external use.";
+      var txt="INFRAWATCH PROJECT PUBLICATION TEST\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nHow financed: "+(FTLABEL[o.ftype]||"")+"\nTerms in public records: "+(o.published||"")+"\nValue judgeable from records: "+(o.npv||"")+"\nWhat is known: "+(o.basis||"")+"\n\nREQUEST FOR PROJECT INFORMATION: Publish "+(a?a.record:"the record needed to test value")+".\nWhy: needed to test "+(a?a.untested:"")+" (CoST fields: "+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nWhere the records may sit: "+(o.holder||"")+"\nHow solid: "+(STLABEL[o.status]||o.status||"")+"\n\nVerify figures against the source record before external use.";
       navigator.clipboard.writeText(txt).then(function(){ setStatus('✓ Finding copied to clipboard.'); }, function(){ alert("Copy failed; select the output manually."); });
     });
     renderTracker();

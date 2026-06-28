@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Worked example: the Kenya SGR run through the InfraWatch method</title>
-  <meta name="description" content="One real foreign-funded project run through the InfraWatch method end to end: the Kenya Standard Gauge Railway. Evidence checklist, publication ask, finding row, one-page brief, and validation status.">
+  <title>Kenya SGR Publication Test: a worked case file</title>
+  <meta name="description" content="How one infrastructure project, the Kenya Standard Gauge Railway, is tested against the Project Publication Test. What is public, what is still needed, and what a partner can request next.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -16,6 +16,7 @@
       --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
     }
     *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
     body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.55;-webkit-font-smoothing:antialiased;}
     .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
     .brandbar .brand{font-weight:800;}
@@ -25,43 +26,100 @@
     .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
     .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
 
-    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.9rem;}
+    /* hero: name the page plainly */
+    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.8rem;}
     .hero-inner{max-width:1000px;margin:0 auto;}
-    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .8rem;}
-    .hero h1{font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:800;line-height:1.16;margin:0 0 .8rem;max-width:26ch;}
-    .hero p{color:#cdddec;font-size:1rem;max-width:62ch;margin:0;}
-    .hero .meta{margin-top:.9rem;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:#9fb4cc;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .7rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;line-height:1.14;margin:0 0 .7rem;}
+    .hero p{color:#cdddec;font-size:1.02rem;max-width:60ch;margin:0;}
 
-    .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;}
-    .sec{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;margin:0 0 1.1rem;}
-    .sec .step{font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
-    .sec h2{font-size:1.2rem;margin:.15rem 0 .2rem;letter-spacing:-.01em;}
-    .sec .lead{color:var(--mid);font-size:.9rem;margin:0 0 .9rem;}
-    .grid2{display:grid;grid-template-columns:auto 1fr;gap:.4rem .9rem;font-size:.92rem;}
-    .grid2 dt{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand);font-weight:700;padding-top:.1rem;}
-    .grid2 dd{margin:0;}
-    .checklist{list-style:none;margin:0;padding:0;}
-    .checklist li{padding:.45rem 0 .45rem 1.7rem;position:relative;font-size:.92rem;border-bottom:1px solid var(--surface);}
-    .checklist li::before{position:absolute;left:0;top:.45rem;font-family:var(--mono);font-weight:700;}
-    .checklist li.have::before{content:"\2713";color:var(--green);}
-    .checklist li.miss::before{content:"\2717";color:var(--amber);}
-    .checklist li small{color:var(--mid);}
-    .ask{background:rgba(40,73,106,.05);border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:8px;padding:1rem 1.2rem;}
-    .ask b{display:block;font-size:1.1rem;margin-bottom:.3rem;}
-    .ask span{color:var(--mid);font-size:.88rem;}
-    .statuschip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;}
-    .statuschip.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
-    .val{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 0;}
-    .vtag{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.32rem .7rem;border-radius:99px;border:1px solid var(--light);color:var(--mid);}
+    .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;display:grid;grid-template-columns:1fr;gap:0;}
+    .layout{display:grid;grid-template-columns:160px 1fr;gap:1.6rem;align-items:start;}
+    /* step rail (desktop) */
+    .rail{position:sticky;top:4rem;display:flex;flex-direction:column;gap:.1rem;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;}
+    .rail a{color:var(--mid);text-decoration:none;padding:.45rem .6rem;border-left:2px solid var(--light);transition:.15s;}
+    .rail a:hover{color:var(--brand);border-left-color:var(--brand-soft);}
+    .col{min-width:0;}
+
+    /* result card: the answer first */
+    .result{background:var(--white);border:1px solid var(--light);border-left:5px solid var(--amber);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.6rem;margin:0 0 1.2rem;}
+    .result .q{font-size:1.25rem;font-weight:800;letter-spacing:-.01em;margin:0 0 .5rem;}
+    .result .a{font-size:1.02rem;color:var(--dark);margin:0 0 .8rem;}
+    .result .a .big{color:var(--amber);font-weight:800;}
+    .result .next{font-size:.92rem;color:var(--mid);margin:0;}
+    .result .next b{color:var(--dark);}
+
+    /* case-file strip */
+    .casefile{display:flex;gap:1rem;align-items:center;background:#eef2f6;border:1px solid var(--light);border-radius:var(--radius);padding:1rem 1.2rem;margin:0 0 1.4rem;flex-wrap:wrap;}
+    .casefile img{width:60px;height:60px;border-radius:10px;object-fit:cover;border:1px solid var(--light);flex:0 0 auto;}
+    .casefile dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem 1.4rem;margin:0;flex:1;min-width:200px;}
+    .casefile dt{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);font-weight:700;}
+    .casefile dd{margin:.1rem 0 0;font-size:.9rem;color:var(--dark);font-weight:600;}
+
+    /* guided method steps */
+    .step{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;margin:0 0 1rem;border-top:4px solid var(--brand);}
+    .step.see{border-top-color:var(--see);} .step.test{border-top-color:var(--test);} .step.voice{border-top-color:var(--voice);}
+    .step .move{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .step h2{font-size:1.18rem;margin:.15rem 0 .8rem;letter-spacing:-.01em;}
+    .step .pair{margin:0 0 .7rem;}
+    .step .pair .lab{display:block;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);font-weight:700;margin-bottom:.1rem;}
+    .step .pair .val{font-size:.95rem;color:var(--dark);}
+    .step .pair.why .val{color:var(--mid);}
+    .step .answer{font-size:1.05rem;line-height:1.5;color:var(--dark);margin:0 0 .6rem;}
+    .step .answer .stchip{margin-left:.3rem;vertical-align:middle;}
+    .step details.why{border-top:1px solid var(--light);padding-top:.5rem;}
+    .step details.why summary{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.4rem;}
+    .step details.why summary::before{content:"\25B8";font-size:.7rem;transition:transform .15s;}
+    .step details.why[open] summary::before{transform:rotate(90deg);}
+    .step details.why summary::-webkit-details-marker{display:none;}
+    .step details.why p{margin:.5rem 0 0;font-size:.9rem;color:var(--mid);line-height:1.5;}
+    .stchip{display:inline-block;font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .stchip.ok{background:rgba(27,122,61,.12);color:var(--green);border-color:rgba(27,122,61,.3);}
+
+    /* evidence table */
+    h2.sectitle{font-size:1.15rem;margin:1.6rem 0 .2rem;}
+    p.sectsub{color:var(--mid);font-size:.9rem;margin:0 0 .9rem;}
+    table.ev{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.88rem;}
+    table.ev th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;font-weight:800;padding:.65rem .8rem;}
+    table.ev td{padding:.7rem .8rem;border-top:1px solid var(--light);vertical-align:top;}
+    table.ev tr:nth-child(even){background:#fbfcfd;}
+    .pub{color:var(--green);font-weight:600;} .notpub{color:var(--amber);font-weight:600;}
+
+    /* request + action cards */
+    .request{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand);border-radius:var(--radius);padding:1.3rem 1.5rem;margin:1.4rem 0 1rem;}
+    .request h2{margin:0 0 .4rem;font-size:1.12rem;}
+    .request .big{font-size:1.05rem;font-weight:700;color:var(--brand-deep);margin:0 0 .5rem;}
+    .request p{margin:0;color:var(--mid);font-size:.9rem;}
+    .action{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.5rem;margin:0 0 1rem;}
+    .action h2{margin:0 0 .4rem;font-size:1.05rem;}
+    .action p{margin:0;font-size:.92rem;color:var(--dark);}
+
+    /* validation */
+    .valbox{background:#eef2f6;border:1px solid var(--light);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:0 0 1rem;}
+    .valbox h2{margin:0 0 .3rem;font-size:1.02rem;}
+    .valbox p{color:var(--mid);font-size:.86rem;margin:0 0 .7rem;}
+    .vtags{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .vtag{font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.3rem .65rem;border-radius:99px;border:1px solid var(--light);color:var(--mid);}
     .vtag.on{border-color:var(--amber);color:var(--amber);background:rgba(199,127,0,.08);}
-    .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0;}
-    .cta a{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;padding:.55rem 1rem;border-radius:99px;}
+
+    .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.4rem 0 0;}
+    .cta a{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;padding:.6rem 1.1rem;border-radius:99px;}
     .cta a.solid{background:var(--brand);color:#fff;} .cta a.solid:hover{background:var(--brand-deep);}
     .cta a.ghost{color:var(--brand);border:1px solid var(--light);} .cta a.ghost:hover{border-color:var(--brand);}
 
-    footer{max-width:1000px;margin:1.4rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer{max-width:1000px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
-    @media print{ .nav,.cta,.brandbar{display:none;} .sec{box-shadow:none;} }
+
+    @media (max-width:760px){
+      .layout{grid-template-columns:1fr;}
+      .rail{display:none;}
+      table.ev,table.ev thead,table.ev tbody,table.ev th,table.ev td,table.ev tr{display:block;}
+      table.ev thead{display:none;}
+      table.ev tr{border:1px solid var(--light);border-radius:10px;margin:0 0 .7rem;}
+      table.ev td{border-top:none;padding:.4rem .8rem;}
+      table.ev td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:.1rem;}
+    }
+    @media print{ .nav,.cta,.rail{display:none;} .layout{grid-template-columns:1fr;} .step,.result{box-shadow:none;} }
   </style>
 </head>
 <body>
@@ -77,102 +135,117 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="kicker">Worked example &middot; one project, run end to end</p>
-      <h1>The Kenya SGR, run through the InfraWatch method.</h1>
-      <p>This is the proof: one real foreign-funded project taken through see, test, voice, producing an evidence checklist, the publication ask that matters, a finding row, and a partner action note. The figures are as reported across this resource, to be confirmed against loan agreements before external use.</p>
-      <p class="meta">Standard Gauge Railway &middot; Kenya &middot; partner: IEA-Kenya &middot; status: as-reported, figures to confirm</p>
+      <p class="kicker">A worked case file &middot; teaching example</p>
+      <h1>Kenya SGR Publication Test</h1>
+      <p>This page shows how one infrastructure project is tested against the method. It asks what is already public, what is still needed, and what a partner can request next.</p>
     </div>
   </section>
 
   <div class="wrap">
+   <div class="layout">
+    <nav class="rail" aria-label="On this page">
+      <a href="#result">Result</a>
+      <a href="#see">See it</a>
+      <a href="#test">Test it</a>
+      <a href="#voice">Voice it</a>
+      <a href="#evidence">Records</a>
+      <a href="#request">Request</a>
+      <a href="#validate">Validation</a>
+    </nav>
 
-    <div class="sec">
-      <span class="step">Move 1 &middot; See it</span>
-      <h2>What is being funded, and by whom</h2>
-      <dl class="grid2">
-        <dt>Project</dt><dd>Standard Gauge Railway (SGR), Kenya, Mombasa&ndash;Nairobi corridor</dd>
-        <dt>Funder</dt><dd>Chinese state lenders (Exim Bank of China)</dd>
-        <dt>Financing type</dt><dd>Sovereign loan</dd>
-        <dt>Records needed to test value</dt><dd>the loan agreement and guarantee terms, which carry the debt and contingent liability not visible in the announcement</dd>
-      </dl>
-    </div>
+    <div class="col">
 
-    <div class="sec">
-      <span class="step">Move 2 &middot; Test it</span>
-      <h2>Can its value be judged</h2>
-      <dl class="grid2">
-        <dt>Terms published</dt><dd>Partly. The sovereign guarantee is known; the full loan terms are confidential.</dd>
-        <dt>Value (NPV)</dt><dd>Judged only from outcomes, not up front. Loan ~5% of GDP, debt-service strain on Kenya Railways; no full NPV possible without the terms.</dd>
-        <dt>Verdict basis</dt><dd>Outcome-based, as reported. The point is not the announced cost; it is the debt-service exposure and contingent liability that stayed in the agreement.</dd>
-      </dl>
-    </div>
-
-    <div class="sec">
-      <span class="step">Move 3 &middot; Voice it</span>
-      <h2>Who needs standing to challenge the terms</h2>
-      <dl class="grid2">
-        <dt>Affected</dt><dd>Communities along the corridor, and Kenyan taxpayers carrying the debt service</dd>
-        <dt>Holds the terms</dt><dd>The foreign funder (lender confidentiality) and the EPC contractor, not only the state</dd>
-      </dl>
-    </div>
-
-    <div class="sec">
-      <span class="step">Output 1</span>
-      <h2>Evidence checklist</h2>
-      <ul class="checklist">
-        <li class="have">Funder identified <small>(Exim Bank of China)</small></li>
-        <li class="have">Financing type classified <small>(sovereign loan)</small></li>
-        <li class="miss">Terms published <small>(partly; full loan terms withheld)</small></li>
-        <li class="miss">Value assessable up front <small>(only from outcomes)</small></li>
-        <li class="have">Affected public identified</li>
-        <li class="have">Holder of terms identified <small>(funder + contractor)</small></li>
-      </ul>
-    </div>
-
-    <div class="sec">
-      <span class="step">Output 2</span>
-      <h2>The publication ask that matters most</h2>
-      <div class="ask">
-        <b>Publish the loan agreement and the sovereign guarantee.</b>
-        <span>For a sovereign loan, the debt and contingent liability sit in the loan agreement, not the announcement. In CoST IDS terms: loan terms + guarantee. Until these are published, no minister, auditor, or citizen has enough on the public record to judge whether the SGR was worth its debt-service cost.</span>
+      <!-- RESULT FIRST -->
+      <div class="result" id="result">
+        <p class="q">Can the public judge value from the records reviewed?</p>
+        <p class="a"><span class="big">Not yet.</span> The public records reviewed are not enough to test whether the project was value for money before it was built.</p>
+        <p class="next">The next records to check are the <b>loan agreement, guarantee terms, repayment schedule, and appraisal assumptions</b>.</p>
       </div>
-    </div>
 
-    <div class="sec">
-      <span class="step">Output 3</span>
-      <h2>Finding row</h2>
-      <p style="font-size:.94rem;margin:0;"><b>SGR, Kenya</b> &middot; Exim Bank of China &middot; sovereign loan. Terms partly published; value judged only from outcomes, not up front. <span class="statuschip check">as-reported, figures to confirm</span></p>
-    </div>
-
-    <div class="sec">
-      <span class="step">Output 4</span>
-      <h2>Partner action note</h2>
-      <p style="font-size:.94rem;margin:0;">Take to the <b>foreign funder and the EPC contractor</b>: a request to publish the loan agreement and the sovereign guarantee, so that corridor communities and Kenyan taxpayers gain the standing to challenge the debt-service terms. Route via IEA-Kenya as the anchor partner. Confirm figures against the loan agreement before external circulation.</p>
-    </div>
-
-    <div class="sec">
-      <span class="step">Output 5</span>
-      <h2>Validation status</h2>
-      <p class="lead">Where this finding sits before it goes wider. Reviewers update this in the private validation room.</p>
-      <div class="val">
-        <span class="vtag on">needs source check</span>
-        <span class="vtag">correct</span>
-        <span class="vtag">needs legal check</span>
-        <span class="vtag">safe internally</span>
-        <span class="vtag">safe externally</span>
+      <!-- CASE-FILE STRIP -->
+      <div class="casefile">
+        <img src="day3/assets/sgr-voi-viaduct.jpg" alt="The Kenya Standard Gauge Railway near Voi" loading="lazy">
+        <dl>
+          <div><dt>Project</dt><dd>Kenya Standard Gauge Railway</dd></div>
+          <div><dt>Country</dt><dd>Kenya</dd></div>
+          <div><dt>Financing</dt><dd>Sovereign loan</dd></div>
+          <div><dt>Status</dt><dd>Teaching example, based on available reports</dd></div>
+        </dl>
       </div>
-      <p style="font-size:.82rem;color:var(--mid);margin:.7rem 0 0;">Current: as-reported, figures to confirm against the loan agreement. Not yet cleared for external publication.</p>
-    </div>
 
-    <div class="cta">
-      <a class="solid" href="workbench.html">Run your own project &rarr;</a>
-      <a class="ghost" href="findings-ledger.html">See the full evidence ledger &rarr;</a>
-    </div>
+      <!-- GUIDED METHOD -->
+      <div class="step see" id="see">
+        <span class="move">Move 1 &middot; See it</span>
+        <h2>What is the project, and who funds it?</h2>
+        <p class="answer">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder confirmed</span></p>
+        <details class="why"><summary>Why this matters</summary><p>The financing type tells us which records are needed before value can be tested. A sovereign loan carries the debt and any guarantees in the loan agreement, not in the announcement.</p></details>
+      </div>
 
+      <div class="step test" id="test">
+        <span class="move">Move 2 &middot; Test it</span>
+        <h2>Can value for money be judged from public records?</h2>
+        <p class="answer"><b>Not before the project.</b> The guarantee is public, but the full loan terms are not found in the records reviewed, so value can only be inferred later from outcomes. <span class="stchip">key terms not public</span></p>
+        <details class="why"><summary>Why this matters</summary><p>The reported loan is large, around 5% of national income, and has strained the national railway's finances. Whether that was a fair price cannot be checked while the terms sit outside the public record.</p></details>
+      </div>
+
+      <div class="step voice" id="voice">
+        <span class="move">Move 3 &middot; Voice it</span>
+        <h2>Who needs the information, and where might it sit?</h2>
+        <p class="answer">The affected public, <b>route communities and taxpayers</b>. The records most likely sit with the lender and the builder, not only the government. <span class="stchip">holders identified</span></p>
+        <details class="why"><summary>Why this matters</summary><p>A request for the information has to reach whoever actually holds it. If it only goes to the state, the records that decide the question may never surface.</p></details>
+      </div>
+
+      <!-- EVIDENCE TABLE -->
+      <h2 class="sectitle" id="evidence">The records, one by one</h2>
+      <p class="sectsub">What is needed to test value, whether it was found in the public records reviewed, and why each one matters.</p>
+      <table class="ev">
+        <thead><tr><th>Information needed</th><th>In reviewed public records?</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Information needed">The loan agreement</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">carries the actual cost of the debt</td></tr>
+          <tr><td data-l="Information needed">Guarantee terms</td><td data-l="In public records?"><span class="pub">Known</span></td><td data-l="Why it matters">shows what the state is liable for if repayment fails</td></tr>
+          <tr><td data-l="Information needed">Repayment schedule</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
+          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
+        </tbody>
+      </table>
+
+      <!-- REQUEST -->
+      <div class="request" id="request">
+        <h2>The request for project information</h2>
+        <p class="big">Publish, or confirm where to review, the loan agreement, repayment schedule, and appraisal assumptions.</p>
+        <p>These are the records needed to assess whether the project offered value for money. This maps to the CoST publication fields for loan terms and guarantees. It is a request for information, not a finding of wrongdoing.</p>
+      </div>
+
+      <!-- PARTNER ACTION -->
+      <div class="action">
+        <h2>What a partner does next</h2>
+        <p>Before circulating this anywhere, verify the figures against the source record, confirm which of these documents are already public, and choose the institution best placed to request the rest. IEA-Kenya is the natural lead as the anchor partner.</p>
+      </div>
+
+      <!-- VALIDATION -->
+      <div class="valbox" id="validate">
+        <h2>Validation status</h2>
+        <p>Where this case sits before it goes wider. Reviewers update it in the private validation room.</p>
+        <div class="vtags">
+          <span class="vtag on">needs source check</span>
+          <span class="vtag">confirmed</span>
+          <span class="vtag">needs legal check</span>
+          <span class="vtag">safe internally</span>
+          <span class="vtag">not yet external</span>
+        </div>
+        <p style="margin:.7rem 0 0;">Current: a teaching example based on available reports. Figures to confirm against the loan agreement. Not yet cleared for external publication.</p>
+      </div>
+
+      <div class="cta">
+        <a class="solid" href="workbench.html">Run your own project &rarr;</a>
+        <a class="ghost" href="findings-ledger.html">See all the evidence &rarr;</a>
+      </div>
+
+    </div>
+   </div>
   </div>
 
   <footer>
-    <p><strong>InfraWatch Nairobi</strong> &middot; SGR worked example. Figures as reported across this resource (loan ~5% of GDP; sovereign guarantee known, full terms confidential), to be confirmed against the loan agreement before external use. Method: CoST IDS disclosure mapping, political-economy analysis, and NPV, developed by CIPE with the NPV toolkit led by IEA-Kenya. Built by Michael Cengkuru, CoST.</p>
+    <p><strong>InfraWatch Nairobi</strong> &middot; Kenya SGR worked case file. A teaching example built from available reports (reported loan around 5% of national income; guarantee known, full terms not found in reviewed public records), to be confirmed against the loan agreement before external use. The method maps to the CoST Infrastructure Data Standard, political-economy analysis, and value-for-money analysis, developed by CIPE with the value-for-money toolkit led by IEA-Kenya. Photograph: the SGR near Voi, by TTC dude via Wikimedia Commons, CC BY-SA 4.0. Built by Michael Cengkuru, CoST.</p>
   </footer>
 </body>
 </html>

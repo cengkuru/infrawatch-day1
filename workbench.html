@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InfraWatch Project Diagnostic: run a project through the method</title>
-  <meta name="description" content="Run one infrastructure project through the InfraWatch method in three short steps. Leave with the records needed to judge its value, a clear request for project information, and a partner action. Worked example: Kenya SGR.">
+  <title>Test one infrastructure project: the Project Publication Test</title>
+  <meta name="description" content="Run one infrastructure project through the Project Publication Test. See what is public, what cannot yet be judged, and what information a partner can request next. Start with the Kenya SGR example, or test your own project.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -22,112 +22,135 @@
     .brandbar .brand{font-weight:800;}
     .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
     .nav{background:var(--brand-deep);border-bottom:1px solid #294056;position:sticky;top:0;z-index:50;}
-    .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
+    .nav-inner{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
     .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
     .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
 
-    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.7rem;}
-    .hero-inner{max-width:1080px;margin:0 auto;}
-    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .7rem;}
-    .hero h1{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;line-height:1.16;margin:0 0 .8rem;max-width:26ch;}
-    .hero p{color:#cdddec;font-size:1rem;max-width:62ch;margin:0;}
-    .hero p a{color:#fff;font-weight:700;}
+    .hero{background:var(--brand-deep);color:#fff;padding:2.2rem 1.2rem 1.8rem;}
+    .hero-inner{max-width:1000px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .7rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;line-height:1.14;margin:0 0 .7rem;}
+    .hero p{color:#cdddec;font-size:1.02rem;max-width:58ch;margin:0;}
+    .leavewith{margin:1.2rem 0 0;background:rgba(127,168,214,.1);border:1px solid #2a3f57;border-radius:12px;padding:.9rem 1.1rem;max-width:58ch;}
+    .leavewith b{display:block;color:#fff;font-size:.82rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;}
+    .leavewith ul{margin:0;padding:0 0 0 0;list-style:none;display:flex;flex-wrap:wrap;gap:.3rem .9rem;}
+    .leavewith li{color:#cfe0f0;font-size:.88rem;position:relative;padding-left:1rem;}
+    .leavewith li::before{content:"\2713";position:absolute;left:0;color:#9fe0b6;}
 
-    .wrap{max-width:1080px;margin:0 auto;padding:1.4rem 1.2rem;}
-    .bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:0 0 1.3rem;}
-    .bar label{font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);}
-    select,input,textarea{font-family:var(--sans);font-size:.92rem;padding:.6rem .8rem;border:1px solid var(--light);border-radius:10px;background:var(--white);color:var(--dark);transition:border-color .15s, box-shadow .15s;}
-    select:focus,input:focus,textarea:focus{outline:none;border-color:var(--brand-soft);box-shadow:0 0 0 3px rgba(61,100,145,.15);}
-    .btn{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.6rem 1.1rem;border-radius:99px;border:none;cursor:pointer;background:var(--brand);color:#fff;transition:.18s var(--ease);}
-    .btn:hover{background:var(--brand-deep);transform:translateY(-1px);} .btn:active{transform:translateY(0);}
-    .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--light);} .btn.ghost:hover{border-color:var(--brand);background:var(--white);}
+    .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;}
 
-    /* ===== stepper ===== */
-    .stepspine{display:flex;align-items:center;justify-content:center;gap:.3rem;margin:0 0 1.2rem;flex-wrap:wrap;}
-    .stepdot{display:inline-flex;align-items:center;gap:.45rem;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);padding:.3rem .2rem;transition:.15s;}
-    .stepdot .sd-num{width:1.5rem;height:1.5rem;border-radius:99px;border:2px solid var(--light);display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--mid);transition:.2s var(--ease);}
+    /* ===== CHOICE SCREEN ===== */
+    .choice{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+    .choicecard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.5rem 1.4rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;border-top:5px solid var(--brand);transition:.18s var(--ease);cursor:pointer;}
+    .choicecard:hover{transform:translateY(-3px);box-shadow:0 26px 64px rgba(20,35,52,.2);}
+    .choicecard.learn{border-top-color:var(--see);}
+    .choicecard.own{border-top-color:var(--test);}
+    .choicecard .ctag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .choicecard b{font-size:1.3rem;letter-spacing:-.01em;margin:.3rem 0 .4rem;}
+    .choicecard p{margin:0 0 1rem;color:var(--mid);font-size:.92rem;flex:1;}
+    .choicecard .go{font-family:var(--mono);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);}
+    @media (max-width:700px){ .choice{grid-template-columns:1fr;} }
+
+    .backlink{display:inline-flex;align-items:center;gap:.4rem;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);padding:0;margin:0 0 1.2rem;}
+    .backlink:hover{color:var(--brand-deep);}
+
+    /* ===== WALKTHROUGH (read-only SGR) ===== */
+    .wtnote{background:#eef2f6;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:.9rem 1.1rem;margin:0 0 1.2rem;font-size:.9rem;color:var(--mid);}
+    .wtnote b{color:var(--dark);}
+    .casefile{display:flex;gap:1rem;align-items:center;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem 1.2rem;margin:0 0 1.2rem;flex-wrap:wrap;}
+    .casefile img{width:58px;height:58px;border-radius:10px;object-fit:cover;border:1px solid var(--light);flex:0 0 auto;}
+    .casefile dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.5rem 1.3rem;margin:0;flex:1;min-width:200px;}
+    .casefile dt{font-family:var(--mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);font-weight:700;}
+    .casefile dd{margin:.1rem 0 0;font-size:.88rem;color:var(--dark);font-weight:600;}
+
+    .wtstep{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;margin:0 0 1rem;border-top:4px solid var(--brand);}
+    .wtstep.s1{border-top-color:var(--see);} .wtstep.s2{border-top-color:var(--test);} .wtstep.s3{border-top-color:var(--voice);} .wtstep.s4{border-top-color:var(--brand);}
+    .wtstep .num{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .wtstep h2{font-size:1.18rem;margin:.15rem 0 .6rem;letter-spacing:-.01em;}
+    .wtstep .ans{font-size:1.02rem;color:var(--dark);margin:0 0 .6rem;}
+    .wtstep .ans b{font-weight:700;}
+    .wtstep .why{font-size:.9rem;color:var(--mid);margin:0;}
+    .stchip{display:inline-block;font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);margin-left:.3rem;vertical-align:middle;}
+    .stchip.ok{background:rgba(27,122,61,.12);color:var(--green);border-color:rgba(27,122,61,.3);}
+    .wtresult{background:#f4f7fb;border:1px solid var(--light);border-left:5px solid var(--brand);border-radius:var(--radius);padding:1.4rem 1.5rem;margin:0 0 1.2rem;}
+    .wtresult .rq{font-size:1.15rem;font-weight:800;margin:0 0 .4rem;}
+    .wtresult .ra{font-size:1rem;margin:0 0 .5rem;}
+    .wtresult .ra .big{color:var(--amber);font-weight:800;}
+    .wtresult .rreq{font-size:1.02rem;font-weight:700;color:var(--brand-deep);margin:.6rem 0 0;}
+
+    .trybar{text-align:center;margin:1.6rem 0 0;}
+    .trybtn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.85rem 1.8rem;border-radius:99px;box-shadow:0 8px 24px rgba(40,73,106,.3);transition:.18s var(--ease);cursor:pointer;border:none;}
+    .trybtn:hover{background:var(--brand-deep);transform:translateY(-2px);}
+
+    /* ===== FILLABLE TOOL ===== */
+    .toolnote{background:rgba(199,127,0,.08);border:1px solid rgba(199,127,0,.3);border-radius:10px;padding:.9rem 1.1rem;margin:0 0 1.2rem;font-size:.9rem;color:var(--dark);}
+    .toolnote b{color:var(--brand-deep);}
+    .stepspine{display:flex;align-items:center;justify-content:center;gap:.2rem;margin:0 0 1.2rem;flex-wrap:wrap;}
+    .stepdot{display:inline-flex;align-items:center;gap:.4rem;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);padding:.3rem .2rem;transition:.15s;}
+    .stepdot .sd-num{width:1.4rem;height:1.4rem;border-radius:99px;border:2px solid var(--light);display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:var(--mid);transition:.2s var(--ease);}
     .stepdot.active{color:var(--brand);} .stepdot.active .sd-num{background:var(--brand);border-color:var(--brand);color:#fff;}
     .stepdot.done .sd-num{background:var(--green);border-color:var(--green);color:#fff;}
-    .stepconn{width:2.5rem;height:2px;background:var(--light);}
-    .steps{margin:0 0 1.3rem;}
-    .step-pane{display:none;}
-    .step-pane.active{display:block;animation:fade .3s var(--ease);}
-    /* ===== input moves ===== */
-    .moves{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:0 0 1.3rem;}
-    .mcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;border-top:4px solid var(--brand);transition:transform .3s var(--ease), box-shadow .3s var(--ease);}
-    .mcol.see{border-top-color:var(--see);} .mcol.test{border-top-color:var(--test);} .mcol.voice{border-top-color:var(--voice);}
-    .mcol.active{transform:translateY(-4px);box-shadow:0 24px 60px rgba(20,35,52,.22);}
-    .mcol .mtag{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);display:flex;align-items:center;gap:.4rem;}
-    .mcol .tick{width:1rem;height:1rem;border-radius:99px;border:2px solid var(--light);display:inline-flex;align-items:center;justify-content:center;font-size:.6rem;color:#fff;transition:.3s var(--ease);flex:0 0 auto;}
-    .mcol.done .tick{background:var(--green);border-color:var(--green);}
-    .mcol.see.done .tick{background:var(--see);border-color:var(--see);} .mcol.test.done .tick{background:var(--test);border-color:var(--test);} .mcol.voice.done .tick{background:var(--voice);border-color:var(--voice);}
-    .mcol h2{font-size:1.1rem;margin:.2rem 0 .1rem;}
-    .field{margin:.8rem 0 0;}
-    .field label{display:block;font-size:.8rem;font-weight:600;color:var(--dark);margin:0 0 .25rem;}
-    .field .hint{font-size:.74rem;color:var(--mid);margin:0 0 .3rem;}
-    .field input,.field select,.field textarea{width:100%;}
-    @media (max-width:820px){ .moves{grid-template-columns:1fr;} }
+    .stepconn{width:1.6rem;height:2px;background:var(--light);}
+    .pane{display:none;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.5rem;border-top:4px solid var(--brand);}
+    .pane.active{display:block;animation:fade .3s var(--ease);}
+    .pane.s1{border-top-color:var(--see);} .pane.s2{border-top-color:var(--test);} .pane.s3{border-top-color:var(--voice);}
+    @keyframes fade{from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);}}
+    .pane .pnum{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .pane h2{font-size:1.25rem;margin:.15rem 0 .2rem;letter-spacing:-.01em;}
+    .pane .psub{font-size:.88rem;color:var(--mid);margin:0 0 1rem;}
+    .field{margin:.9rem 0 0;}
+    .field label{display:block;font-size:.88rem;font-weight:600;color:var(--dark);margin:0 0 .3rem;}
+    .field .changehint{font-size:.74rem;color:var(--brand-soft);margin:0 0 .3rem;font-style:italic;}
+    .field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:.92rem;padding:.6rem .8rem;border:1px solid var(--light);border-radius:10px;background:var(--white);color:var(--dark);transition:border-color .15s, box-shadow .15s;}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--brand-soft);box-shadow:0 0 0 3px rgba(61,100,145,.15);}
 
-    /* ===== run row ===== */
-    .runrow{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1.4rem;}
-    .runbtn{font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.8rem 1.6rem;border-radius:99px;border:none;cursor:pointer;background:var(--brand);color:#fff;transition:.18s var(--ease);box-shadow:0 8px 24px rgba(40,73,106,.3);}
-    .runbtn:hover{background:var(--brand-deep);transform:translateY(-1px);}
-    .runbtn:disabled{opacity:.5;cursor:wait;}
-    .runstatus{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);min-height:1rem;transition:opacity .3s;}
+    .navrow{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:1.2rem 0 0;}
+    .btn{font-family:var(--mono);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.7rem 1.3rem;border-radius:99px;border:none;cursor:pointer;background:var(--brand);color:#fff;transition:.18s var(--ease);}
+    .btn:hover{background:var(--brand-deep);transform:translateY(-1px);}
+    .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--light);} .btn.ghost:hover{border-color:var(--brand);}
+    .btn:disabled{opacity:.5;cursor:wait;}
+    .runstatus{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);min-height:1rem;}
     .runstatus b{color:var(--brand);}
 
-    /* ===== view swap ===== */
-    #panel-input,#panel-output{animation:fade .35s var(--ease);}
-    @keyframes fade{from{opacity:0;} to{opacity:1;}}
+    /* ===== OUTPUT (scannable, matches worked example) ===== */
     .editbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1.1rem;padding:0 0 .9rem;border-bottom:1px solid var(--light);}
-    @media (prefers-reduced-motion:reduce){ #panel-input,#panel-output{animation:none;} }
+    .ocard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin:0 0 .9rem;border-left:4px solid var(--light);opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+    .ocard.show{opacity:1;transform:translateY(0);}
+    .ocard.s1{border-left-color:var(--see);} .ocard.s2{border-left-color:var(--test);} .ocard.s3{border-left-color:var(--voice);} .ocard.ask{border-left-color:var(--brand);background:#f4f7fb;}
+    .ocard .ostep{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .ocard h3{margin:.15rem 0 .4rem;font-size:1.08rem;}
+    .ocard .oans{font-size:1rem;color:var(--dark);margin:0;}
+    .ocard .oans b{font-weight:700;}
+    .ocard details{margin:.5rem 0 0;}
+    .ocard details summary{font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);cursor:pointer;list-style:none;}
+    .ocard details summary::-webkit-details-marker{display:none;}
+    .ocard details summary::before{content:"\25B8 ";}
+    .ocard details[open] summary::before{content:"\25BE ";}
+    .ocard details p{margin:.4rem 0 0;font-size:.88rem;color:var(--mid);}
+    .ocard.ask .alab{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .ocard.ask .areq{display:block;font-size:1.2rem;font-weight:800;color:var(--brand-deep);margin:.2rem 0 .4rem;}
+    .ocard.ask .awhy{color:var(--mid);font-size:.9rem;}
+    .ocard.ask .arows{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1rem;margin:1rem 0 0;font-size:.92rem;}
+    .ocard.ask .arows .lab{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);font-weight:700;padding-top:.1rem;}
+    .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:.4rem 0 0;opacity:0;transition:opacity .5s var(--ease) .2s;}
+    .actions.show{opacity:1;}
 
-    /* ===== output ===== */
-    .out{margin:0 0 1.2rem;}
-    .out-card{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin:0 0 .9rem;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease), transform .5s var(--ease);border-left:4px solid var(--light);}
-    .out-card.show{opacity:1;transform:translateY(0);}
-    .out-card.see{border-left-color:var(--see);} .out-card.test{border-left-color:var(--test);} .out-card.voice{border-left-color:var(--voice);} .out-card.ask{border-left-color:var(--brand);}
-    .out-card .ostep{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
-    .out-card h3{margin:.15rem 0 .5rem;font-size:1.05rem;}
-    .out-card p{margin:.2rem 0;font-size:.92rem;}
-    .resolveline{font-size:.95rem;color:var(--dark);}
-    .resolveline b{color:var(--dark);}
-    .checklist{list-style:none;margin:.4rem 0 0;padding:0;}
-    .checklist li{padding:.35rem 0 .35rem 1.6rem;position:relative;font-size:.9rem;}
-    .checklist li::before{position:absolute;left:0;top:.35rem;font-family:var(--mono);font-weight:700;}
-    .checklist li.have::before{content:"\2713";color:var(--green);} .checklist li.miss::before{content:"\2717";color:var(--amber);}
-    .checklist li small{color:var(--mid);}
-    .askbox{background:linear-gradient(180deg,#fff, #f4f7fb);border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.3rem;}
-    .askbox .alab{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand-soft);}
-    .askbox b{display:block;font-size:1.3rem;letter-spacing:-.01em;margin:.2rem 0 .4rem;color:var(--brand-deep);}
-    .askbox span{color:var(--mid);font-size:.9rem;}
-    .outgrid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0 0;}
-    .outgrid .olab{display:block;font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);margin-bottom:.15rem;}
-    .outgrid>div{font-size:.9rem;}
-    @media (max-width:600px){ .outgrid{grid-template-columns:1fr;} }
-    .statuschip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;}
-    .statuschip.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
-    .statuschip.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
-    .statuschip.probe{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
-    .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:.4rem 0 0;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease) .2s, transform .5s var(--ease) .2s;}
-    .actions.show{opacity:1;transform:translateY(0);}
-
-    /* tracker */
-    .tracker{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;margin:1.4rem 0 0;}
-    .tracker h2{margin:0 0 .2rem;font-size:1.15rem;}
-    .tracker .tsub{color:var(--mid);font-size:.84rem;margin:0 0 .9rem;}
-    .tracker table{width:100%;border-collapse:collapse;font-size:.84rem;}
-    .tracker th{text-align:left;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);padding:.4rem .5rem;border-bottom:1px solid var(--light);}
-    .tracker td{padding:.5rem;border-bottom:1px solid var(--surface);vertical-align:top;}
-    .tracker .empty{color:var(--mid);font-size:.86rem;padding:.8rem 0;}
-    .tracker .del{color:var(--red);cursor:pointer;font-family:var(--mono);font-size:.62rem;text-decoration:none;}
-    .tracker .reload{color:var(--brand);text-decoration:none;font-weight:600;}
+    /* saved tests (only after a run) */
+    .saved{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;margin:1.4rem 0 0;}
+    .saved h2{margin:0 0 .2rem;font-size:1.1rem;}
+    .saved .ssub{color:var(--mid);font-size:.82rem;margin:0 0 .9rem;}
+    .saved table{width:100%;border-collapse:collapse;font-size:.84rem;}
+    .saved th{text-align:left;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);padding:.4rem .5rem;border-bottom:1px solid var(--light);}
+    .saved td{padding:.5rem;border-bottom:1px solid var(--surface);vertical-align:top;}
+    .saved .reload{color:var(--brand);text-decoration:none;font-weight:600;}
+    .saved .del{color:var(--red);cursor:pointer;font-family:var(--mono);font-size:.6rem;}
     .localnote{font-size:.74rem;color:var(--mid);margin:.6rem 0 0;font-style:italic;}
 
-    footer{max-width:1080px;margin:1.4rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.8rem;color:var(--mid);}
+    footer{max-width:1000px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
-    @media print{ .nav,.bar,.runrow,.actions,.tracker,.brandbar,.hero p a{display:none;} .out-card{opacity:1!important;transform:none!important;box-shadow:none;} }
-    @media (prefers-reduced-motion:reduce){ *{transition:none!important;} .out-card{opacity:1;transform:none;} .actions{opacity:1;transform:none;} }
+    .hidden{display:none !important;}
+    @media print{ .nav,.navrow,.actions,.editbar,.trybar,.backlink{display:none;} .ocard{opacity:1!important;transform:none!important;box-shadow:none;} }
+    @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important;} .ocard{opacity:1;transform:none;} .actions{opacity:1;} }
   </style>
 </head>
 <body>
@@ -143,135 +166,192 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="kicker">Run a project &middot; three short steps</p>
-      <h1>Bring one infrastructure project. Leave with a clear request for information.</h1>
-      <p>Answer a few plain questions about the project, one step at a time. You will leave knowing which records are needed to judge its value, and what a partner can request next. See the <a href="sgr-worked-example.html">Kenya SGR worked through end to end &rarr;</a>, or start your own below.</p>
+      <p class="kicker">The Project Publication Test</p>
+      <h1>Test one infrastructure project</h1>
+      <p>Use the test to see what is already public, what cannot yet be judged, and what information a partner can request next.</p>
+      <div class="leavewith">
+        <b>You will leave with</b>
+        <ul><li>a result</li><li>a records checklist</li><li>a request for project information</li><li>a partner action note</li></ul>
+      </div>
     </div>
   </section>
 
   <div class="wrap">
-    <div class="bar">
-      <label for="preset">Load a project</label>
-      <select id="preset">
-        <option value="sgr">Worked example: Kenya SGR</option>
-        <option value="blank">Start blank (your own project)</option>
-      </select>
-      <button class="btn ghost" id="resetbtn" type="button">Reset</button>
-    </div>
 
-    <div id="panel-input">
-    <div class="stepspine" id="stepspine">
-      <button class="stepdot active" data-step="0" type="button"><span class="sd-num">1</span> See it</button>
-      <span class="stepconn"></span>
-      <button class="stepdot" data-step="1" type="button"><span class="sd-num">2</span> Test it</button>
-      <span class="stepconn"></span>
-      <button class="stepdot" data-step="2" type="button"><span class="sd-num">3</span> Voice it</button>
-    </div>
-    <div class="steps">
-      <div class="mcol see step-pane active" id="mc-see" data-step="0">
-        <span class="mtag"><span class="tick">&#10003;</span> Move 1 &middot; See it</span>
-        <h2>See it</h2>
-        <div class="field"><label for="proj">What is the project?</label><input id="proj" type="text" placeholder="Project name and country"></div>
-        <div class="field"><label for="funder">Who funds it?</label><input id="funder" type="text" placeholder="The lender or financier"></div>
-        <div class="field">
-          <label for="ftype">How is it financed?</label>
-          <p class="hint">This decides which records you need to ask for first.</p>
-          <select id="ftype">
-            <option value="">Select...</option>
-            <option value="sovereign">A loan the government guarantees (sovereign loan)</option>
-            <option value="equity">Private investment (equity / project finance)</option>
-            <option value="ppp">A long-term contract (PPP / concession)</option>
-            <option value="epc">A build-and-finance package (EPC)</option>
-            <option value="concessional">A low-interest development loan (concessional)</option>
-          </select>
+    <!-- ============ SCREEN 1: CHOICE ============ -->
+    <div id="screen-choice">
+      <div class="choice">
+        <div class="choicecard learn" id="pick-learn" tabindex="0" role="button">
+          <span class="ctag">Recommended first</span>
+          <b>Learn with the Kenya SGR example</b>
+          <p>Walk through a prepared real example to see how the test works, start to finish. You can try your own project afterwards.</p>
+          <span class="go">See the walkthrough &rarr;</span>
         </div>
-      </div>
-
-      <div class="mcol test step-pane" id="mc-test" data-step="1">
-        <span class="mtag"><span class="tick">&#10003;</span> Move 2 &middot; Test it</span>
-        <h2>Test it</h2>
-        <div class="field">
-          <label for="published">Are the financing terms in the public records?</label>
-          <select id="published"><option value="">Select...</option><option value="yes">Yes, published</option><option value="partial">Partly (some known)</option><option value="no">Not found in public records</option></select>
-        </div>
-        <div class="field">
-          <label for="npv">Can value for money be judged from those records?</label>
-          <select id="npv"><option value="">Select...</option><option value="yes">Yes, before the project</option><option value="outcome">Only later, from outcomes</option><option value="no">Not yet, records missing</option></select>
-        </div>
-        <div class="field"><label for="basis">What is known so far? (optional note)</label><textarea id="basis" rows="2" placeholder="What the public records show, and how solid it is"></textarea></div>
-      </div>
-
-      <div class="mcol voice step-pane" id="mc-voice" data-step="2">
-        <span class="mtag"><span class="tick">&#10003;</span> Move 3 &middot; Voice it</span>
-        <h2>Voice it</h2>
-        <div class="field"><label for="affected">Who is affected?</label><input id="affected" type="text" placeholder="The community living with the project"></div>
-        <div class="field"><label for="holder">Where might the records sit?</label><input id="holder" type="text" placeholder="The funder and/or the builder, not just the state"></div>
-        <div class="field">
-          <label for="status">How solid is this, so far?</label>
-          <select id="status"><option value="probe">Working read / teaching example</option><option value="check">Based on available reports</option><option value="ready">Checked against source records</option></select>
+        <div class="choicecard own" id="pick-own" tabindex="0" role="button">
+          <span class="ctag">When you are ready</span>
+          <b>Test your own project</b>
+          <p>Answer a few plain questions about one infrastructure project, one step at a time, and build a request for project information.</p>
+          <span class="go">Start your project &rarr;</span>
         </div>
       </div>
     </div>
 
-    <div class="runrow">
-      <button class="btn ghost" id="backbtn" type="button" hidden>&larr; Back</button>
-      <button class="runbtn" id="nextbtn" type="button">Next: can it be judged? &rarr;</button>
-      <button class="runbtn" id="runbtn" type="button" hidden>Run the test &rarr;</button>
-      <span class="runstatus" id="runstatus"></span>
-    </div>
-    </div><!-- /panel-input -->
+    <!-- ============ SCREEN 2: WALKTHROUGH (read-only SGR) ============ -->
+    <div id="screen-learn" class="hidden">
+      <button class="backlink" id="learn-back">&larr; Back to the choice</button>
+      <div class="wtnote">This is a <b>prepared teaching example</b>. Read it through to see how the test works on one real project. Nothing here is editable. When you are ready, you can run the same test on your own project.</div>
 
-    <!-- ===== OUTPUT (staged) ===== swaps in place over the input panel -->
-    <div id="panel-output" hidden>
-      <div class="editbar"><button class="btn ghost" id="editbtn" type="button">&larr; Edit inputs</button><span class="runstatus" id="runstatus2"></span></div>
-      <div class="out" id="output">
-      <div class="out-card see" id="oc-see">
-        <span class="ostep">Move 1 resolved &middot; See it</span>
-        <h3 id="see-h">What is being funded</h3>
-        <p class="resolveline" id="see-line"></p>
+      <div class="casefile">
+        <img src="day3/assets/sgr-voi-viaduct.jpg" alt="The Kenya Standard Gauge Railway near Voi" loading="lazy">
+        <dl>
+          <div><dt>Project</dt><dd>Kenya Standard Gauge Railway</dd></div>
+          <div><dt>Country</dt><dd>Kenya</dd></div>
+          <div><dt>Financing</dt><dd>Sovereign loan</dd></div>
+          <div><dt>Status</dt><dd>Teaching example, based on available reports</dd></div>
+        </dl>
       </div>
-      <div class="out-card test" id="oc-test">
-        <span class="ostep">Move 2 resolved &middot; Test it</span>
-        <h3>Can value for money be judged?</h3>
-        <p class="resolveline" id="test-line"></p>
-        <ul class="checklist" id="o-checklist"></ul>
+
+      <div class="wtstep s1">
+        <span class="num">Step 1 &middot; Identify the project</span>
+        <h2>What is the project, and who funds it?</h2>
+        <p class="ans">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder confirmed</span></p>
+        <p class="why">The way a project is financed tells us which records are needed before its value can be tested.</p>
       </div>
-      <div class="out-card voice" id="oc-voice">
-        <span class="ostep">Move 3 resolved &middot; Voice it</span>
-        <h3>Who needs the information</h3>
-        <p class="resolveline" id="voice-line"></p>
+
+      <div class="wtstep s2">
+        <span class="num">Step 2 &middot; Check the records</span>
+        <h2>Can value for money be judged from public records?</h2>
+        <p class="ans"><b>Not before the project.</b> The guarantee is public, but the full loan terms are not in the records reviewed. <span class="stchip">key terms not public</span></p>
+        <p class="why">Without the terms, the value can only be guessed at later from outcomes, never checked up front.</p>
       </div>
-      <div class="out-card ask" id="oc-ask">
-        <div class="askbox">
+
+      <div class="wtstep s3">
+        <span class="num">Step 3 &middot; Name who needs the information</span>
+        <h2>Who needs the records, and where might they sit?</h2>
+        <p class="ans">Route communities and Kenyan taxpayers. The records most likely sit with <b>the lender and the builder</b>, not only the government. <span class="stchip">holders identified</span></p>
+        <p class="why">A request has to reach whoever actually holds the records, or they may never surface.</p>
+      </div>
+
+      <div class="wtresult">
+        <p class="rq">The result</p>
+        <p class="ra"><span class="big">Value cannot yet be judged</span> from the records reviewed.</p>
+        <p class="rreq">The request: publish the loan agreement, guarantee terms, repayment schedule, and appraisal assumptions needed to assess value for money.</p>
+      </div>
+
+      <div class="trybar">
+        <button class="trybtn" id="learn-totry">Now test your own project &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ============ SCREEN 3: FILLABLE TOOL ============ -->
+    <div id="screen-own" class="hidden">
+      <button class="backlink" id="own-back">&larr; Back to the choice</button>
+
+      <div class="toolnote" id="toolnote">
+        <b>Loaded: the Kenya SGR example.</b> Run it as-is to see how the test works, or change any answer to explore a different project. Each answer shapes the final result and the records a partner should request.
+        <div style="margin-top:.7rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+          <button class="btn" id="preset-blank">Start blank instead</button>
+        </div>
+      </div>
+
+      <div id="panel-input">
+        <div class="stepspine">
+          <button class="stepdot active" data-step="0" type="button"><span class="sd-num">1</span> Identify</button>
+          <span class="stepconn"></span>
+          <button class="stepdot" data-step="1" type="button"><span class="sd-num">2</span> Check records</button>
+          <span class="stepconn"></span>
+          <button class="stepdot" data-step="2" type="button"><span class="sd-num">3</span> Who needs it</button>
+        </div>
+
+        <div class="pane s1 active" data-step="0">
+          <span class="pnum">Step 1 of 3 &middot; See it</span>
+          <h2>Identify the project</h2>
+          <p class="psub">What is being funded, and how.</p>
+          <div class="field"><label for="proj">What is the project?</label><input id="proj" type="text" placeholder="Project name and country"></div>
+          <div class="field"><label for="funder">Who funds it?</label><input id="funder" type="text" placeholder="The lender or financier"></div>
+          <div class="field">
+            <label for="ftype">How is it financed?</label>
+            <p class="changehint">Changing this updates the final result and the records the partner should request.</p>
+            <select id="ftype">
+              <option value="">Select...</option>
+              <option value="sovereign">A loan the government guarantees</option>
+              <option value="equity">Private investment</option>
+              <option value="ppp">A long-term contract (PPP / concession)</option>
+              <option value="epc">A build-and-finance package</option>
+              <option value="concessional">A low-interest development loan</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pane s2" data-step="1">
+          <span class="pnum">Step 2 of 3 &middot; Test it</span>
+          <h2>Check the records</h2>
+          <p class="psub">What is already in the public record, and what that lets you judge.</p>
+          <div class="field">
+            <label for="published">Are the financing records available in public sources?</label>
+            <p class="changehint">Changing this updates whether the project can be judged.</p>
+            <select id="published"><option value="">Select...</option><option value="yes">Yes, published</option><option value="partial">Partly (some known)</option><option value="no">Not found in public records</option></select>
+          </div>
+          <div class="field">
+            <label for="npv">Can value for money be tested from those records?</label>
+            <select id="npv"><option value="">Select...</option><option value="yes">Yes, before the project</option><option value="outcome">Only later, from outcomes</option><option value="no">Not yet, records missing</option></select>
+          </div>
+          <div class="field"><label for="basis">What is known so far? (optional note)</label><textarea id="basis" rows="2" placeholder="What the public records show, and how solid it is"></textarea></div>
+        </div>
+
+        <div class="pane s3" data-step="2">
+          <span class="pnum">Step 3 of 3 &middot; Voice it</span>
+          <h2>Name who needs the information</h2>
+          <p class="psub">Who is affected, and where the missing records might sit.</p>
+          <div class="field"><label for="affected">Who needs this information?</label><input id="affected" type="text" placeholder="The community living with the project"></div>
+          <div class="field"><label for="holder">Where might the records sit?</label><input id="holder" type="text" placeholder="The funder and/or the builder, not just the state"></div>
+          <div class="field">
+            <label for="status">How solid is this, so far?</label>
+            <select id="status"><option value="probe">A working read / teaching example</option><option value="check">Based on available reports</option><option value="ready">Checked against source records</option></select>
+          </div>
+        </div>
+
+        <div class="navrow">
+          <button class="btn ghost" id="backbtn" type="button" hidden>&larr; Back</button>
+          <button class="btn" id="nextbtn" type="button">Next: check the records &rarr;</button>
+          <button class="btn" id="runbtn" type="button" hidden>Generate the request &rarr;</button>
+          <span class="runstatus" id="runstatus"></span>
+        </div>
+      </div>
+
+      <!-- OUTPUT -->
+      <div id="panel-output" class="hidden">
+        <div class="editbar"><button class="btn ghost" id="editbtn" type="button">&larr; Change my answers</button><span class="runstatus" id="runstatus2"></span></div>
+        <div class="ocard s1" id="oc-see"><span class="ostep">Step 1 &middot; Identify the project</span><h3>What is being funded</h3><p class="oans" id="see-line"></p></div>
+        <div class="ocard s2" id="oc-test"><span class="ostep">Step 2 &middot; Check the records</span><h3>Can value for money be judged?</h3><p class="oans" id="test-line"></p></div>
+        <div class="ocard s3" id="oc-voice"><span class="ostep">Step 3 &middot; Who needs the information</span><h3>Who needs it</h3><p class="oans" id="voice-line"></p></div>
+        <div class="ocard ask" id="oc-ask">
           <span class="alab">The request for project information</span>
-          <b id="ask-b"></b>
-          <span id="ask-why"></span>
+          <span class="areq" id="ask-b"></span>
+          <span class="awhy" id="ask-why"></span>
+          <div class="arows">
+            <span class="lab">Records to request</span><span id="missing-row"></span>
+            <span class="lab">Can value be judged?</span><span id="verdict-row"></span>
+            <span class="lab">Summary</span><span id="finding-row"></span>
+            <span class="lab">Partner action</span><span id="action-row"></span>
+          </div>
         </div>
-        <div class="outgrid">
-          <div><span class="olab">Records to request</span><span id="missing-row"></span></div>
-          <div><span class="olab">Can value be judged?</span><span id="verdict-row"></span></div>
+        <div class="actions" id="o-actions">
+          <button class="btn" id="savebtn" type="button">Save this test</button>
+          <button class="btn ghost" id="printbtn" type="button">Print / PDF</button>
+          <button class="btn ghost" id="copybtn" type="button">Copy as text</button>
         </div>
-        <p style="margin:1rem 0 .2rem;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Summary finding</span><br><span id="finding-row"></span></p>
-        <p style="margin:.6rem 0 0;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">What a partner does next</span><br><span id="action-row"></span></p>
       </div>
-      <div class="actions" id="o-actions">
-        <button class="btn" id="savebtn" type="button">Save to tracker</button>
-        <button class="btn ghost" id="printbtn" type="button">Print / save as PDF</button>
-        <button class="btn ghost" id="copybtn" type="button">Copy as text</button>
-      </div>
-    </div>
-    </div><!-- /panel-output -->
 
-    <!-- ===== TRACKER ===== -->
-    <div class="tracker">
-      <h2>Partner implementation tracker</h2>
-      <p class="tsub">Projects you have run through the method. Click a project to reload it.</p>
-      <table>
-        <thead><tr><th>Project</th><th>Funder</th><th>Type</th><th>Record to publish</th><th>Status</th><th>Next action</th><th></th></tr></thead>
-        <tbody id="trackbody"><tr><td class="empty" colspan="7">No projects saved yet. Run one above and click &ldquo;Save to tracker&rdquo;.</td></tr></tbody>
-      </table>
-      <p class="localnote">Saved in this browser only (local storage). Not a shared dashboard, and not sent anywhere. Use Print or Copy to share a result.</p>
+      <!-- saved tests, hidden until one is saved -->
+      <div class="saved hidden" id="savedbox">
+        <h2>Saved project tests</h2>
+        <p class="ssub">Tests you have saved, in this browser only. Click a project to reload it.</p>
+        <table><thead><tr><th>Project</th><th>How financed</th><th>Records to request</th><th></th></tr></thead><tbody id="savedbody"></tbody></table>
+        <p class="localnote">Saved in this browser only. Not shared, not sent anywhere. Use Print or Copy to share a result.</p>
+      </div>
     </div>
+
   </div>
 
   <footer>
@@ -282,145 +362,126 @@
   (function(){
     "use strict";
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var ASK = {
-      sovereign:    {record:"the loan agreement and the guarantee terms", untested:"the real cost of the debt and what the state is liable for", idsline:"loan terms + guarantee"},
-      equity:       {record:"the beneficial ownership register and the offtake agreement", untested:"who benefits", idsline:"beneficial ownership + offtake"},
-      ppp:          {record:"the concession contract and the schedule of fiscal commitments", untested:"the long-term fiscal commitment", idsline:"contract + fiscal commitments"},
-      epc:          {record:"the itemised cost breakdown", untested:"whether the cost is justified", idsline:"itemised cost breakdown"},
-      concessional: {record:"the funding source, the loan conditions and the tender record", untested:"the real terms", idsline:"source + conditions + tender"}
+    var $=function(id){return document.getElementById(id);};
+    var ASK={
+      sovereign:{record:"the loan agreement and the guarantee terms", untested:"the real cost of the debt and what the state is liable for", idsline:"loan terms + guarantee"},
+      equity:{record:"the beneficial ownership register and the offtake agreement", untested:"who benefits", idsline:"beneficial ownership + offtake"},
+      ppp:{record:"the concession contract and the schedule of fiscal commitments", untested:"the long-term fiscal commitment", idsline:"contract + fiscal commitments"},
+      epc:{record:"the itemised cost breakdown", untested:"whether the cost is justified", idsline:"itemised cost breakdown"},
+      concessional:{record:"the funding source, the loan conditions and the tender record", untested:"the real terms", idsline:"source + conditions + tender"}
     };
-    var FTLABEL = {sovereign:"Sovereign loan",equity:"Equity / project finance",ppp:"PPP / concession",epc:"EPC + finance",concessional:"Concessional loan"};
-    var STLABEL = {probe:"Working read / teaching probe",check:"As-reported, figures to confirm",ready:"Source-checked"};
-    var SGR = {
-      proj:"Standard Gauge Railway (SGR), Kenya", funder:"Chinese state lenders (Exim Bank of China)",
-      ftype:"sovereign", published:"partial", npv:"outcome",
+    var FTLABEL={sovereign:"a government-guaranteed loan",equity:"private investment",ppp:"a long-term contract",epc:"a build-and-finance package",concessional:"a low-interest development loan"};
+    var STLABEL={probe:"a working read",check:"based on available reports",ready:"checked against source records"};
+    var SGR={proj:"Standard Gauge Railway (SGR), Kenya", funder:"Chinese state lenders (Exim Bank of China)", ftype:"sovereign", published:"partial", npv:"outcome",
       basis:"The guarantee is publicly known; the full loan terms are not in the public records. Judged from outcomes: the loan is around 5% of national income and has strained the national railway's finances. Figures as reported.",
-      affected:"Communities along the corridor and Kenyan taxpayers carrying the debt service",
-      holder:"the lender and the company that built the line, not only the government",
-      status:"check"
-    };
-    var ids = ["proj","funder","ftype","published","npv","basis","affected","holder","status"];
-    function $(id){ return document.getElementById(id); }
-    function load(obj){ ids.forEach(function(k){ if($(k)) $(k).value = obj[k]||""; }); }
+      affected:"Communities along the corridor and Kenyan taxpayers who carry the repayments", holder:"the lender and the company that built the line, not only the government", status:"check"};
+    var ids=["proj","funder","ftype","published","npv","basis","affected","holder","status"];
+    function load(o){ ids.forEach(function(k){ if($(k)) $(k).value=o[k]||""; }); }
     function gather(){ var o={}; ids.forEach(function(k){ o[k]=$(k)?$(k).value:""; }); return o; }
     function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
     function delay(ms){ return new Promise(function(r){ setTimeout(r, reduce?0:ms); }); }
 
-    var OUT=["oc-see","oc-test","oc-voice","oc-ask"];
-    function resetOutput(){ OUT.forEach(function(id){ $(id).classList.remove("show"); }); $("o-actions").classList.remove("show"); ["mc-see","mc-test","mc-voice"].forEach(function(id){ $(id).classList.remove("active","done"); }); }
-    function showInput(){ $("panel-output").hidden=true; $("panel-input").hidden=false; if(typeof showStep==="function") showStep(0); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-    function showOutput(){ $("panel-input").hidden=true; $("panel-output").hidden=false; window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-    function setStatus(html){ $("runstatus").innerHTML=html; var s2=$("runstatus2"); if(s2) s2.innerHTML=html; }
+    // ===== screen switching =====
+    function show(id){ ["screen-choice","screen-learn","screen-own"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); }); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+    $("pick-learn").addEventListener("click", function(){ show("screen-learn"); });
+    $("pick-learn").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" ") { e.preventDefault(); show("screen-learn"); } });
+    $("pick-own").addEventListener("click", function(){ startOwn(true); });
+    $("pick-own").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); startOwn(true); } });
+    $("learn-back").addEventListener("click", function(){ show("screen-choice"); });
+    $("own-back").addEventListener("click", function(){ show("screen-choice"); });
+    $("learn-totry").addEventListener("click", function(){ startOwn(true); });
 
-    $("preset").addEventListener("change", function(){ if(this.value==="sgr") load(SGR); else load({}); resetOutput(); showInput(); setStatus(""); });
-    $("resetbtn").addEventListener("click", function(){ load({}); $("preset").value="blank"; resetOutput(); showInput(); setStatus(""); });
-    $("editbtn").addEventListener("click", function(){ showInput(); });
-    load(SGR);
-
-    // ===== stepper: one move at a time =====
-    var STEP_LABELS = ["Next: can it be judged? →", "Next: who needs it? →", ""];
-    var currentStep = 0;
-    var panes = [].slice.call(document.querySelectorAll(".step-pane"));
-    var dots = [].slice.call(document.querySelectorAll(".stepdot"));
-    function showStep(n){
-      currentStep = Math.max(0, Math.min(2, n));
-      panes.forEach(function(p){ p.classList.toggle("active", +p.getAttribute("data-step")===currentStep); });
-      dots.forEach(function(d){ var i=+d.getAttribute("data-step");
-        d.classList.toggle("active", i===currentStep);
-        d.classList.toggle("done", i<currentStep);
-      });
-      $("backbtn").hidden = currentStep===0;
-      var last = currentStep===2;
-      $("nextbtn").hidden = last;
-      $("runbtn").hidden = !last;
-      if(!last) $("nextbtn").textContent = STEP_LABELS[currentStep];
-      setStatus("");
+    function startOwn(withSGR){
+      load(withSGR?SGR:{});
+      $("toolnote").classList.toggle("hidden", !withSGR);
+      $("panel-output").classList.add("hidden"); $("panel-input").classList.remove("hidden");
+      showStep(0); show("screen-own");
     }
-    $("nextbtn").addEventListener("click", function(){ showStep(currentStep+1); });
-    $("backbtn").addEventListener("click", function(){ showStep(currentStep-1); });
-    dots.forEach(function(d){ d.addEventListener("click", function(){ showStep(+d.getAttribute("data-step")); }); });
-    showStep(0);
+    $("preset-blank").addEventListener("click", function(){ load({}); $("toolnote").classList.add("hidden"); showStep(0); });
 
+    // ===== stepper =====
+    var STEP_LABELS=["Next: check the records →","Next: who needs it? →",""];
+    var current=0;
+    var panes=[].slice.call(document.querySelectorAll("#screen-own .pane"));
+    var dots=[].slice.call(document.querySelectorAll("#screen-own .stepdot"));
+    function showStep(n){
+      current=Math.max(0,Math.min(2,n));
+      panes.forEach(function(p){ p.classList.toggle("active",+p.getAttribute("data-step")===current); });
+      dots.forEach(function(d){ var i=+d.getAttribute("data-step"); d.classList.toggle("active",i===current); d.classList.toggle("done",i<current); });
+      $("backbtn").hidden=current===0;
+      var last=current===2;
+      $("nextbtn").hidden=last; $("runbtn").hidden=!last;
+      if(!last) $("nextbtn").textContent=STEP_LABELS[current];
+      $("runstatus").textContent="";
+    }
+    $("nextbtn").addEventListener("click", function(){ showStep(current+1); });
+    $("backbtn").addEventListener("click", function(){ showStep(current-1); });
+    dots.forEach(function(d){ d.addEventListener("click", function(){ showStep(+d.getAttribute("data-step")); }); });
+    $("editbtn").addEventListener("click", function(){ $("panel-output").classList.add("hidden"); $("panel-input").classList.remove("hidden"); showStep(0); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); });
+
+    // ===== generate result =====
+    function setStatus(h){ $("runstatus").innerHTML=h; if($("runstatus2")) $("runstatus2").innerHTML=h; }
+    var OUT=["oc-see","oc-test","oc-voice","oc-ask"];
     async function run(){
-      var o = gather();
-      if(!o.proj){ setStatus('<b>Name the project first</b> (Move 1).'); return; }
-      $("runbtn").disabled=true; resetOutput();
-      showOutput(); // swap to the output panel first, so the reveal happens where the eyes are
+      var o=gather();
+      if(!o.proj){ setStatus("<b>Name the project first</b> (Step 1)."); return; }
+      $("runbtn").disabled=true;
+      OUT.forEach(function(id){ $(id).classList.remove("show"); }); $("o-actions").classList.remove("show");
+      $("panel-input").classList.add("hidden"); $("panel-output").classList.remove("hidden");
+      window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
       await delay(250);
 
-      // Move 1: See it
-      setStatus('Reading <b>See it</b>…');
-      await delay(650);
-      $("see-line").innerHTML = '<b>'+esc(o.proj)+'</b> is funded by <b>'+esc(o.funder||"a funder yet to confirm")+'</b> as a <b>'+esc(FTLABEL[o.ftype]||"financing type yet to classify")+'</b>'+(o.ftype&&ASK[o.ftype]?'. To judge it, you need to see '+esc(ASK[o.ftype].untested)+'.':'.');
-      $("oc-see").classList.add("show");
-      await delay(700);
+      var a=o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
+      var pubword=o.published==="yes"?"in the public records":(o.published==="partial"?"only partly in the public records":(o.published==="no"?"not found in public records":"of unknown status"));
 
-      // Move 2: Test it
-      setStatus('Testing <b>can its value be judged</b>…');
-      await delay(700);
-      var verdict = o.npv==="no" ? "<b>not yet, from public records</b>" : (o.npv==="outcome" ? "<b>only later</b>, from outcomes, not before" : (o.npv==="yes"?"<b>yes</b>, before the project":"not set"));
-      var pubword = o.published==="yes"?"in the public records":(o.published==="partial"?"only partly in the public records":(o.published==="no"?"not found in public records":"of unknown status"));
-      $("test-line").innerHTML = 'Terms are <b>'+esc(pubword)+'</b>. On that basis the value '+verdict+'.';
-      var pubHave=o.published==="yes", npvHave=o.npv==="yes";
-      $("o-checklist").innerHTML =
-        li(o.funder,"Funder identified","",o.funder?"have":"miss") +
-        li(o.ftype,"Financing type classified",o.ftype?FTLABEL[o.ftype]:"",o.ftype?"have":"miss") +
-        li(true,"Financing terms in public records",o.published==="partial"?"partly":(o.published==="no"?"not found":""),pubHave?"have":"miss") +
-        li(true,"Value judgeable before the project",o.npv==="outcome"?"only later":(o.npv==="no"?"not yet":""),npvHave?"have":"miss") +
-        li(o.affected,"Affected public identified","",o.affected?"have":"miss") +
-        li(o.holder,"Where the records sit, identified","",o.holder?"have":"miss");
-      $("oc-test").classList.add("show");
-      await delay(750);
+      setStatus("Step 1…"); await delay(500);
+      $("see-line").innerHTML='<b>'+esc(o.proj)+'</b> is funded by <b>'+esc(o.funder||"a funder yet to confirm")+'</b>, financed as <b>'+esc(FTLABEL[o.ftype]||"a type yet to set")+'</b>.';
+      $("oc-see").classList.add("show"); await delay(650);
 
-      // Move 3: Voice it
-      setStatus('Tracing <b>who needs standing</b>…');
-      await delay(700);
-      $("voice-line").innerHTML = '<b>'+esc(o.affected||"the affected public")+'</b> need the information to judge the project. The records most likely sit with <b>'+esc(o.holder||"the funder and the builder")+'</b>.';
-      $("oc-voice").classList.add("show");
-      await delay(750);
+      setStatus("Step 2…"); await delay(500);
+      var verdict=o.npv==="no"?"<b>not yet</b>, from public records":(o.npv==="outcome"?"<b>only later</b>, from outcomes":(o.npv==="yes"?"<b>yes</b>, before the project":"not set"));
+      $("test-line").innerHTML='The financing records are <b>'+esc(pubword)+'</b>. So value for money can be judged: '+verdict+'.';
+      $("oc-test").classList.add("show"); await delay(650);
 
-      // The ask lands
-      setStatus('&rarr; The ask that matters');
-      var a = o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
-      $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select a financing type to generate the ask.";
-      $("ask-why").innerHTML = a ? "For this kind of financing, "+esc(a.untested)+" sits in that record. Mapped to CoST publication fields: "+esc(a.idsline)+". Until it is published, value for money cannot be independently judged." : "";
-      var vshort = o.npv==="no"?"not yet, from public records":(o.npv==="outcome"?"judged only from outcomes":"can be judged");
-      $("missing-row").innerHTML = a ? esc(a.record)+' <span style="color:var(--mid);">('+esc(a.idsline)+')</span>' : "select a financing type";
-      var vfull = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not enough on the public record to judge</span> — records not yet published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Yes</span>, before the project':"set the value question"));
-      $("verdict-row").innerHTML = vfull;
-      $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b> &middot; '+esc(o.funder||"funder t.b.c.")+' &middot; '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Terms '+esc(pubword)+'; value '+esc(vshort)+'. <span class="statuschip '+esc(o.status)+'">'+esc(STLABEL[o.status]||o.status)+'</span>';
-      $("action-row").innerHTML = 'Ask <b>'+esc(o.holder||"whoever holds the records")+'</b> to publish '+esc(a?a.record:"the record needed to test value")+', so '+esc(o.affected||"the affected public")+' has the information to judge the project. Verify figures against the source record first.';
-      $("oc-ask").classList.add("show");
-      await delay(400);
+      setStatus("Step 3…"); await delay(500);
+      $("voice-line").innerHTML='<b>'+esc(o.affected||"the affected public")+'</b> need the information. The records most likely sit with <b>'+esc(o.holder||"the funder and the builder")+'</b>.';
+      $("oc-voice").classList.add("show"); await delay(650);
+
+      setStatus("→ The request"); await delay(300);
+      $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select how the project is financed (Step 1).";
+      $("ask-why").innerHTML = a ? "These records hold "+esc(a.untested)+". Mapped to CoST publication fields: "+esc(a.idsline)+". Until they are published, value for money cannot be independently judged." : "";
+      $("missing-row").innerHTML = a ? esc(a.record) : "—";
+      $("verdict-row").innerHTML = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not yet</span>, records not published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Only later</span>, from outcomes':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Yes</span>, before the project':"set the records question"));
+      $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b>, '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Records '+esc(pubword)+'; '+esc(STLABEL[o.status]||o.status||"")+'.';
+      $("action-row").innerHTML = 'Ask <b>'+esc(o.holder||"whoever holds the records")+'</b> to publish '+esc(a?a.record:"the missing records")+', so '+esc(o.affected||"the affected public")+' can judge the project. Verify against the source record first.';
+      $("oc-ask").classList.add("show"); await delay(350);
       $("o-actions").classList.add("show");
       $("runbtn").disabled=false;
     }
-    function li(cond,label,note,cls){ return '<li class="'+cls+'">'+esc(label)+(note?' <small>('+esc(note)+')</small>':'')+'</li>'; }
     $("runbtn").addEventListener("click", function(){ run(); });
-
-    // tracker
-    var KEY="infrawatch.tracker.v1";
-    function getRows(){ try{ return JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){ return []; } }
-    function setRows(r){ try{ localStorage.setItem(KEY, JSON.stringify(r)); }catch(e){} renderTracker(); }
-    function renderTracker(){
-      var r=getRows(), b=$("trackbody");
-      if(!r.length){ b.innerHTML='<tr><td class="empty" colspan="7">No projects saved yet. Run one above and click &ldquo;Save to tracker&rdquo;.</td></tr>'; return; }
-      b.innerHTML = r.map(function(x,i){
-        var miss=(x.ftype&&ASK[x.ftype])?ASK[x.ftype].record:"—";
-        var next="Ask "+(x.holder||"holder").split(",")[0]+" to publish";
-        return '<tr><td><a href="#" data-i="'+i+'" class="reload">'+esc(x.proj)+'</a></td><td>'+esc((x.funder||"").split("(")[0])+'</td><td>'+esc(FTLABEL[x.ftype]||"—")+'</td><td>'+esc(miss)+'</td><td><span class="statuschip '+esc(x.status)+'">'+esc((STLABEL[x.status]||x.status||"").split("/")[0])+'</span></td><td>'+esc(next)+'</td><td><a class="del" data-d="'+i+'">remove</a></td></tr>';
-      }).join("");
-      b.querySelectorAll(".reload").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); load(getRows()[+this.dataset.i]); resetOutput(); showInput(); }); });
-      b.querySelectorAll(".del").forEach(function(a){ a.addEventListener("click",function(){ var r=getRows(); r.splice(+this.dataset.d,1); setRows(r); }); });
-    }
-    $("savebtn").addEventListener("click", function(){ var o=gather(); if(!o.proj){ alert("Run a project first."); return; } var r=getRows(); r.unshift(o); setRows(r); setStatus('✓ Saved to this browser’s tracker.'); });
     $("printbtn").addEventListener("click", function(){ window.print(); });
     $("copybtn").addEventListener("click", function(){
-      var o=gather(), a=(o.ftype&&ASK[o.ftype])?ASK[o.ftype]:null;
-      var txt="INFRAWATCH PROJECT PUBLICATION TEST\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nHow financed: "+(FTLABEL[o.ftype]||"")+"\nTerms in public records: "+(o.published||"")+"\nValue judgeable from records: "+(o.npv||"")+"\nWhat is known: "+(o.basis||"")+"\n\nREQUEST FOR PROJECT INFORMATION: Publish "+(a?a.record:"the record needed to test value")+".\nWhy: needed to test "+(a?a.untested:"")+" (CoST fields: "+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nWhere the records may sit: "+(o.holder||"")+"\nHow solid: "+(STLABEL[o.status]||o.status||"")+"\n\nVerify figures against the source record before external use.";
-      navigator.clipboard.writeText(txt).then(function(){ setStatus('✓ Finding copied to clipboard.'); }, function(){ alert("Copy failed; select the output manually."); });
+      var o=gather(), a=o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
+      var txt="PROJECT PUBLICATION TEST\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nHow financed: "+(FTLABEL[o.ftype]||"")+"\nRecords in public sources: "+(o.published||"")+"\nValue judgeable from records: "+(o.npv||"")+"\nWhat is known: "+(o.basis||"")+"\n\nREQUEST: Publish "+(a?a.record:"the missing records")+".\nWhy: holds "+(a?a.untested:"")+" (CoST fields: "+(a?a.idsline:"")+").\n\nWho needs it: "+(o.affected||"")+"\nWhere records may sit: "+(o.holder||"")+"\nHow solid: "+(STLABEL[o.status]||o.status||"")+"\n\nVerify against the source record before external use.";
+      navigator.clipboard.writeText(txt).then(function(){ setStatus("✓ Copied."); }, function(){ alert("Copy failed; select the text manually."); });
     });
-    renderTracker();
+
+    // ===== saved tests (localStorage) =====
+    var KEY="infrawatch.saved.v1";
+    function getRows(){ try{ return JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){ return []; } }
+    function setRows(r){ try{ localStorage.setItem(KEY, JSON.stringify(r)); }catch(e){} renderSaved(); }
+    function renderSaved(){
+      var r=getRows(), box=$("savedbox"), b=$("savedbody");
+      box.classList.toggle("hidden", r.length===0);
+      if(!r.length) return;
+      b.innerHTML=r.map(function(x,i){ var miss=x.ftype&&ASK[x.ftype]?ASK[x.ftype].record:"—";
+        return '<tr><td><a href="#" class="reload" data-i="'+i+'">'+esc(x.proj)+'</a></td><td>'+esc(FTLABEL[x.ftype]||"—")+'</td><td>'+esc(miss)+'</td><td><a class="del" data-d="'+i+'">remove</a></td></tr>';
+      }).join("");
+      b.querySelectorAll(".reload").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); load(getRows()[+this.dataset.i]); $("panel-output").classList.add("hidden"); $("panel-input").classList.remove("hidden"); showStep(0); window.scrollTo({top:0,behavior:"smooth"}); }); });
+      b.querySelectorAll(".del").forEach(function(a){ a.addEventListener("click",function(){ var r=getRows(); r.splice(+this.dataset.d,1); setRows(r); }); });
+    }
+    $("savebtn").addEventListener("click", function(){ var o=gather(); if(!o.proj) return; var r=getRows(); r.unshift(o); setRows(r); setStatus("✓ Saved to this browser."); });
+    renderSaved();
   })();
   </script>
 </body>

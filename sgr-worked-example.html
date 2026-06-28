@@ -38,10 +38,38 @@
 
     .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;display:grid;grid-template-columns:1fr;gap:0;}
     .layout{display:grid;grid-template-columns:160px 1fr;gap:1.6rem;align-items:start;}
-    /* step rail (desktop) */
-    .rail{position:sticky;top:4rem;display:flex;flex-direction:column;gap:.1rem;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;}
-    .rail a{color:var(--mid);text-decoration:none;padding:.45rem .6rem;border-left:2px solid var(--light);transition:.15s;}
+    /* step rail (desktop) with scrollspy */
+    .railwrap{position:sticky;top:4rem;}
+    .rail{display:flex;flex-direction:column;gap:.1rem;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;}
+    .rail a{color:var(--mid);text-decoration:none;padding:.45rem .6rem;border-left:2px solid var(--light);transition:color .2s, border-color .2s, font-weight .2s;position:relative;}
     .rail a:hover{color:var(--brand);border-left-color:var(--brand-soft);}
+    .rail a.active{color:var(--dark);border-left:3px solid var(--brand);font-weight:700;background:rgba(40,73,106,.05);}
+    .rail a.active::after{content:"now";position:absolute;right:.5rem;font-size:.5rem;color:var(--brand-soft);font-weight:700;}
+    .casestatus{margin-top:1.2rem;padding:.8rem .7rem;background:var(--white);border:1px solid var(--light);border-radius:10px;box-shadow:var(--shadow);}
+    .cs-row{margin:0 0 .45rem;display:flex;flex-direction:column;}
+    .cs-row:last-child{margin-bottom:0;}
+    .cs-lab{font-family:var(--mono);font-size:.5rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);font-weight:700;}
+    .cs-val{font-size:.74rem;color:var(--dark);font-weight:600;line-height:1.3;}
+    .cs-val.warn{color:var(--amber);}
+    /* mobile 'now reading' chip */
+    .nowreading{display:none;position:sticky;top:0;z-index:40;background:var(--brand-deep);color:#fff;padding:.5rem 1rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;}
+    .nowreading .nr-lab{text-transform:uppercase;color:#7fa8d6;font-size:.56rem;letter-spacing:.06em;}
+    .nowreading .nr-val{font-weight:700;text-transform:uppercase;}
+    /* expandable record cards */
+    .reclist{display:flex;flex-direction:column;gap:.6rem;}
+    .rec{background:var(--white);border:1px solid var(--light);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;transition:border-color .2s;}
+    .rec[open]{border-color:var(--brand-soft);}
+    .rec summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.1rem;cursor:pointer;list-style:none;}
+    .rec summary::-webkit-details-marker{display:none;}
+    .rec summary::before{content:"\25B8";color:var(--brand-soft);font-size:.8rem;transition:transform .2s;}
+    .rec[open] summary::before{transform:rotate(90deg);}
+    .rec .rec-name{flex:1;font-weight:600;font-size:.96rem;}
+    .rec-tag{font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.16rem .5rem;border-radius:99px;white-space:nowrap;}
+    .rec-tag.pub{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
+    .rec-tag.notpub{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .rec-body{padding:0 1.1rem 1rem 2.4rem;font-size:.9rem;color:var(--mid);}
+    .rec-body p{margin:.3rem 0;} .rec-body b{color:var(--dark);}
+    .rec-feed{margin-top:.6rem !important;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);}
     .col{min-width:0;}
 
     /* result card: the answer first */
@@ -119,14 +147,10 @@
 
     @media (max-width:760px){
       .layout{grid-template-columns:1fr;}
-      .rail{display:none;}
-      table.ev,table.ev thead,table.ev tbody,table.ev th,table.ev td,table.ev tr{display:block;}
-      table.ev thead{display:none;}
-      table.ev tr{border:1px solid var(--light);border-radius:10px;margin:0 0 .7rem;}
-      table.ev td{border-top:none;padding:.4rem .8rem;}
-      table.ev td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.56rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-bottom:.1rem;}
+      .railwrap{display:none;}
+      .nowreading{display:block;}
     }
-    @media print{ .nav,.cta,.rail{display:none;} .layout{grid-template-columns:1fr;} .step,.result{box-shadow:none;} }
+    @media print{ .nav,.cta,.railwrap,.nowreading{display:none;} .layout{grid-template-columns:1fr;} .step,.result{box-shadow:none;} .rec[open] .rec-body,.rec .rec-body{display:block;} }
   </style>
 </head>
 <body>
@@ -150,18 +174,27 @@
     </div>
   </section>
 
+  <div class="nowreading" id="nowreading" aria-hidden="true"><span class="nr-lab">Now reading</span> <span class="nr-val" id="nr-val">Result</span></div>
+
   <div class="wrap">
    <div class="layout">
-    <nav class="rail" aria-label="On this page">
-      <a href="#result">Result</a>
-      <a href="#see">See it</a>
-      <a href="#test">Test it</a>
-      <a href="#voice">Voice it</a>
-      <a href="#evidence">Records</a>
-      <a href="#request">Request</a>
-      <a href="#validate">Validation</a>
-      <a href="#sources">Sources</a>
+    <div class="railwrap">
+    <nav class="rail" id="rail" aria-label="On this page">
+      <a href="#result" data-spy="result">Result</a>
+      <a href="#see" data-spy="see">See it</a>
+      <a href="#test" data-spy="test">Test it</a>
+      <a href="#voice" data-spy="voice">Voice it</a>
+      <a href="#evidence" data-spy="evidence">Records</a>
+      <a href="#request" data-spy="request">Request</a>
+      <a href="#validate" data-spy="validate">Validation</a>
+      <a href="#sources" data-spy="sources">Sources</a>
     </nav>
+    <div class="casestatus" aria-label="Case status">
+      <p class="cs-row"><span class="cs-lab">Finding</span><span class="cs-val warn">Not yet judgeable up front</span></p>
+      <p class="cs-row"><span class="cs-lab">Still needed</span><span class="cs-val">collateral terms, appraisal assumptions</span></p>
+      <p class="cs-row"><span class="cs-lab">Next</span><span class="cs-val">request the records</span></p>
+    </div>
+    </div>
 
     <div class="col">
 
@@ -204,18 +237,47 @@
         <details class="why"><summary>Why this matters</summary><p>A request for the information has to reach whoever actually holds it. If it only goes to the state, the records that decide the question may never surface.</p></details>
       </div>
 
-      <!-- EVIDENCE TABLE -->
+      <!-- EVIDENCE: expandable record cards -->
       <h2 class="sectitle" id="evidence">The records, one by one</h2>
-      <p class="sectsub">What is needed to test value, whether it was found in the public records reviewed, and why each one matters.</p>
-      <table class="ev">
-        <thead><tr><th>Information needed</th><th>In reviewed public records?</th><th>Source status</th><th>Why it matters</th></tr></thead>
-        <tbody>
-          <tr><td data-l="Information needed">The loan agreements</td><td data-l="In public records?"><span class="pub">Released 2022</span></td><td data-l="Source status">partial; disclosed late<sup><a href="#s2">2</a></sup></td><td data-l="Why it matters">carries the actual cost and conditions of the debt</td></tr>
-          <tr><td data-l="Information needed">Interest and repayment terms</td><td data-l="In public records?"><span class="pub">Reported</span></td><td data-l="Source status">AidData record<sup><a href="#s1">1</a></sup></td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
-          <tr><td data-l="Information needed">Collateral terms</td><td data-l="In public records?"><span class="notpub">Still questioned</span></td><td data-l="Source status">flagged as missing in 2022<sup><a href="#s2">2</a></sup></td><td data-l="Why it matters">shows what is pledged if repayment fails</td></tr>
-          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not located</span></td><td data-l="Source status">not found in reviewed records</td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
-        </tbody>
-      </table>
+      <p class="sectsub">Each record is one piece of the request. Open a record to see why it is needed and where it might sit.</p>
+      <div class="reclist">
+        <details class="rec">
+          <summary><span class="rec-name">The loan agreements</span><span class="rec-tag pub">Released 2022</span></summary>
+          <div class="rec-body">
+            <p><b>Why needed:</b> carries the actual cost and conditions of the debt.</p>
+            <p><b>What it proves:</b> whether the price and terms were reasonable for what was built.</p>
+            <p><b>Where it sits:</b> released by the Transport Ministry in 2022, but the release was partial.<sup><a href="#s2">2</a></sup></p>
+            <p class="rec-feed">This feeds the request below.</p>
+          </div>
+        </details>
+        <details class="rec">
+          <summary><span class="rec-name">Interest and repayment terms</span><span class="rec-tag pub">Reported</span></summary>
+          <div class="rec-body">
+            <p><b>Why needed:</b> shows the burden over time, not just the headline figure.</p>
+            <p><b>What it proves:</b> whether repayment was affordable against the project's returns.</p>
+            <p><b>Where it sits:</b> documented in the AidData loan record.<sup><a href="#s1">1</a></sup></p>
+            <p class="rec-feed">This feeds the request below.</p>
+          </div>
+        </details>
+        <details class="rec">
+          <summary><span class="rec-name">Collateral terms</span><span class="rec-tag notpub">Still questioned</span></summary>
+          <div class="rec-body">
+            <p><b>Why needed:</b> shows what the state pledged if repayment fails.</p>
+            <p><b>What it proves:</b> the real exposure beyond the loan figure.</p>
+            <p><b>Where it sits:</b> flagged as missing or unclear even after the 2022 release.<sup><a href="#s2">2</a></sup></p>
+            <p class="rec-feed">This feeds the request below.</p>
+          </div>
+        </details>
+        <details class="rec">
+          <summary><span class="rec-name">Appraisal assumptions</span><span class="rec-tag notpub">Not located</span></summary>
+          <div class="rec-body">
+            <p><b>Why needed:</b> shows whether the project was expected to pay off.</p>
+            <p><b>What it proves:</b> whether the business case was sound before money was committed.</p>
+            <p><b>Where it sits:</b> not located in the public records reviewed for this teaching example.</p>
+            <p class="rec-feed">This feeds the request below.</p>
+          </div>
+        </details>
+      </div>
       <p class="sectsub" style="margin-top:.6rem;">&ldquo;Not found&rdquo; means not located in the public records reviewed for this teaching example, not that a record does not exist. Confirm against source before external use.</p>
 
       <!-- REQUEST -->
@@ -265,5 +327,35 @@
   <footer>
     <p><strong>InfraWatch Nairobi</strong> &middot; Kenya SGR worked case file. A teaching example. The loan facts are sourced in the <a href="#sources">Sources</a> section (China Eximbank financing; agreements partly disclosed in 2022; debt trajectory as reported). The method maps to the CoST Infrastructure Data Standard, political-economy analysis, and value-for-money analysis, developed by CIPE with the value-for-money toolkit led by IEA-Kenya. Photograph: the SGR near Voi, by TTC dude via Wikimedia Commons, CC BY-SA 4.0. Built by Michael Cengkuru, CoST.</p>
   </footer>
+  <script>
+  (function(){
+    "use strict";
+    // scrollspy: highlight the rail item + mobile chip for the section in view.
+    // Answers "Where am I?" only — no animation beyond a class toggle.
+    var LABELS={result:"Result",see:"See it",test:"Test it",voice:"Voice it",evidence:"Records",request:"Request",validate:"Validation",sources:"Sources"};
+    var ids=Object.keys(LABELS);
+    var sections=ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var links={}; document.querySelectorAll(".rail a[data-spy]").forEach(function(a){ links[a.getAttribute("data-spy")]=a; });
+    var nrVal=document.getElementById("nr-val");
+    var activeId=null;
+    function setActive(id){
+      if(id===activeId) return; activeId=id;
+      Object.keys(links).forEach(function(k){ links[k].classList.toggle("active", k===id); });
+      if(nrVal && LABELS[id]) nrVal.textContent=LABELS[id];
+    }
+    if("IntersectionObserver" in window){
+      var visible={};
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ visible[e.target.id]= e.isIntersecting ? e.intersectionRatio : 0; });
+        // pick the topmost section currently intersecting
+        var best=null, bestTop=Infinity;
+        sections.forEach(function(s){ if(visible[s.id]>0){ var t=s.getBoundingClientRect().top; if(t<bestTop && t< window.innerHeight*0.5){ bestTop=t; best=s.id; } } });
+        if(best) setActive(best);
+      },{rootMargin:"-20% 0px -60% 0px",threshold:[0,.25,.5,1]});
+      sections.forEach(function(s){ io.observe(s); });
+    }
+    setActive("result");
+  })();
+  </script>
 </body>
 </html>

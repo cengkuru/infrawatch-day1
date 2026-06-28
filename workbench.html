@@ -103,6 +103,22 @@
     /* ===== FILLABLE TOOL ===== */
     .toolnote{background:rgba(199,127,0,.08);border:1px solid rgba(199,127,0,.3);border-radius:10px;padding:.9rem 1.1rem;margin:0 0 1.2rem;font-size:.9rem;color:var(--dark);}
     .toolnote b{color:var(--brand-deep);}
+    /* live guided reasoning */
+    .reasoning{margin:.6rem 0 0;background:rgba(61,100,145,.07);border:1px solid rgba(61,100,145,.2);border-left:3px solid var(--brand-soft);border-radius:8px;padding:.6rem .8rem;animation:fade .25s var(--ease);}
+    .reasoning .r-lab{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);margin-bottom:.15rem;}
+    .reasoning .r-val{font-size:.9rem;color:var(--dark);}
+    /* sticky mini-summary */
+    .minisummary{position:sticky;top:3.4rem;z-index:30;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;background:var(--white);border:1px solid var(--light);border-radius:10px;box-shadow:var(--shadow);padding:.7rem 1rem;margin:0 0 1.2rem;}
+    .ms-item{display:flex;flex-direction:column;}
+    .ms-lab{font-family:var(--mono);font-size:.54rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);}
+    .ms-val{font-size:.86rem;color:var(--dark);font-weight:600;}
+    .ms-val.warn{color:var(--amber);} .ms-val.ok{color:var(--green);}
+    /* due-diligence readiness banner */
+    .ocard.ready{border-left-color:var(--brand-soft);}
+    .readyverdict{font-size:1.05rem;font-weight:800;margin:.2rem 0 .3rem;}
+    .readyverdict.r-ready{color:var(--green);} .readyverdict.r-check{color:var(--amber);} .readyverdict.r-no{color:var(--red);}
+    .readywhy{font-size:.88rem;color:var(--mid);margin:0;}
+    .hidden{display:none !important;}
     .stepspine{display:flex;align-items:center;justify-content:center;gap:.2rem;margin:0 0 1.2rem;flex-wrap:wrap;}
     .stepdot{display:inline-flex;align-items:center;gap:.4rem;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);padding:.3rem .2rem;transition:.15s;}
     .stepdot .sd-num{width:1.4rem;height:1.4rem;border-radius:99px;border:2px solid var(--light);display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:var(--mid);transition:.2s var(--ease);}
@@ -219,9 +235,9 @@
       <button class="backlink" id="own-back">&larr; Back to the choice</button>
 
       <div class="toolnote" id="toolnote">
-        <b>Loaded: the Kenya SGR example.</b> Run it as-is to see how the test works, or change any answer to explore a different project. Each answer shapes the final result and the records a partner should request.
+        <b>Starting blank.</b> Answer the three steps about your own project. Not sure how it works? Load the worked example to see a filled-in run, then clear it.
         <div style="margin-top:.7rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-          <button class="btn" id="preset-blank">Start blank instead</button>
+          <button class="btn" id="preset-sgr">Load the SGR example</button>
         </div>
       </div>
 
@@ -232,6 +248,12 @@
           <button class="stepdot" data-step="1" type="button"><span class="sd-num">2</span> Check records</button>
           <span class="stepconn"></span>
           <button class="stepdot" data-step="2" type="button"><span class="sd-num">3</span> Who needs it</button>
+        </div>
+
+        <div class="minisummary hidden" id="minisummary">
+          <span class="ms-item"><span class="ms-lab">Project</span><span class="ms-val" id="ms-proj">&mdash;</span></span>
+          <span class="ms-item"><span class="ms-lab">Financing</span><span class="ms-val" id="ms-fin">&mdash;</span></span>
+          <span class="ms-item"><span class="ms-lab">Current verdict</span><span class="ms-val" id="ms-verdict">&mdash;</span></span>
         </div>
 
         <div class="pane s1 active" data-step="0">
@@ -252,6 +274,7 @@
               <option value="concessional">A low-interest development loan</option>
             </select>
           </div>
+          <div class="reasoning hidden" id="reason-ftype"><span class="r-lab">Records this usually needs</span><span class="r-val" id="reason-ftype-val"></span></div>
         </div>
 
         <div class="pane s2" data-step="1">
@@ -267,6 +290,7 @@
             <label for="npv">Can value for money be tested from those records?</label>
             <select id="npv"><option value="">Select...</option><option value="yes">Yes, before the project</option><option value="outcome">Only later, from outcomes</option><option value="no">Not yet, records missing</option></select>
           </div>
+          <div class="reasoning hidden" id="reason-verdict"><span class="r-lab">Likely verdict</span><span class="r-val" id="reason-verdict-val"></span></div>
           <div class="field"><label for="basis">What is known so far? (optional note)</label><textarea id="basis" rows="2" placeholder="What the public records show, and how solid it is"></textarea></div>
         </div>
 
@@ -306,6 +330,11 @@
             <span class="lab">Summary</span><span id="finding-row"></span>
             <span class="lab">Partner action</span><span id="action-row"></span>
           </div>
+        </div>
+        <div class="ocard ready" id="oc-ready">
+          <span class="ostep">Due-diligence status</span>
+          <p class="readyverdict" id="ready-verdict"></p>
+          <p class="readywhy" id="ready-why"></p>
         </div>
         <div class="actions" id="o-actions">
           <button class="btn" id="savebtn" type="button">Save this test</button>
@@ -352,19 +381,58 @@
     function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
     function delay(ms){ return new Promise(function(r){ setTimeout(r, reduce?0:ms); }); }
 
+    // ===== live guided reasoning + sticky mini-summary (#3, #6) =====
+    function refreshReasoning(){
+      var o=gather(), a=o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
+      // records-this-needs hint
+      var rf=$("reason-ftype");
+      if(a){ $("reason-ftype-val").textContent=a.record+" ("+a.idsline+")"; rf.classList.remove("hidden"); }
+      else rf.classList.add("hidden");
+      // likely-verdict hint
+      var rv=$("reason-verdict"), verdict="";
+      if(o.npv==="yes") verdict="Likely judgeable, before the project";
+      else if(o.npv==="outcome") verdict="Likely judgeable only later, from outcomes";
+      else if(o.npv==="no") verdict="Likely not yet judgeable, records missing";
+      else if(o.published==="no") verdict="Records missing, value hard to judge";
+      else if(o.published==="partial") verdict="Partly judgeable, needs a source check";
+      if(verdict){ $("reason-verdict-val").textContent=verdict; rv.classList.remove("hidden"); }
+      else rv.classList.add("hidden");
+      // sticky mini-summary
+      var ms=$("minisummary");
+      if(o.proj||o.ftype||o.published){
+        ms.classList.remove("hidden");
+        $("ms-proj").textContent=o.proj||"—";
+        $("ms-fin").textContent=o.ftype?FTLABEL[o.ftype]:"—";
+        var mv=$("ms-verdict"); mv.className="ms-val";
+        if(o.npv==="yes"){ mv.textContent="judgeable"; mv.classList.add("ok"); }
+        else if(o.npv==="no"||o.published==="no"){ mv.textContent="not yet judgeable"; mv.classList.add("warn"); }
+        else if(o.npv==="outcome"||o.published==="partial"){ mv.textContent="partly judgeable"; mv.classList.add("warn"); }
+        else mv.textContent="in progress";
+      } else ms.classList.add("hidden");
+    }
+    ["ftype","published","npv","proj","funder"].forEach(function(id){ var e=$(id); if(e){ e.addEventListener("input",refreshReasoning); e.addEventListener("change",refreshReasoning); } });
+
     // ===== screen switching (Learn is now a link to the worked-example page) =====
     function show(id){ ["screen-choice","screen-own"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); }); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-    $("pick-own").addEventListener("click", function(){ startOwn(true); });
-    $("pick-own").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); startOwn(true); } });
+    $("pick-own").addEventListener("click", function(){ startOwn(false); });
+    $("pick-own").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); startOwn(false); } });
     $("own-back").addEventListener("click", function(){ show("screen-choice"); });
 
     function startOwn(withSGR){
       load(withSGR?SGR:{});
-      $("toolnote").classList.toggle("hidden", !withSGR);
+      $("toolnote").innerHTML = withSGR
+        ? '<b>Loaded: the corrected Kenya SGR example.</b> Read it as a filled-in run, or clear it to start your own. The facts are sourced (Phase 1; partly disclosed 2022, court-ordered 2026).<div style="margin-top:.7rem;"><button class="btn" id="preset-clear">Clear and start blank</button></div>'
+        : '<b>Starting blank.</b> Answer the three steps about your own project. Not sure how it works? Load the worked example to see a filled-in run, then clear it.<div style="margin-top:.7rem;"><button class="btn" id="preset-sgr">Load the SGR example</button></div>';
+      wireToolnote();
       $("panel-output").classList.add("hidden"); $("panel-input").classList.remove("hidden");
+      if(typeof refreshReasoning==="function") refreshReasoning();
       showStep(0); show("screen-own");
     }
-    $("preset-blank").addEventListener("click", function(){ load({}); $("toolnote").classList.add("hidden"); showStep(0); });
+    function wireToolnote(){
+      var s=$("preset-sgr"); if(s) s.addEventListener("click", function(){ startOwn(true); });
+      var c=$("preset-clear"); if(c) c.addEventListener("click", function(){ startOwn(false); });
+    }
+    wireToolnote();
 
     // ===== stepper =====
     var STEP_LABELS=["Next: check the records →","Next: who needs it? →",""];
@@ -388,7 +456,7 @@
 
     // ===== generate result =====
     function setStatus(h){ $("runstatus").innerHTML=h; if($("runstatus2")) $("runstatus2").innerHTML=h; }
-    var OUT=["oc-see","oc-test","oc-voice","oc-ask"];
+    var OUT=["oc-see","oc-test","oc-voice","oc-ask","oc-ready"];
     async function run(){
       var o=gather();
       if(!o.proj){ setStatus("<b>Name the project first</b> (Step 1)."); return; }
@@ -422,6 +490,12 @@
       $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b>, '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Records '+esc(pubword)+'; '+esc(STLABEL[o.status]||o.status||"")+'.';
       $("action-row").innerHTML = 'Ask <b>'+esc(o.holder||"whoever holds the records")+'</b> to publish '+esc(a?a.record:"the missing records")+', so '+esc(o.affected||"the affected public")+' can judge the project. Verify against the source record first.';
       $("oc-ask").classList.add("show"); await delay(350);
+      // due-diligence readiness, driven by the 'how solid is this' input
+      var rv=$("ready-verdict"), rw=$("ready-why");
+      if(o.status==="ready"){ rv.textContent="Ready for partner review"; rv.className="readyverdict r-ready"; rw.textContent="Inputs are checked against source records. Still route through a partner before any external use."; }
+      else if(o.status==="check"){ rv.textContent="Needs a source check"; rv.className="readyverdict r-check"; rw.textContent="Based on available reports. Confirm the key facts against source records before this is shared beyond a close circle."; }
+      else { rv.textContent="Not for external use yet"; rv.className="readyverdict r-no"; rw.textContent="This is a working read. Treat it as a draft for internal discussion only, until the records are verified."; }
+      $("oc-ready").classList.add("show"); await delay(300);
       $("o-actions").classList.add("show");
       $("runbtn").disabled=false;
     }

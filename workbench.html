@@ -77,6 +77,24 @@
     .wtresult .ra{font-size:1rem;margin:0 0 .5rem;}
     .wtresult .ra .big{color:var(--amber);font-weight:800;}
     .wtresult .rreq{font-size:1.02rem;font-weight:700;color:var(--brand-deep);margin:.6rem 0 0;}
+    .wtbanner{height:180px;background:#0c1622 url("day3/assets/sgr-voi-viaduct.jpg") center 38%/cover no-repeat;border-radius:var(--radius);border:1px solid var(--light);margin:0 0 1.2rem;}
+    .wtwhy{border-top:1px solid var(--light);padding-top:.5rem;margin-top:.6rem;}
+    .wtwhy summary{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);cursor:pointer;list-style:none;}
+    .wtwhy summary::-webkit-details-marker{display:none;}
+    .wtwhy summary::before{content:"\25B8 ";} .wtwhy[open] summary::before{content:"\25BE ";}
+    .wtwhy p{margin:.5rem 0 0;font-size:.9rem;color:var(--mid);line-height:1.5;}
+    .wtsectitle{font-size:1.15rem;margin:1.6rem 0 .6rem;}
+    .wtev{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.86rem;}
+    .wtev th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.05em;font-weight:800;padding:.6rem .8rem;}
+    .wtev td{padding:.65rem .8rem;border-top:1px solid var(--light);vertical-align:top;}
+    .wtev tr:nth-child(even){background:#fbfcfd;}
+    .pub{color:var(--green);font-weight:600;} .notpub{color:var(--amber);font-weight:600;}
+    .wtnotefoot{font-size:.82rem;color:var(--mid);margin:.6rem 0 0;}
+    @media (max-width:600px){ .wtbanner{height:120px;}
+      .wtev,.wtev thead,.wtev tbody,.wtev th,.wtev td,.wtev tr{display:block;}
+      .wtev thead{display:none;} .wtev tr{border:1px solid var(--light);border-radius:10px;margin:0 0 .7rem;}
+      .wtev td{border-top:none;padding:.4rem .8rem;} .wtev td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:.54rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);}
+    }
 
     .trybar{text-align:center;margin:1.6rem 0 0;}
     .trybtn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.85rem 1.8rem;border-radius:99px;box-shadow:0 8px 24px rgba(40,73,106,.3);transition:.18s var(--ease);cursor:pointer;border:none;}
@@ -181,65 +199,18 @@
     <!-- ============ SCREEN 1: CHOICE ============ -->
     <div id="screen-choice">
       <div class="choice">
-        <div class="choicecard learn" id="pick-learn" tabindex="0" role="button">
+        <a class="choicecard learn" href="sgr-worked-example.html">
           <span class="ctag">Recommended first</span>
           <b>Learn with the Kenya SGR example</b>
           <p>Walk through a prepared real example to see how the test works, start to finish. You can try your own project afterwards.</p>
-          <span class="go">See the walkthrough &rarr;</span>
-        </div>
+          <span class="go">See the worked example &rarr;</span>
+        </a>
         <div class="choicecard own" id="pick-own" tabindex="0" role="button">
           <span class="ctag">When you are ready</span>
           <b>Test your own project</b>
           <p>Answer a few plain questions about one infrastructure project, one step at a time, and build a request for project information.</p>
           <span class="go">Start your project &rarr;</span>
         </div>
-      </div>
-    </div>
-
-    <!-- ============ SCREEN 2: WALKTHROUGH (read-only SGR) ============ -->
-    <div id="screen-learn" class="hidden">
-      <button class="backlink" id="learn-back">&larr; Back to the choice</button>
-      <div class="wtnote">This is a <b>prepared teaching example</b>. Read it through to see how the test works on one real project. Nothing here is editable. When you are ready, you can run the same test on your own project.</div>
-
-      <div class="casefile">
-        <img src="day3/assets/sgr-voi-viaduct.jpg" alt="The Kenya Standard Gauge Railway near Voi" loading="lazy">
-        <dl>
-          <div><dt>Project</dt><dd>Kenya Standard Gauge Railway</dd></div>
-          <div><dt>Country</dt><dd>Kenya</dd></div>
-          <div><dt>Financing</dt><dd>Sovereign loan</dd></div>
-          <div><dt>Status</dt><dd>Teaching example, based on available reports</dd></div>
-        </dl>
-      </div>
-
-      <div class="wtstep s1">
-        <span class="num">Step 1 &middot; Identify the project</span>
-        <h2>What is the project, and who funds it?</h2>
-        <p class="ans">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder confirmed</span></p>
-        <p class="why">The way a project is financed tells us which records are needed before its value can be tested.</p>
-      </div>
-
-      <div class="wtstep s2">
-        <span class="num">Step 2 &middot; Check the records</span>
-        <h2>Can value for money be judged from public records?</h2>
-        <p class="ans"><b>Not before the project.</b> The guarantee is public, but the full loan terms are not in the records reviewed. <span class="stchip">key terms not public</span></p>
-        <p class="why">Without the terms, the value can only be guessed at later from outcomes, never checked up front.</p>
-      </div>
-
-      <div class="wtstep s3">
-        <span class="num">Step 3 &middot; Name who needs the information</span>
-        <h2>Who needs the records, and where might they sit?</h2>
-        <p class="ans">Route communities and Kenyan taxpayers. The records most likely sit with <b>the lender and the builder</b>, not only the government. <span class="stchip">holders identified</span></p>
-        <p class="why">A request has to reach whoever actually holds the records, or they may never surface.</p>
-      </div>
-
-      <div class="wtresult">
-        <p class="rq">The result</p>
-        <p class="ra"><span class="big">Value cannot yet be judged</span> from the records reviewed.</p>
-        <p class="rreq">The request: publish the loan agreement, guarantee terms, repayment schedule, and appraisal assumptions needed to assess value for money.</p>
-      </div>
-
-      <div class="trybar">
-        <button class="trybtn" id="learn-totry">Now test your own project &rarr;</button>
       </div>
     </div>
 
@@ -381,15 +352,11 @@
     function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
     function delay(ms){ return new Promise(function(r){ setTimeout(r, reduce?0:ms); }); }
 
-    // ===== screen switching =====
-    function show(id){ ["screen-choice","screen-learn","screen-own"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); }); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-    $("pick-learn").addEventListener("click", function(){ show("screen-learn"); });
-    $("pick-learn").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" ") { e.preventDefault(); show("screen-learn"); } });
+    // ===== screen switching (Learn is now a link to the worked-example page) =====
+    function show(id){ ["screen-choice","screen-own"].forEach(function(s){ $(s).classList.toggle("hidden", s!==id); }); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
     $("pick-own").addEventListener("click", function(){ startOwn(true); });
     $("pick-own").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); startOwn(true); } });
-    $("learn-back").addEventListener("click", function(){ show("screen-choice"); });
     $("own-back").addEventListener("click", function(){ show("screen-choice"); });
-    $("learn-totry").addEventListener("click", function(){ startOwn(true); });
 
     function startOwn(withSGR){
       load(withSGR?SGR:{});

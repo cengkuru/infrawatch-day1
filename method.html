@@ -33,6 +33,21 @@
     h1 .a1{color:var(--see);} h1 .a2{color:var(--test);} h1 .a3{color:var(--voice);}
     .lede{text-align:center;color:#cdddec;font-size:clamp(1rem,2vw,1.16rem);max-width:54ch;margin:0 auto 2.6rem;}
 
+    .procs{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+    .proc{background:#fff;color:var(--dark);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.4rem 1.2rem;border-top:5px solid var(--brand);display:flex;flex-direction:column;}
+    .proc.see{border-top-color:var(--see);} .proc.test{border-top-color:var(--test);} .proc.voice{border-top-color:var(--voice);}
+    .proc .phead{display:flex;align-items:center;justify-content:space-between;}
+    .proc .mnum{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .proc .day{font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);background:#f0f3f7;border:1px solid #e2e8ed;border-radius:99px;padding:.16rem .5rem;}
+    .proc h2{font-size:1.4rem;margin:.2rem 0 .7rem;letter-spacing:-.01em;color:var(--dark);}
+    .prows{margin:0;display:grid;grid-template-columns:1fr;gap:.6rem;flex:1;}
+    .prows dt{font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);margin-bottom:.1rem;}
+    .prows dd{margin:0 0 .3rem;font-size:.88rem;color:var(--dark);line-height:1.4;}
+    .pcta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;}
+    .pcta a{text-decoration:none;font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.5rem .9rem;border-radius:99px;}
+    .pcta .run{background:var(--brand);color:#fff;} .pcta .run:hover{background:var(--brand-deep);}
+    .pcta .ex{color:var(--brand);border:1px solid var(--light);} .pcta .ex:hover{border-color:var(--brand);}
+    @media (max-width:820px){ .procs{grid-template-columns:1fr;} }
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
     .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.4rem 1.3rem;display:flex;flex-direction:column;position:relative;overflow:hidden;}
     .card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;}
@@ -77,36 +92,45 @@
   </div></nav>
 
   <div class="page">
-    <p class="kicker">The method, at a glance</p>
+    <p class="kicker">The method &middot; a procedure you can run</p>
     <h1>First you <span class="a1">see it</span>, then you <span class="a2">test it</span>, then the public can <span class="a3">voice it</span>.</h1>
-    <p class="lede">Three moves to read any foreign-funded project. Each move is one question. Open a card to walk it in full.</p>
+    <p class="lede">Three moves to read any foreign-funded project. Each is a step you can run: a question, the input it needs, the decision it makes, and the output it produces.</p>
 
-    <div class="cards">
-      <div class="card see">
-        <div class="head"><span class="mnum">Move 1 &middot; See it</span><span class="day">Day 1 &middot; 2 Jun</span></div>
+    <div class="procs">
+      <div class="proc see">
+        <div class="phead"><span class="mnum">Move 1 &middot; See it</span><span class="day">from Day 1</span></div>
         <h2>See it</h2>
-        <p class="move-q">What is being funded, and by whom?</p>
-        <p class="doing">Name the project and its funding type. The financing tells you which record to demand first.</p>
-        <div class="flow"><span>name it</span><span class="arr">&rarr;</span><span>pull the IDS fields</span><span class="arr">&rarr;</span><span>flag the blind spot</span></div>
-        <a class="into" href="modality-risk-map.html">walk this move &rarr;</a>
+        <dl class="prows">
+          <dt>Question</dt><dd>What is being funded, and by whom?</dd>
+          <dt>Input needed</dt><dd>Project name, funder, and the CoST IDS basic data points</dd>
+          <dt>Decision made</dt><dd>Classify the financing type: sovereign loan, equity, PPP, EPC, or concessional</dd>
+          <dt>Output produced</dt><dd>The blind spot this financing type predicts, and the record to demand first</dd>
+        </dl>
+        <div class="pcta"><a class="run" href="workbench.html">Run this move &rarr;</a><a class="ex" href="modality-risk-map.html">Example case</a></div>
       </div>
 
-      <div class="card test">
-        <div class="head"><span class="mnum">Move 2 &middot; Test it</span><span class="day">Day 2 &middot; 3 Jun</span></div>
+      <div class="proc test">
+        <div class="phead"><span class="mnum">Move 2 &middot; Test it</span><span class="day">from Day 2</span></div>
         <h2>Test it</h2>
-        <p class="move-q">Can its value be judged at all?</p>
-        <p class="doing">Score disclosure, then ask the prior question: were the terms published? If not, no verdict is possible, and that is the finding.</p>
-        <div class="flow"><span>score</span><span class="arr">&rarr;</span><span>assess</span><span class="arr">&rarr;</span><span>split by funder</span></div>
-        <a class="into" href="day2/disclosure-vs-npv-correlation.html">walk this move &rarr;</a>
+        <dl class="prows">
+          <dt>Question</dt><dd>Can its value be judged at all?</dd>
+          <dt>Input needed</dt><dd>Are the terms published? And the NPV / value evidence, where it exists</dd>
+          <dt>Decision made</dt><dd>Assessable up front, only from outcomes, or not at all. Then check whether the funder, not publication, drives the pattern</dd>
+          <dt>Output produced</dt><dd>An assessability verdict. A withheld contract is a wall against assessment, and that is itself the finding</dd>
+        </dl>
+        <div class="pcta"><a class="run" href="workbench.html">Run this move &rarr;</a><a class="ex" href="day2/disclosure-vs-npv-correlation.html">Example case</a></div>
       </div>
 
-      <div class="card voice">
-        <div class="head"><span class="mnum">Move 3 &middot; Voice it</span><span class="day">Day 3 &middot; 4 Jun</span></div>
+      <div class="proc voice">
+        <div class="phead"><span class="mnum">Move 3 &middot; Voice it</span><span class="day">from Day 3</span></div>
         <h2>Voice it</h2>
-        <p class="move-q">Who decides if it was worth it?</p>
-        <p class="doing">Aim the disclosure ask at who actually holds the terms, the foreign funder and the contractor, so the affected public gains standing.</p>
-        <div class="flow"><span>find holders</span><span class="arr">&rarr;</span><span>ask</span><span class="arr">&rarr;</span><span>reach the public</span></div>
-        <a class="into" href="day3/the-unlock.html">walk this move &rarr;</a>
+        <dl class="prows">
+          <dt>Question</dt><dd>Who needs standing to challenge the terms?</dd>
+          <dt>Input needed</dt><dd>Who is affected, and who holds the confidential terms</dd>
+          <dt>Decision made</dt><dd>Aim the publication ask at the funder and the contractor, not only the state</dd>
+          <dt>Output produced</dt><dd>A partner action note: the ask that gives the affected public standing to be heard</dd>
+        </dl>
+        <div class="pcta"><a class="run" href="workbench.html">Run this move &rarr;</a><a class="ex" href="day3/the-unlock.html">Example case</a></div>
       </div>
     </div>
 

@@ -43,6 +43,12 @@
     .nav-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .8rem;}
     .nav a{color:#9fb4cc;text-decoration:none;font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.7rem .9rem;border-bottom:2px solid transparent;transition:.15s;}
     .nav a:hover{color:#fff;} .nav a[aria-current="page"]{color:#fff;border-bottom-color:var(--brand-soft);}
+    .filterbar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:0 0 1rem;}
+    .filterbar .flab{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);margin-right:.3rem;}
+    .fbtn{font-family:var(--mono);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.4rem .8rem;border-radius:99px;border:1px solid var(--light);background:var(--white);color:var(--mid);cursor:pointer;transition:.15s;}
+    .fbtn:hover{border-color:var(--brand-soft);color:var(--brand);}
+    .fbtn.active{background:var(--brand);color:#fff;border-color:var(--brand);}
+    tr.hide{display:none;}
 
     table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:.88rem;}
     thead th{background:var(--brand);color:#fff;text-align:left;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:.7rem .8rem;}
@@ -104,12 +110,21 @@
   <div class="wrap">
     <div class="legend">
       <span>Evidence status:</span>
+      <span class="status ready">source-checked</span>
       <span class="status ready">as-reported sample</span>
       <span class="status check">figures to confirm</span>
       <span class="status probe">working read / teaching probe</span>
     </div>
 
-    <table>
+    <div class="filterbar" id="filterbar">
+      <span class="flab">Filter by move:</span>
+      <button class="fbtn active" data-move="all" type="button">All</button>
+      <button class="fbtn" data-move="see" type="button">See it</button>
+      <button class="fbtn" data-move="test" type="button">Test it</button>
+      <button class="fbtn" data-move="voice" type="button">Voice it</button>
+    </div>
+
+    <table id="ledgertable">
       <thead>
         <tr>
           <th style="width:2.2rem">#</th>
@@ -121,7 +136,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="grp"><td colspan="6">Move 1 &middot; See it <span class="gq">what is being funded, and by whom &middot; Days 1&ndash;2</span></td></tr>
+        <tr class="grp" data-move="see"><td colspan="6">Move 1 &middot; See it <span class="gq">what is being funded, and by whom &middot; Days 1&ndash;2</span></td></tr>
         <tr id="f1" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">1</td>
           <td class="finding" data-l="Finding">Where the money comes from predicts the blind spot. The financing type tells you which record to demand first.</td>
@@ -175,17 +190,17 @@
           <td class="finding" data-l="Finding">Five InfraWatch members arrived with what felt like five agendas. Underneath, one shared problem: money is committed before anyone can judge it.</td>
           <td class="src" data-l="Source">Five members, three questions &middot; Day 1, 2 Jun &middot; <span style="font-style:italic;">essay in member review</span></td>
           <td class="leg" data-l="Maps to">PEA</td>
-          <td data-l="Status"><span class="status probe">working read</span></td>
+          <td data-l="Status"><span class="status probe">working read / teaching probe</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
         </tr>
 
-        <tr class="grp"><td colspan="6">Move 2 &middot; Test it <span class="gq">can its value be judged at all &middot; Day 2</span></td></tr>
+        <tr class="grp" data-move="test"><td colspan="6">Move 2 &middot; Test it <span class="gq">can its value be judged at all &middot; Day 2</span></td></tr>
         <tr id="f8" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">8</td>
           <td class="finding" data-l="Finding">Of ten flagship projects, only six could be assessed up front. Three could be judged only after they had run. One cannot be judged at all.</td>
           <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a> &middot; Day 2, 3 Jun</td>
           <td class="leg" data-l="Maps to">IDS + NPV</td>
-          <td data-l="Status"><span class="status ready">as-reported sample, n=10</span></td>
+          <td data-l="Status"><span class="status ready">as-reported sample</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">partner</span><span class="use">public</span></td>
         </tr>
         <tr>
@@ -193,7 +208,7 @@
           <td class="finding" data-l="Finding">The only thing that lets you judge value is whether the terms were published, not whether the project was good. Publication does not make a project good; it is the only thing that lets anyone find out.</td>
           <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a></td>
           <td class="leg" data-l="Maps to">IDS + NPV</td>
-          <td data-l="Status"><span class="status ready">as-reported sample, n=10</span></td>
+          <td data-l="Status"><span class="status ready">as-reported sample</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">partner</span><span class="use">public</span></td>
         </tr>
         <tr>
@@ -201,17 +216,17 @@
           <td class="finding" data-l="Finding">The apparent link between disclosure and value is really the funder, PRC versus non-PRC, not transparency itself. The slope dies once you split by who financed it.</td>
           <td class="src" data-l="Source"><a href="day2/disclosure-vs-npv-correlation.html">You cannot price what is hidden</a></td>
           <td class="leg" data-l="Maps to">PEA</td>
-          <td data-l="Status"><span class="status ready">as-reported sample, n=10</span></td>
+          <td data-l="Status"><span class="status ready">as-reported sample</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
         </tr>
 
-        <tr class="grp"><td colspan="6">Move 3 &middot; Voice it <span class="gq">who decides if it was worth it &middot; Day 3</span></td></tr>
+        <tr class="grp" data-move="voice"><td colspan="6">Move 3 &middot; Voice it <span class="gq">who decides if it was worth it &middot; Day 3</span></td></tr>
         <tr id="f11" style="scroll-margin-top:1rem">
           <td class="num" data-l="#">11</td>
           <td class="finding" data-l="Finding">Scoring and NPV measure the project. Publication of the contract decides whether the people living with it get a say. A sealed contract has no public; a published one hands the affected community standing to be heard.</td>
           <td class="src" data-l="Source"><a href="day3/the-unlock.html">The unlock</a> &middot; Day 3, 4 Jun</td>
           <td class="leg" data-l="Maps to">public voice</td>
-          <td data-l="Status"><span class="status probe">teaching probe</span></td>
+          <td data-l="Status"><span class="status probe">working read / teaching probe</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">public</span></td>
         </tr>
         <tr>
@@ -219,7 +234,7 @@
           <td class="finding" data-l="Finding">Disclosure has to reach the foreign funder and the private contractor, the two parties who actually hold the confidential terms, not stop at the state.</td>
           <td class="src" data-l="Source"><a href="day3/the-unlock.html">The unlock</a></td>
           <td class="leg" data-l="Maps to">public voice</td>
-          <td data-l="Status"><span class="status probe">teaching probe</span></td>
+          <td data-l="Status"><span class="status probe">working read / teaching probe</span></td>
           <td data-l="For"><span class="use">buyer</span><span class="use">partner</span></td>
         </tr>
       </tbody>
@@ -233,5 +248,25 @@
   <footer>
     <p><strong>InfraWatch Nairobi</strong> findings ledger, compiled from the visual essays of the workshop of 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. Projects were presented by the country teams (IEA-Kenya, IEA-Ghana, Dataphyte, Stalwart); figures as reported, confirm against source before external circulation. Working visuals and ledger by Michael Cengkuru, CoST.</p>
   </footer>
+  <script>
+  (function(){
+    var table=document.getElementById("ledgertable");
+    if(!table) return;
+    var rows=[].slice.call(table.querySelectorAll("tbody tr"));
+    var current="see";
+    rows.forEach(function(r){
+      if(r.classList.contains("grp") && r.getAttribute("data-move")) current=r.getAttribute("data-move");
+      r.setAttribute("data-move", r.classList.contains("grp") ? r.getAttribute("data-move") : current);
+    });
+    function apply(move){
+      rows.forEach(function(r){ r.classList.toggle("hide", move!=="all" && r.getAttribute("data-move")!==move); });
+    }
+    var btns=[].slice.call(document.querySelectorAll("#filterbar .fbtn"));
+    btns.forEach(function(b){ b.addEventListener("click", function(){
+      btns.forEach(function(x){ x.classList.remove("active"); });
+      b.classList.add("active"); apply(b.getAttribute("data-move"));
+    }); });
+  })();
+  </script>
 </body>
 </html>

@@ -65,8 +65,14 @@
     .rec[open] summary::before{transform:rotate(90deg);}
     .rec .rec-name{flex:1;font-weight:600;font-size:.96rem;}
     .rec-tag{font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.16rem .5rem;border-radius:99px;white-space:nowrap;}
-    .rec-tag.pub{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
-    .rec-tag.notpub{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .rec-tag.pub,.rec-tag.official{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
+    .rec-tag.published{background:rgba(61,100,145,.12);color:var(--brand-soft);border:1px solid rgba(61,100,145,.35);}
+    .rec-tag.reported{background:rgba(90,107,123,.12);color:var(--mid);border:1px solid rgba(90,107,123,.3);}
+    .rec-tag.notpub,.rec-tag.notlocated{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
+    .rec-tag.validate{background:rgba(190,30,45,.08);color:var(--red);border:1px solid rgba(190,30,45,.3);}
+    /* claim-status legend */
+    .claimlegend{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 .9rem;font-size:.7rem;}
+    .claimlegend .cl{font-family:var(--mono);font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.16rem .5rem;border-radius:99px;}
     .rec-body{padding:0 1.1rem 1rem 2.4rem;font-size:.9rem;color:var(--mid);}
     .rec-body p{margin:.3rem 0;} .rec-body b{color:var(--dark);}
     .rec-feed{margin-top:.6rem !important;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);}
@@ -191,7 +197,7 @@
     </nav>
     <div class="casestatus" aria-label="Case status">
       <p class="cs-row"><span class="cs-lab">Finding</span><span class="cs-val warn">Not yet judgeable up front</span></p>
-      <p class="cs-row"><span class="cs-lab">Still needed</span><span class="cs-val">collateral terms, appraisal assumptions</span></p>
+      <p class="cs-row"><span class="cs-lab">Still needed</span><span class="cs-val">security arrangements, appraisal assumptions</span></p>
       <p class="cs-row"><span class="cs-lab">Next</span><span class="cs-val">request the records</span></p>
     </div>
     </div>
@@ -200,18 +206,18 @@
 
       <!-- RESULT FIRST -->
       <div class="result" id="result">
-        <p class="q">Could the public judge value when the money was committed?</p>
-        <p class="a"><span class="big">Not at the time.</span> The loan terms were confidential when the project was approved, and only partly disclosed years later, so value for money could not be tested up front.</p>
-        <p class="next">What this test would still ask for: the <b>full loan agreements, the collateral terms, the repayment schedule, and the appraisal assumptions</b>, confirmed against source.</p>
+        <p class="q">Could the public test the assumptions when the money was committed?</p>
+        <p class="a"><span class="big">Not at the time.</span> The financing records were confidential when the Mombasa&ndash;Nairobi line was approved. Some were released later, and in mid-2026 a court ordered fuller disclosure, so the open question now is whether the published record is complete enough to test value, risk and repayment.</p>
+        <p class="next">What this test would still ask for: the <b>full loan agreements, the security and payment arrangements, the repayment schedule, and the appraisal assumptions</b>, confirmed against source.</p>
       </div>
 
       <!-- CASE-FILE STRIP -->
       <div class="casefile">
         <dl>
-          <div><dt>Project</dt><dd>Kenya Standard Gauge Railway</dd></div>
+          <div><dt>Project</dt><dd>Mombasa&ndash;Nairobi SGR (Phase 1)</dd></div>
           <div><dt>Country</dt><dd>Kenya</dd></div>
-          <div><dt>Financing</dt><dd>Sovereign loan</dd></div>
-          <div><dt>Status</dt><dd>Teaching example, based on available reports</dd></div>
+          <div><dt>Financing</dt><dd>Sovereign loan, China Eximbank</dd></div>
+          <div><dt>Status</dt><dd>Teaching example, sourced; partner review pending</dd></div>
         </dl>
       </div>
 
@@ -226,8 +232,8 @@
       <div class="step test" id="test">
         <span class="move">Move 2 &middot; Test it</span>
         <h2>Can value for money be judged from public records?</h2>
-        <p class="answer"><b>Only partly, and only after the fact.</b> The loan agreements were confidential for years, then partly released in November 2022, but the disclosure was widely judged incomplete, with collateral and key terms still questioned.<sup><a href="#s2">2</a></sup> <span class="stchip">disclosed late and in part</span></p>
-        <details class="why"><summary>Why this matters</summary><p>The loan drove Kenya's public debt sharply higher, from about 38% of GDP in 2012 toward roughly 70% a decade later, and the railway has run at a loss.<sup><a href="#s3">3</a></sup> Whether the project was worth that cost could not be judged up front, because the terms were not public when the money was committed. Late, partial disclosure is the gap this test is built to surface.</p></details>
+        <p class="answer"><b>Only partly, and only after the fact.</b> The Phase 1 agreements were confidential for years, partly released in November 2022 (a release widely judged incomplete), and in mid-2026 a court ordered fuller disclosure.<sup><a href="#s2">2</a></sup> <span class="stchip">disclosed late, still being opened</span></p>
+        <details class="why"><summary>Why this matters</summary><p>Over the SGR financing period, Kenya's debt-to-GDP rose sharply, from about 36% in 2012 to roughly 70% by 2024; SGR borrowing was one contributor among several.<sup><a href="#s3">3</a></sup> Whether Phase 1 was worth its cost could not be tested up front, because the terms were not public when the money was committed. Late, partial disclosure is the gap this test is built to surface.</p></details>
       </div>
 
       <div class="step voice" id="voice">
@@ -239,42 +245,49 @@
 
       <!-- EVIDENCE: expandable record cards -->
       <h2 class="sectitle" id="evidence">The records, one by one</h2>
-      <p class="sectsub">Each record is one piece of the request. Open a record to see why it is needed and where it might sit.</p>
+      <p class="sectsub">Each record is one piece of the request. Open a record to see why it is needed and where it might sit. Every record carries a <b>claim status</b>, so the due-diligence is visible, not just the story.</p>
+      <div class="claimlegend">
+        <span class="cl official">Official record</span>
+        <span class="cl published">Published later</span>
+        <span class="cl reported">Reported by source</span>
+        <span class="cl notlocated">Not yet located</span>
+        <span class="cl validate">Needs partner validation</span>
+      </div>
       <div class="reclist">
         <details class="rec">
-          <summary><span class="rec-name">The loan agreements</span><span class="rec-tag pub">Released 2022</span></summary>
+          <summary><span class="rec-name">The loan agreements</span><span class="rec-tag published">Published later</span></summary>
           <div class="rec-body">
             <p><b>Why needed:</b> carries the actual cost and conditions of the debt.</p>
             <p><b>What it proves:</b> whether the price and terms were reasonable for what was built.</p>
-            <p><b>Where it sits:</b> released by the Transport Ministry in 2022, but the release was partial.<sup><a href="#s2">2</a></sup></p>
-            <p class="rec-feed">This feeds the request below.</p>
+            <p><b>Where it sits:</b> partly released by the Transport Ministry in 2022; a court ordered fuller disclosure in mid-2026.<sup><a href="#s2">2</a></sup></p>
+            <p class="rec-feed">Feeds the request &middot; status: published later</p>
           </div>
         </details>
         <details class="rec">
-          <summary><span class="rec-name">Interest and repayment terms</span><span class="rec-tag pub">Reported</span></summary>
+          <summary><span class="rec-name">Interest and repayment terms</span><span class="rec-tag reported">Reported by source</span></summary>
           <div class="rec-body">
             <p><b>Why needed:</b> shows the burden over time, not just the headline figure.</p>
             <p><b>What it proves:</b> whether repayment was affordable against the project's returns.</p>
-            <p><b>Where it sits:</b> documented in the AidData loan record.<sup><a href="#s1">1</a></sup></p>
-            <p class="rec-feed">This feeds the request below.</p>
+            <p><b>Where it sits:</b> documented in the AidData loan record (an index of the agreements).<sup><a href="#s1">1</a></sup></p>
+            <p class="rec-feed">Feeds the request &middot; status: reported by source</p>
           </div>
         </details>
         <details class="rec">
-          <summary><span class="rec-name">Collateral terms</span><span class="rec-tag notpub">Still questioned</span></summary>
+          <summary><span class="rec-name">Security, escrow and payment arrangements</span><span class="rec-tag validate">Needs partner validation</span></summary>
           <div class="rec-body">
-            <p><b>Why needed:</b> shows what the state pledged if repayment fails.</p>
-            <p><b>What it proves:</b> the real exposure beyond the loan figure.</p>
-            <p><b>Where it sits:</b> flagged as missing or unclear even after the 2022 release.<sup><a href="#s2">2</a></sup></p>
-            <p class="rec-feed">This feeds the request below.</p>
+            <p><b>Why needed:</b> shows which revenues, accounts or public entities are exposed to repayment obligations.</p>
+            <p><b>What it proves:</b> the real exposure beyond the headline loan figure.</p>
+            <p><b>Where it sits:</b> questions remained even after the 2022 release; the mid-2026 order may bring more into the open. Confirm against the published agreements before use.<sup><a href="#s2">2</a></sup></p>
+            <p class="rec-feed">Feeds the request &middot; status: needs partner validation</p>
           </div>
         </details>
         <details class="rec">
-          <summary><span class="rec-name">Appraisal assumptions</span><span class="rec-tag notpub">Not located</span></summary>
+          <summary><span class="rec-name">Appraisal assumptions</span><span class="rec-tag notlocated">Not yet located</span></summary>
           <div class="rec-body">
             <p><b>Why needed:</b> shows whether the project was expected to pay off.</p>
             <p><b>What it proves:</b> whether the business case was sound before money was committed.</p>
-            <p><b>Where it sits:</b> not located in the public records reviewed for this teaching example.</p>
-            <p class="rec-feed">This feeds the request below.</p>
+            <p><b>Where it sits:</b> the mid-2026 order covers feasibility studies; not yet located in the public records reviewed for this example.</p>
+            <p class="rec-feed">Feeds the request &middot; status: not yet located</p>
           </div>
         </details>
       </div>
@@ -283,8 +296,8 @@
       <!-- REQUEST -->
       <div class="request" id="request">
         <h2>The request for project information</h2>
-        <p class="big">Publish, or confirm where to review, the loan agreement, repayment schedule, and appraisal assumptions.</p>
-        <p>These are the records needed to assess whether the project offered value for money. This maps to the CoST publication fields for loan terms and guarantees. It is a request for information, not a finding of wrongdoing.</p>
+        <p class="big">Confirm where the full Phase 1 agreements, the security and payment arrangements, the repayment schedule, and the appraisal assumptions can be reviewed, in line with the mid-2026 disclosure order.</p>
+        <p>These are the records needed to test whether the assumptions held up when the money was committed. This maps to the CoST publication fields for loan terms and guarantees. It is a request for information, not a finding of wrongdoing.</p>
       </div>
 
       <!-- PARTNER ACTION -->
@@ -310,9 +323,9 @@
       <!-- SOURCES -->
       <h2 class="sectitle" id="sources">Sources</h2>
       <ol class="srclist">
-        <li id="s1">Loan amounts, lender, interest rate and repayment terms: <a href="https://china.aiddata.org/projects/37103/" rel="noopener" target="_blank">AidData, Chinese Loans to Africa, Kenya SGR Phase 1</a> (China Eximbank buyer's credit ~$1.9bn at 6-month Libor + 3.6%, plus a $1.6bn preferential credit at 2%). Verified June 2026.</li>
-        <li id="s2">Disclosure history: the three SGR loan agreements were confidential until partly released by the Transport Cabinet Secretary in November 2022; the release was widely judged incomplete. <a href="https://theconversation.com/kenya-standard-gauge-railway-contracts-what-released-documents-say-and-what-they-dont-194354" rel="noopener" target="_blank">The Conversation, &ldquo;what released documents say, and what they don't&rdquo;</a>; <a href="https://www.semafor.com/article/11/09/2022/kenya-unveils-china-loan-documents-for-5-billion-railway" rel="noopener" target="_blank">Semafor</a>. Verified June 2026.</li>
-        <li id="s3">Debt trajectory and SGR losses: Kenya's public debt rose from about 38% of GDP in 2012 toward roughly 70% a decade later, with the SGR running at a loss. <a href="https://adf-magazine.com/2023/11/kenyas-sgr-drives-up-debt-falls-short-on-profits/" rel="noopener" target="_blank">Africa Defense Forum</a>. Verified June 2026; figures as reported, not independently audited here.</li>
+        <li id="s1">Loan amounts, lender, interest and repayment terms for Mombasa&ndash;Nairobi Phase 1: <a href="https://china.aiddata.org/projects/37103/" rel="noopener" target="_blank">AidData, Chinese Loans to Africa, Kenya SGR Phase 1 (#37103)</a> and <a href="https://china.aiddata.org/projects/31777/" rel="noopener" target="_blank">linked record #31777</a> (China Eximbank buyer's credit ~$1.9bn at 6-month Libor + 3.6%, plus a $1.6bn preferential credit at 2%). AidData is an index and interpretation layer; confirm against the published agreements where possible. Verified June 2026.</li>
+        <li id="s2">Disclosure history: the Phase 1 agreements were confidential, then partly released by the Transport Cabinet Secretary in November 2022 (a release widely judged incomplete), and in mid-May 2026 the Court of Appeal ordered fuller disclosure of the Mombasa&ndash;Nairobi SGR documents, ruling the withholding unconstitutional. <a href="https://www.business-humanrights.org/en/latest-news/kenya-court-orders-release-of-documents-tied-to-chinese-funded-standard-gauge-railway-project/" rel="noopener" target="_blank">Business &amp; Human Rights Resource Centre</a>; <a href="https://theconversation.com/kenya-standard-gauge-railway-contracts-what-released-documents-say-and-what-they-dont-194354" rel="noopener" target="_blank">The Conversation (2022)</a>. Verified June 2026.</li>
+        <li id="s3">Debt-to-GDP trajectory: Kenya's public-debt-to-GDP rose from about 36% in 2012 to roughly 70% by 2024. <a href="https://www.imf.org/external/datamapper/profile/KEN" rel="noopener" target="_blank">IMF DataMapper, Kenya</a> (primary). SGR borrowing was one contributor among several; this page does not attribute the rise to the SGR alone. Verified June 2026.</li>
       </ol>
 
       <div class="cta">

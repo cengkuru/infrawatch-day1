@@ -91,6 +91,10 @@
     .askbox .alab{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand-soft);}
     .askbox b{display:block;font-size:1.3rem;letter-spacing:-.01em;margin:.2rem 0 .4rem;color:var(--brand-deep);}
     .askbox span{color:var(--mid);font-size:.9rem;}
+    .outgrid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0 0;}
+    .outgrid .olab{display:block;font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);margin-bottom:.15rem;}
+    .outgrid>div{font-size:.9rem;}
+    @media (max-width:600px){ .outgrid{grid-template-columns:1fr;} }
     .statuschip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:.16rem .5rem;border-radius:99px;}
     .statuschip.ready{background:rgba(27,122,61,.12);color:var(--green);border:1px solid rgba(27,122,61,.3);}
     .statuschip.check{background:rgba(199,127,0,.12);color:var(--amber);border:1px solid rgba(199,127,0,.3);}
@@ -224,6 +228,10 @@
           <b id="ask-b"></b>
           <span id="ask-why"></span>
         </div>
+        <div class="outgrid">
+          <div><span class="olab">Missing record</span><span id="missing-row"></span></div>
+          <div><span class="olab">Assessability verdict</span><span id="verdict-row"></span></div>
+        </div>
         <p style="margin:1rem 0 .2rem;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Finding row</span><br><span id="finding-row"></span></p>
         <p style="margin:.6rem 0 0;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Partner action</span><br><span id="action-row"></span></p>
       </div>
@@ -334,6 +342,9 @@
       $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select a financing type to generate the ask.";
       $("ask-why").innerHTML = a ? "This financing type hides "+esc(a.hides)+". In CoST IDS terms: "+esc(a.idsline)+". Until this is published, the value cannot be independently judged." : "";
       var vshort = o.npv==="no"?"cannot be judged":(o.npv==="outcome"?"judged only from outcomes":"assessable");
+      $("missing-row").innerHTML = a ? esc(a.record)+' <span style="color:var(--mid);">('+esc(a.idsline)+')</span>' : "select a financing type";
+      var vfull = o.npv==="no"?'<span style="color:var(--red);font-weight:700;">Cannot be judged</span> — terms withheld':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Assessable</span> up front':"set the value question"));
+      $("verdict-row").innerHTML = vfull;
       $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b> &middot; '+esc(o.funder||"funder t.b.c.")+' &middot; '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Terms '+esc(pubword)+'; value '+esc(vshort)+'. <span class="statuschip '+esc(o.status)+'">'+esc(STLABEL[o.status]||o.status)+'</span>';
       $("action-row").innerHTML = 'Take to <b>'+esc(o.holder||"the party holding the terms")+'</b>: publish '+esc(a?a.record:"the key withheld record")+', so '+esc(o.affected||"the affected public")+' gains standing to challenge the deal. Validate figures against source first.';
       $("oc-ask").classList.add("show");

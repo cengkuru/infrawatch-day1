@@ -28,7 +28,16 @@
     .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;color:#7fa8d6;margin:0 0 .9rem;text-align:center;}
     .stage h1.arc{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;margin:0 auto 1rem;text-align:center;max-width:24ch;}
     .stage h1.arc .a1{color:#8aa6c4;} .stage h1.arc .a2{color:#cfe0d6;} .stage h1.arc .a3{color:#fff;}
-    .lede{text-align:center;color:#cdddec;font-size:clamp(1rem,2.1vw,1.16rem);max-width:54ch;margin:0 auto 2rem;}
+    .lede{text-align:center;color:#cdddec;font-size:clamp(1rem,2.1vw,1.16rem);max-width:54ch;margin:0 auto 1.4rem;}
+    .hcta{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin:0 auto 1.2rem;}
+    .hcta-primary{background:#fff;color:var(--brand-deep);text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.8rem 1.6rem;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:.18s cubic-bezier(.2,.7,.2,1);}
+    .hcta-primary:hover{transform:translateY(-2px);}
+    .hcta-secondary{background:transparent;color:#cfe0f0;text-decoration:none;font-family:var(--mono);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:.8rem 1.4rem;border-radius:99px;border:1px solid rgba(255,255,255,.25);transition:.15s;}
+    .hcta-secondary:hover{border-color:#fff;color:#fff;}
+    .proofstrip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem .7rem;max-width:640px;margin:0 auto;font-size:.82rem;color:#9fb4cc;}
+    .proofstrip b{color:#fff;font-weight:800;}
+    .proofstrip .sep{color:#3a516b;}
+    .proofstrip .proofnote{flex-basis:100%;text-align:center;font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#7fa8d6;margin-top:.4rem;}
 
     .journey{width:100%;max-width:920px;margin:0 auto;display:block;}
     .replay{display:block;margin:1.1rem auto 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#cfe0f0;
@@ -113,9 +122,20 @@
   <!-- ===================== THE MAP ===================== -->
   <section class="stage" id="map">
     <div class="stage-inner">
-      <p class="kicker">InfraWatch Nairobi &middot; a reusable method, not a workshop recap</p>
-      <h1 class="arc">Publication does not make a project <span class="a1">good</span>. It makes its value <span class="a2">testable</span>, and gives the public standing to <span class="a3">challenge the terms</span>.</h1>
-      <p class="lede">That is the principle. InfraWatch is the method that runs on it, in three moves: <b>see</b> what is being funded and by whom, <b>test</b> whether its value can be judged, then surface the public <b>voice</b> that contract publication unlocks. The same three moves run on any foreign-funded project on the watch list.</p>
+      <p class="kicker">InfraWatch &middot; the diagnostic instrument</p>
+      <h1 class="arc">You cannot judge a project you are <span class="a3">not allowed to see</span>.</h1>
+      <p class="lede">Bring a foreign-funded project. InfraWatch shows what is hidden, whether its value can be judged, which publication field matters, and what the public needs to challenge the terms. The story is cinematic. The claims are auditable.</p>
+      <div class="hcta">
+        <a class="hcta-primary" href="workbench.html">Run the method &rarr;</a>
+        <a class="hcta-secondary" href="findings-ledger.html">Open the evidence</a>
+      </div>
+      <div class="proofstrip">
+        <span><b>10</b> flagship projects</span><span class="sep">&middot;</span>
+        <span><b>6</b> judged up front</span><span class="sep">&middot;</span>
+        <span><b>3</b> judged only after they ran</span><span class="sep">&middot;</span>
+        <span><b>1</b> could not be judged</span>
+        <span class="proofnote">as-reported teaching sample, not audited</span>
+      </div>
 
       <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-move method. Move 1, See it: a map with location pins, five countries and one project. Move 2, Test it: a set of colour-coded verdicts, which projects can be judged. Move 3, Voice it: a photograph of a project with a lone figure beneath it. Each move links to its visuals.">
         <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
@@ -170,11 +190,11 @@
 
   <!-- ===================== START HERE: how to use this resource ===================== -->
   <div class="wrap">
-    <p class="doorslede">This is a <b>proof resource</b>, not a slideshow. Bring a foreign-funded project: it will show you what is hidden, whether the value can be judged, which publication field matters, and what the public needs to challenge the terms.</p>
+    <p class="doorslede">Start with the <b>value engine</b>. Run one project through the method; the supporting layers are below.</p>
     <a class="workcard" href="workbench.html">
-      <span class="wlab">The core tool</span>
+      <span class="wlab">The value engine</span>
       <b>Open the workbench &rarr;</b>
-      <span class="wd">Run a project through the method and leave with an evidence checklist, the publication ask that matters, and a defensible finding. Worked example loaded: the Kenya SGR.</span>
+      <span class="wd">Run a project through see, test, voice, and leave with an evidence checklist, the publication ask that matters, an assessability verdict, and a finding you can take to a partner. Worked example loaded: the Kenya SGR.</span>
     </a>
     <div class="entry">
       <a class="ecard" href="method.html"><span class="en">01</span><b>The Method</b><span class="ed">See it, test it, voice it. The logic, in three moves.</span></a>

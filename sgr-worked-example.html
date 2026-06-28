@@ -110,6 +110,10 @@
     .cta a.solid{background:var(--brand);color:#fff;} .cta a.solid:hover{background:var(--brand-deep);}
     .cta a.ghost{color:var(--brand);border:1px solid var(--light);} .cta a.ghost:hover{border-color:var(--brand);}
 
+    sup a{color:var(--brand);text-decoration:none;font-weight:700;}
+    .srclist{font-size:.86rem;color:var(--mid);line-height:1.5;padding-left:1.2rem;margin:0 0 1rem;}
+    .srclist li{margin:0 0 .6rem;scroll-margin-top:1rem;}
+    .srclist a{color:var(--brand);font-weight:600;}
     footer{max-width:1000px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
 
@@ -156,15 +160,16 @@
       <a href="#evidence">Records</a>
       <a href="#request">Request</a>
       <a href="#validate">Validation</a>
+      <a href="#sources">Sources</a>
     </nav>
 
     <div class="col">
 
       <!-- RESULT FIRST -->
       <div class="result" id="result">
-        <p class="q">Can the public judge value from the records reviewed?</p>
-        <p class="a"><span class="big">Not yet.</span> The public records reviewed are not enough to test whether the project was value for money before it was built.</p>
-        <p class="next">The next records to check are the <b>loan agreement, guarantee terms, repayment schedule, and appraisal assumptions</b>.</p>
+        <p class="q">Could the public judge value when the money was committed?</p>
+        <p class="a"><span class="big">Not at the time.</span> The loan terms were confidential when the project was approved, and only partly disclosed years later, so value for money could not be tested up front.</p>
+        <p class="next">What this test would still ask for: the <b>full loan agreements, the collateral terms, the repayment schedule, and the appraisal assumptions</b>, confirmed against source.</p>
       </div>
 
       <!-- CASE-FILE STRIP -->
@@ -181,15 +186,15 @@
       <div class="step see" id="see">
         <span class="move">Move 1 &middot; See it</span>
         <h2>What is the project, and who funds it?</h2>
-        <p class="answer">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder identified</span></p>
+        <p class="answer">A <b>sovereign loan</b> from the Export-Import Bank of China to the Government of Kenya, for the railway built by Kenya Railways.<sup><a href="#s1">1</a></sup> <span class="stchip ok">funder identified</span></p>
         <details class="why" open><summary>Why this matters</summary><p>The financing type tells us which records are needed before value can be tested. A sovereign loan carries the debt and any guarantees in the loan agreement, not in the announcement.</p></details>
       </div>
 
       <div class="step test" id="test">
         <span class="move">Move 2 &middot; Test it</span>
         <h2>Can value for money be judged from public records?</h2>
-        <p class="answer"><b>Not before the project.</b> The guarantee is public, but the full loan terms are not found in the records reviewed, so value can only be inferred later from outcomes. <span class="stchip">key terms not public</span></p>
-        <details class="why"><summary>Why this matters</summary><p>The reported loan is large, around 5% of national income, and has strained the national railway's finances. Whether that was a fair price cannot be checked while the terms sit outside the public record.</p></details>
+        <p class="answer"><b>Only partly, and only after the fact.</b> The loan agreements were confidential for years, then partly released in November 2022, but the disclosure was widely judged incomplete, with collateral and key terms still questioned.<sup><a href="#s2">2</a></sup> <span class="stchip">disclosed late and in part</span></p>
+        <details class="why"><summary>Why this matters</summary><p>The loan drove Kenya's public debt sharply higher, from about 38% of GDP in 2012 toward roughly 70% a decade later, and the railway has run at a loss.<sup><a href="#s3">3</a></sup> Whether the project was worth that cost could not be judged up front, because the terms were not public when the money was committed. Late, partial disclosure is the gap this test is built to surface.</p></details>
       </div>
 
       <div class="step voice" id="voice">
@@ -205,10 +210,10 @@
       <table class="ev">
         <thead><tr><th>Information needed</th><th>In reviewed public records?</th><th>Source status</th><th>Why it matters</th></tr></thead>
         <tbody>
-          <tr><td data-l="Information needed">The loan agreement</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">carries the actual cost of the debt</td></tr>
-          <tr><td data-l="Information needed">Guarantee terms</td><td data-l="In public records?"><span class="pub">Publicly reported</span></td><td data-l="Source status">source to be linked</td><td data-l="Why it matters">shows what the state is liable for if repayment fails</td></tr>
-          <tr><td data-l="Information needed">Repayment schedule</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
-          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
+          <tr><td data-l="Information needed">The loan agreements</td><td data-l="In public records?"><span class="pub">Released 2022</span></td><td data-l="Source status">partial; disclosed late<sup><a href="#s2">2</a></sup></td><td data-l="Why it matters">carries the actual cost and conditions of the debt</td></tr>
+          <tr><td data-l="Information needed">Interest and repayment terms</td><td data-l="In public records?"><span class="pub">Reported</span></td><td data-l="Source status">AidData record<sup><a href="#s1">1</a></sup></td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
+          <tr><td data-l="Information needed">Collateral terms</td><td data-l="In public records?"><span class="notpub">Still questioned</span></td><td data-l="Source status">flagged as missing in 2022<sup><a href="#s2">2</a></sup></td><td data-l="Why it matters">shows what is pledged if repayment fails</td></tr>
+          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not located</span></td><td data-l="Source status">not found in reviewed records</td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
         </tbody>
       </table>
       <p class="sectsub" style="margin-top:.6rem;">&ldquo;Not found&rdquo; means not located in the public records reviewed for this teaching example, not that a record does not exist. Confirm against source before external use.</p>
@@ -237,8 +242,16 @@
           <span class="vtag">safe internally</span>
           <span class="vtag">not yet external</span>
         </div>
-        <p style="margin:.7rem 0 0;">Current: a teaching example based on available reports. Figures to confirm against the loan agreement. Not yet cleared for external publication.</p>
+        <p style="margin:.7rem 0 0;">Current: a teaching example. The loan facts below are sourced; the partner-action routing and any onward use still need a final review before external circulation.</p>
       </div>
+
+      <!-- SOURCES -->
+      <h2 class="sectitle" id="sources">Sources</h2>
+      <ol class="srclist">
+        <li id="s1">Loan amounts, lender, interest rate and repayment terms: <a href="https://china.aiddata.org/projects/37103/" rel="noopener" target="_blank">AidData, Chinese Loans to Africa, Kenya SGR Phase 1</a> (China Eximbank buyer's credit ~$1.9bn at 6-month Libor + 3.6%, plus a $1.6bn preferential credit at 2%). Verified June 2026.</li>
+        <li id="s2">Disclosure history: the three SGR loan agreements were confidential until partly released by the Transport Cabinet Secretary in November 2022; the release was widely judged incomplete. <a href="https://theconversation.com/kenya-standard-gauge-railway-contracts-what-released-documents-say-and-what-they-dont-194354" rel="noopener" target="_blank">The Conversation, &ldquo;what released documents say, and what they don't&rdquo;</a>; <a href="https://www.semafor.com/article/11/09/2022/kenya-unveils-china-loan-documents-for-5-billion-railway" rel="noopener" target="_blank">Semafor</a>. Verified June 2026.</li>
+        <li id="s3">Debt trajectory and SGR losses: Kenya's public debt rose from about 38% of GDP in 2012 toward roughly 70% a decade later, with the SGR running at a loss. <a href="https://adf-magazine.com/2023/11/kenyas-sgr-drives-up-debt-falls-short-on-profits/" rel="noopener" target="_blank">Africa Defense Forum</a>. Verified June 2026; figures as reported, not independently audited here.</li>
+      </ol>
 
       <div class="cta">
         <a class="solid" href="workbench.html">Run your own project &rarr;</a>
@@ -250,7 +263,7 @@
   </div>
 
   <footer>
-    <p><strong>InfraWatch Nairobi</strong> &middot; Kenya SGR worked case file. A teaching example built from available reports (reported loan around 5% of national income; guarantee known, full terms not found in reviewed public records), to be confirmed against the loan agreement before external use. The method maps to the CoST Infrastructure Data Standard, political-economy analysis, and value-for-money analysis, developed by CIPE with the value-for-money toolkit led by IEA-Kenya. Photograph: the SGR near Voi, by TTC dude via Wikimedia Commons, CC BY-SA 4.0. Built by Michael Cengkuru, CoST.</p>
+    <p><strong>InfraWatch Nairobi</strong> &middot; Kenya SGR worked case file. A teaching example. The loan facts are sourced in the <a href="#sources">Sources</a> section (China Eximbank financing; agreements partly disclosed in 2022; debt trajectory as reported). The method maps to the CoST Infrastructure Data Standard, political-economy analysis, and value-for-money analysis, developed by CIPE with the value-for-money toolkit led by IEA-Kenya. Photograph: the SGR near Voi, by TTC dude via Wikimedia Commons, CC BY-SA 4.0. Built by Michael Cengkuru, CoST.</p>
   </footer>
 </body>
 </html>

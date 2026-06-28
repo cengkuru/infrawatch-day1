@@ -32,6 +32,9 @@
     .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.7rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .7rem;}
     .hero h1{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:800;line-height:1.14;margin:0 0 .7rem;}
     .hero p{color:#cdddec;font-size:1.02rem;max-width:60ch;margin:0;}
+    .herobanner{height:200px;background:#0c1622 url("day3/assets/sgr-voi-viaduct.jpg") center 38%/cover no-repeat;border-bottom:1px solid #294056;}
+    .hero .clarify{margin-top:.9rem;font-size:.92rem;color:#9fb4cc;font-style:italic;max-width:60ch;border-left:2px solid #3a516b;padding-left:.8rem;}
+    @media (max-width:600px){ .herobanner{height:130px;} }
 
     .wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.2rem;display:grid;grid-template-columns:1fr;gap:0;}
     .layout{display:grid;grid-template-columns:160px 1fr;gap:1.6rem;align-items:start;}
@@ -133,11 +136,13 @@
     <a href="use-this.html">Use this</a>
   </div></nav>
 
+  <div class="herobanner" role="img" aria-label="The Kenya Standard Gauge Railway crossing a viaduct near Voi, with a lone figure walking beneath"></div>
   <section class="hero">
     <div class="hero-inner">
       <p class="kicker">A worked case file &middot; teaching example</p>
       <h1>Kenya SGR Publication Test</h1>
-      <p>This page shows how one infrastructure project is tested against the method. It asks what is already public, what is still needed, and what a partner can request next.</p>
+      <p>This page shows how one infrastructure project is tested against the Project Publication Test. It asks what is already public, what is still needed, and what a partner can request next.</p>
+      <p class="clarify">This page does not judge whether the SGR was good or bad. It tests whether the public records are enough to judge its value.</p>
     </div>
   </section>
 
@@ -164,7 +169,6 @@
 
       <!-- CASE-FILE STRIP -->
       <div class="casefile">
-        <img src="day3/assets/sgr-voi-viaduct.jpg" alt="The Kenya Standard Gauge Railway near Voi" loading="lazy">
         <dl>
           <div><dt>Project</dt><dd>Kenya Standard Gauge Railway</dd></div>
           <div><dt>Country</dt><dd>Kenya</dd></div>
@@ -177,8 +181,8 @@
       <div class="step see" id="see">
         <span class="move">Move 1 &middot; See it</span>
         <h2>What is the project, and who funds it?</h2>
-        <p class="answer">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder confirmed</span></p>
-        <details class="why"><summary>Why this matters</summary><p>The financing type tells us which records are needed before value can be tested. A sovereign loan carries the debt and any guarantees in the loan agreement, not in the announcement.</p></details>
+        <p class="answer">A <b>sovereign loan</b> from Chinese state lenders. The government borrows and guarantees repayment. <span class="stchip ok">funder identified</span></p>
+        <details class="why" open><summary>Why this matters</summary><p>The financing type tells us which records are needed before value can be tested. A sovereign loan carries the debt and any guarantees in the loan agreement, not in the announcement.</p></details>
       </div>
 
       <div class="step test" id="test">
@@ -199,14 +203,15 @@
       <h2 class="sectitle" id="evidence">The records, one by one</h2>
       <p class="sectsub">What is needed to test value, whether it was found in the public records reviewed, and why each one matters.</p>
       <table class="ev">
-        <thead><tr><th>Information needed</th><th>In reviewed public records?</th><th>Why it matters</th></tr></thead>
+        <thead><tr><th>Information needed</th><th>In reviewed public records?</th><th>Source status</th><th>Why it matters</th></tr></thead>
         <tbody>
-          <tr><td data-l="Information needed">The loan agreement</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">carries the actual cost of the debt</td></tr>
-          <tr><td data-l="Information needed">Guarantee terms</td><td data-l="In public records?"><span class="pub">Known</span></td><td data-l="Why it matters">shows what the state is liable for if repayment fails</td></tr>
-          <tr><td data-l="Information needed">Repayment schedule</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
-          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
+          <tr><td data-l="Information needed">The loan agreement</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">carries the actual cost of the debt</td></tr>
+          <tr><td data-l="Information needed">Guarantee terms</td><td data-l="In public records?"><span class="pub">Publicly known</span></td><td data-l="Source status">widely reported</td><td data-l="Why it matters">shows what the state is liable for if repayment fails</td></tr>
+          <tr><td data-l="Information needed">Repayment schedule</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">shows the burden over time, not just the headline figure</td></tr>
+          <tr><td data-l="Information needed">Appraisal assumptions</td><td data-l="In public records?"><span class="notpub">Not found</span></td><td data-l="Source status">as reported; to confirm</td><td data-l="Why it matters">shows whether the project was expected to pay off</td></tr>
         </tbody>
       </table>
+      <p class="sectsub" style="margin-top:.6rem;">&ldquo;Not found&rdquo; means not located in the public records reviewed for this teaching example, not that a record does not exist. Confirm against source before external use.</p>
 
       <!-- REQUEST -->
       <div class="request" id="request">

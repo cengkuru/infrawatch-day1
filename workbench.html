@@ -66,6 +66,12 @@
     .runstatus{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mid);min-height:1rem;transition:opacity .3s;}
     .runstatus b{color:var(--brand);}
 
+    /* ===== view swap ===== */
+    #panel-input,#panel-output{animation:fade .35s var(--ease);}
+    @keyframes fade{from{opacity:0;} to{opacity:1;}}
+    .editbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1.1rem;padding:0 0 .9rem;border-bottom:1px solid var(--light);}
+    @media (prefers-reduced-motion:reduce){ #panel-input,#panel-output{animation:none;} }
+
     /* ===== output ===== */
     .out{margin:0 0 1.2rem;}
     .out-card{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin:0 0 .9rem;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease), transform .5s var(--ease);border-left:4px solid var(--light);}
@@ -139,6 +145,7 @@
       <button class="btn ghost" id="resetbtn" type="button">Reset</button>
     </div>
 
+    <div id="panel-input">
     <div class="moves">
       <div class="mcol see" id="mc-see">
         <span class="mtag"><span class="tick">&#10003;</span> Move 1 &middot; See it</span>
@@ -189,9 +196,12 @@
       <button class="runbtn" id="runbtn" type="button">Run the method &rarr;</button>
       <span class="runstatus" id="runstatus"></span>
     </div>
+    </div><!-- /panel-input -->
 
-    <!-- ===== OUTPUT (staged) ===== -->
-    <div class="out" id="output">
+    <!-- ===== OUTPUT (staged) ===== swaps in place over the input panel -->
+    <div id="panel-output" hidden>
+      <div class="editbar"><button class="btn ghost" id="editbtn" type="button">&larr; Edit inputs</button><span class="runstatus" id="runstatus2"></span></div>
+      <div class="out" id="output">
       <div class="out-card see" id="oc-see">
         <span class="ostep">Move 1 resolved &middot; See it</span>
         <h3 id="see-h">What is being funded</h3>
@@ -223,6 +233,7 @@
         <button class="btn ghost" id="copybtn" type="button">Copy as text</button>
       </div>
     </div>
+    </div><!-- /panel-output -->
 
     <!-- ===== TRACKER ===== -->
     <div class="tracker">
@@ -270,28 +281,32 @@
 
     var OUT=["oc-see","oc-test","oc-voice","oc-ask"];
     function resetOutput(){ OUT.forEach(function(id){ $(id).classList.remove("show"); }); $("o-actions").classList.remove("show"); ["mc-see","mc-test","mc-voice"].forEach(function(id){ $(id).classList.remove("active","done"); }); }
+    function showInput(){ $("panel-output").hidden=true; $("panel-input").hidden=false; window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+    function showOutput(){ $("panel-input").hidden=true; $("panel-output").hidden=false; window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+    function setStatus(html){ $("runstatus").innerHTML=html; var s2=$("runstatus2"); if(s2) s2.innerHTML=html; }
 
-    $("preset").addEventListener("change", function(){ if(this.value==="sgr") load(SGR); else load({}); resetOutput(); $("runstatus").textContent=""; });
-    $("resetbtn").addEventListener("click", function(){ load({}); $("preset").value="blank"; resetOutput(); $("runstatus").textContent=""; });
+    $("preset").addEventListener("change", function(){ if(this.value==="sgr") load(SGR); else load({}); resetOutput(); showInput(); setStatus(""); });
+    $("resetbtn").addEventListener("click", function(){ load({}); $("preset").value="blank"; resetOutput(); showInput(); setStatus(""); });
+    $("editbtn").addEventListener("click", function(){ showInput(); });
     load(SGR);
 
     async function run(){
       var o = gather();
-      if(!o.proj){ $("runstatus").innerHTML='<b>Name the project first</b> (Move 1).'; return; }
+      if(!o.proj){ setStatus('<b>Name the project first</b> (Move 1).'); return; }
       $("runbtn").disabled=true; resetOutput();
+      showOutput(); // swap to the output panel first, so the reveal happens where the eyes are
+      await delay(250);
 
       // Move 1: See it
-      $("runstatus").innerHTML='Reading <b>See it</b>…';
-      $("mc-see").classList.add("active");
+      setStatus('Reading <b>See it</b>…');
       await delay(650);
       $("see-line").innerHTML = '<b>'+esc(o.proj)+'</b> is funded by <b>'+esc(o.funder||"a funder yet to confirm")+'</b> as a <b>'+esc(FTLABEL[o.ftype]||"financing type yet to classify")+'</b>'+(o.ftype&&ASK[o.ftype]?', which hides '+esc(ASK[o.ftype].hides)+'.':'.');
-      $("mc-see").classList.remove("active"); $("mc-see").classList.add("done"); $("oc-see").classList.add("show");
+      $("oc-see").classList.add("show");
       await delay(700);
 
       // Move 2: Test it
-      $("runstatus").innerHTML='Testing <b>can its value be judged</b>…';
-      $("mc-test").classList.add("active");
-      await delay(750);
+      setStatus('Testing <b>can its value be judged</b>…');
+      await delay(700);
       var verdict = o.npv==="no" ? "<b>cannot be judged at all</b>" : (o.npv==="outcome" ? "can be judged <b>only from outcomes</b>, not up front" : (o.npv==="yes"?"<b>can be assessed</b> up front":"assessability yet to set"));
       var pubword = o.published==="yes"?"published":(o.published==="partial"?"only partly published":(o.published==="no"?"withheld":"of unknown status"));
       $("test-line").innerHTML = 'Terms are <b>'+esc(pubword)+'</b>. On that basis the value '+verdict+'.';
@@ -303,19 +318,18 @@
         li(true,"Value assessable up front",o.npv==="outcome"?"only from outcomes":(o.npv==="no"?"no":""),npvHave?"have":"miss") +
         li(o.affected,"Affected public identified","",o.affected?"have":"miss") +
         li(o.holder,"Holder of terms identified","",o.holder?"have":"miss");
-      $("mc-test").classList.remove("active"); $("mc-test").classList.add("done"); $("oc-test").classList.add("show");
+      $("oc-test").classList.add("show");
       await delay(750);
 
       // Move 3: Voice it
-      $("runstatus").innerHTML='Tracing <b>who needs standing</b>…';
-      $("mc-voice").classList.add("active");
+      setStatus('Tracing <b>who needs standing</b>…');
       await delay(700);
       $("voice-line").innerHTML = '<b>'+esc(o.affected||"the affected public")+'</b> need standing to challenge the terms. Those terms are held by <b>'+esc(o.holder||"the funder and contractor")+'</b>.';
-      $("mc-voice").classList.remove("active"); $("mc-voice").classList.add("done"); $("oc-voice").classList.add("show");
+      $("oc-voice").classList.add("show");
       await delay(750);
 
       // The ask lands
-      $("runstatus").innerHTML='→ The ask that matters';
+      setStatus('&rarr; The ask that matters');
       var a = o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
       $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select a financing type to generate the ask.";
       $("ask-why").innerHTML = a ? "This financing type hides "+esc(a.hides)+". In CoST IDS terms: "+esc(a.idsline)+". Until this is published, the value cannot be independently judged." : "";
@@ -342,15 +356,15 @@
         var next="Ask "+(x.holder||"holder").split(",")[0]+" to publish";
         return '<tr><td><a href="#" data-i="'+i+'" class="reload">'+esc(x.proj)+'</a></td><td>'+esc((x.funder||"").split("(")[0])+'</td><td>'+esc(FTLABEL[x.ftype]||"—")+'</td><td>'+esc(miss)+'</td><td><span class="statuschip '+esc(x.status)+'">'+esc((STLABEL[x.status]||x.status||"").split("/")[0])+'</span></td><td>'+esc(next)+'</td><td><a class="del" data-d="'+i+'">remove</a></td></tr>';
       }).join("");
-      b.querySelectorAll(".reload").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); load(getRows()[+this.dataset.i]); resetOutput(); window.scrollTo({top:0,behavior:"smooth"}); }); });
+      b.querySelectorAll(".reload").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); load(getRows()[+this.dataset.i]); resetOutput(); showInput(); }); });
       b.querySelectorAll(".del").forEach(function(a){ a.addEventListener("click",function(){ var r=getRows(); r.splice(+this.dataset.d,1); setRows(r); }); });
     }
-    $("savebtn").addEventListener("click", function(){ var o=gather(); if(!o.proj){ alert("Run a project first."); return; } var r=getRows(); r.unshift(o); setRows(r); var s=$("runstatus"); s.innerHTML='✓ Saved to this browser’s tracker.'; });
+    $("savebtn").addEventListener("click", function(){ var o=gather(); if(!o.proj){ alert("Run a project first."); return; } var r=getRows(); r.unshift(o); setRows(r); setStatus('✓ Saved to this browser’s tracker.'); });
     $("printbtn").addEventListener("click", function(){ window.print(); });
     $("copybtn").addEventListener("click", function(){
       var o=gather(), a=(o.ftype&&ASK[o.ftype])?ASK[o.ftype]:null;
       var txt="INFRAWATCH FINDING\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nFinancing type: "+(FTLABEL[o.ftype]||"")+"\nTerms published: "+(o.published||"")+"\nValue assessable: "+(o.npv||"")+"\nBasis: "+(o.basis||"")+"\n\nPUBLICATION ASK: Publish "+(a?a.record:"the key withheld record")+".\nWhy: hides "+(a?a.hides:"")+" ("+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nHolder of terms: "+(o.holder||"")+"\nEvidence status: "+(STLABEL[o.status]||o.status||"")+"\n\nValidate figures against source before external use.";
-      navigator.clipboard.writeText(txt).then(function(){ var s=$("runstatus"); s.innerHTML='✓ Finding copied to clipboard.'; }, function(){ alert("Copy failed; select the output manually."); });
+      navigator.clipboard.writeText(txt).then(function(){ setStatus('✓ Finding copied to clipboard.'); }, function(){ alert("Copy failed; select the output manually."); });
     });
     renderTracker();
   })();

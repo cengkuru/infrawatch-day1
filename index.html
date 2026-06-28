@@ -111,7 +111,27 @@
     .workcard .wlab{font-family:var(--mono);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#b9d4f0;}
     .workcard b{display:block;font-size:1.5rem;letter-spacing:-.02em;margin:.2rem 0 .4rem;}
     .workcard .wd{display:block;color:#cfe0f0;font-size:.92rem;max-width:60ch;}
-    @media (max-width:760px){ .entry{grid-template-columns:1fr 1fr;} }
+    /* the artifact preview: the prize, shown not described */
+    .artifact{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.6rem;margin:1.2rem auto 0;border-left:5px solid var(--brand);}
+    .art-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .art-tag{font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);}
+    .art-status{font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);background:rgba(199,127,0,.1);border:1px solid rgba(199,127,0,.3);border-radius:99px;padding:.2rem .55rem;}
+    .art-rows{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem;}
+    .art-rows dt{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);padding-top:.15rem;}
+    .art-rows dd{margin:0;font-size:.96rem;color:var(--dark);}
+    .art-rows .vred{color:var(--red);font-weight:700;}
+    .art-cta{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.3rem;padding-top:1.1rem;border-top:1px solid var(--light);}
+    .art-run{background:var(--brand);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.75rem 1.4rem;border-radius:99px;transition:.18s cubic-bezier(.2,.7,.2,1);}
+    .art-run:hover{background:var(--brand-deep);transform:translateY(-2px);}
+    .art-see{color:var(--brand);text-decoration:none;font-family:var(--mono);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+    .art-see:hover{text-decoration:underline;}
+    /* standband: what each group gets */
+    .standband{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin:1.4rem auto 0;}
+    .stand{background:#eef2f6;border:1px solid var(--light);border-radius:12px;padding:.9rem 1rem;}
+    .stand .who{display:block;font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);margin-bottom:.25rem;}
+    .stand .gets{font-size:.84rem;color:var(--dark);line-height:1.35;}
+    .prov{font-size:.74rem;color:var(--mid);line-height:1.5;}
+    @media (max-width:760px){ .entry{grid-template-columns:1fr 1fr;} .standband{grid-template-columns:1fr 1fr;} .art-rows{grid-template-columns:1fr;gap:.2rem 0;} .art-rows dt{margin-top:.5rem;} }
   </style>
 </head>
 <body>
@@ -210,28 +230,44 @@
     </div>
   </section>
 
-  <!-- ===================== START HERE: how to use this resource ===================== -->
+  <!-- ===================== RUN ONE PROJECT, LEAVE WITH A PUBLICATION ASK ===================== -->
   <div class="wrap">
-    <p class="doorslede">Start with the <b>value engine</b>. Run one project through the method; the supporting layers are below.</p>
-    <a class="workcard" href="workbench.html">
-      <span class="wlab">The value engine</span>
-      <b>Open the workbench &rarr;</b>
-      <span class="wd">Run a project through see, test, voice, and leave with an evidence checklist, the publication ask that matters, an assessability verdict, and a finding you can take to a partner. Worked example loaded: the Kenya SGR.</span>
-    </a>
-    <div class="entry">
-      <a class="ecard" href="method.html"><span class="en">01</span><b>The Method</b><span class="ed">See it, test it, voice it. The logic, in three moves.</span></a>
-      <a class="ecard" href="findings-ledger.html"><span class="en">02</span><b>The Evidence</b><span class="ed">Every claim, its source, its status, the CoST field it maps to.</span></a>
-      <a class="ecard" href="cases.html"><span class="en">03</span><b>The Cases</b><span class="ed">The visual essays and worked examples, grouped under the method.</span></a>
-      <a class="ecard" href="use-this.html"><span class="en">04</span><b>Use This</b><span class="ed">For partner validation, funder briefing, training, publication.</span></a>
+    <p class="doorslede">The visual essays explain the method. The <b>workbench turns it into an implementation ask</b>. Run one project, leave with something usable.</p>
+
+    <!-- the artifact the method produces, shown not described -->
+    <div class="artifact">
+      <div class="art-head"><span class="art-tag">Run the Kenya SGR through the method</span><span class="art-status">as-reported sample</span></div>
+      <dl class="art-rows">
+        <dt>Hidden record</dt><dd>Loan agreement, repayment schedule, guarantee terms</dd>
+        <dt>Assessability verdict</dt><dd><span class="vred">Value cannot be independently judged</span> from public records</dd>
+        <dt>Publication ask</dt><dd><b>Publish the financing terms and appraisal assumptions.</b></dd>
+        <dt>Partner action</dt><dd>Validate the missing-record list and choose one project to run next</dd>
+      </dl>
+      <div class="art-cta">
+        <a class="art-run" href="workbench.html">Run your project through the workbench &rarr;</a>
+        <a class="art-see" href="sgr-worked-example.html">See this example in full</a>
+      </div>
     </div>
 
-    <p class="micro">Each piece answers <b>one question</b>, walked through, not just charted. Where the evidence is thin it says so on the chart itself. Day labels (<b>from Day 1, 2 or 3</b>) are provenance, not navigation.</p>
+    <!-- job-based supporting cards -->
+    <div class="entry">
+      <a class="ecard" href="method.html"><span class="en">Learn</span><b>Learn the method</b><span class="ed">See it, test it, voice it, as a procedure you can run.</span></a>
+      <a class="ecard" href="findings-ledger.html"><span class="en">Check</span><b>Check the proof</b><span class="ed">Every finding, its source, status, and CoST field.</span></a>
+      <a class="ecard" href="cases.html"><span class="en">Use</span><b>Use the examples</b><span class="ed">See how the method works on real cases.</span></a>
+      <a class="ecard" href="use-this.html"><span class="en">Apply</span><b>Apply it with partners</b><span class="ed">Validation, briefing, training, publication paths.</span></a>
+    </div>
+
+    <!-- what each group gets -->
+    <div class="standband">
+      <div class="stand"><span class="who">CIPE</span><span class="gets">a repeatable implementation method</span></div>
+      <div class="stand"><span class="who">IEA-Kenya</span><span class="gets">a clearer bridge from NPV to publishable evidence</span></div>
+      <div class="stand"><span class="who">CoST</span><span class="gets">the publication fields that make the test runnable</span></div>
+      <div class="stand"><span class="who">Partners</span><span class="gets">a project-level ask they can use in implementation</span></div>
+    </div>
 
     <footer>
-      <p><strong>InfraWatch Nairobi</strong>, from the workshop of 2 to 4 June 2026. Method: a transparency assessment that maps to the CoST IDS, political-economy analysis, and net present value, developed by CIPE with the NPV toolkit led by IEA-Kenya. The draw-your-guess chart is illustrative of the pattern, not a single dataset. Working visuals by Michael Cengkuru, CoST.</p>
-      <p class="visit-counter" hidden style="margin:.6rem 0 0;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--mid);text-transform:uppercase;"><span class="vc-num" style="font-weight:700;color:var(--dark);"></span> visits</p>
+      <p class="prov"><strong>InfraWatch Nairobi</strong>, from the workshop of 2&ndash;4 June 2026. Method maps to the CoST IDS, political-economy analysis, and NPV, developed by CIPE with the NPV toolkit led by IEA-Kenya. Figures as reported, to be confirmed against source. Working visuals by Michael Cengkuru, CoST.</p>
     </footer>
-    <script src="counter.js" defer></script>
   </div>
 
   <script>

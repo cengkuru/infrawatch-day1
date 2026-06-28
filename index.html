@@ -44,7 +44,13 @@
       font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;padding:.45rem .9rem;border-radius:99px;cursor:pointer;transition:.15s;}
     .replay:hover{background:rgba(255,255,255,.16);color:#fff;}
     .spine{stroke:#3a516b;stroke-width:3;fill:none;stroke-linecap:round;}
-    .spine-fill{stroke:#7fa8d6;stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;}
+    .spine-fill{stroke:#7fa8d6;stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:340;stroke-dashoffset:340;}
+    .sealtext{font-family:var(--mono);font-size:10px;fill:#c77f00;text-transform:uppercase;letter-spacing:.04em;}
+    .diag{font-family:var(--mono);font-size:13px;font-weight:700;fill:#e88a92;letter-spacing:.03em;transition:opacity .3s;}
+    .unlockmsg{font-family:var(--mono);font-size:12px;font-weight:700;fill:#9fe0b6;letter-spacing:.03em;transition:opacity .4s;}
+    #sealed{transition:opacity .5s;}
+    #seallid{transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-origin:485px 104px;}
+    .seal-open #seallid{transform:rotate(-32deg) translateY(-3px);}
     .stationhit{cursor:pointer;}
     .st-ring{fill:none;stroke-width:2.5;opacity:0;transition:opacity .4s;}
     .st-num{font-family:var(--mono);font-size:13px;font-weight:800;fill:#fff;}
@@ -130,24 +136,32 @@
         <a class="hcta-secondary" href="findings-ledger.html">Open the evidence</a>
       </div>
 
-      <svg class="journey" id="journeyviz" viewBox="0 0 920 230" role="img" aria-label="A three-move method. Move 1, See it: a map with location pins, five countries and one project. Move 2, Test it: a set of colour-coded verdicts, which projects can be judged. Move 3, Voice it: a photograph of a project with a lone figure beneath it. Each move links to its visuals.">
-        <path class="spine"      d="M 130 120 L 460 120 L 790 120"/>
-        <path class="spine-fill" id="spineFill" d="M 130 120 L 460 120 L 790 120"/>
+      <svg class="journey" id="journeyviz" viewBox="0 0 920 240" role="img" aria-label="A diagnostic. A project enters at See it, where its funding and hidden risks appear. The method runs toward Test it, then stops at a sealed contract: no terms, no test, no verdict. A withheld financing-terms file blocks the path to Voice it. When the record is published, the file opens, the line reconnects, the test resolves, and the public figure at Voice it lights up. Publication makes judgment possible.">
+        <!-- spine in three segments: See->Test (left), the blocked gap, Publish->Voice (right) -->
+        <path class="spine" d="M 130 120 L 460 120"/>
+        <path class="spine" d="M 540 120 L 790 120" stroke-dasharray="4 6"/>
+        <path class="spine-fill" id="spineLeft" d="M 130 120 L 460 120"/>
+        <path class="spine-fill" id="spineRight" d="M 540 120 L 790 120"/>
 
-        <a class="stationhit" id="hit1" href="modality-risk-map.html" aria-label="Move 1: See it">
+        <!-- the project marker that enters from the left -->
+        <circle id="projmarker" cx="60" cy="120" r="7" fill="#cfe0f0" opacity="0"/>
+
+        <!-- Station 1: See it / Find the funding -->
+        <a class="stationhit" id="hit1" href="workbench.html" aria-label="Move 1: See it, find the funding">
           <circle class="st-ring" id="ring1" cx="130" cy="120" r="40" stroke="#8aa6c4"/>
           <g id="d1">
             <path d="M112 102 q 8 -8 20 -5 q 14 4 16 16 q 2 12 -8 18 q -10 7 -22 2 q -12 -6 -10 -18 q 1 -8 4 -13 Z" fill="#3a5571" stroke="#5a7798" stroke-width="1"/>
-            <circle cx="122" cy="113" r="3.4" fill="#1B7A3D"/><circle cx="138" cy="118" r="3.4" fill="#BE1E2D"/>
-            <circle cx="128" cy="128" r="3.4" fill="#C77F00"/><circle cx="142" cy="130" r="3.4" fill="#8aa6c4"/>
+            <circle class="d1dot" cx="122" cy="113" r="3.4" fill="#1B7A3D" opacity="0"/><circle class="d1dot" cx="138" cy="118" r="3.4" fill="#BE1E2D" opacity="0"/>
+            <circle class="d1dot" cx="128" cy="128" r="3.4" fill="#C77F00" opacity="0"/><circle class="d1dot" cx="142" cy="130" r="3.4" fill="#8aa6c4" opacity="0"/>
           </g>
           <text class="st-num" x="130" y="66" text-anchor="middle" id="num1">1</text>
-          <text class="st-title" x="130" y="182" text-anchor="middle" id="t1">See it</text>
-          <text class="st-sub" x="130" y="198" text-anchor="middle" id="s1">what is funded, by whom</text>
-          <text class="enter-pill" x="130" y="214" text-anchor="middle" id="e1">open the visuals &rarr;</text>
+          <text class="st-title" x="130" y="184" text-anchor="middle" id="t1">See it</text>
+          <text class="st-sub" x="130" y="200" text-anchor="middle" id="s1">what is funded, by whom</text>
+          <text class="enter-pill" x="130" y="216" text-anchor="middle" id="e1">find the funding &rarr;</text>
         </a>
 
-        <a class="stationhit" id="hit2" href="day2/disclosure-vs-npv-correlation.html" aria-label="Move 2: Test it">
+        <!-- Station 2: Test it / Test assessability -->
+        <a class="stationhit" id="hit2" href="workbench.html" aria-label="Move 2: Test it, test assessability">
           <circle class="st-ring" id="ring2" cx="460" cy="120" r="40" stroke="#cfe0d6"/>
           <g id="d2">
             <circle cx="446" cy="110" r="6" fill="#1B7A3D"/><circle cx="468" cy="106" r="6" fill="#C77F00"/>
@@ -155,12 +169,27 @@
             <rect x="458" y="120" width="11" height="11" rx="2" fill="none" stroke="#9fb4cc" stroke-width="2" stroke-dasharray="3 2"/>
           </g>
           <text class="st-num" x="460" y="66" text-anchor="middle" id="num2">2</text>
-          <text class="st-title" x="460" y="182" text-anchor="middle" id="t2">Test it</text>
-          <text class="st-sub" x="460" y="198" text-anchor="middle" id="s2">can its value be judged</text>
-          <text class="enter-pill" x="460" y="214" text-anchor="middle" id="e2">open the visuals &rarr;</text>
+          <text class="st-title" x="460" y="184" text-anchor="middle" id="t2">Test it</text>
+          <text class="st-sub" x="460" y="200" text-anchor="middle" id="s2">can its value be judged</text>
+          <text class="enter-pill" x="460" y="216" text-anchor="middle" id="e2">test assessability &rarr;</text>
         </a>
 
-        <a class="stationhit" id="hit3" href="day3/the-unlock.html" aria-label="Move 3: Voice it">
+        <!-- the blockage: a sealed financing-terms file between Test and Voice -->
+        <g id="sealed">
+          <rect id="sealfile" x="487" y="103" width="46" height="34" rx="3" fill="#2a1e16" stroke="#8a5a3a" stroke-width="1.6"/>
+          <rect id="seallid" x="485" y="98" width="50" height="12" rx="3" fill="#3a2a1e" stroke="#8a5a3a" stroke-width="1.6"/>
+          <line x1="510" y1="110" x2="510" y2="130" stroke="#8a5a3a" stroke-width="2"/>
+          <circle cx="510" cy="116" r="3.4" fill="none" stroke="#c77f00" stroke-width="2"/>
+          <text class="sealtext" id="sealtext" x="510" y="156" text-anchor="middle">financing terms withheld</text>
+        </g>
+
+        <!-- diagnostic message that flashes at Test -->
+        <text class="diag" id="diagmsg" x="460" y="92" text-anchor="middle" opacity="0">No terms. No test. No verdict.</text>
+        <!-- the unlock message -->
+        <text class="unlockmsg" id="unlockmsg" x="510" y="92" text-anchor="middle" opacity="0">Publication makes judgment possible.</text>
+
+        <!-- Station 3: Voice it / Name the publication ask -->
+        <a class="stationhit" id="hit3" href="workbench.html" aria-label="Move 3: Voice it, name the publication ask">
           <circle class="st-ring" id="ring3" cx="790" cy="120" r="40" stroke="#fff"/>
           <g id="d3">
             <rect x="770" y="104" width="40" height="32" rx="3" fill="#16273a" stroke="#5a7798" stroke-width="1.4"/>
@@ -168,16 +197,16 @@
             <rect class="voice" x="772" y="111" width="36" height="4" fill="#7fa8d6" opacity="0"/>
             <line class="voice" x1="780" y1="115" x2="780" y2="124" stroke="#5a7798" stroke-width="1.5" opacity="0"/>
             <line class="voice" x1="800" y1="115" x2="800" y2="124" stroke="#5a7798" stroke-width="1.5" opacity="0"/>
-            <circle class="voice" cx="803" cy="129" r="2.1" fill="#ffb3ba" opacity="0"/>
+            <circle class="voice" id="pubfigure" cx="803" cy="129" r="2.1" fill="#ffb3ba" opacity="0"/>
           </g>
           <text class="st-num" x="790" y="66" text-anchor="middle" id="num3">3</text>
-          <text class="st-title" x="790" y="182" text-anchor="middle" id="t3">Voice it</text>
-          <text class="st-sub" x="790" y="198" text-anchor="middle" id="s3">who decides if it was worth it</text>
-          <text class="enter-pill" x="790" y="214" text-anchor="middle" id="e3">open the visuals &rarr;</text>
+          <text class="st-title" x="790" y="184" text-anchor="middle" id="t3">Voice it</text>
+          <text class="st-sub" x="790" y="200" text-anchor="middle" id="s3">who decides if it was worth it</text>
+          <text class="enter-pill" x="790" y="216" text-anchor="middle" id="e3">name the publication ask &rarr;</text>
         </a>
       </svg>
 
-      <button class="replay" id="replay" aria-label="Replay the animation">&#8635; replay the method</button>
+      <button class="replay" id="replay" aria-label="Run the method animation">&#9658; Run the method</button>
     </div>
   </section>
 
@@ -209,33 +238,73 @@
   (function(){
     "use strict";
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var fill=document.getElementById("spineFill");
+    var $ = function(id){ return document.getElementById(id); };
+    var sealed = $("sealed"), left = $("spineLeft"), right = $("spineRight"),
+        marker = $("projmarker"), diag = $("diagmsg"), unlock = $("unlockmsg"), viz = $("journeyviz");
+    var timers = [];
+    function at(ms, fn){ if(reduceMotion){ fn(); } else { timers.push(setTimeout(fn, ms)); } }
+    function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
     function ignite(n){
-      ["ring","t","s","e"].forEach(function(p){ var e=document.getElementById(p+n); if(e) e.style.opacity="1"; });
-      var ring=document.getElementById("ring"+n);
-      if(ring && !reduceMotion){ ring.animate([{transform:"scale(.6)",opacity:0},{transform:"scale(1)",opacity:1}],{duration:520,easing:"cubic-bezier(.2,.7,.2,1)"}); }
+      ["ring","t","s","e"].forEach(function(p){ var e=$(p+n); if(e) e.style.opacity="1"; });
+      var ring=$("ring"+n);
+      if(ring && !reduceMotion){ ring.animate([{transform:"scale(.6)",opacity:0},{transform:"scale(1)",opacity:1}],{duration:500,easing:"cubic-bezier(.2,.7,.2,1)"}); }
     }
-    function voices(){ document.querySelectorAll(".voice").forEach(function(v,i){ setTimeout(function(){ v.style.transition="opacity .5s"; v.style.opacity="1"; }, i*140); }); }
+    function showVoice(){ document.querySelectorAll(".voice").forEach(function(v,i){ at(i*120, function(){ v.style.transition="opacity .5s"; v.style.opacity="1"; }); }); }
+    function reset(){
+      clearTimers();
+      left.style.transition=right.style.transition="none";
+      left.style.strokeDashoffset=right.style.strokeDashoffset="340";
+      ["ring1","t1","s1","e1","ring2","t2","s2","e2","ring3","t3","s3","e3"].forEach(function(id){ var e=$(id); if(e) e.style.opacity="0"; });
+      document.querySelectorAll(".d1dot,.voice").forEach(function(v){ v.style.opacity="0"; });
+      diag.style.opacity="0"; unlock.style.opacity="0";
+      sealed.style.opacity="1"; viz.classList.remove("seal-open");
+      marker.style.transition="none"; marker.setAttribute("cx","60"); marker.style.opacity="0";
+    }
+    function endState(){
+      left.style.transition=right.style.transition="none";
+      left.style.strokeDashoffset=right.style.strokeDashoffset="0";
+      [1,2,3].forEach(function(n){ ["ring","t","s","e"].forEach(function(p){ var e=$(p+n); if(e)e.style.opacity="1"; }); });
+      document.querySelectorAll(".d1dot,.voice").forEach(function(v){ v.style.opacity="1"; });
+      viz.classList.add("seal-open"); unlock.style.opacity="1"; diag.style.opacity="0";
+    }
+
     function play(){
-      fill.style.transition="none"; fill.style.strokeDashoffset="1000";
-      ["ring1","t1","s1","e1","ring2","t2","s2","e2","ring3","t3","s3","e3"].forEach(function(id){ var e=document.getElementById(id); if(e) e.style.opacity="0"; });
-      document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="0"; });
-      if(reduceMotion){ fill.style.strokeDashoffset="0";
-        [1,2,3].forEach(function(n){ ["ring","t","s","e"].forEach(function(p){ var e=document.getElementById(p+n); if(e)e.style.opacity="1"; }); });
-        document.querySelectorAll(".voice").forEach(function(v){ v.style.opacity="1"; }); return; }
-      setTimeout(function(){ ignite(1); }, 250);
-      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="500"; }, 700);
-      setTimeout(function(){ ignite(2); }, 2000);
-      setTimeout(function(){ fill.style.transition="stroke-dashoffset 1.5s ease"; fill.style.strokeDashoffset="0"; }, 2300);
-      setTimeout(function(){ ignite(3); }, 3650);
-      setTimeout(voices, 4000);
+      reset();
+      if(reduceMotion){ endState(); return; }
+
+      // 1. project enters from the left into See it
+      at(200, function(){ marker.style.opacity="1"; marker.style.transition="cx 1s cubic-bezier(.2,.7,.2,1), opacity .3s"; marker.setAttribute("cx","130"); });
+      at(700, function(){ ignite(1); document.querySelectorAll(".d1dot").forEach(function(d,i){ setTimeout(function(){ d.style.transition="opacity .3s"; d.style.opacity="1"; }, i*100); }); });
+
+      // 2. method runs toward Test it (left spine brightens + marker travels)
+      at(1500, function(){ left.style.transition="stroke-dashoffset 1.2s ease"; left.style.strokeDashoffset="0"; marker.style.transition="cx 1.2s ease"; marker.setAttribute("cx","460"); });
+      at(2700, function(){ ignite(2); });
+
+      // 3. the method hits the sealed contract: it fractures
+      at(3100, function(){
+        diag.style.opacity="1";
+        if(viz.animate) viz.querySelector("#ring2").animate([{opacity:1},{opacity:.3},{opacity:1},{opacity:.4},{opacity:1}],{duration:600});
+        if(sealed.animate) sealed.animate([{transform:"translateX(0)"},{transform:"translateX(-2px)"},{transform:"translateX(2px)"},{transform:"translateX(0)"}],{duration:400});
+        marker.style.opacity="0"; // the project cannot pass
+      });
+
+      // 4. hold on the blockage so the message lands
+      at(4600, function(){ diag.style.opacity="0"; });
+
+      // 5. publication unlocks the flow
+      at(5000, function(){ viz.classList.add("seal-open"); unlock.style.opacity="1"; });
+      at(5500, function(){ right.style.transition="stroke-dashoffset 1.2s ease"; right.style.strokeDashoffset="0"; });
+      at(6700, function(){ ignite(3); });
+      at(7000, function(){ showVoice(); }); // the public figure lights up only now
     }
+
     if("IntersectionObserver" in window){
       var fired=false;
       var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !fired){ fired=true; play(); } }); },{threshold:.4});
-      io.observe(document.getElementById("journeyviz"));
+      io.observe(viz);
     } else { play(); }
-    document.getElementById("replay").addEventListener("click", play);
+    $("replay").addEventListener("click", play);
   })();
   </script>
 </body>

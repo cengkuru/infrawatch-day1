@@ -119,13 +119,14 @@
     .workcard .wd{display:block;color:#cfe0f0;font-size:.92rem;max-width:60ch;}
     /* the artifact preview: the prize, shown not described */
     .artifact{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.6rem;margin:1.2rem auto 0;border-left:5px solid var(--brand);}
-    .art-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;}
-    .art-tag{font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);}
+    .art-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .art-thumb{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--light);flex:0 0 auto;}
+    .art-tag{font-family:var(--mono);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);flex:1;min-width:200px;}
     .art-status{font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);background:rgba(199,127,0,.1);border:1px solid rgba(199,127,0,.3);border-radius:99px;padding:.2rem .55rem;}
     .art-rows{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.2rem;}
     .art-rows dt{font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);padding-top:.15rem;}
     .art-rows dd{margin:0;font-size:.96rem;color:var(--dark);}
-    .art-rows .vred{color:var(--red);font-weight:700;}
+    .art-rows .vamber{color:var(--amber);font-weight:700;}
     .art-cta{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-top:1.3rem;padding-top:1.1rem;border-top:1px solid var(--light);}
     .art-run{background:var(--brand);color:#fff;text-decoration:none;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.75rem 1.4rem;border-radius:99px;transition:.18s cubic-bezier(.2,.7,.2,1);}
     .art-run:hover{background:var(--brand-deep);transform:translateY(-2px);}
@@ -134,7 +135,9 @@
     /* standband: what each group gets */
     .standband{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin:1.4rem auto 0;}
     .stand{background:#eef2f6;border:1px solid var(--light);border-radius:12px;padding:.9rem 1rem;}
-    .stand .who{display:block;font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);margin-bottom:.25rem;}
+    .stand{position:relative;}
+    .sicon{position:absolute;top:.9rem;right:.9rem;width:30px;height:30px;fill:none;stroke:var(--brand-soft);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.7;}
+    .stand .who{display:block;font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand);margin-bottom:.25rem;padding-right:2rem;}
     .stand .gets{font-size:.84rem;color:var(--dark);line-height:1.35;}
     .prov{font-size:.74rem;color:var(--mid);line-height:1.5;}
     @media (max-width:760px){ .entry{grid-template-columns:1fr 1fr;} .standband{grid-template-columns:1fr 1fr;} .art-rows{grid-template-columns:1fr;gap:.2rem 0;} .art-rows dt{margin-top:.5rem;} }
@@ -202,7 +205,7 @@
           <text class="st-num" x="460" y="66" text-anchor="middle" id="num2">2</text>
           <text class="st-title" x="460" y="184" text-anchor="middle" id="t2">Test it</text>
           <text class="st-sub" x="460" y="200" text-anchor="middle" id="s2">can its value be judged</text>
-          <text class="enter-pill" x="460" y="216" text-anchor="middle" id="e2">test assessability &rarr;</text>
+          <text class="enter-pill" x="460" y="216" text-anchor="middle" id="e2">can it be judged? &rarr;</text>
         </a>
 
         <!-- the blockage: a sealed financing-terms file ON THE LINE between Test and Voice (centred x=625) -->
@@ -242,12 +245,12 @@
 
     <!-- the artifact the method produces, shown not described -->
     <div class="artifact">
-      <div class="art-head"><span class="art-tag">Run the Kenya SGR through the method</span><span class="art-status">as-reported sample</span></div>
+      <div class="art-head"><img class="art-thumb" src="day3/assets/sgr-voi-viaduct.jpg" alt="The Kenya Standard Gauge Railway near Voi" loading="lazy"><span class="art-tag">Run the Kenya SGR through the Project Publication Test</span><span class="art-status">teaching example</span></div>
       <dl class="art-rows">
-        <dt>Hidden record</dt><dd>Loan agreement, repayment schedule, guarantee terms</dd>
-        <dt>Assessability verdict</dt><dd><span class="vred">Value cannot be independently judged</span> from public records</dd>
-        <dt>Publication ask</dt><dd><b>Publish the financing terms and appraisal assumptions.</b></dd>
-        <dt>Partner action</dt><dd>Validate the missing-record list and choose one project to run next</dd>
+        <dt>Records needed to test value</dt><dd>Loan agreement, repayment schedule, guarantee terms, appraisal assumptions</dd>
+        <dt>Can the value be judged?</dt><dd><span class="vamber">Not from the public records reviewed</span> &mdash; the key terms are not yet published.</dd>
+        <dt>The request to make</dt><dd><b>Publish the financing terms and appraisal assumptions needed to assess value for money.</b></dd>
+        <dt>Partner action</dt><dd>Check which records are already public, then choose one project to test next.</dd>
       </dl>
       <div class="art-cta">
         <a class="art-run" href="workbench.html">Run your project through the method &rarr;</a>
@@ -265,14 +268,26 @@
 
     <!-- what each group gets -->
     <div class="standband">
-      <div class="stand"><span class="who">CIPE</span><span class="gets">a repeatable implementation method</span></div>
-      <div class="stand"><span class="who">IEA-Kenya</span><span class="gets">a clearer bridge from NPV to publishable evidence</span></div>
-      <div class="stand"><span class="who">CoST</span><span class="gets">the publication fields that make the test runnable</span></div>
-      <div class="stand"><span class="who">Partners</span><span class="gets">a project-level ask they can use in implementation</span></div>
+      <div class="stand">
+        <svg class="sicon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5a11 11 0 1 1-9.5 5.5" /><polyline points="6.5 4 6.5 10.5 13 10.5" /><polyline points="11 16 14.5 19.5 21 12.5" /></svg>
+        <span class="who">CIPE</span><span class="gets">A method partners can repeat on other projects</span>
+      </div>
+      <div class="stand">
+        <svg class="sicon" viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="4" width="11" height="24" rx="1.5"/><line x1="6" y1="10" x2="17" y2="10"/><line x1="9" y1="15" x2="10.5" y2="15"/><line x1="13" y1="15" x2="14.5" y2="15"/><line x1="9" y1="19" x2="10.5" y2="19"/><line x1="13" y1="19" x2="14.5" y2="19"/><polyline points="20 24 23 18 26 21 29 13"/></svg>
+        <span class="who">IEA-Kenya</span><span class="gets">Value-for-money analysis turned into usable evidence</span>
+      </div>
+      <div class="stand">
+        <svg class="sicon" viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="4" width="18" height="24" rx="1.5"/><line x1="7" y1="11" x2="25" y2="11"/><line x1="16" y1="11" x2="16" y2="28"/><line x1="11" y1="16.5" x2="12.5" y2="16.5"/><line x1="20" y1="16.5" x2="21.5" y2="16.5"/><line x1="11" y1="21.5" x2="12.5" y2="21.5"/><line x1="20" y1="21.5" x2="21.5" y2="21.5"/></svg>
+        <span class="who">CoST</span><span class="gets">The project information needed to run the test</span>
+      </div>
+      <div class="stand">
+        <svg class="sicon" viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="6" width="18" height="22" rx="1.5"/><rect x="12" y="3.5" width="8" height="5" rx="1"/><path d="M16 13a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><line x1="16" y1="21" x2="16" y2="25.5"/></svg>
+        <span class="who">Partners</span><span class="gets">One clear request they can validate and use</span>
+      </div>
     </div>
 
     <footer>
-      <p class="prov"><strong>InfraWatch Nairobi</strong>, from the workshop of 2&ndash;4 June 2026. Method maps to the CoST IDS, political-economy analysis, and NPV, developed by CIPE with the NPV toolkit led by IEA-Kenya. Figures as reported, to be confirmed against source. Working visuals by Michael Cengkuru, CoST.</p>
+      <p class="prov"><strong>InfraWatch Nairobi</strong>, from the workshop of 2&ndash;4 June 2026. The method maps to the CoST Infrastructure Data Standard, political-economy analysis, and value-for-money analysis, developed by CIPE with the value-for-money toolkit led by IEA-Kenya. Figures as reported, to be confirmed against source. Working visuals by Michael Cengkuru, CoST.</p>
     </footer>
   </div>
 

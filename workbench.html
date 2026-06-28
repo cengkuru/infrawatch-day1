@@ -85,7 +85,7 @@
     .checklist{list-style:none;margin:.4rem 0 0;padding:0;}
     .checklist li{padding:.35rem 0 .35rem 1.6rem;position:relative;font-size:.9rem;}
     .checklist li::before{position:absolute;left:0;top:.35rem;font-family:var(--mono);font-weight:700;}
-    .checklist li.have::before{content:"\2713";color:var(--green);} .checklist li.miss::before{content:"\2717";color:var(--red);}
+    .checklist li.have::before{content:"\2713";color:var(--green);} .checklist li.miss::before{content:"\2717";color:var(--amber);}
     .checklist li small{color:var(--mid);}
     .askbox{background:linear-gradient(180deg,#fff, #f4f7fb);border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.3rem;}
     .askbox .alab{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand-soft);}
@@ -229,7 +229,7 @@
           <span id="ask-why"></span>
         </div>
         <div class="outgrid">
-          <div><span class="olab">Missing record</span><span id="missing-row"></span></div>
+          <div><span class="olab">Record to publish</span><span id="missing-row"></span></div>
           <div><span class="olab">Assessability verdict</span><span id="verdict-row"></span></div>
         </div>
         <p style="margin:1rem 0 .2rem;font-size:.9rem;"><span style="font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);">Finding row</span><br><span id="finding-row"></span></p>
@@ -248,7 +248,7 @@
       <h2>Partner implementation tracker</h2>
       <p class="tsub">Projects you have run through the method. Click a project to reload it.</p>
       <table>
-        <thead><tr><th>Project</th><th>Funder</th><th>Type</th><th>Missing record</th><th>Status</th><th>Next action</th><th></th></tr></thead>
+        <thead><tr><th>Project</th><th>Funder</th><th>Type</th><th>Record to publish</th><th>Status</th><th>Next action</th><th></th></tr></thead>
         <tbody id="trackbody"><tr><td class="empty" colspan="7">No projects saved yet. Run one above and click &ldquo;Save to tracker&rdquo;.</td></tr></tbody>
       </table>
       <p class="localnote">Saved in this browser only (local storage). Not a shared dashboard, and not sent anywhere. Use Print or Copy to share a result.</p>
@@ -264,11 +264,11 @@
     "use strict";
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var ASK = {
-      sovereign:    {record:"the loan agreement and the sovereign guarantee", hides:"the real debt and contingent liability", idsline:"loan terms + guarantee"},
-      equity:       {record:"the beneficial ownership register and the offtake agreement", hides:"who really gains", idsline:"beneficial ownership + offtake"},
-      ppp:          {record:"the concession contract and the schedule of fiscal commitments", hides:"the long-term bill", idsline:"contract + fiscal commitments"},
-      epc:          {record:"the itemised cost breakdown", hides:"the buried mark-up", idsline:"itemised cost breakdown"},
-      concessional: {record:"the funding source, the loan conditions and the tender record", hides:"the real terms", idsline:"source + conditions + tender"}
+      sovereign:    {record:"the loan agreement and the sovereign guarantee", untested:"the real debt and contingent liability", idsline:"loan terms + guarantee"},
+      equity:       {record:"the beneficial ownership register and the offtake agreement", untested:"who benefits", idsline:"beneficial ownership + offtake"},
+      ppp:          {record:"the concession contract and the schedule of fiscal commitments", untested:"the long-term fiscal commitment", idsline:"contract + fiscal commitments"},
+      epc:          {record:"the itemised cost breakdown", untested:"whether the cost is justified", idsline:"itemised cost breakdown"},
+      concessional: {record:"the funding source, the loan conditions and the tender record", untested:"the real terms", idsline:"source + conditions + tender"}
     };
     var FTLABEL = {sovereign:"Sovereign loan",equity:"Equity / project finance",ppp:"PPP / concession",epc:"EPC + finance",concessional:"Concessional loan"};
     var STLABEL = {probe:"Working read / teaching probe",check:"As-reported, figures to confirm",ready:"Source-checked"};
@@ -308,7 +308,7 @@
       // Move 1: See it
       setStatus('Reading <b>See it</b>…');
       await delay(650);
-      $("see-line").innerHTML = '<b>'+esc(o.proj)+'</b> is funded by <b>'+esc(o.funder||"a funder yet to confirm")+'</b> as a <b>'+esc(FTLABEL[o.ftype]||"financing type yet to classify")+'</b>'+(o.ftype&&ASK[o.ftype]?', which hides '+esc(ASK[o.ftype].hides)+'.':'.');
+      $("see-line").innerHTML = '<b>'+esc(o.proj)+'</b> is funded by <b>'+esc(o.funder||"a funder yet to confirm")+'</b> as a <b>'+esc(FTLABEL[o.ftype]||"financing type yet to classify")+'</b>'+(o.ftype&&ASK[o.ftype]?'. To judge it, you need to see '+esc(ASK[o.ftype].untested)+'.':'.');
       $("oc-see").classList.add("show");
       await delay(700);
 
@@ -340,13 +340,13 @@
       setStatus('&rarr; The ask that matters');
       var a = o.ftype&&ASK[o.ftype]?ASK[o.ftype]:null;
       $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select a financing type to generate the ask.";
-      $("ask-why").innerHTML = a ? "This financing type hides "+esc(a.hides)+". In CoST IDS terms: "+esc(a.idsline)+". Until this is published, the value cannot be independently judged." : "";
+      $("ask-why").innerHTML = a ? "For this financing type, "+esc(a.untested)+" sits in that record. In CoST IDS terms: "+esc(a.idsline)+". Until it is published, the value cannot be independently judged." : "";
       var vshort = o.npv==="no"?"cannot be judged":(o.npv==="outcome"?"judged only from outcomes":"assessable");
       $("missing-row").innerHTML = a ? esc(a.record)+' <span style="color:var(--mid);">('+esc(a.idsline)+')</span>' : "select a financing type";
-      var vfull = o.npv==="no"?'<span style="color:var(--red);font-weight:700;">Cannot be judged</span> — terms withheld':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Assessable</span> up front':"set the value question"));
+      var vfull = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not enough on the public record to judge</span> — records not yet published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Judged only after the fact</span> — not up front':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Assessable</span> up front':"set the value question"));
       $("verdict-row").innerHTML = vfull;
       $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b> &middot; '+esc(o.funder||"funder t.b.c.")+' &middot; '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Terms '+esc(pubword)+'; value '+esc(vshort)+'. <span class="statuschip '+esc(o.status)+'">'+esc(STLABEL[o.status]||o.status)+'</span>';
-      $("action-row").innerHTML = 'Take to <b>'+esc(o.holder||"the party holding the terms")+'</b>: publish '+esc(a?a.record:"the key withheld record")+', so '+esc(o.affected||"the affected public")+' gains standing to challenge the deal. Validate figures against source first.';
+      $("action-row").innerHTML = 'Take to <b>'+esc(o.holder||"the party holding the terms")+'</b>: publish '+esc(a?a.record:"the record needed to test value")+', so '+esc(o.affected||"the affected public")+' gains standing to challenge the deal. Validate figures against source first.';
       $("oc-ask").classList.add("show");
       await delay(400);
       $("o-actions").classList.add("show");
@@ -374,7 +374,7 @@
     $("printbtn").addEventListener("click", function(){ window.print(); });
     $("copybtn").addEventListener("click", function(){
       var o=gather(), a=(o.ftype&&ASK[o.ftype])?ASK[o.ftype]:null;
-      var txt="INFRAWATCH FINDING\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nFinancing type: "+(FTLABEL[o.ftype]||"")+"\nTerms published: "+(o.published||"")+"\nValue assessable: "+(o.npv||"")+"\nBasis: "+(o.basis||"")+"\n\nPUBLICATION ASK: Publish "+(a?a.record:"the key withheld record")+".\nWhy: hides "+(a?a.hides:"")+" ("+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nHolder of terms: "+(o.holder||"")+"\nEvidence status: "+(STLABEL[o.status]||o.status||"")+"\n\nValidate figures against source before external use.";
+      var txt="INFRAWATCH FINDING\n"+o.proj+"\n\nFunder: "+(o.funder||"")+"\nFinancing type: "+(FTLABEL[o.ftype]||"")+"\nTerms published: "+(o.published||"")+"\nValue assessable: "+(o.npv||"")+"\nBasis: "+(o.basis||"")+"\n\nPUBLICATION ASK: Publish "+(a?a.record:"the record needed to test value")+".\nWhy: needed to test "+(a?a.untested:"")+" ("+(a?a.idsline:"")+").\n\nAffected: "+(o.affected||"")+"\nHolder of terms: "+(o.holder||"")+"\nEvidence status: "+(STLABEL[o.status]||o.status||"")+"\n\nValidate figures against source before external use.";
       navigator.clipboard.writeText(txt).then(function(){ setStatus('✓ Finding copied to clipboard.'); }, function(){ alert("Copy failed; select the output manually."); });
     });
     renderTracker();

@@ -49,7 +49,8 @@
     .q{font-weight:700;color:var(--dark);}
     .field{font-family:var(--mono);font-size:.78rem;color:var(--brand);font-weight:700;}
     .without{color:var(--red);font-size:.84rem;}
-    .move{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);}
+    .unlock{color:var(--green);font-size:.84rem;}
+    .move{display:inline-block;font-family:var(--mono);font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);background:rgba(61,100,145,.1);border:1px solid rgba(61,100,145,.25);border-radius:99px;padding:.1rem .4rem;margin-right:.35rem;vertical-align:middle;}
 
     .legs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.2rem 0 0;}
     .leg{background:var(--white);border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.2rem;box-shadow:var(--shadow);}
@@ -98,54 +99,54 @@
     <table>
       <thead>
         <tr>
-          <th style="width:5.5rem">Move</th>
-          <th>InfraWatch asks</th>
-          <th>CoST IDS field that answers it</th>
-          <th>Without it, you cannot know</th>
+          <th>InfraWatch question</th>
+          <th>Record needed</th>
+          <th>CoST / IDS field family</th>
+          <th>Judgment it unlocks</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td data-l="Move"><span class="move">See it</span></td>
-          <td class="q" data-l="InfraWatch asks">Who is actually funding this, and on what terms?</td>
-          <td class="field" data-l="CoST field">Funding source &middot; financing terms</td>
-          <td class="without" data-l="Without it">whether the debt, not the asset, is the real story</td>
+          <td class="q" data-l="Question"><span class="move">See it</span> Who is actually funding this, and on what terms?</td>
+          <td data-l="Record needed">The loan agreement and financing terms</td>
+          <td class="field" data-l="IDS field">Funding source &middot; financing</td>
+          <td class="unlock" data-l="Judgment">whether the debt, not the asset, is the real story</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">See it</span></td>
-          <td class="q" data-l="InfraWatch asks">Who really gains from the project?</td>
-          <td class="field" data-l="CoST field">Beneficial ownership &middot; offtake</td>
-          <td class="without" data-l="Without it">whether public money is routed to a private interest</td>
+          <td class="q" data-l="Question"><span class="move">See it</span> Who really gains from the project?</td>
+          <td data-l="Record needed">Beneficial ownership register &middot; offtake</td>
+          <td class="field" data-l="IDS field">Ownership</td>
+          <td class="unlock" data-l="Judgment">whether public money is routed to a private interest</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">See it</span></td>
-          <td class="q" data-l="InfraWatch asks">What will this commit the state to, long term?</td>
-          <td class="field" data-l="CoST field">Contract &middot; fiscal commitments</td>
-          <td class="without" data-l="Without it">the size of the bill that lands years after the ribbon-cutting</td>
+          <td class="q" data-l="Question"><span class="move">See it</span> What will this commit the state to, long term?</td>
+          <td data-l="Record needed">The contract and fiscal-commitment schedule</td>
+          <td class="field" data-l="IDS field">Contract &middot; fiscal</td>
+          <td class="unlock" data-l="Judgment">the size of the bill that lands years after the ribbon-cutting</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">Test it</span></td>
-          <td class="q" data-l="InfraWatch asks">Was the cost honest, or marked up?</td>
-          <td class="field" data-l="CoST field">Itemised cost &middot; appraisal</td>
-          <td class="without" data-l="Without it">whether the price reflects the work or a buried margin</td>
+          <td class="q" data-l="Question"><span class="move">Test it</span> Was the cost honest, or marked up?</td>
+          <td data-l="Record needed">The itemised cost breakdown and appraisal</td>
+          <td class="field" data-l="IDS field">Cost &middot; appraisal</td>
+          <td class="unlock" data-l="Judgment">whether the price reflects the work or a buried margin</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">Test it</span></td>
-          <td class="q" data-l="InfraWatch asks">Can the project's value be judged at all?</td>
-          <td class="field" data-l="CoST field">Published terms (the precondition for the NPV test)</td>
-          <td class="without" data-l="Without it">anything: a withheld contract is a wall against assessment</td>
+          <td class="q" data-l="Question"><span class="move">Test it</span> Can the project's value be judged at all?</td>
+          <td data-l="Record needed">The published financing terms</td>
+          <td class="field" data-l="IDS field">Financing (the NPV precondition)</td>
+          <td class="unlock" data-l="Judgment">any verdict at all; a withheld contract is a wall against assessment</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">Test it</span></td>
-          <td class="q" data-l="InfraWatch asks">Did it perform as promised?</td>
-          <td class="field" data-l="CoST field">Implementation &middot; performance</td>
-          <td class="without" data-l="Without it">whether delivery matched the deal that was signed</td>
+          <td class="q" data-l="Question"><span class="move">Test it</span> Did it perform as promised?</td>
+          <td data-l="Record needed">Implementation and performance data</td>
+          <td class="field" data-l="IDS field">Implementation &middot; performance</td>
+          <td class="unlock" data-l="Judgment">whether delivery matched the deal that was signed</td>
         </tr>
         <tr>
-          <td data-l="Move"><span class="move">Voice it</span></td>
-          <td class="q" data-l="InfraWatch asks">Can the affected public challenge the terms?</td>
-          <td class="field" data-l="CoST field">Contract disclosure reaching funder + contractor</td>
-          <td class="without" data-l="Without it">the public has no standing, because it has no record to point to</td>
+          <td class="q" data-l="Question"><span class="move">Voice it</span> Can the affected public challenge the terms?</td>
+          <td data-l="Record needed">Contract disclosure reaching funder + contractor</td>
+          <td class="field" data-l="IDS field">Contract disclosure</td>
+          <td class="unlock" data-l="Judgment">the public gains standing, because it finally has a record to point to</td>
         </tr>
       </tbody>
     </table>

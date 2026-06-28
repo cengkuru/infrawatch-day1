@@ -343,8 +343,8 @@
     };
     var FTLABEL={sovereign:"a government-guaranteed loan",equity:"private investment",ppp:"a long-term contract",epc:"a build-and-finance package",concessional:"a low-interest development loan"};
     var STLABEL={probe:"a working read",check:"based on available reports",ready:"checked against source records"};
-    var SGR={proj:"Standard Gauge Railway (SGR), Kenya", funder:"Chinese state lenders (Exim Bank of China)", ftype:"sovereign", published:"partial", npv:"outcome",
-      basis:"The guarantee is publicly known; the full loan terms are not in the public records. Judged from outcomes: the loan is around 5% of national income and has strained the national railway's finances. Figures as reported.",
+    var SGR={proj:"Mombasa–Nairobi SGR (Phase 1), Kenya", funder:"Export-Import Bank of China", ftype:"sovereign", published:"partial", npv:"outcome",
+      basis:"The Phase 1 agreements were confidential, partly released in 2022 (judged incomplete), and a court ordered fuller disclosure in mid-2026. Over the financing period Kenya's debt-to-GDP rose from about 36% (2012) to roughly 70% (2024, IMF); SGR borrowing was one contributor. Figures as reported, to confirm against source.",
       affected:"Communities along the corridor and Kenyan taxpayers who carry the repayments", holder:"the lender and the company that built the line, not only the government", status:"check"};
     var ids=["proj","funder","ftype","published","npv","basis","affected","holder","status"];
     function load(o){ ids.forEach(function(k){ if($(k)) $(k).value=o[k]||""; }); }

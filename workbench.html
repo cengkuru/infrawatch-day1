@@ -372,7 +372,7 @@
     };
     var FTLABEL={sovereign:"a government-guaranteed loan",equity:"private investment",ppp:"a long-term contract",epc:"a build-and-finance package",concessional:"a low-interest development loan"};
     var STLABEL={probe:"a working read",check:"based on available reports",ready:"checked against source records"};
-    var SGR={proj:"Mombasa–Nairobi SGR (Phase 1), Kenya", funder:"Export-Import Bank of China", ftype:"sovereign", published:"partial", npv:"outcome",
+    var SGR={proj:"Mombasa-Nairobi SGR (Phase 1), Kenya", funder:"Export-Import Bank of China", ftype:"sovereign", published:"partial", npv:"outcome",
       basis:"The Phase 1 agreements were confidential, partly released in 2022 (judged incomplete), and a court ordered fuller disclosure in mid-2026. Over the financing period Kenya's debt-to-GDP rose from about 36% (2012) to roughly 70% (2024, IMF); SGR borrowing was one contributor. Figures as reported, to confirm against source.",
       affected:"Communities along the corridor and Kenyan taxpayers who carry the repayments", holder:"the lender and the company that built the line, not only the government", status:"check"};
     var ids=["proj","funder","ftype","published","npv","basis","affected","holder","status"];
@@ -401,8 +401,8 @@
       var ms=$("minisummary");
       if(o.proj||o.ftype||o.published){
         ms.classList.remove("hidden");
-        $("ms-proj").textContent=o.proj||"—";
-        $("ms-fin").textContent=o.ftype?FTLABEL[o.ftype]:"—";
+        $("ms-proj").textContent=o.proj||"·";
+        $("ms-fin").textContent=o.ftype?FTLABEL[o.ftype]:"·";
         var mv=$("ms-verdict"); mv.className="ms-val";
         if(o.npv==="yes"){ mv.textContent="judgeable"; mv.classList.add("ok"); }
         else if(o.npv==="no"||o.published==="no"){ mv.textContent="not yet judgeable"; mv.classList.add("warn"); }
@@ -485,7 +485,7 @@
       setStatus("→ The request"); await delay(300);
       $("ask-b").textContent = a ? "Publish "+a.record+"." : "Select how the project is financed (Step 1).";
       $("ask-why").innerHTML = a ? "These records hold "+esc(a.untested)+". Mapped to CoST publication fields: "+esc(a.idsline)+". Until they are published, value for money cannot be independently judged." : "";
-      $("missing-row").innerHTML = a ? esc(a.record) : "—";
+      $("missing-row").innerHTML = a ? esc(a.record) : "·";
       $("verdict-row").innerHTML = o.npv==="no"?'<span style="color:var(--amber);font-weight:700;">Not yet</span>, records not published':(o.npv==="outcome"?'<span style="color:var(--amber);font-weight:700;">Only later</span>, from outcomes':(o.npv==="yes"?'<span style="color:var(--green);font-weight:700;">Yes</span>, before the project':"set the records question"));
       $("finding-row").innerHTML = '<b>'+esc(o.proj)+'</b>, '+esc(FTLABEL[o.ftype]||"type t.b.c.")+'. Records '+esc(pubword)+'; '+esc(STLABEL[o.status]||o.status||"")+'.';
       $("action-row").innerHTML = 'Ask <b>'+esc(o.holder||"whoever holds the records")+'</b> to publish '+esc(a?a.record:"the missing records")+', so '+esc(o.affected||"the affected public")+' can judge the project. Verify against the source record first.';
@@ -515,8 +515,8 @@
       var r=getRows(), box=$("savedbox"), b=$("savedbody");
       box.classList.toggle("hidden", r.length===0);
       if(!r.length) return;
-      b.innerHTML=r.map(function(x,i){ var miss=x.ftype&&ASK[x.ftype]?ASK[x.ftype].record:"—";
-        return '<tr><td><a href="#" class="reload" data-i="'+i+'">'+esc(x.proj)+'</a></td><td>'+esc(FTLABEL[x.ftype]||"—")+'</td><td>'+esc(miss)+'</td><td><a class="del" data-d="'+i+'">remove</a></td></tr>';
+      b.innerHTML=r.map(function(x,i){ var miss=x.ftype&&ASK[x.ftype]?ASK[x.ftype].record:"·";
+        return '<tr><td><a href="#" class="reload" data-i="'+i+'">'+esc(x.proj)+'</a></td><td>'+esc(FTLABEL[x.ftype]||"·")+'</td><td>'+esc(miss)+'</td><td><a class="del" data-d="'+i+'">remove</a></td></tr>';
       }).join("");
       b.querySelectorAll(".reload").forEach(function(a){ a.addEventListener("click",function(e){ e.preventDefault(); load(getRows()[+this.dataset.i]); $("panel-output").classList.add("hidden"); $("panel-input").classList.remove("hidden"); showStep(0); window.scrollTo({top:0,behavior:"smooth"}); }); });
       b.querySelectorAll(".del").forEach(function(a){ a.addEventListener("click",function(){ var r=getRows(); r.splice(+this.dataset.d,1); setRows(r); }); });

@@ -48,7 +48,7 @@
     /* ============ THE PORTRAITS: sticky member stage LEFT, scrolling member beats RIGHT ============ */
     .story{position:relative;margin:1rem 0 2rem;display:grid;grid-template-columns:1.55fr 1fr;gap:1.5rem;align-items:start;}
     .stickycol{position:sticky;top:3vh;align-self:start;}
-    /* DARK portrait stage — shares the merge section's cinematic DNA so the whole essay reads as one surface */
+    /* DARK portrait stage: shares the merge section's cinematic DNA so the whole essay reads as one surface */
     .stage{position:relative;background:var(--brand-deep);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 22px 60px rgba(0,0,0,.3);
       min-height:76vh;padding:0;overflow:hidden;border-top:6px solid var(--ac,var(--brand));transition:border-color .5s ease;}
     .stage-pad{padding:1.9rem clamp(1.2rem,2.8vw,2.2rem);}
@@ -82,11 +82,11 @@
     .mdots .md{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s,transform .3s;}
     .mdots .md.on{background:#fff;transform:scale(1.4);}
 
-    /* annotation column — dark cards to match the stage */
+    /* annotation column: dark cards to match the stage */
     .ann{min-height:96vh;display:flex;align-items:center;}
     .ann:first-child{min-height:56vh;}
     .ann:last-child{min-height:80vh;padding-bottom:6vh;}
-    /* SOLID dark card (NOT translucent) — these sit on the LIGHT page background, so a translucent
+    /* SOLID dark card (NOT translucent): these sit on the LIGHT page background, so a translucent
        white fill rendered as white-on-white. A solid brand-deep fill makes the light text readable
        AND matches the dark portrait stage. */
     .anncard{position:relative;opacity:0;transform:translateX(26px);
@@ -259,7 +259,7 @@
       <div class="anncol" id="anncol"><!-- beats injected: one per member --></div>
     </div>
 
-    <!-- ============ THE TURN: a scroll-driven visual event — five problems converge into one ============ -->
+    <!-- ============ THE TURN: a scroll-driven visual event: five problems converge into one ============ -->
     <section class="turnstory" id="turnstory" data-tstate="spread" aria-label="The five members' problems converge into one shared problem.">
       <div class="turnstage" id="turnstage">
         <!-- the five problem nodes, positioned spread, slide to centre and merge on scroll -->

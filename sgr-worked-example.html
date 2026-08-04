@@ -344,7 +344,7 @@
   (function(){
     "use strict";
     // scrollspy: highlight the rail item + mobile chip for the section in view.
-    // Answers "Where am I?" only — no animation beyond a class toggle.
+    // Answers "Where am I?" only: no animation beyond a class toggle.
     var LABELS={result:"Result",see:"See it",test:"Test it",voice:"Voice it",evidence:"Records",request:"Request",validate:"Validation",sources:"Sources"};
     var ids=Object.keys(LABELS);
     var sections=ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);

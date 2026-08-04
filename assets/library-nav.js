@@ -1,4 +1,4 @@
-/* Definitions library navigation, shared across the partner-guidance pages.
+/* Definition bank navigation, shared across the partner-guidance pages.
    One entry per page; append new terms to the array in any order, the menu
    always renders them alphabetically. Built to stay usable at 20 or 30 terms:
    - alphabetical order, sorted at runtime (glossary convention)
@@ -57,7 +57,7 @@
 
   var nav = document.createElement("nav");
   nav.className = "lib-nav";
-  nav.setAttribute("aria-label", "Definitions library");
+  nav.setAttribute("aria-label", "Definition bank");
 
   var inner = document.createElement("div");
   inner.className = "lib-inner";
@@ -67,7 +67,7 @@
   toggle.className = "lib-toggle";
   toggle.setAttribute("aria-expanded", "false");
   var head = document.createElement("span");
-  head.textContent = "Definitions library (" + pages.length + ")";
+  head.textContent = "Definition bank (" + pages.length + ")";
   toggle.appendChild(head);
   if (currentTerm) {
     var cur = document.createElement("span");
@@ -89,7 +89,7 @@
   find.type = "search";
   find.className = "lib-find";
   find.placeholder = "Find a term";
-  find.setAttribute("aria-label", "Find a term in the definitions library");
+  find.setAttribute("aria-label", "Find a term in the definition bank");
   panel.appendChild(find);
 
   var rows = [];

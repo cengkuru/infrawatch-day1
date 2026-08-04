@@ -33,6 +33,16 @@
     .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
     .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
 
+    .decide{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-top:1rem;}
+    .decide .d{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.8rem 1rem;font-size:.88rem;border-top:4px solid var(--green);}
+    .decide .d.swap{border-top-color:var(--red);}
+    .decide .d b{display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-deep);margin-bottom:.25rem;}
+    @media (max-width:700px){ .decide{grid-template-columns:1fr;} }
+    .rectab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:.9rem;}
+    .rectab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.55rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .rectab td{padding:.5rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .rectab tr:last-child td{border-bottom:0;}
+    .rectab td.fld{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
     .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
     .rules ol{margin:0;padding-left:1.2rem;}
     .rules li{margin:0 0 .55rem;font-size:.92rem;}
@@ -58,7 +68,7 @@
     </div>
   </section>
 
-  <div class="wrap">
+  <main class="wrap">
 
     <h2 class="sec">How a swap works</h2>
     <p class="sub">One core project fails later scrutiny. The swap is small, visible, and recorded. The list keeps its size, and the record shows exactly what changed and why.</p>
@@ -66,7 +76,7 @@
     <div class="flowcard">
       <svg viewBox="0 0 720 300" width="720" height="300" role="img" aria-labelledby="blTitle blDesc">
         <title id="blTitle">A documented swap from the buffer list</title>
-        <desc id="blDesc">A core list of projects has one slot that fails later scrutiny, marked in red, for example financing that could not be verified. A documented swap replaces it with a project from the buffer list, marked in green, which passed the same eligibility test on the same day as the core list. The swap record notes which project left, why, and which one replaced it. When the buffer has no valid substitute, the gap is recorded and raised rather than papered over.</desc>
+        <desc id="blDesc">A core list of projects has one slot that fails eligibility on a later check, marked in red and faded, for example financing that could not be verified. A documented swap replaces it with a project from the buffer list, marked in green, which passed the same eligibility test when the list was built. The swap record notes which project left, why, and which one replaced it. When the buffer has no valid substitute, the gap is recorded and raised rather than papered over.</desc>
         <defs>
           <marker id="ba" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
@@ -93,11 +103,11 @@
         <text x="48" y="97" class="st">Project, passed the test</text>
         <rect x="36" y="112" width="268" height="26" rx="6" class="slot"/>
         <text x="48" y="129" class="st">Project, passed the test</text>
-        <rect x="36" y="144" width="268" height="26" rx="6" class="slotr"/>
-        <text x="48" y="161" class="str">Fails later scrutiny: financing could not be verified</text>
+        <rect x="36" y="144" width="268" height="26" rx="6" class="slotr" opacity=".6"/>
+        <text x="48" y="161" class="str" opacity=".75">Fails eligibility on later check: financing unverified</text>
         <rect x="36" y="176" width="268" height="26" rx="6" class="slot"/>
         <text x="48" y="193" class="st">Project, passed the test</text>
-        <text x="36" y="220" class="st">&#8230; and so on to the full count</text>
+        <text x="36" y="220" class="st">&#8230; and so on to the country's twenty</text>
 
         <!-- buffer -->
         <rect x="460" y="40" width="240" height="150" rx="12" class="grp"/>
@@ -120,20 +130,37 @@
       </svg>
     </div>
 
+    <div class="decide">
+      <div class="d swap"><b>Fails eligibility</b>Swap it, from the buffer, with the record filled in.</div>
+      <div class="d"><b>Scores poorly</b>Keep it. The score is the finding.</div>
+      <div class="d"><b>Data is hard to find</b>Keep it. Discoverability is what the assessment measures, and a profile of zeros is a result, not a defect.</div>
+    </div>
+
     <h2 class="sec">The rules</h2>
     <p class="sub">Six rules keep the buffer a safeguard instead of a back door.</p>
     <div class="rules">
       <ol>
         <li><b>Build it with the list, not after.</b> Buffer projects pass the same <a href="eligibility.html">eligibility test</a>, to the same standard, on the same evidence discipline as the core list. A weak buffer is no buffer.</li>
-        <li><b>Swap only on eligibility, never on results.</b> A project leaves because its financing could not be verified, its status was wrong, or it has no records to collect. It never leaves because it scores badly or its data is hard to find; hard-to-find data is what the assessment measures.</li>
-        <li><b>Keep it short.</b> A handful of genuine substitutes. A long buffer is a second selection waiting to happen.</li>
-        <li><b>Match like for like where possible.</b> Prefer a substitute from the same financier country or sector, and record the difference when none exists.</li>
-        <li><b>Document every swap.</b> Which project left, why, which buffer project replaced it, and when. The swap record travels with the methodology.</li>
-        <li><b>When the buffer runs out, say so.</b> Do not stretch the criteria to keep the count. Record the gap and raise it for a decision. <span class="chip">handling being confirmed</span></li>
+        <li><b>Swap only on eligibility, never on results.</b> A project leaves because its financing could not be verified, its status was wrong, or there is no project activity to monitor. It never leaves because it scores badly or its data is hard to find; a project with real activity but no public record is not a failed project, it is the finding.</li>
+        <li><b>Keep it short.</b> A handful of genuine substitutes; in practice, country lists of twenty projects have carried three or four. A long buffer is a second selection waiting to happen.</li>
+        <li><b>Match like for like where possible.</b> Prefer a substitute from the same financing country first, because the programme's comparison runs on financier origin, then the same sector. Never delay a swap or reopen the wider pool hunting for a perfect match; record the difference and move on.</li>
+        <li><b>Document every swap.</b> Which project left, why, which buffer project replaced it, and when; the template below is the minimum. The swap record travels with the methodology. A removed project may re-enter only through a new documented decision, when new evidence resolves the original failure; if a substitute itself later fails, the next buffer project follows the same process.</li>
+        <li><b>When the buffer runs out, say so.</b> Do not stretch the criteria to keep the count. Record the gap and raise it to CIPE, which holds the decision between a clearly flagged sub-class and a shorter list. <span class="chip">that choice is open with CIPE</span></li>
       </ol>
     </div>
 
-  </div>
+    <h2 class="sec">The swap record</h2>
+    <p class="sub">The minimum fields, shown filled in for an imagined swap. If a swap cannot fill this table, it is not ready to happen.</p>
+    <table class="rectab">
+      <tr><th>Field</th><th>Example entry</th></tr>
+      <tr><td class="fld">Project leaving</td><td>Core project 14, an imagined port expansion</td></tr>
+      <tr><td class="fld">Eligibility failure, with evidence</td><td>The cited loan could not be verified against any source; the claimed financier role was construction-only</td></tr>
+      <tr><td class="fld">Substitute entering</td><td>Buffer project 2, same financing country, passed the eligibility test when the list was built</td></tr>
+      <tr><td class="fld">Date and recorded by</td><td>The swap date, and the partner researcher who recorded it</td></tr>
+      <tr><td class="fld">Evidence link</td><td>The source that established the failure</td></tr>
+    </table>
+
+  </main>
 
   <footer>
     <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="foreign-financing.html">foreign financing</a> &middot; <a href="financing-forms.html">financing forms</a> &middot; <a href="power-purchase-agreement.html">power purchase agreements</a>.

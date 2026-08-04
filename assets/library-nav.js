@@ -22,7 +22,10 @@
     { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is public money" },
     { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection" },
     { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag" },
-    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve" }
+    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve" },
+    { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "how far can an ordinary person travel toward one fact?" },
+    { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on" },
+    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label" }
   ];
 
   pages.sort(function (a, b) { return a.term.localeCompare(b.term); });

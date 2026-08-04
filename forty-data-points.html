@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The 40 data points: the questions follow the project's life, so the gaps show where the record stops</title>
+  <meta name="description" content="The forty facts every Infrastructure Watch project is scored on: the CoST Infrastructure Data Standard disclosure data points, grouped by project lifecycle phase from identification to completion, published in open-data form as OC4IDS.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:28ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    .lifebar{display:grid;grid-template-columns:7fr 7fr 14fr 6fr 6fr;gap:4px;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem;}
+    .phase-seg{border-radius:8px;background:var(--surface);border:1px solid var(--light);padding:.6rem .5rem;text-align:center;}
+    .phase-seg .pn{font-family:var(--mono);font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);display:block;line-height:1.3;}
+    .phase-seg .pc{font-size:1.3rem;font-weight:800;color:var(--brand);display:block;margin-top:.15rem;}
+    .phase-seg.thin{border-color:rgba(199,127,0,.5);}
+    .lifenote{max-width:1040px;font-size:.85rem;color:var(--mid);margin:.6rem 0 0;}
+    .lifenote b{color:var(--amber);}
+    @media (max-width:700px){ .lifebar{grid-template-columns:1fr 1fr;} .lifebar .phase-seg:last-child{grid-column:span 2;} }
+
+    .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+    .pcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;border-top:5px solid var(--brand);}
+    .pcol.thin{border-top-color:var(--amber);}
+    .pcol .ptag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .pcol h3{font-size:1.08rem;margin:.15rem 0 .6rem;letter-spacing:-.01em;}
+    .pcol ol{margin:0;padding-left:0;list-style:none;column-gap:1.5rem;}
+    .pcol li{font-size:.87rem;margin:0 0 .34rem;display:grid;grid-template-columns:26px 1fr;gap:.4rem;}
+    .pcol li .n{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--brand-soft);text-align:right;padding-top:.1rem;}
+    .pcol .why{font-size:.8rem;color:var(--mid);margin:.6rem 0 0;padding-top:.6rem;border-top:1px solid var(--light);}
+    @media (max-width:760px){ .pgrid{grid-template-columns:1fr;} }
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ul{margin:0;padding-left:1.1rem;}
+    .rules li{margin:0 0 .55rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules li b{color:var(--brand-deep);}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a:hover{color:var(--brand-deep);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">The 40 data points &middot; what gets scored</p>
+      <h1>The questions follow the project's life, so the gaps show where the record stops</h1>
+      <p>Every project is scored on the same forty facts, drawn from the CoST Infrastructure Data Standard and published in open-data form as OC4IDS. They are ordered along the project's life, from the first identification papers to the final audit, which is what makes a missing answer informative: it tells you at which stage the public record went dark.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <h2 class="sec">Forty facts across five phases</h2>
+    <p class="sub">The width of each block is its share of the forty. Tender management carries the most questions because contracting is where the most money changes hands on the most decisions.</p>
+
+    <div class="lifebar">
+      <div class="phase-seg"><span class="pn">Identification</span><span class="pc">7</span></div>
+      <div class="phase-seg"><span class="pn">Preparation</span><span class="pc">7</span></div>
+      <div class="phase-seg"><span class="pn">Tender management</span><span class="pc">14</span></div>
+      <div class="phase-seg thin"><span class="pn">Implementation</span><span class="pc">6</span></div>
+      <div class="phase-seg thin"><span class="pn">Completion</span><span class="pc">6</span></div>
+    </div>
+    <p class="lifenote"><b>Where to expect the thinning:</b> in most public records the trail is strongest up to contract award and weakest afterwards. The implementation and completion points exist precisely because that is where changes to price, scope and time happen, and where disclosure most often stops.</p>
+
+    <h2 class="sec">The points, phase by phase</h2>
+    <p class="sub">Names as they appear in the assessment score sheet. Each is scored separately on the <a href="zero-to-six-scale.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">0 to 6 scale</a>.</p>
+
+    <div class="pgrid">
+      <div class="pcol">
+        <span class="ptag">Phase 1 &middot; Project identification</span>
+        <h3>What is this project, and whose is it?</h3>
+        <ol>
+          <li><span class="n">1</span><span>Project reference number</span></li>
+          <li><span class="n">2</span><span>Project owner</span></li>
+          <li><span class="n">3</span><span>Sector, subsector</span></li>
+          <li><span class="n">4</span><span>Project name</span></li>
+          <li><span class="n">5</span><span>Project location</span></li>
+          <li><span class="n">6</span><span>Purpose</span></li>
+          <li><span class="n">7</span><span>Project description</span></li>
+        </ol>
+        <p class="why">If these are missing, the project cannot even be identified in the public record, and nothing downstream can be checked against anything.</p>
+      </div>
+
+      <div class="pcol">
+        <span class="ptag">Phase 2 &middot; Project preparation</span>
+        <h3>What will it take, and who pays?</h3>
+        <ol>
+          <li><span class="n">8</span><span>Project scope (main output)</span></li>
+          <li><span class="n">9</span><span>Environmental and social impact</span></li>
+          <li><span class="n">10</span><span>Land and settlement impact</span></li>
+          <li><span class="n">11</span><span>Contact details</span></li>
+          <li><span class="n">12</span><span>Funding sources</span></li>
+          <li><span class="n">13</span><span>Project budget</span></li>
+          <li><span class="n">14</span><span>Project budget approval date</span></li>
+        </ol>
+        <p class="why">Funding sources is where this library's <a href="foreign-financing.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">foreign financing</a> and <a href="financing-forms.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">financing form</a> records attach.</p>
+      </div>
+
+      <div class="pcol">
+        <span class="ptag">Phase 3 &middot; Tender management</span>
+        <h3>Who got the contract, how, and for how much?</h3>
+        <ol>
+          <li><span class="n">15</span><span>Procuring entity</span></li>
+          <li><span class="n">16</span><span>Procuring entity contact details</span></li>
+          <li><span class="n">17</span><span>Procurement process</span></li>
+          <li><span class="n">18</span><span>Number of firms tendering</span></li>
+          <li><span class="n">19</span><span>Cost estimate</span></li>
+          <li><span class="n">20</span><span>Contract type</span></li>
+          <li><span class="n">21</span><span>Contract administration entity</span></li>
+          <li><span class="n">22</span><span>Contract title</span></li>
+          <li><span class="n">23</span><span>Contract firm(s)</span></li>
+          <li><span class="n">24</span><span>Contract price</span></li>
+          <li><span class="n">25</span><span>Contract scope of work</span></li>
+          <li><span class="n">26</span><span>Contract start date</span></li>
+          <li><span class="n">27</span><span>Contract duration</span></li>
+          <li><span class="n">28</span><span>Contract status (current)</span></li>
+        </ol>
+        <p class="why">Fourteen of the forty points sit here. A direct award does not empty this phase: the method, the chosen firm, the legal basis and the price stay applicable and scoreable.</p>
+      </div>
+
+      <div class="pcol thin">
+        <span class="ptag">Phase 4 &middot; Implementation</span>
+        <h3>What changed while building, and why?</h3>
+        <ol>
+          <li><span class="n">29</span><span>Variation to contract price</span></li>
+          <li><span class="n">30</span><span>Escalation of contract price</span></li>
+          <li><span class="n">31</span><span>Variation to contract duration</span></li>
+          <li><span class="n">32</span><span>Variation to contract scope</span></li>
+          <li><span class="n">33</span><span>Reasons for price changes</span></li>
+          <li><span class="n">34</span><span>Reasons for scope &amp; duration changes</span></li>
+        </ol>
+        <p class="why">Changes are normal in construction. Undisclosed changes are the finding: every point in this phase asks what moved and whether the public was told why.</p>
+      </div>
+
+      <div class="pcol thin">
+        <span class="ptag">Phase 5 &middot; Completion</span>
+        <h3>What did it finally cost, and who checked?</h3>
+        <ol>
+          <li><span class="n">35</span><span>Project status (current)</span></li>
+          <li><span class="n">36</span><span>Completion cost</span></li>
+          <li><span class="n">37</span><span>Completion date</span></li>
+          <li><span class="n">38</span><span>Scope at completion</span></li>
+          <li><span class="n">39</span><span>Reasons for project changes</span></li>
+          <li><span class="n">40</span><span>Reference to audit and evaluation reports</span></li>
+        </ol>
+        <p class="why">The comparison the whole record builds toward: what was promised at award against what was delivered at completion, and whether anyone audited the difference.</p>
+      </div>
+    </div>
+
+    <h2 class="sec">How the forty are used</h2>
+    <div class="rules">
+      <ul>
+        <li><b>Each point is scored separately</b> on the <a href="zero-to-six-scale.html">0 to 6 scale</a>, so a project produces a disclosure profile, not a single grade.</li>
+        <li><b>Only applicable points count.</b> A point that is not yet due at the project's stage, or does not apply to its procurement form, leaves the calculation rather than scoring zero.</li>
+        <li><b>PPP projects answer more.</b> A project that passes the <a href="public-private-partnership.html">PPP definition</a> is additionally assessed on the PPP questions, covering the obligations the forty do not reach: guarantees, risk allocation, tariffs, renegotiations.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The forty data points are the CoST Infrastructure Data Standard disclosure items, named here as they appear in the Infra Watch Transparency Assessment score sheet, and published in open-data form as OC4IDS, the Open Contracting for Infrastructure Data Standard. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="zero-to-six-scale.html">the 0 to 6 scale</a> &middot; <a href="eligibility.html">project eligibility</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

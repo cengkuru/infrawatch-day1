@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The 0 to 6 scale: the score measures the public record, never the project</title>
+  <meta name="description" content="The Infrastructure Watch transparency scale: seven values numbered 0 to 6, scoring how far an ordinary person can travel toward one fact about a project, from nothing found to the official document itself. Sequential ladder, publisher-control rule, and why zero is a verdict rather than a default.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    .ladder{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;}
+    .rung{display:grid;grid-template-columns:64px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
+    .rung:last-child{border-bottom:0;}
+    .rung .num{font-family:var(--mono);font-size:1.5rem;font-weight:800;color:var(--brand);text-align:center;align-self:start;line-height:1.2;}
+    .rung .gloss{font-weight:700;font-size:.98rem;color:var(--brand-deep);}
+    .rung .official{display:block;font-size:.84rem;color:var(--mid);margin-top:.2rem;line-height:1.45;}
+    .rung.binary{border-top:2px dashed var(--amber);}
+    .rung.binary .binlabel{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);margin-bottom:.25rem;}
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ol{margin:0;padding-left:1.2rem;}
+    .rules li{margin:0 0 .6rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules li b{color:var(--brand-deep);}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a:hover{color:var(--brand-deep);}
+
+    .never{background:#fff;border:1px solid rgba(190,30,45,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never b{color:var(--red);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">The 0 to 6 scale &middot; how every fact is scored</p>
+      <h1>The score measures the public record, never the project</h1>
+      <p>For each fact about a project, the scale asks one question: how far can an ordinary person travel toward it? Seven values, numbered 0 to 6, from nothing found to the official document itself. A high score means the government made the fact easy to reach. It says nothing about whether the project is good.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <h2 class="sec">The ladder</h2>
+    <p class="sub">Each rung, in the wording of the assessment score sheet, with the plain reading underneath. The ladder is sequential: a fact climbs until it fails, and stays at the last rung it passed.</p>
+
+    <div class="ladder">
+      <div class="rung">
+        <div class="num">0</div>
+        <div><span class="gloss">Nothing found</span><span class="official">Sheet wording: "No information available." Scored only after a reasonable, completed search, not after a quick look.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">1</div>
+        <div><span class="gloss">Online, somewhere</span><span class="official">Sheet wording: "The information is available online, in an open format, and without the need for request."</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">2</div>
+        <div><span class="gloss">Readable, from anyone</span><span class="official">Sheet wording: "The information is available in publicly available websites and uses English or host-country language." Any publisher counts here: a newspaper, a researcher, a contractor, a funder.</span></div>
+      </div>
+      <div class="rung binary">
+        <div class="num">3</div>
+        <div><span class="binlabel">The binary line: official disclosure starts here</span><span class="gloss">The government itself published it</span><span class="official">Sheet wording: "The information is available on the website/s of the host government or project owner." Any government-controlled channel counts: a ministry site, a procurement or budget portal, a debt database, an audit institution.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">4</div>
+        <div><span class="gloss">And it is clear</span><span class="official">Sheet wording adds: "in a fairly easy to understand format." A citizen gets the answer without mining hundreds of pages or assembling fragments.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">5</div>
+        <div><span class="gloss">And it is consolidated</span><span class="official">Sheet wording adds: the same official source "contains at least 10 other data points", rewarding governments that gather disclosure in one place instead of scattering it.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">6</div>
+        <div><span class="gloss">And the document itself is there</span><span class="official">Sheet wording adds: "an official full document related to the data point is provided": the signed contract, the feasibility study, the audit, the evaluation report.</span></div>
+      </div>
+    </div>
+
+    <div class="never"><b>The common trap:</b> a funder's project page, however accurate and complete, is not government disclosure. It caps the score at 2, because the question is what the host government has made public, not what can be learned about the project somewhere.</div>
+
+    <h2 class="sec">The working rules</h2>
+    <div class="rules">
+      <ol>
+        <li><b>Sequential, no skipping.</b> A fact stops at the first rung it fails; a 6 requires everything beneath it to hold.</li>
+        <li><b>Publisher control decides "official".</b> Classify a source by who controls the publication, not by which website hosts it. National portals and government databases are official disclosure and can earn 3 to 6; a third-party page never becomes official merely by being correct.</li>
+        <li><b>Zero is a verdict, not a default.</b> Score 0 only when the fact is applicable, already due at the project's stage, and a reasonable search found nothing. A fact that is not yet due, or does not apply to this kind of project, leaves the calculation entirely instead of scoring 0. And an officially published "none", such as "no households were displaced", is a disclosed answer that scores like any other.</li>
+        <li><b>Doubts become flags, never score changes.</b> Conflicting figures, undated pages, unstable links: these are recorded as flags beside the score, so the scale stays clean and the doubts stay visible.</li>
+        <li><b>At rung 3 the scale crosses its binary line.</b> Below 3, the government has not disclosed the fact; at 3 and above, it has. The score sheet itself carries this as the binary equivalent of every score.</li>
+      </ol>
+    </div>
+
+    <h2 class="sec">What gets scored</h2>
+    <p class="sub">The scale is applied to each of the <a href="forty-data-points.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">40 data points</a> separately, so one project produces a profile of scores, not a single grade. Projects that pass the <a href="public-private-partnership.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">PPP definition</a> are additionally assessed on the PPP questions.</p>
+
+  </div>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The scale is the CIPE and Verit&eacute; assessment instrument; rung wording quoted from the Infra Watch Transparency Assessment score sheet. This explanation is proposed for CIPE validation, and CIPE holds final scoring authority. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="eligibility.html">project eligibility</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

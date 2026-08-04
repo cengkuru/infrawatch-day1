@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financing forms: how a project is paid for predicts what will be hidden</title>
+  <meta name="description" content="A one-page guide to the six financing forms behind foreign-financed infrastructure: sovereign loans, concessional loans, equity and joint ventures, PPP concessions, bundled build-and-finance deals, and direct public capital. Each form leaves a different paper trail and tends to hide a different thing.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+    .fcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;border-top:5px solid var(--brand);display:flex;flex-direction:column;}
+    .fcol.pub{border-top-color:var(--green);}
+    .fcol .ftag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .fcol h3{font-size:1.08rem;margin:.15rem 0 .7rem;letter-spacing:-.01em;line-height:1.3;}
+    .frow{margin:0 0 .65rem;}
+    .frow .l{display:block;font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);margin-bottom:.15rem;}
+    .frow .l.ask{color:var(--green);}
+    .frow .v{font-size:.88rem;color:var(--dark);line-height:1.45;}
+    .frow.thin{margin-top:auto;padding-top:.65rem;border-top:1px solid var(--light);}
+    .frow.thin .l{color:var(--red);}
+    .frow.thin .v{color:var(--mid);font-size:.84rem;}
+    @media (max-width:860px){ .fgrid{grid-template-columns:1fr 1fr;} }
+    @media (max-width:640px){ .fgrid{grid-template-columns:1fr;} }
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ol{margin:0;padding-left:1.2rem;}
+    .rules li{margin:0 0 .5rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a:hover{color:var(--brand-deep);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">CIPE &middot; CoST &middot; partner guidance</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Financing forms &middot; a one-page guide</p>
+      <h1>How a project is paid for predicts what will be hidden</h1>
+      <p>The financing form is the first fact to record about any project. It tells you what the public owes back, which records should exist, and where the paper trail will probably go dark. Six forms cover nearly every foreign-financed project.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <h2 class="sec">The mechanism, on one bridge</h2>
+    <p class="sub">The same bridge, paid for three different ways. The asset is identical; the money route changes what the public owes back and which record proves the deal. The red mark is where each trail usually goes dark.</p>
+
+    <div class="flowcard">
+      <svg viewBox="0 0 720 380" width="720" height="380" role="img" aria-labelledby="ffTitle ffDesc">
+        <title id="ffTitle">One bridge, three financing forms</title>
+        <desc id="ffDesc">Three horizontal lanes show the same bridge financed three ways. A sovereign loan: a foreign bank lends to the state, the public owes repayment for decades, and the loan conditions are where the trail goes dark. An equity stake: a foreign investor owns a share of the project company, the public owes a share of control and revenue, and the true owners are where the trail goes dark. A concession: a private partner builds and operates under a long-term contract, the public owes payments or guaranteed demand for decades, and the contract terms are where the trail goes dark.</desc>
+        <defs>
+          <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
+          </marker>
+        </defs>
+        <style>
+          .lane{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .ln{font:700 12.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#28496A;}
+          .lnote{font:400 11px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .step{font:700 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+          .stepsub{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .cap{font:700 10px "SFMono-Regular",Consolas,monospace;letter-spacing:.05em;fill:#5A6B7B;}
+          .dark{font:700 11px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#BE1E2D;}
+          .cn{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+        </style>
+
+        <!-- column captions -->
+        <text x="30" y="28" class="cap">THE MONEY COMES FROM</text>
+        <text x="300" y="28" class="cap">THE PUBLIC OWES BACK</text>
+        <text x="545" y="28" class="cap">TRAIL GOES DARK AT</text>
+
+        <!-- Lane 1: sovereign loan -->
+        <rect x="20" y="42" width="680" height="96" rx="12" class="lane"/>
+        <text x="34" y="66" class="ln">Sovereign loan</text>
+        <text x="34" y="82" class="lnote">a foreign bank lends to the state,</text>
+        <text x="34" y="96" class="lnote">which guarantees repayment</text>
+        <path class="cn" d="M215 88 L285 88" marker-end="url(#fa)"/>
+        <text x="300" y="80" class="step">Repayment for decades,</text>
+        <text x="300" y="96" class="stepsub">from public revenue, whatever the</text>
+        <text x="300" y="110" class="stepsub">bridge earns</text>
+        <path class="cn" d="M470 88 L530 88" marker-end="url(#fa)"/>
+        <text x="545" y="80" class="dark">The loan conditions</text>
+        <text x="545" y="96" class="stepsub">rate, security, what happens</text>
+        <text x="545" y="110" class="stepsub">on default</text>
+
+        <!-- Lane 2: equity -->
+        <rect x="20" y="152" width="680" height="96" rx="12" class="lane"/>
+        <text x="34" y="176" class="ln">Equity stake</text>
+        <text x="34" y="192" class="lnote">a foreign investor owns a share</text>
+        <text x="34" y="206" class="lnote">of the project company</text>
+        <path class="cn" d="M215 198 L285 198" marker-end="url(#fa)"/>
+        <text x="300" y="190" class="step">A share of control and</text>
+        <text x="300" y="206" class="step">revenue, for as long as</text>
+        <text x="300" y="222" class="step">the stake is held</text>
+        <path class="cn" d="M470 198 L530 198" marker-end="url(#fa)"/>
+        <text x="545" y="190" class="dark">Who really owns it</text>
+        <text x="545" y="206" class="stepsub">the people behind the</text>
+        <text x="545" y="220" class="stepsub">holding companies</text>
+
+        <!-- Lane 3: concession -->
+        <rect x="20" y="262" width="680" height="96" rx="12" class="lane"/>
+        <text x="34" y="286" class="ln">Concession (PPP)</text>
+        <text x="34" y="302" class="lnote">a private partner builds and</text>
+        <text x="34" y="316" class="lnote">operates for decades</text>
+        <path class="cn" d="M215 308 L285 308" marker-end="url(#fa)"/>
+        <text x="300" y="300" class="step">Payments or guaranteed</text>
+        <text x="300" y="316" class="step">demand, written into a</text>
+        <text x="300" y="332" class="step">long contract</text>
+        <path class="cn" d="M470 308 L530 308" marker-end="url(#fa)"/>
+        <text x="545" y="300" class="dark">The contract terms</text>
+        <text x="545" y="316" class="stepsub">tariffs, guarantees, what the</text>
+        <text x="545" y="330" class="stepsub">public pays if demand falls</text>
+      </svg>
+    </div>
+
+    <h2 class="sec">The six forms</h2>
+    <p class="sub">Every form answers the same three questions: where does the money come from, what does the public owe back, and which record proves the deal. Joint ventures sit inside the equity form; power-purchase arrangements sit inside the concession form.</p>
+
+    <div class="fgrid">
+      <div class="fcol">
+        <span class="ftag">Form 1</span>
+        <h3>Sovereign loan</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">A foreign bank, often state-owned, lends to the government or to a company the government guarantees.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">Repayment for decades, from public revenue, whatever the project earns.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The loan agreement: rate, term, security, conditions.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">The conditions. The headline amount is announced; the terms behind it often are not.</span></div>
+      </div>
+
+      <div class="fcol">
+        <span class="ftag">Form 2</span>
+        <h3>Concessional loan</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">A development loan at a low headline rate, from a government agency or development bank, with conditions attached.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">Repayment, plus whatever the conditions commit the country to.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The conditions and any tied-procurement clauses.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">What was promised in return. Cheap money is rarely only money.</span></div>
+      </div>
+
+      <div class="fcol">
+        <span class="ftag">Form 3</span>
+        <h3>Equity stake, including joint ventures</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">A foreign investor owns a share of the project company, alone or in a joint venture with a local or public partner.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">A share of control and revenue for as long as the stake is held, sometimes with a promise to buy the output for years.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The ownership split and the people behind the holding companies.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">Who really gains. Ownership often runs through companies that disclose nothing.</span></div>
+      </div>
+
+      <div class="fcol">
+        <span class="ftag">Form 4</span>
+        <h3>Concession (PPP), including power-purchase deals</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">A private partner finances, builds or operates the asset under a long-term contract and carries real risk. The usual name is a public-private partnership.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">Payments, guaranteed demand, or guaranteed prices, written into a contract that outlives governments.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The contract: tariffs, guarantees, renegotiation history.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">The fiscal commitments. Risk moved off the budget has a way of coming back.</span></div>
+      </div>
+
+      <div class="fcol">
+        <span class="ftag">Form 5</span>
+        <h3>Build-and-finance package</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">The foreign builder also brings the loan: construction and financing bundled into one deal, often called EPC plus finance.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">Repayment of a price no one else ever quoted.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The price breakdown and any competing bid or benchmark.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">The mark-up. Bundling buries the price comparison that tendering would have forced.</span></div>
+      </div>
+
+      <div class="fcol pub">
+        <span class="ftag">Form 6</span>
+        <h3>Direct public capital</h3>
+        <div class="frow"><span class="l">What it is</span><span class="v">A government funds and owns the asset itself, sometimes two governments each building their own side of a shared project.</span></div>
+        <div class="frow"><span class="l">The public owes</span><span class="v">Nothing to a financier. The cost sits in the budget, where it can be seen.</span></div>
+        <div class="frow"><span class="l ask">Record to ask for first</span><span class="v">The budget line and the procurement record.</span></div>
+        <div class="frow thin"><span class="l">Trail usually thins at</span><span class="v">Implementation. With no financier to watch, delivery reporting is often the weakest record.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec">Why the form matters here</h2>
+    <p class="sub">Four working rules connect the financing form to the assessment.</p>
+    <div class="rules">
+      <ol>
+        <li>The form never decides whether a project is eligible. That is settled by the <a href="eligibility.html">three-question eligibility test</a>; a genuine loan, stake, guarantee or public appropriation all qualify.</li>
+        <li>The form decides which questions apply. A concession is scored against the standard and the PPP questions; a publicly owned project against the standard questions alone.</li>
+        <li>The form tells you which record to demand first. When disclosure is missing, ask for the record the form was always most likely to hide, not the document that is easiest to name.</li>
+        <li>When comparing two projects, compare like with like, or make the difference the question. A loan-financed project and an equity-financed one are not directly comparable; a good comparison asks how transparency behaves under each form.</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by CoST as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion page: <a href="eligibility.html">project eligibility</a>.
+  </footer>
+</body>
+</html>

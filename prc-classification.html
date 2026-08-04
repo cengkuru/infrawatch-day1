@@ -74,7 +74,7 @@
     </div>
   </section>
 
-  <div class="wrap">
+  <main class="wrap">
 
     <h2 class="sec">The test</h2>
     <p class="sub">Start from the financing that qualified the project for the dataset, and trace it to its ultimate origin. The red case is the common error: attributing a project by who built it rather than by who financed it.</p>
@@ -157,7 +157,7 @@
     <div class="never">
       <span class="ntag">What never decides the label</span>
       <ul>
-        <li><b>The builder.</b> A construction contract is not financing; the contractor's nationality never enters the test. This is the most common misclassification.</li>
+        <li><b>The builder.</b> A construction contract is not financing; the contractor's nationality never enters the test as builder. This is the most common misclassification. The one exception proves the rule: in a <a href="financing-forms.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">build-and-finance package</a> the builder also brings the loan, and then it enters the test as the financier, classified by the financing's documented source.</li>
         <li><b>Suppliers, equipment, consultants and workers.</b> Services sold to a project carry no financing origin.</li>
         <li><b>The currency of the loan or payment.</b> Money is classified by its source, not its denomination.</li>
         <li><b>Where the holding company is registered.</b> Registration is a mailbox; origin is traced through it.</li>
@@ -169,23 +169,23 @@
     <div class="rules">
       <ol>
         <li><b>Find the qualifying financing.</b> Identify the loan or equity stake that brought the project into the dataset under the <a href="eligibility.html">eligibility test</a>. Ignore the construction contract, the suppliers and the currency; none of them enter the test.</li>
-        <li><b>Trace it to its ultimate origin.</b> Follow the money through any holding vehicle to the country of the ultimate owner, as the <a href="foreign-financing.html">shared definition</a> requires. Registration is a mailbox, not an origin.</li>
-        <li><b>Assign the country label.</b> If the origin is the People's Republic of China, it is a PRC project; any other origin labels the project by that country. Mixed financing: record every financier, classify by the largest documented share, and flag the project as mixed. <span class="chip">practice being confirmed</span></li>
+        <li><b>Trace it to its ultimate origin.</b> Follow the money through any holding vehicle to the ultimate controlling source identifiable from authoritative ownership or financing records, as the <a href="foreign-financing.html">shared definition</a> requires; do not infer the nationality of every investor behind a widely held fund. Registration is a mailbox, not an origin. Where control cannot be established, record the origin as unverified and flag the project; an unattributed project never defaults silently to non-PRC, because that would corrupt the comparison the label exists for.</li>
+        <li><b>Assign the country label.</b> If the origin is the People's Republic of China, it is a PRC project; any other origin labels the project by that country.</li>
       </ol>
     </div>
-    <p class="sub" style="margin-top:.8rem;">To run this against a real project interactively, use the <a href="workbench.html" style="color:var(--brand);font-weight:600;">workbench</a>: pick the financing and the records, and it walks the test with you.</p>
+    <p class="sub" style="margin-top:.8rem;">The <a href="workbench.html" style="color:var(--brand);font-weight:600;">workbench</a>, built in an earlier phase, practises the neighbouring step: given the financing, which records to demand. It does not perform this classification; origin is traced here first.</p>
 
     <h2 class="sec">The working rules</h2>
     <div class="rules">
       <ol>
-        <li><b>Classify by the qualifying financing.</b> The financing that brought the project into the dataset under the <a href="eligibility.html">eligibility test</a> is the financing that sets the label.</li>
-        <li><b>Mixed financing: record everything, flag the project.</b> Where qualifying financing comes from more than one country, record every financier, classify by the largest documented share, and flag the project as mixed. <span class="chip">practice being confirmed</span></li>
+        <li><b>Classify by the qualifying financing.</b> The financing that brought the project into the dataset under the <a href="eligibility.html">eligibility test</a> sets the label, and a stake sets it only when it is qualifying under the <a href="foreign-financing.html">shared definition's</a> materiality reading.</li>
+        <li><b>Mixed financing: record everything, flag the project.</b> Where qualifying financing comes from more than one country, record every financier, classify by the largest documented share, and flag the project as mixed. <span class="chip">practice being confirmed with CIPE</span> Until it is confirmed: where the shares are undocumented or effectively equal, hold the project as mixed, assigned to no single country, and flagged.</li><li><b>Multilateral financing is its own label.</b> A loan from the World Bank, the African Development Bank, the Asian Development Bank or their peers has no single country of origin; it is labelled multilateral, never attributed to a shareholder country. Documented participation shares inside a multilateral package are recorded, never used to relabel the loan.</li><li><b>Every classification carries its record.</b> The instrument, the financier, its origin and state linkage, the documented share, the evidence link and the final label travel together; which disclosure questions state linkage changes is set out in the methodology guide.</li>
         <li><b>Concentration is a finding, not a flaw.</b> A list dominated by one financier country reflects the financing landscape of that country and is itself part of the evidence.</li>
         <li><b>The label carries no verdict.</b> A PRC project is not presumed less transparent, and a non-PRC project is not presumed more. The assessment scores published records, project by project; the classification only makes the comparison possible.</li>
       </ol>
     </div>
 
-  </div>
+  </main>
 
   <footer>
     <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="foreign-financing.html">foreign financing</a> &middot; <a href="financing-forms.html">financing forms</a>.

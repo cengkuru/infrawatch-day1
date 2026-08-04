@@ -16,17 +16,22 @@
    No-JS fallback: the footer companion links on each page. */
 (function () {
   var pages = [
-    { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?" },
-    { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere" },
-    { href: "financing-forms.html", term: "Financing forms", note: "six ways projects are paid for" },
-    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is a public commitment" },
-    { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection" },
-    { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag" },
-    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve" },
-    { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "how far can an ordinary person travel toward one fact?" },
-    { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on" },
-    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label" }
+    { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?", added: "2026-08-04" },
+    { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere", added: "2026-08-04" },
+    { href: "financing-forms.html", term: "Financing forms", note: "six ways projects are paid for", added: "2026-08-04" },
+    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is a public commitment", added: "2026-08-04" },
+    { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection", added: "2026-08-04" },
+    { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag", added: "2026-08-04" },
+    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve", added: "2026-08-04" },
+    { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "how far can an ordinary person travel toward one fact?", added: "2026-08-05" },
+    { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05" },
+    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label", added: "2026-08-05" }
   ];
+
+  pages.forEach(function (p, i) { p.origIdx = i; });
+  var recent = pages.slice().sort(function (a, b) {
+    return b.added === a.added ? b.origIdx - a.origIdx : (b.added < a.added ? -1 : 1);
+  }).slice(0, 3);
 
   pages.sort(function (a, b) { return a.term.localeCompare(b.term); });
 
@@ -73,6 +78,8 @@
     ".lib-nav a:hover{border-left-color:var(--brand-soft,#3d6491);color:var(--brand-deep,#142334);}" +
     ".lib-nav a[aria-current=page]{border-left-color:var(--brand,#28496A);color:var(--brand-deep,#142334);}" +
     ".lib-nav a .lib-note{display:block;font-size:.74rem;font-weight:400;color:var(--mid,#5A6B7B);margin-top:.05rem;}" +
+    ".lib-nav .lib-sect{font-family:var(--mono,monospace);font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid,#5A6B7B);margin:.55rem 0 .3rem;}" +
+    ".lib-nav .lib-newtag{font-family:var(--mono,monospace);font-size:.54rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber,#C77F00);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.05rem .4rem;margin-left:.35rem;vertical-align:middle;}" +
     ".lib-nav .lib-empty{display:none;font-size:.82rem;color:var(--mid,#5A6B7B);padding:.2rem 0;}" +
     ".lib-nav.no-match .lib-empty{display:block;}" +
     /* wide: fixed rail, always open, one line per term (note = tooltip) */
@@ -143,8 +150,7 @@
   find.setAttribute("aria-label", "Find a term in the definition bank");
   panel.appendChild(find);
 
-  var rows = [];
-  pages.forEach(function (p) {
+  function makeLink(p, tagNew) {
     var a = document.createElement("a");
     a.href = p.href;
     a.title = p.note;
@@ -152,10 +158,35 @@
     var term = document.createElement("span");
     term.textContent = p.term;
     a.appendChild(term);
+    if (tagNew) {
+      var t = document.createElement("span");
+      t.className = "lib-newtag";
+      t.textContent = "new";
+      a.appendChild(t);
+    }
     var note = document.createElement("span");
     note.className = "lib-note";
     note.textContent = p.note;
     a.appendChild(note);
+    return a;
+  }
+
+  var recentWrap = document.createElement("div");
+  var rsect = document.createElement("div");
+  rsect.className = "lib-sect";
+  rsect.textContent = "Recently added";
+  recentWrap.appendChild(rsect);
+  recent.forEach(function (p) { recentWrap.appendChild(makeLink(p, true)); });
+  panel.appendChild(recentWrap);
+
+  var asect = document.createElement("div");
+  asect.className = "lib-sect";
+  asect.textContent = "All terms, A to Z";
+  panel.appendChild(asect);
+
+  var rows = [];
+  pages.forEach(function (p) {
+    var a = makeLink(p, false);
     panel.appendChild(a);
     rows.push({ el: a, text: (p.term + " " + p.note).toLowerCase() });
   });
@@ -170,6 +201,8 @@
 
   function applyFilter() {
     var q = find.value.trim().toLowerCase();
+    recentWrap.style.display = q ? "none" : "";
+    asect.style.display = q ? "none" : "";
     var any = false;
     rows.forEach(function (r) {
       var show = !q || r.text.indexOf(q) !== -1;

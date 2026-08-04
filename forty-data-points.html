@@ -31,7 +31,8 @@
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
 
     .lifebar{display:grid;grid-template-columns:7fr 7fr 14fr 6fr 6fr;gap:4px;background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem;}
-    .phase-seg{border-radius:8px;background:var(--surface);border:1px solid var(--light);padding:.6rem .5rem;text-align:center;}
+    .phase-seg{border-radius:8px;background:var(--surface);border:1px solid var(--light);padding:.6rem .5rem;text-align:center;display:block;text-decoration:none;}
+    a.phase-seg:hover{border-color:var(--brand-soft);}
     .phase-seg .pn{font-family:var(--mono);font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);display:block;line-height:1.3;}
     .phase-seg .pc{font-size:1.3rem;font-weight:800;color:var(--brand);display:block;margin-top:.15rem;}
     .phase-seg.thin{border-color:rgba(199,127,0,.5);}
@@ -48,6 +49,9 @@
     .pcol li{font-size:.87rem;margin:0 0 .34rem;display:grid;grid-template-columns:26px 1fr;gap:.4rem;}
     .pcol li .n{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--brand-soft);text-align:right;padding-top:.1rem;}
     .pcol .why{font-size:.8rem;color:var(--mid);margin:.6rem 0 0;padding-top:.6rem;border-top:1px solid var(--light);}
+    .pnote{display:block;font-size:.72rem;color:var(--mid);font-weight:400;line-height:1.35;}
+    .profcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem 1.3rem;margin-top:1rem;overflow-x:auto;}
+    .profcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
     @media (max-width:760px){ .pgrid{grid-template-columns:1fr;} }
 
     .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
@@ -70,29 +74,84 @@
     <div class="hero-inner">
       <p class="kicker">The 40 data points &middot; what gets scored</p>
       <h1>The questions follow the project's life, so the gaps show where the record stops</h1>
-      <p>Every project is scored on the same forty facts, drawn from the CoST Infrastructure Data Standard and published in open-data form as OC4IDS. They are ordered along the project's life, from the first identification papers to the final audit, which is what makes a missing answer informative: it tells you at which stage the public record went dark.</p>
+      <p>Every project is scored on the same forty facts, ordered along the project's life from the first identification papers to the final audit. That ordering is what makes a missing answer informative: for each fact that applies to a project, a gap tells you at which stage the public record went dark. The forty come from the CoST Infrastructure Data Standard and are published in open-data form as OC4IDS, the open-data standard for infrastructure projects.</p>
     </div>
   </section>
 
-  <div class="wrap">
+  <main class="wrap">
 
     <h2 class="sec">Forty facts across five phases</h2>
     <p class="sub">The width of each block is its share of the forty. Tender management carries the most questions because contracting is where the most money changes hands on the most decisions.</p>
 
     <div class="lifebar">
-      <div class="phase-seg"><span class="pn">Identification</span><span class="pc">7</span></div>
-      <div class="phase-seg"><span class="pn">Preparation</span><span class="pc">7</span></div>
-      <div class="phase-seg"><span class="pn">Tender management</span><span class="pc">14</span></div>
-      <div class="phase-seg thin"><span class="pn">Implementation</span><span class="pc">6</span></div>
-      <div class="phase-seg thin"><span class="pn">Completion</span><span class="pc">6</span></div>
+      <a class="phase-seg" href="#phase-1"><span class="pn">Identification</span><span class="pc">7</span></a>
+      <a class="phase-seg" href="#phase-2"><span class="pn">Preparation</span><span class="pc">7</span></a>
+      <a class="phase-seg" href="#phase-3"><span class="pn">Tender management</span><span class="pc">14</span></a>
+      <a class="phase-seg thin" href="#phase-4"><span class="pn">Implementation</span><span class="pc">6</span></a>
+      <a class="phase-seg thin" href="#phase-5"><span class="pn">Completion</span><span class="pc">6</span></a>
     </div>
-    <p class="lifenote"><b>Where to expect the thinning:</b> in most public records the trail is strongest up to contract award and weakest afterwards. The implementation and completion points exist precisely because that is where changes to price, scope and time happen, and where disclosure most often stops.</p>
+    <p class="lifenote"><b>Where to expect the thinning:</b> a common pattern in public records is that the trail runs strongest up to contract award and weakest afterwards. The two amber phases mark that territory: their points exist precisely because that is where changes to price, scope and time happen, and where disclosure most often stops. A project still earlier in its life does not score these phases as zero; their points are simply not yet due. The counts describe the disclosure standard, not weights: each point is scored on its own, and the output is a profile. The forty apply to every project; projects that pass the PPP definition answer an additional set.</p>
+
+    <div class="profcard">
+      <svg viewBox="0 0 720 96" width="720" height="96" role="img" aria-labelledby="profT profD">
+        <title id="profT">An illustrative disclosure profile</title>
+        <desc id="profD">Forty small cells represent one imagined project's forty scores. The first twenty-eight cells, through contract award, are filled, showing scores at official-disclosure levels. The twelve cells after award are empty with red outlines, showing zeros. A marker labels the boundary: the record went dark at award. The figure is illustrative, not a real project.</desc>
+        <style>.pfc{fill:#1B7A3D;opacity:.75;} .pf0{fill:none;stroke:#BE1E2D;stroke-width:1.2;} .pft{font:700 10px "SFMono-Regular",Consolas,monospace;letter-spacing:.05em;fill:#5A6B7B;} .pfr{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#BE1E2D;}</style>
+        <text x="20" y="18" class="pft">ONE IMAGINED PROJECT, FORTY SCORES</text>
+        <g>
+          <rect x="20" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="37" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="54" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="71" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="88" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="105" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="122" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="139" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="156" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="173" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="190" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="207" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="224" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="241" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="258" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="275" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="292" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="309" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="326" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="343" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="360" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="377" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="394" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="411" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="428" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="445" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="462" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="479" y="30" width="14" height="26" rx="2" class="pfc"/>
+          <rect x="496" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="513" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="530" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="547" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="564" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="581" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="598" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="615" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="632" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="649" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="666" y="30" width="14" height="26" rx="2" class="pf0"/>
+          <rect x="683" y="30" width="14" height="26" rx="2" class="pf0"/>
+        </g>
+        <line x1="495" y1="26" x2="495" y2="60" stroke="#BE1E2D" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="20" y="76" class="pft">POINTS 1 TO 28, SCORED 3 AND ABOVE</text>
+        <text x="510" y="76" class="pfr">The record went dark at award.</text>
+        <text x="20" y="91" class="pft">ILLUSTRATIVE, NOT A REAL PROJECT</text>
+      </svg>
+    </div>
 
     <h2 class="sec">The points, phase by phase</h2>
-    <p class="sub">Names as they appear in the assessment score sheet. Each is scored separately on the <a href="zero-to-six-scale.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">0 to 6 scale</a>.</p>
+    <p class="sub">The workflow: select the points that apply, score each on the 0 to 6 scale, record flags beside doubtful evidence, then read where the sequence breaks. Names as they appear in the assessment score sheet; plain readings added where two points are easy to confuse. Each is scored separately on the <a href="zero-to-six-scale.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">0 to 6 scale</a>.</p>
 
     <div class="pgrid">
-      <div class="pcol">
+      <div class="pcol" id="phase-1">
         <span class="ptag">Phase 1 &middot; Project identification</span>
         <h3>What is this project, and whose is it?</h3>
         <ol>
@@ -107,14 +166,14 @@
         <p class="why">If these are missing, the project cannot even be identified in the public record, and nothing downstream can be checked against anything.</p>
       </div>
 
-      <div class="pcol">
+      <div class="pcol" id="phase-2">
         <span class="ptag">Phase 2 &middot; Project preparation</span>
         <h3>What will it take, and who pays?</h3>
         <ol>
           <li><span class="n">8</span><span>Project scope (main output)</span></li>
           <li><span class="n">9</span><span>Environmental and social impact</span></li>
           <li><span class="n">10</span><span>Land and settlement impact</span></li>
-          <li><span class="n">11</span><span>Contact details</span></li>
+          <li><span class="n">11</span><span>Contact details<span class="pnote">the postal and email address of the project owner</span></span></li>
           <li><span class="n">12</span><span>Funding sources</span></li>
           <li><span class="n">13</span><span>Project budget</span></li>
           <li><span class="n">14</span><span>Project budget approval date</span></li>
@@ -122,34 +181,34 @@
         <p class="why">Funding sources is where this library's <a href="foreign-financing.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">foreign financing</a> and <a href="financing-forms.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">financing form</a> records attach.</p>
       </div>
 
-      <div class="pcol">
+      <div class="pcol" id="phase-3">
         <span class="ptag">Phase 3 &middot; Tender management</span>
         <h3>Who got the contract, how, and for how much?</h3>
         <ol>
           <li><span class="n">15</span><span>Procuring entity</span></li>
-          <li><span class="n">16</span><span>Procuring entity contact details</span></li>
+          <li><span class="n">16</span><span>Procuring entity contact details<span class="pnote">the same, for the organisation running the tender</span></span></li>
           <li><span class="n">17</span><span>Procurement process</span></li>
           <li><span class="n">18</span><span>Number of firms tendering</span></li>
-          <li><span class="n">19</span><span>Cost estimate</span></li>
+          <li><span class="n">19</span><span>Cost estimate<span class="pnote">the owner's pre-tender estimate, before any bids</span></span></li>
           <li><span class="n">20</span><span>Contract type</span></li>
-          <li><span class="n">21</span><span>Contract administration entity</span></li>
+          <li><span class="n">21</span><span>Contract administration entity<span class="pnote">who administers the contract, where different from the procurer</span></span></li>
           <li><span class="n">22</span><span>Contract title</span></li>
           <li><span class="n">23</span><span>Contract firm(s)</span></li>
-          <li><span class="n">24</span><span>Contract price</span></li>
+          <li><span class="n">24</span><span>Contract price<span class="pnote">the price at contract award</span></span></li>
           <li><span class="n">25</span><span>Contract scope of work</span></li>
           <li><span class="n">26</span><span>Contract start date</span></li>
           <li><span class="n">27</span><span>Contract duration</span></li>
-          <li><span class="n">28</span><span>Contract status (current)</span></li>
+          <li><span class="n">28</span><span>Contract status (current)<span class="pnote">pre-award, active or closed</span></span></li>
         </ol>
-        <p class="why">Fourteen of the forty points sit here. A direct award does not empty this phase: the method, the chosen firm, the legal basis and the price stay applicable and scoreable.</p>
+        <p class="why">Fourteen of the forty points sit here. A direct award does not empty this phase: the method, the chosen firm, the legal basis and the price stay applicable and scoreable. And a project delivered through several awarded contracts is scored per awarded contract, per the recorded ruling.</p>
       </div>
 
-      <div class="pcol thin">
+      <div class="pcol thin" id="phase-4">
         <span class="ptag">Phase 4 &middot; Implementation</span>
         <h3>What changed while building, and why?</h3>
         <ol>
-          <li><span class="n">29</span><span>Variation to contract price</span></li>
-          <li><span class="n">30</span><span>Escalation of contract price</span></li>
+          <li><span class="n">29</span><span>Variation to contract price<span class="pnote">changes to the price, excluding inflation adjustments</span></span></li>
+          <li><span class="n">30</span><span>Escalation of contract price<span class="pnote">inflation and currency adjustments under the contract's own clauses</span></span></li>
           <li><span class="n">31</span><span>Variation to contract duration</span></li>
           <li><span class="n">32</span><span>Variation to contract scope</span></li>
           <li><span class="n">33</span><span>Reasons for price changes</span></li>
@@ -158,16 +217,16 @@
         <p class="why">Changes are normal in construction. Undisclosed changes are the finding: every point in this phase asks what moved and whether the public was told why.</p>
       </div>
 
-      <div class="pcol thin">
+      <div class="pcol thin" id="phase-5">
         <span class="ptag">Phase 5 &middot; Completion</span>
         <h3>What did it finally cost, and who checked?</h3>
         <ol>
-          <li><span class="n">35</span><span>Project status (current)</span></li>
+          <li><span class="n">35</span><span>Project status (current)<span class="pnote">which lifecycle stage the whole project is in now</span></span></li>
           <li><span class="n">36</span><span>Completion cost</span></li>
           <li><span class="n">37</span><span>Completion date</span></li>
-          <li><span class="n">38</span><span>Scope at completion</span></li>
-          <li><span class="n">39</span><span>Reasons for project changes</span></li>
-          <li><span class="n">40</span><span>Reference to audit and evaluation reports</span></li>
+          <li><span class="n">38</span><span>Scope at completion<span class="pnote">what was actually delivered, against the original scope</span></span></li>
+          <li><span class="n">39</span><span>Reasons for project changes<span class="pnote">the completion-stage summary of all change: scope, time and cost together</span></span></li>
+          <li><span class="n">40</span><span>Reference to audit and evaluation reports<span class="pnote">links to published technical and financial audits</span></span></li>
         </ol>
         <p class="why">The comparison the whole record builds toward: what was promised at award against what was delivered at completion, and whether anyone audited the difference.</p>
       </div>
@@ -177,12 +236,12 @@
     <div class="rules">
       <ul>
         <li><b>Each point is scored separately</b> on the <a href="zero-to-six-scale.html">0 to 6 scale</a>, so a project produces a disclosure profile, not a single grade.</li>
-        <li><b>Only applicable points count.</b> A point that is not yet due at the project's stage, or does not apply to its procurement form, leaves the calculation rather than scoring zero.</li>
-        <li><b>PPP projects answer more.</b> A project that passes the <a href="public-private-partnership.html">PPP definition</a> is additionally assessed on the PPP questions, covering the obligations the forty do not reach: guarantees, risk allocation, tariffs, renegotiations.</li>
+        <li><b>Only applicable points count.</b> A point that is not yet due at the project's stage, or does not apply to its procurement form, leaves the calculation rather than scoring zero. Due-ness is judged point by point, never by dropping whole phases: mid-construction, the completion records are not yet due while the projected completion date already is. The point-by-point guidance lives in the methodology guide.</li>
+        <li><b>PPP projects answer more.</b> A project that passes the <a href="public-private-partnership.html">PPP definition</a> is additionally assessed on the PPP questions, covering the obligations the forty do not reach: guarantees, risk allocation, tariffs, renegotiations. How those questions bind to the forty is being settled in the methodology note.</li>
       </ul>
     </div>
 
-  </div>
+  </main>
 
   <footer>
     <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The forty data points are the CoST Infrastructure Data Standard disclosure items, named here as they appear in the Infra Watch Transparency Assessment score sheet, and published in open-data form as OC4IDS, the Open Contracting for Infrastructure Data Standard. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="zero-to-six-scale.html">the 0 to 6 scale</a> &middot; <a href="eligibility.html">project eligibility</a>.

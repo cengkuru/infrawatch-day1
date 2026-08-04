@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power purchase agreements: a promise to buy power is public money, spread over decades</title>
+  <meta name="description" content="A one-page guide to power purchase agreements (PPAs): how a long-term promise to buy electricity finances a privately built plant, why that promise is a real public obligation even without public debt or ownership, and which contract terms to ask for first.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+    .qcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;border-top:5px solid var(--brand);display:flex;flex-direction:column;}
+    .qcol .qtag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}
+    .qcol h3{font-size:1.1rem;margin:.15rem 0 .8rem;letter-spacing:-.01em;line-height:1.3;}
+    .qrow{margin:0 0 .65rem;}
+    .qrow .l{display:block;font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brand-soft);margin-bottom:.15rem;}
+    .qrow .l.ask{color:var(--green);}
+    .qrow .v{font-size:.89rem;color:var(--dark);line-height:1.45;}
+    .qrow.thin{margin-top:auto;padding-top:.65rem;border-top:1px solid var(--light);}
+    .qrow.thin .l{color:var(--red);}
+    .qrow.thin .v{color:var(--mid);font-size:.84rem;}
+    @media (max-width:820px){ .qgrid{grid-template-columns:1fr;} }
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ol{margin:0;padding-left:1.2rem;}
+    .rules li{margin:0 0 .5rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a:hover{color:var(--brand-deep);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">CIPE &middot; CoST &middot; partner guidance</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Power purchase agreements &middot; a one-page guide</p>
+      <h1>A promise to buy power is public money, spread over decades</h1>
+      <p>In many power projects the government never borrows and never owns anything. It signs a contract instead: the public utility promises to buy the electricity a privately built plant produces, at an agreed price, for twenty years or more. That promise is what this page explains, because the promise is where the public money is.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <h2 class="sec">The mechanism</h2>
+    <p class="sub">Follow the power one way and the money the other. The plant is private; the obligation is public. The red mark is the contract, because the contract, not the plant, is where the deal lives.</p>
+
+    <div class="flowcard">
+      <svg viewBox="0 0 720 330" width="720" height="330" role="img" aria-labelledby="ppaTitle ppaDesc">
+        <title id="ppaTitle">How a power purchase agreement works</title>
+        <desc id="ppaDesc">A foreign investor finances and owns a power plant. The plant sells every unit of electricity to the public utility under a power purchase agreement: an agreed price, for decades, sometimes payable whether the power is needed or not. The utility supplies the public, and the public pays through tariffs. Banks lend to the plant against the promise in the contract, not against the plant itself. The contract is marked in red as the record to demand.</desc>
+        <defs>
+          <marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
+          </marker>
+          <marker id="pg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1B7A3D"/>
+          </marker>
+        </defs>
+        <style>
+          .abox{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .atl{font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#28496A;}
+          .asub{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .flow{font:700 10px "SFMono-Regular",Consolas,monospace;letter-spacing:.05em;fill:#5A6B7B;}
+          .flowg{font:700 10px "SFMono-Regular",Consolas,monospace;letter-spacing:.05em;fill:#1B7A3D;}
+          .pline{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+          .gline{stroke:#1B7A3D;stroke-width:1.5;fill:none;}
+          .rline{stroke:#BE1E2D;stroke-width:1.5;fill:none;stroke-dasharray:5 4;}
+          .rtxt{font:700 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#BE1E2D;}
+          .rsub{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+        </style>
+
+        <!-- actors -->
+        <rect x="20" y="50" width="200" height="80" rx="12" class="abox"/>
+        <text x="36" y="76" class="atl">Private plant</text>
+        <text x="36" y="94" class="asub">financed, built and owned by an</text>
+        <text x="36" y="108" class="asub">investor, often foreign</text>
+
+        <rect x="290" y="50" width="180" height="80" rx="12" class="abox"/>
+        <text x="306" y="76" class="atl">Public utility</text>
+        <text x="306" y="94" class="asub">promises to buy every unit,</text>
+        <text x="306" y="108" class="asub">at a set price, for decades</text>
+
+        <rect x="540" y="50" width="160" height="80" rx="12" class="abox"/>
+        <text x="556" y="76" class="atl">The public</text>
+        <text x="556" y="94" class="asub">gets the power, pays</text>
+        <text x="556" y="108" class="asub">through tariffs or subsidy</text>
+
+        <!-- power flows right -->
+        <path class="pline" d="M220 72 L284 72" marker-end="url(#pa)"/>
+        <text x="252" y="64" text-anchor="middle" class="flow">POWER</text>
+        <path class="pline" d="M470 72 L534 72" marker-end="url(#pa)"/>
+        <text x="502" y="64" text-anchor="middle" class="flow">POWER</text>
+
+        <!-- money flows left -->
+        <path class="gline" d="M284 110 L220 110" marker-end="url(#pg)"/>
+        <text x="252" y="126" text-anchor="middle" class="flowg">MONEY</text>
+        <path class="gline" d="M534 110 L470 110" marker-end="url(#pg)"/>
+        <text x="502" y="126" text-anchor="middle" class="flowg">MONEY</text>
+
+        <!-- the contract, marked red -->
+        <path class="rline" d="M252 140 L252 176"/>
+        <rect x="60" y="180" width="384" height="72" rx="10" fill="#fff" stroke="#BE1E2D" stroke-width="1.5"/>
+        <text x="76" y="204" class="rtxt">The PPA: the promise in writing</text>
+        <text x="76" y="222" class="rsub">an agreed price per unit, for twenty years or more, sometimes</text>
+        <text x="76" y="236" class="rsub">payable whether the power is needed or not</text>
+
+        <!-- bank note -->
+        <rect x="474" y="180" width="226" height="72" rx="10" class="abox"/>
+        <text x="490" y="204" class="atl" style="font-size:12px;">Why the promise matters</text>
+        <text x="490" y="222" class="asub">banks lend to the plant against this</text>
+        <text x="490" y="236" class="asub">contract, not against the concrete</text>
+
+        <!-- closing strip -->
+        <rect x="20" y="272" width="680" height="42" rx="10" fill="#fbf7ef" stroke="#C77F00" stroke-opacity=".45" stroke-width="1.5"/>
+        <text x="360" y="292" text-anchor="middle" style="font:700 12.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#1E2A38;">No public debt, no public ownership, and still a public obligation that outlives governments.</text>
+        <text x="360" y="307" text-anchor="middle" style="font:400 11px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#5A6B7B;">That is why these projects belong in the dataset, and why the contract is the record to demand.</text>
+      </svg>
+    </div>
+
+    <h2 class="sec">The three things to hold on to</h2>
+    <p class="sub">What the agreement is, why it counts as public, and what to ask for when the disclosure is thin.</p>
+
+    <div class="qgrid">
+      <div class="qcol">
+        <span class="qtag">What it is</span>
+        <h3>A contract that makes a private plant financeable</h3>
+        <div class="qrow"><span class="l">The deal</span><span class="v">A public utility signs a long-term contract, usually twenty years or more, to buy the electricity a privately built plant produces at an agreed price.</span></div>
+        <div class="qrow"><span class="l">Why it exists</span><span class="v">No bank lends hundreds of millions against a plant that might find no buyer. The promise of a buyer, in writing, is what unlocks the financing. The contract builds the plant.</span></div>
+        <div class="qrow thin"><span class="l">The plain name</span><span class="v">Power purchase agreement, or PPA. Projects built this way are often called independent power producers.</span></div>
+      </div>
+      <div class="qcol">
+        <span class="qtag">Why it counts here</span>
+        <h3>The obligation is public even when nothing else is</h3>
+        <div class="qrow"><span class="l">What the public owes</span><span class="v">Payment at the agreed price for the life of the contract. If demand falls, if cheaper power arrives, if the currency moves, the promise usually holds.</span></div>
+        <div class="qrow"><span class="l">In the eligibility test</span><span class="v">The plant delivers a public service, and the contract is a real public-sector role: the long-term private partner path. These projects are scored against the standard and the PPP questions.</span></div>
+        <div class="qrow thin"><span class="l">The distinction to keep</span><span class="v">A PPA makes the obligation public. It does not make the plant public. Say which one you mean; the records differ.</span></div>
+      </div>
+      <div class="qcol">
+        <span class="qtag">What to ask for</span>
+        <h3>The contract, before anything else</h3>
+        <div class="qrow"><span class="l ask">Record to ask for first</span><span class="v">The PPA terms: the price per unit, the contract length, and any clause that pays the plant whether the power is used or not.</span></div>
+        <div class="qrow"><span class="l ask">Then</span><span class="v">The currency of payment, who pays when demand falls, any government guarantee behind the utility, and the renegotiation history.</span></div>
+        <div class="qrow thin"><span class="l">Trail usually thins at</span><span class="v">The tariff and the take-or-pay terms. The plant's opening is public; the price the public locked in for decades often is not.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec">Where this sits in the wider guidance</h2>
+    <div class="rules">
+      <ol>
+        <li>In the <a href="eligibility.html">eligibility test</a>, a PPA-backed plant passes as public infrastructure delivering a public service; the contract is the public-sector role.</li>
+        <li>In the <a href="financing-forms.html">financing forms</a>, these projects sit inside the concession form: a private partner finances, builds and operates, and carries real risk, under a contract that outlives governments.</li>
+        <li>The foreign financing behind the plant, the loan or the equity stake, is tested separately under the <a href="foreign-financing.html">shared definition</a>. A PPA explains the public role; it says nothing about where the money came from.</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by CoST as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="foreign-financing.html">foreign financing</a> &middot; <a href="financing-forms.html">financing forms</a> &middot; <a href="buffer-list.html">the buffer list</a>.
+  </footer>
+</body>
+</html>

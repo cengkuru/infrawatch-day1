@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The buffer list: how a project list survives scrutiny without reopening selection</title>
+  <meta name="description" content="A one-page guide to the buffer list: a short reserve of substitute projects that pass the same eligibility test, so a core project that fails later scrutiny can be replaced with one documented swap instead of a reopened selection.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ol{margin:0;padding-left:1.2rem;}
+    .rules li{margin:0 0 .55rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules li b{color:var(--brand-deep);}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a:hover{color:var(--brand-deep);}
+    .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">CIPE &middot; CoST &middot; partner guidance</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">The buffer list &middot; a one-page guide</p>
+      <h1>Selection happens once. Scrutiny never stops.</h1>
+      <p>Fact-checks, reviews and data collection will knock some projects off any list. A buffer list is a short reserve of substitutes that already pass the same test, so one failed project means one documented swap, not a reopened selection.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <h2 class="sec">How a swap works</h2>
+    <p class="sub">One core project fails later scrutiny. The swap is small, visible, and recorded. The list keeps its size, and the record shows exactly what changed and why.</p>
+
+    <div class="flowcard">
+      <svg viewBox="0 0 720 300" width="720" height="300" role="img" aria-labelledby="blTitle blDesc">
+        <title id="blTitle">A documented swap from the buffer list</title>
+        <desc id="blDesc">A core list of projects has one slot that fails later scrutiny, marked in red, for example financing that could not be verified. A documented swap replaces it with a project from the buffer list, marked in green, which passed the same eligibility test on the same day as the core list. The swap record notes which project left, why, and which one replaced it. When the buffer has no valid substitute, the gap is recorded and raised rather than papered over.</desc>
+        <defs>
+          <marker id="ba" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
+          </marker>
+        </defs>
+        <style>
+          .grp{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .gt{font:700 12.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#28496A;}
+          .slot{fill:#F6F8FA;stroke:#E2E8ED;stroke-width:1.2;}
+          .slotr{fill:#fff;stroke:#BE1E2D;stroke-width:1.5;}
+          .slotg{fill:#fff;stroke:#1B7A3D;stroke-width:1.5;}
+          .st{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .str{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#BE1E2D;}
+          .stg{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1B7A3D;}
+          .bl{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+          .note{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .noteb{font:700 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+        </style>
+
+        <!-- core list -->
+        <rect x="20" y="40" width="300" height="190" rx="12" class="grp"/>
+        <text x="36" y="66" class="gt">The core list</text>
+        <rect x="36" y="80" width="268" height="26" rx="6" class="slot"/>
+        <text x="48" y="97" class="st">Project, passed the test</text>
+        <rect x="36" y="112" width="268" height="26" rx="6" class="slot"/>
+        <text x="48" y="129" class="st">Project, passed the test</text>
+        <rect x="36" y="144" width="268" height="26" rx="6" class="slotr"/>
+        <text x="48" y="161" class="str">Fails later scrutiny: financing could not be verified</text>
+        <rect x="36" y="176" width="268" height="26" rx="6" class="slot"/>
+        <text x="48" y="193" class="st">Project, passed the test</text>
+        <text x="36" y="220" class="st">&#8230; and so on to the full count</text>
+
+        <!-- buffer -->
+        <rect x="460" y="40" width="240" height="150" rx="12" class="grp"/>
+        <text x="476" y="66" class="gt">The buffer list</text>
+        <rect x="476" y="80" width="208" height="26" rx="6" class="slotg"/>
+        <text x="488" y="97" class="stg">Substitute, passed the same test</text>
+        <rect x="476" y="112" width="208" height="26" rx="6" class="slot"/>
+        <text x="488" y="129" class="st">Substitute, passed the same test</text>
+        <rect x="476" y="144" width="208" height="26" rx="6" class="slot"/>
+        <text x="488" y="161" class="st">Substitute, passed the same test</text>
+
+        <!-- swap arrow -->
+        <path class="bl" d="M476 93 C 400 93, 380 157, 310 157" marker-end="url(#ba)"/>
+        <text x="392" y="112" text-anchor="middle" style="font:700 10px 'SFMono-Regular',Consolas,monospace;letter-spacing:.05em;fill:#5A6B7B;">DOCUMENTED SWAP</text>
+
+        <!-- record strip -->
+        <rect x="20" y="250" width="680" height="42" rx="10" fill="#fbf7ef" stroke="#C77F00" stroke-opacity=".45" stroke-width="1.5"/>
+        <text x="360" y="270" text-anchor="middle" class="noteb">The swap record: which project left, why, which one replaced it, and when.</text>
+        <text x="360" y="285" text-anchor="middle" class="note">The record is part of the methodology. A silent swap is a new selection nobody reviewed.</text>
+      </svg>
+    </div>
+
+    <h2 class="sec">The rules</h2>
+    <p class="sub">Six rules keep the buffer a safeguard instead of a back door.</p>
+    <div class="rules">
+      <ol>
+        <li><b>Build it with the list, not after.</b> Buffer projects pass the same <a href="eligibility.html">eligibility test</a>, to the same standard, on the same evidence discipline as the core list. A weak buffer is no buffer.</li>
+        <li><b>Swap only on eligibility, never on results.</b> A project leaves because its financing could not be verified, its status was wrong, or it has no records to collect. It never leaves because it scores badly or its data is hard to find; hard-to-find data is what the assessment measures.</li>
+        <li><b>Keep it short.</b> A handful of genuine substitutes. A long buffer is a second selection waiting to happen.</li>
+        <li><b>Match like for like where possible.</b> Prefer a substitute from the same financier country or sector, and record the difference when none exists.</li>
+        <li><b>Document every swap.</b> Which project left, why, which buffer project replaced it, and when. The swap record travels with the methodology.</li>
+        <li><b>When the buffer runs out, say so.</b> Do not stretch the criteria to keep the count. Record the gap and raise it for a decision. <span class="chip">handling being confirmed</span></li>
+      </ol>
+    </div>
+
+  </div>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by CoST as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="foreign-financing.html">foreign financing</a> &middot; <a href="financing-forms.html">financing forms</a> &middot; <a href="power-purchase-agreement.html">power purchase agreements</a>.
+  </footer>
+</body>
+</html>

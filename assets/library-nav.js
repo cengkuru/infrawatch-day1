@@ -68,7 +68,7 @@
     ".lib-nav .lib-empty{display:none;font-size:.82rem;color:var(--mid,#5A6B7B);padding:.2rem 0;}" +
     ".lib-nav.no-match .lib-empty{display:block;}" +
     /* wide: fixed rail, always open, one line per term (note = tooltip) */
-    "@media(min-width:1380px){" +
+    "@media(min-width:1560px){" +
     ".lib-nav{position:fixed;top:110px;right:18px;width:236px;border:1px solid var(--light,#E2E8ED);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.16);z-index:40;}" +
     ".lib-nav .lib-inner{max-width:none;padding:1rem 1.1rem;}" +
     ".lib-nav .lib-toggle{cursor:default;padding:0 0 .55rem;}" +
@@ -110,7 +110,7 @@
   var caret = document.createElement("span");
   caret.className = "lib-caret";
   caret.setAttribute("aria-hidden", "true");
-  caret.textContent = "v";
+  caret.textContent = "\u25be";
   toggle.appendChild(caret);
   inner.appendChild(toggle);
 

@@ -58,6 +58,10 @@
     ".lib-nav .lib-pill{display:inline-flex;align-items:center;gap:.45rem;background:var(--brand,#28496A);color:#fff;border-radius:99px;padding:.4rem .95rem;font-size:.66rem;letter-spacing:.07em;}" +
     ".lib-nav .lib-toggle:hover .lib-pill{background:var(--brand-deep,#142334);}" +
     ".lib-nav .lib-pill .lib-caret{color:#cdddec;margin-left:0;}" +
+    ".lib-nav .lib-burger{display:inline-flex;align-items:center;}" +
+    "@keyframes libpulse{0%{box-shadow:0 0 0 0 rgba(40,73,106,.45);}70%{box-shadow:0 0 0 10px rgba(40,73,106,0);}100%{box-shadow:0 0 0 0 rgba(40,73,106,0);}}" +
+    ".lib-nav .lib-pill.pulse{animation:libpulse 2s ease-out 3;}" +
+    "@media(prefers-reduced-motion:reduce){.lib-nav .lib-pill.pulse{animation:none;}}" +
     ".lib-nav .lib-toggle .lib-cur{color:var(--brand,#28496A);}" +
     ".lib-nav .lib-toggle .lib-caret{margin-left:auto;transition:transform .15s;color:var(--brand-soft,#3d6491);}" +
     ".lib-nav.open .lib-toggle .lib-caret{transform:rotate(180deg);}" +
@@ -78,7 +82,7 @@
     ".lib-nav .lib-toggle{cursor:default;padding:0 0 .55rem;color:var(--mid,#5A6B7B);}" +
     ".lib-nav .lib-pill{background:none;color:var(--mid,#5A6B7B);padding:0;border-radius:0;font-size:.62rem;}" +
     ".lib-nav .lib-toggle:hover .lib-pill{background:none;}" +
-    ".lib-nav .lib-toggle .lib-cur,.lib-nav .lib-toggle .lib-caret{display:none;}" +
+    ".lib-nav .lib-toggle .lib-cur,.lib-nav .lib-toggle .lib-caret,.lib-nav .lib-burger{display:none;}" +
     ".lib-nav .lib-panel{display:block;position:static;border:0;border-radius:0;box-shadow:none;max-height:calc(100vh - 240px);overflow-y:auto;padding:0;}" +
     ".lib-nav a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:.26rem 0 .26rem .7rem;margin:0 0 .22rem;font-size:.84rem;}" +
     ".lib-nav a .lib-note{display:none;}" +
@@ -106,6 +110,12 @@
   toggle.setAttribute("aria-expanded", "false");
   var pill = document.createElement("span");
   pill.className = "lib-pill";
+  if (!localStorage.getItem("iw-lib-opened")) pill.className += " pulse";
+  var burger = document.createElement("span");
+  burger.className = "lib-burger";
+  burger.setAttribute("aria-hidden", "true");
+  burger.innerHTML = '<svg width="13" height="11" viewBox="0 0 14 12"><path d="M1 1h12M1 6h12M1 11h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  pill.appendChild(burger);
   var head = document.createElement("span");
   head.textContent = "Definition bank (" + pages.length + ")";
   pill.appendChild(head);
@@ -173,7 +183,11 @@
   toggle.addEventListener("click", function () {
     var open = nav.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open) find.focus();
+    if (open) {
+      find.focus();
+      pill.classList.remove("pulse");
+      try { localStorage.setItem("iw-lib-opened", "1"); } catch (e) {}
+    }
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && nav.classList.contains("open")) {

@@ -19,7 +19,7 @@
     { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?" },
     { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere" },
     { href: "financing-forms.html", term: "Financing forms", note: "six ways projects are paid for" },
-    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is public money" },
+    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is a public commitment" },
     { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection" },
     { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag" },
     { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve" },

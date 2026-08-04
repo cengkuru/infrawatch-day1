@@ -51,13 +51,17 @@
 
   var css =
     /* shared */
-    ".lib-nav{background:#fff;border-bottom:1px solid var(--light,#E2E8ED);}" +
-    ".lib-nav .lib-inner{max-width:1040px;margin:0 auto;padding:0 1.2rem;}" +
-    ".lib-nav .lib-toggle{display:flex;align-items:center;gap:.6rem;width:100%;background:none;border:0;cursor:pointer;padding:.6rem 0;font-family:var(--mono,monospace);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mid,#5A6B7B);text-align:left;}" +
+    ".lib-nav{background:#fff;border-bottom:1px solid var(--light,#E2E8ED);position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(20,35,52,.06);}" +
+    ".lib-nav .lib-inner{max-width:1040px;margin:0 auto;padding:0 1.2rem;position:relative;}" +
+    ".lib-nav .lib-toggle{display:flex;align-items:center;gap:.6rem;width:100%;background:none;border:0;cursor:pointer;padding:.6rem 0;font-family:var(--mono,monospace);font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--brand,#28496A);text-align:left;}" +
+    ".lib-nav .lib-toggle:hover{color:var(--brand-deep,#142334);}" +
+    ".lib-nav .lib-pill{display:inline-flex;align-items:center;gap:.45rem;background:var(--brand,#28496A);color:#fff;border-radius:99px;padding:.4rem .95rem;font-size:.66rem;letter-spacing:.07em;}" +
+    ".lib-nav .lib-toggle:hover .lib-pill{background:var(--brand-deep,#142334);}" +
+    ".lib-nav .lib-pill .lib-caret{color:#cdddec;margin-left:0;}" +
     ".lib-nav .lib-toggle .lib-cur{color:var(--brand,#28496A);}" +
     ".lib-nav .lib-toggle .lib-caret{margin-left:auto;transition:transform .15s;color:var(--brand-soft,#3d6491);}" +
     ".lib-nav.open .lib-toggle .lib-caret{transform:rotate(180deg);}" +
-    ".lib-nav .lib-panel{display:none;padding:0 0 .9rem;}" +
+    ".lib-nav .lib-panel{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--light,#E2E8ED);border-top:0;border-radius:0 0 12px 12px;box-shadow:0 18px 50px rgba(20,35,52,.16);padding:1rem 1.2rem;max-height:70vh;overflow-y:auto;}" +
     ".lib-nav.open .lib-panel{display:block;}" +
     ".lib-nav .lib-find{display:block;width:100%;max-width:340px;font-family:var(--sans,sans-serif);font-size:.88rem;color:var(--dark,#1E2A38);background:var(--surface,#F6F8FA);border:1px solid var(--light,#E2E8ED);border-radius:8px;padding:.5rem .7rem;margin:.1rem 0 .7rem;}" +
     ".lib-nav .lib-find:focus{outline:none;border-color:var(--brand-soft,#3d6491);box-shadow:0 0 0 3px rgba(61,100,145,.15);}" +
@@ -70,10 +74,12 @@
     /* wide: fixed rail, always open, one line per term (note = tooltip) */
     "@media(min-width:1560px){" +
     ".lib-nav{position:fixed;top:110px;right:18px;width:236px;border:1px solid var(--light,#E2E8ED);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.16);z-index:40;}" +
-    ".lib-nav .lib-inner{max-width:none;padding:1rem 1.1rem;}" +
-    ".lib-nav .lib-toggle{cursor:default;padding:0 0 .55rem;}" +
+    ".lib-nav .lib-inner{max-width:none;padding:1rem 1.1rem;position:static;}" +
+    ".lib-nav .lib-toggle{cursor:default;padding:0 0 .55rem;color:var(--mid,#5A6B7B);}" +
+    ".lib-nav .lib-pill{background:none;color:var(--mid,#5A6B7B);padding:0;border-radius:0;font-size:.62rem;}" +
+    ".lib-nav .lib-toggle:hover .lib-pill{background:none;}" +
     ".lib-nav .lib-toggle .lib-cur,.lib-nav .lib-toggle .lib-caret{display:none;}" +
-    ".lib-nav .lib-panel{display:block;max-height:calc(100vh - 240px);overflow-y:auto;padding:0;}" +
+    ".lib-nav .lib-panel{display:block;position:static;border:0;border-radius:0;box-shadow:none;max-height:calc(100vh - 240px);overflow-y:auto;padding:0;}" +
     ".lib-nav a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:.26rem 0 .26rem .7rem;margin:0 0 .22rem;font-size:.84rem;}" +
     ".lib-nav a .lib-note{display:none;}" +
     "}" +
@@ -98,20 +104,23 @@
   toggle.type = "button";
   toggle.className = "lib-toggle";
   toggle.setAttribute("aria-expanded", "false");
+  var pill = document.createElement("span");
+  pill.className = "lib-pill";
   var head = document.createElement("span");
   head.textContent = "Definition bank (" + pages.length + ")";
-  toggle.appendChild(head);
+  pill.appendChild(head);
+  var caret = document.createElement("span");
+  caret.className = "lib-caret";
+  caret.setAttribute("aria-hidden", "true");
+  caret.textContent = "\u25be";
+  pill.appendChild(caret);
+  toggle.appendChild(pill);
   if (currentTerm) {
     var cur = document.createElement("span");
     cur.className = "lib-cur";
     cur.textContent = "reading: " + currentTerm;
     toggle.appendChild(cur);
   }
-  var caret = document.createElement("span");
-  caret.className = "lib-caret";
-  caret.setAttribute("aria-hidden", "true");
-  caret.textContent = "\u25be";
-  toggle.appendChild(caret);
   inner.appendChild(toggle);
 
   var panel = document.createElement("div");

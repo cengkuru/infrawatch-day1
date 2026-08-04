@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project eligibility: three questions decide whether a project enters the dataset</title>
-  <meta name="description" content="The draft eligibility test for Infrastructure Watch project selection. Three questions: does it deliver public infrastructure, is the foreign financing real and documented, and what role does the public sector play. Draft for partner consultation.">
+  <title>Project eligibility: two questions decide entry; the third decides the track</title>
+  <meta name="description" content="The draft eligibility test for Infrastructure Watch project selection. Two gates and a fork: does it deliver public infrastructure, is the foreign financing real and documented, and what role does the public sector play. Draft for partner consultation.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -64,6 +64,9 @@
     .rules li{margin:0 0 .5rem;font-size:.92rem;}
     .rules li:last-child{margin-bottom:0;}
 
+    .never{background:#fff;border:1px solid rgba(190,30,45,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never b{color:var(--red);}
+    .never a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .edge{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;font-size:.9rem;margin-top:.8rem;}
     .edge b{color:var(--brand-deep);}
     .edge .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.4rem;vertical-align:middle;}
@@ -76,17 +79,17 @@
 <body>
   <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
 
-  <div class="draftnote"><div class="dn-inner"><b>Draft</b> For partner consultation, August 2026. Two items are still being confirmed with CIPE and are marked below. Selection decisions rest with CIPE and the country partner.</div></div>
+  <div class="draftnote"><div class="dn-inner"><b>Draft</b> For partner consultation, August 2026. Two items are open with CIPE and marked where they apply: the treatment of facilitator-only projects, and the project-age window. Selection decisions rest with CIPE and the country partner.</div></div>
 
   <section class="hero">
     <div class="hero-inner">
       <p class="kicker">Project eligibility &middot; a one-page test</p>
-      <h1>Three questions decide whether a project enters the dataset</h1>
+      <h1>Two questions decide entry; the third decides the track</h1>
       <p>Every candidate project takes the same test before any scoring starts. Most projects that fall out fall at the first question, so it comes first.</p>
     </div>
   </section>
 
-  <div class="wrap">
+  <main class="wrap">
 
     <h2 class="sec">The test</h2>
     <p class="sub">Follow one project through. The red exit is where most candidates leave: real foreign money, but no public infrastructure for the transparency questions to attach to.</p>
@@ -94,7 +97,7 @@
     <div class="flowcard">
       <svg viewBox="0 0 720 470" width="720" height="470" role="img" aria-labelledby="flowtitle flowdesc">
         <title id="flowtitle">Eligibility decision flow</title>
-        <desc id="flowdesc">A candidate project passes through three questions. Question one: does it deliver a public infrastructure asset or service; if no, it is out, and this is the most common exit. Question two: is the foreign financing real and documented; if no, it is out. Question three: what role does the public sector play; the answer routes the project to standard questions, standard plus PPP questions, or a flagged status pending a ruling.</desc>
+        <desc id="flowdesc">A candidate project passes through three questions. Question one: does it deliver a public infrastructure asset or service; if no, it is out, and this is the most common exit. Question two: is the foreign financing real and documented; if no, it is out. Question three: what role does the public sector play; the answer routes the project to standard questions, standard plus PPP questions, or flagged and held from scoring pending a ruling.</desc>
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
@@ -179,11 +182,13 @@
 
         <rect x="490" y="406" width="210" height="52" rx="10" class="res resflag"/>
         <text x="504" y="428" class="restext resflagtext">Facilitator only</text>
-        <text x="504" y="446" class="ressub">Flagged. Ruling being confirmed.</text>
+        <text x="504" y="446" class="ressub">Held from scoring; ruling pending.</text>
       </svg>
     </div>
 
-    <p class="sub" style="margin-top:.9rem;">To run this test on a real project interactively, use the <a href="workbench.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">workbench</a>: it asks these questions one at a time and shows where the project lands.</p>
+    <p class="sub" style="margin-top:.9rem;">After eligibility, the <a href="workbench.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">workbench</a> runs the next step interactively on a real project: what financing type it carries, which records that type should leave, and whether its value can be judged from them.</p>
+
+    <div class="never"><b>The common trap:</b> a foreign builder is not a foreign financier. A construction contract, however large, is payment for work, not money at risk, so it never satisfies question 2, and <a href="prc-classification.html">the builder's flag never decides a project's classification</a> either.</div>
 
     <h2 class="sec">Each question in detail</h2>
     <p class="sub">What counts, what does not, and the discipline that keeps each answer defensible.</p>
@@ -193,7 +198,7 @@
         <span class="qtag">Question 1</span>
         <h3>Does it deliver a public infrastructure asset or service?</h3>
         <div class="qrow"><span class="l">Counts</span><span class="v">Railways, roads, bridges, ports, airports, power plants and grids, water systems, public buildings. Who owns or finances it does not matter at this step.</span></div>
-        <div class="qrow"><span class="l no">Does not count</span><span class="v">Factories and manufacturing plants, commercial property, extraction of oil, gas or minerals.</span></div>
+        <div class="qrow"><span class="l no">Does not count</span><span class="v">Factories and manufacturing plants, commercial property, extraction of oil, gas or minerals. A commercial asset stays commercial even when a public body owns it; public ownership feeds question 3, never question 1. When a sector fits neither list, flag it rather than decide silently.</span></div>
         <div class="qrow dd"><span class="l">Why it matters</span><span class="v">The transparency questions follow a public project cycle. A private facility has no public procurement or delivery record to check, so its scores would not mean anything.</span></div>
       </div>
       <div class="qcol">
@@ -201,14 +206,14 @@
         <h3>Is the foreign financing real and documented?</h3>
         <div class="qrow"><span class="l">Counts</span><span class="v">A named foreign lender, a named equity or ownership stake, or a guarantee. Signed, and traceable to a source.</span></div>
         <div class="qrow"><span class="l no">Does not count</span><span class="v">Construction contracts, equipment supply, consultancy or design work, feasibility studies, and financing that is announced but not signed.</span></div>
-        <div class="qrow dd"><span class="l">Due diligence</span><span class="v">Name the financier from a source; do not infer it. Record the financing form for every project, because disclosure expectations differ by form. See <a href="foreign-financing.html">what counts as foreign financing</a> and <a href="financing-forms.html">the six financing forms</a>.</span></div>
+        <div class="qrow dd"><span class="l">Due diligence</span><span class="v">Name the financier from a source; do not infer it. Signed means a citable source reports the agreement as signed; eligibility never requires the document itself, since how findable the documents are is what the assessment measures. Record the financing form for every project, because disclosure expectations differ by form. The full boundary rules live in <a href="foreign-financing.html">what counts as foreign financing</a> and <a href="financing-forms.html">the six financing forms</a>.</span></div>
       </div>
       <div class="qcol">
         <span class="qtag">Question 3</span>
         <h3>What role does the public sector play?</h3>
-        <div class="qrow"><span class="l">Owner or buyer</span><span class="v">A government body or state-linked company owns the asset or procured it. Score against the standard questions.</span></div>
-        <div class="qrow"><span class="l">Long-term private partner</span><span class="v">A private partner finances, builds or operates under a long-term contract and carries real risk. Concessions and <a href="power-purchase-agreement.html">power-purchase arrangements</a> sit here; the usual name is a public-private partnership (PPP). Score against the standard and the PPP questions.</span></div>
-        <div class="qrow dd"><span class="l">Facilitator only</span><span class="v">Government approves, regulates or promotes, but owns nothing and buys nothing. Flag the project; whether and how these are scored is being confirmed with CIPE.</span></div>
+        <div class="qrow"><span class="l">Owner or buyer</span><span class="v">A government body or state-linked company owns the asset or procured it. Score against the standard questions. Where state linkage is debatable, the deciding question is responsibility: which entity answers to the public if the project fails.</span></div>
+        <div class="qrow"><span class="l">Long-term private partner</span><span class="v">A private partner finances, builds or operates under a long-term contract and carries real risk. Concessions and <a href="power-purchase-agreement.html">power-purchase arrangements</a> sit here; the usual name is a <a href="public-private-partnership.html">public-private partnership (PPP)</a>. Score against the standard and the PPP questions.</span></div>
+        <div class="qrow dd"><span class="l">Facilitator only</span><span class="v">Government approves, regulates or promotes, but owns nothing and buys nothing. Flag the project; whether and how these are scored is being confirmed with CIPE. Until that ruling lands, keep the project listed and flagged, hold it out of scoring, and prefer a buffer substitute where one exists.</span></div>
       </div>
     </div>
 
@@ -217,8 +222,8 @@
     <div class="rules">
       <ol>
         <li>Seek a reasonable spread of financing countries where the available projects allow it.</li>
-        <li>A sample dominated by one country is acceptable where it reflects what actually exists.</li>
-        <li>Record the projects considered, the criteria applied, and the reason each final project was chosen.</li>
+        <li>A sample dominated by one country is acceptable where it reflects what actually exists. Where spread and reality conflict, reality wins, and the documentation shows it.</li>
+        <li>Record the pool you drew from, the criteria applied, and the reason each final project was chosen.</li>
         <li>Never pick a project because its information is easy to find. Availability of data is not a selection criterion; it is what the assessment measures.</li>
       </ol>
     </div>
@@ -227,7 +232,7 @@
 
     <div class="edge"><b>Buffer list</b><br>Keep a short list of substitutes that also pass the test, so a project that fails later scrutiny can be replaced without reopening the whole selection. <a href="buffer-list.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">How the buffer works</a>.</div>
 
-  </div>
+  </main>
 
   <footer>
     <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Selection decisions rest with CIPE and the country partner. Companion pages: <a href="foreign-financing.html">foreign financing</a> &middot; <a href="financing-forms.html">financing forms</a>.

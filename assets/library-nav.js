@@ -25,7 +25,8 @@
     { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve", added: "2026-08-04" },
     { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "how far can an ordinary person travel toward one fact?", added: "2026-08-05" },
     { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05" },
-    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label", added: "2026-08-05" }
+    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label", added: "2026-08-05" },
+    { href: "selection-and-sampling.html", term: "Selection and sampling", note: "a defensible list is documented, never convenient", added: "2026-08-05" }
   ];
 
   pages.forEach(function (p, i) { p.origIdx = i; });

@@ -30,6 +30,8 @@
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
 
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-bottom:1.2rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
     .tests{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;}
     .test{display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:.8rem 1.4rem;border-bottom:1px solid var(--light);}
     .test:last-child{border-bottom:0;}
@@ -67,36 +69,104 @@
     </div>
   </section>
 
-  <div class="wrap">
+  <main class="wrap">
+
+    <h2 class="sec">The test at a glance</h2>
+    <p class="sub">Six gates in sequence, three outcomes. The amber outcome is the one the rest of this page now makes explicit: a test that cannot be answered from available records is unverified, never failed.</p>
+    <div class="flowcard">
+      <svg viewBox="0 0 720 250" width="720" height="250" role="img" aria-labelledby="pppTitle pppDesc">
+        <title id="pppTitle">The six PPP tests and their three outcomes</title>
+        <desc id="pppDesc">Six gates in sequence: a public and a private party; long-term and contractual; the partner contributes; the partner manages; the partner carries risk; payment runs over time. Three outcomes follow. All six hold: a PPP, scored on the standard and PPP questions. Any test fails: not a PPP, scored on the standard questions with the failed test recorded. Cannot be answered from available records: unverified and flagged, with the PPP questions run anyway, because the missing contract is itself the first finding.</desc>
+        <style>
+          .pg{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .pgn{font:700 9px "SFMono-Regular",Consolas,monospace;letter-spacing:.04em;fill:#3d6491;}
+          .pgt{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+          .pline{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+          .oc{font:700 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;}
+          .osub{font:400 10px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+        </style>
+        <defs>
+          <marker id="pppa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/></marker>
+        </defs>
+        <rect x="20" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="30" y="42" class="pgn">T1</text>
+        <text x="30" y="58" class="pgt">Public +</text>
+        <text x="30" y="72" class="pgt">private party</text>
+        <path class="pline" d="M124 54 L134 54" marker-end="url(#pppa)"/>
+        <rect x="138" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="148" y="42" class="pgn">T2</text>
+        <text x="148" y="58" class="pgt">Long-term,</text>
+        <text x="148" y="72" class="pgt">contractual</text>
+        <path class="pline" d="M242 54 L252 54" marker-end="url(#pppa)"/>
+        <rect x="256" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="266" y="42" class="pgn">T3</text>
+        <text x="266" y="58" class="pgt">Partner</text>
+        <text x="266" y="72" class="pgt">contributes</text>
+        <path class="pline" d="M360 54 L370 54" marker-end="url(#pppa)"/>
+        <rect x="374" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="384" y="42" class="pgn">T4</text>
+        <text x="384" y="58" class="pgt">Partner</text>
+        <text x="384" y="72" class="pgt">manages</text>
+        <path class="pline" d="M478 54 L488 54" marker-end="url(#pppa)"/>
+        <rect x="492" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="502" y="42" class="pgn">T5</text>
+        <text x="502" y="58" class="pgt">Partner</text>
+        <text x="502" y="72" class="pgt">carries risk</text>
+        <path class="pline" d="M596 54 L606 54" marker-end="url(#pppa)"/>
+        <rect x="610" y="26" width="104" height="56" rx="8" class="pg"/>
+        <text x="620" y="42" class="pgn">T6</text>
+        <text x="620" y="58" class="pgt">Paid over</text>
+        <text x="620" y="72" class="pgt">time</text>
+        <path class="pline" d="M120 82 L120 112" marker-end="url(#pppa)"/>
+        <path class="pline" d="M360 82 L360 112" marker-end="url(#pppa)"/>
+        <path class="pline" d="M600 82 L600 112" marker-end="url(#pppa)"/>
+        <rect x="20" y="116" width="215" height="110" rx="10" fill="#fff" stroke="#1B7A3D" stroke-width="1.5"/>
+        <text x="34" y="140" class="oc" fill="#1B7A3D">All six hold</text>
+        <text x="34" y="158" class="osub">A PPP: score the standard</text>
+        <text x="34" y="172" class="osub">and the PPP questions.</text>
+        <rect x="253" y="116" width="215" height="110" rx="10" fill="#fff" stroke="#5A6B7B" stroke-width="1.5"/>
+        <text x="267" y="140" class="oc" fill="#5A6B7B">Any test fails</text>
+        <text x="267" y="158" class="osub">Not a PPP, whatever the title says:</text>
+        <text x="267" y="172" class="osub">standard questions only, and the</text>
+        <text x="267" y="186" class="osub">failed test recorded.</text>
+        <rect x="486" y="116" width="214" height="110" rx="10" fill="#fff" stroke="#C77F00" stroke-width="1.5"/>
+        <text x="500" y="140" class="oc" fill="#C77F00">Cannot be answered</text>
+        <text x="500" y="158" class="osub">Unverified, never failed: flag it,</text>
+        <text x="500" y="172" class="osub">run the PPP questions anyway. The</text>
+        <text x="500" y="186" class="osub">missing contract is itself the</text>
+        <text x="500" y="200" class="osub">first finding.</text>
+      </svg>
+    </div>
 
     <h2 class="sec">The six tests</h2>
     <p class="sub">These reproduce the screening questions in the partner assessment workbook. Run them on the arrangement as it actually operates, not on its title.</p>
 
     <div class="tests">
-      <div class="test"><span class="num">Test 1</span><span class="q">Is there a public authority on one side and a private partner on the other?<span class="d">A government body or state-linked company as the public party, and a private company as the partner. Two public bodies contracting each other is government to government, not a PPP.</span></span></div>
-      <div class="test"><span class="num">Test 2</span><span class="q">Is the relationship long-term and contractual, rather than short-term or ad hoc?<span class="d">Concessions and purchase agreements run for decades. A construction contract that ends at handover fails this test.</span></span></div>
+      <div class="test"><span class="num">Test 1</span><span class="q">Is there a public authority on one side and a private partner on the other?<span class="d">A government body or state-linked company as the public party, and a commercial partner on the other side. Where state linkage is debatable, the deciding question is responsibility: which entity answers to the public if the project fails. A foreign state-owned enterprise acting as the commercial partner sits on the private side of this test, its state linkage recorded through the <a href="prc-classification.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">classification</a>, never by failing this test. Two public bodies of the same government contracting each other is government to government, not a PPP.</span></span></div>
+      <div class="test"><span class="num">Test 2</span><span class="q">Is the relationship long-term and contractual, rather than short-term or ad hoc?<span class="d">Concessions and purchase agreements run for decades. As a working reading, long-term means the obligation outlives construction by years, typically a decade or more; the exact floor is the methodology guide's to set. A construction contract that ends at handover fails this test.</span></span></div>
       <div class="test"><span class="num">Test 3</span><span class="q">Does the private partner contribute to financing, development, operation or maintenance?<span class="d">The partner puts something of its own into the asset's life, beyond being paid for a delivered service.</span></span></div>
-      <div class="test"><span class="num">Test 4</span><span class="q">Does the private partner carry significant management responsibility?<span class="d">It runs something: the asset, the service, the revenue collection. A passive lender fails this test.</span></span></div>
-      <div class="test"><span class="num">Test 5</span><span class="q">Is the private partner exposed to substantial project risk?<span class="d">Demand, performance or cost risk that actually lands on the partner. Where the state absorbs every downside, there is no partnership, only procurement with extra steps.</span></span></div>
+      <div class="test"><span class="num">Test 4</span><span class="q">Does the private partner carry significant management responsibility?<span class="d">It runs something: the asset, the service, the revenue collection. The anchor: the partner makes operating decisions, not merely performs specified tasks, which is what separates a concessionaire from an outsourced maintenance crew. A passive lender fails this test.</span></span></div>
+      <div class="test"><span class="num">Test 5</span><span class="q">Is the private partner exposed to substantial project risk?<span class="d">Demand, performance or cost risk that actually lands on the partner. The anchor: if the partner can lose money when usage falls or performance slips, the test holds. Where the state absorbs every downside, there is no partnership, only procurement with extra steps.</span></span></div>
       <div class="test"><span class="num">Test 6</span><span class="q">Is payment tied to long-term performance, availability or use?<span class="d">The partner earns over time from tolls, tariffs, availability payments or output, not from a lump sum at delivery.</span></span></div>
     </div>
 
     <div class="outcomes">
-      <div class="outcome"><b>All six hold</b>It is a PPP for assessment purposes: score the standard 40 data points plus the PPP questions (rationale and value for money, risk allocation, ownership and beneficial-ownership structures, guarantees and contingent liabilities, tariffs and payment mechanisms, performance and penalties, renegotiations, termination and handover).</div>
-      <div class="outcome no"><b>Any test fails</b>It is not a PPP for assessment purposes, whatever its title says. Score the standard data points that apply. Record which test failed; the reason is often itself informative.</div>
+      <div class="outcome"><b>All six hold</b>It is a PPP for assessment purposes: score the standard 40 data points plus the PPP questions (published rationale and value-for-money evidence, risk allocation, ownership and beneficial-ownership structures, guarantees and contingent liabilities, tariffs and payment mechanisms, performance and penalties, renegotiations, termination and handover). The assessment tests whether that evidence was published, never whether the project was good value. The full question set lives in the assessment workbook and the methodology note in preparation.</div>
+      <div class="outcome no"><b>Any test fails</b>It is not a PPP for assessment purposes, whatever its title says; a contract's title is never evidence, the tests are. Score the standard data points that apply. Record which test failed; the reason is often itself informative.</div>
+      <div class="outcome" style="border-left-color:var(--amber);grid-column:1 / -1;"><b>A test cannot be answered</b>Record it as unverified, never as failed, flag the project, and run the PPP questions anyway: the contract that would answer the test is itself a PPP disclosure record, so its absence is the first finding, not a reason to exempt the project from scrutiny.</div>
     </div>
 
     <h2 class="sec">The rules that keep it comparable</h2>
     <div class="rules">
       <ul>
-        <li><b>The public contracting authority stays the project owner.</b> Even where a special-purpose vehicle finances, builds, operates or temporarily holds title, the public entity that approved the project and answers for the service remains the owner. Otherwise "owner" would mean different things across projects and comparability dies.</li>
+        <li><b>The public contracting authority stays the project owner.</b> Even where a special-purpose vehicle finances, builds, operates or temporarily holds title, the public entity that approved the project and answers for the service remains the owner. Otherwise "owner" would mean different things across projects and comparability dies. For assessment, the contracting authority, the legal title holder, the SPV and the beneficial owners are recorded as separate fields; the owner rule fixes who counts as owner, it never erases the others. The tests run per arrangement: a project holding several contracts is classified by the arrangement that creates the long-term obligation, consistent with the per-awarded-contract scoring ruling.</li>
         <li><b>The family is bigger than the name.</b> Concessions, build-operate-transfer structures and independent power producers under a <a href="power-purchase-agreement.html">power purchase agreement</a> all sit in this family when the six tests hold.</li>
         <li><b>PPP status and foreign financing are separate questions.</b> The six tests say nothing about where the money comes from; that is settled by the <a href="foreign-financing.html">shared foreign-financing definition</a>. A PPP can be entirely domestic, and a foreign-financed project need not be a PPP.</li>
-        <li><b>Why the extra questions exist:</b> the standard data points cannot see a PPP's hidden obligations, the guarantees, contingent liabilities and long payment promises that never appear in a budget line. The PPP questions exist to reach them.</li>
+        <li><b>Why the extra questions exist:</b> the standard data points cannot see a PPP's hidden obligations, the guarantees, contingent liabilities and long payment promises that never appear in a budget line. The PPP questions exist to reach them; how they bind to the forty is being settled in the methodology note.</li>
       </ul>
     </div>
 
-  </div>
+  </main>
 
   <footer>
     <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The six tests reproduce the screening questions in the partner assessment workbook; the working definition is in use across the programme, and CIPE holds final methodology authority. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="power-purchase-agreement.html">power purchase agreements</a> &middot; <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="zero-to-six-scale.html">the 0 to 6 scale</a>.

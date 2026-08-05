@@ -8,7 +8,7 @@
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
-      --green:#1B7A3D; --amber:#C77F00; --red:#BE1E2D;
+      --green:#1B7A3D; --amber:#C77F00; --red:#CC2028;
       --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
       --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
       --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
@@ -57,7 +57,7 @@
     .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .rules a:hover{color:var(--brand-deep);}
 
-    .never{background:#fff;border:1px solid rgba(190,30,45,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
     .never b{color:var(--red);}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
@@ -149,6 +149,46 @@
         <li><b>A disclosed "none" is an answer.</b> An official statement that "no households were displaced" is a complete, scoreable disclosure like any other, never a zero.</li>
         <li><b>Doubts become flags, never score changes.</b> <a href="conflicting-figures.html">Conflicting figures</a>, undated pages, unstable links: these are recorded as flags beside the score, so the scale stays clean and the doubts stay visible.</li>
       </ol>
+    </div>
+
+    <h2 class="sec">What an empty cell really means</h2>
+    <p class="sub">The same figure partners will meet in the mapping report and the partner summary: four evidence states hide inside a single zero, and only one of them is a disclosure failure.</p>
+    <div class="flowcard" style="background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;">
+      <svg viewBox="0 0 680 470" width="680" height="470" role="img" aria-labelledby="zqT zqD" style="display:block;margin:0 auto;max-width:100%;height:auto;">
+        <title id="zqT">The four evidence states behind an empty cell</title>
+        <desc id="zqD">A search finds nothing published for a data point. Four states follow. Due but unpublished: the only real zero, scored 0. Not yet due: the lifecycle stage has not produced it, excluded. Structurally absent: the delivery model lawfully never produces it, excluded. Out of scope: outside the methodology, excluded entirely. Excluded states are labelled and leave the denominator, never counted against a government.</desc>
+        <rect x="205" y="10" width="270" height="46" rx="10" fill="#28496A"/>
+        <text x="340" y="30" font-family="Arial" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">The search finds nothing published</text>
+        <text x="340" y="46" font-family="Arial" font-size="10.5" fill="#CDDDEC" text-anchor="middle">for a data point</text>
+        <line x1="340" y1="56" x2="340" y2="78" stroke="#5A6B7B" stroke-width="1.5"/>
+        <line x1="120" y1="78" x2="560" y2="78" stroke="#5A6B7B" stroke-width="1.5"/>
+        <line x1="120" y1="78" x2="120" y2="90" stroke="#5A6B7B" stroke-width="1.5"/>
+        <line x1="560" y1="78" x2="560" y2="90" stroke="#5A6B7B" stroke-width="1.5"/>
+        <rect x="20" y="94" width="310" height="120" rx="10" fill="#CC2028"/>
+        <text x="36" y="122" font-family="Arial" font-size="14.5" font-weight="700" fill="#FFFFFF">Due but unpublished</text>
+        <text x="36" y="144" font-family="Arial" font-size="11.5" fill="#FFFFFF">Information exists or should exist;</text>
+        <text x="36" y="160" font-family="Arial" font-size="11.5" fill="#FFFFFF">the government has not published it.</text>
+        <text x="36" y="176" font-family="Arial" font-size="11.5" fill="#FFFFFF">The only real zero: score 0.</text>
+        <rect x="350" y="94" width="310" height="120" rx="10" fill="#FFFFFF" stroke="#2C4143" stroke-width="2"/>
+        <text x="366" y="122" font-family="Arial" font-size="14.5" font-weight="700" fill="#2C4143">Not yet due</text>
+        <text x="366" y="144" font-family="Arial" font-size="11.5" fill="#5A6B7B">The lifecycle stage has not produced it:</text>
+        <text x="366" y="160" font-family="Arial" font-size="11.5" fill="#5A6B7B">a pre-construction project cannot have</text>
+        <text x="366" y="176" font-family="Arial" font-size="11.5" fill="#5A6B7B">completion documents. Excluded, never a zero.</text>
+        <rect x="20" y="228" width="310" height="120" rx="10" fill="#FFFFFF" stroke="#2C4143" stroke-width="2"/>
+        <text x="36" y="256" font-family="Arial" font-size="14.5" font-weight="700" fill="#2C4143">Structurally absent</text>
+        <text x="36" y="278" font-family="Arial" font-size="11.5" fill="#5A6B7B">The delivery model lawfully never produces</text>
+        <text x="36" y="294" font-family="Arial" font-size="11.5" fill="#5A6B7B">it: a concession may have no tender documents</text>
+        <text x="36" y="310" font-family="Arial" font-size="11.5" fill="#5A6B7B">of the expected kind. Excluded, never a zero.</text>
+        <rect x="350" y="228" width="310" height="120" rx="10" fill="#FFFFFF" stroke="#C77F00" stroke-width="2"/>
+        <text x="366" y="256" font-family="Arial" font-size="14.5" font-weight="700" fill="#C77F00">Out of scope</text>
+        <text x="366" y="278" font-family="Arial" font-size="11.5" fill="#5A6B7B">The project or point falls outside the</text>
+        <text x="366" y="294" font-family="Arial" font-size="11.5" fill="#5A6B7B">methodology. Excluded entirely; no data</text>
+        <text x="366" y="310" font-family="Arial" font-size="11.5" fill="#5A6B7B">point is scored.</text>
+        <rect x="120" y="368" width="440" height="42" rx="10" fill="#F6F8FA" stroke="#E2E8ED"/>
+        <text x="340" y="386" font-family="Arial" font-size="12" font-weight="700" fill="#1E2A38" text-anchor="middle">Labelled; excluded from the denominator</text>
+        <text x="340" y="402" font-family="Arial" font-size="10.5" fill="#5A6B7B" text-anchor="middle">Never counted against a government</text>
+        <text x="20" y="444" font-family="Arial" font-size="10.5" fill="#5A6B7B">Without these labels, a headline score punishes honest reporting.</text>
+      </svg>
     </div>
 
     <h2 class="sec">What gets scored</h2>

@@ -34,7 +34,8 @@
     { href: "conflicting-figures.html", term: "Conflicting figures", note: "keep both numbers, flag the divergence", added: "2026-08-05" },
     { href: "attribution-record.html", term: "Attribution record", note: "the financing record behind the comparison", added: "2026-08-05" },
     { href: "project-result.html", term: "Project result", note: "the average over applicable points only", added: "2026-08-05" },
-    { href: "state-owned-enterprise.html", term: "State-owned enterprise (SOE)", note: "classified by role, not ownership", added: "2026-08-05" }
+    { href: "state-owned-enterprise.html", term: "State-owned enterprise (SOE)", note: "classified by role, not ownership", added: "2026-08-05" },
+    { href: "beneficial-ownership.html", term: "Beneficial ownership", note: "who really gains: how far the record carries a reader", added: "2026-08-05" }
   ];
 
   pages.forEach(function (p, i) { p.origIdx = i; });
@@ -90,6 +91,8 @@
     ".lib-nav .lib-sect{font-family:var(--mono,monospace);font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid,#5A6B7B);margin:.55rem 0 .3rem;}" +
     ".lib-nav .lib-newtag{font-family:var(--mono,monospace);font-size:.54rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber,#C77F00);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.05rem .4rem;margin-left:.35rem;vertical-align:middle;}" +
     ".lib-nav .lib-empty{display:none;font-size:.82rem;color:var(--mid,#5A6B7B);padding:.2rem 0;}" +
+    ".lib-nav .lib-close{display:block;width:100%;margin-top:.6rem;background:var(--surface,#F6F8FA);border:1px solid var(--light,#E2E8ED);border-radius:8px;padding:.45rem;cursor:pointer;font-family:var(--mono,monospace);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mid,#5A6B7B);}" +
+    ".lib-nav .lib-close:hover{color:var(--brand-deep,#142334);border-color:var(--brand-soft,#3d6491);}" +
     ".lib-nav.no-match .lib-empty{display:block;}" +
     /* wide: fixed rail, always open, one line per term (note = tooltip) */
     "@media(min-width:1560px){" +
@@ -102,6 +105,7 @@
     ".lib-nav .lib-panel{display:block;position:static;border:0;border-radius:0;box-shadow:none;max-height:calc(100vh - 240px);overflow-y:auto;padding:0;}" +
     ".lib-nav a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:.26rem 0 .26rem .7rem;margin:0 0 .22rem;font-size:.84rem;}" +
     ".lib-nav a .lib-note{display:none;}" +
+    ".lib-nav .lib-close{display:none;}" +
     "}" +
     /* term cloud (only on the page that carries #term-cloud) */
     "#term-cloud .cloud{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;align-items:baseline;background:var(--white,#fff);border:1px solid var(--light,#E2E8ED);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.16);padding:1.3rem 1.5rem;}" +
@@ -204,6 +208,17 @@
   empty.className = "lib-empty";
   empty.textContent = "No term matches. Try a shorter word.";
   panel.appendChild(empty);
+
+  var closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "lib-close";
+  closeBtn.textContent = "Close ✕";
+  closeBtn.addEventListener("click", function () {
+    nav.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
+  });
+  panel.appendChild(closeBtn);
 
   inner.appendChild(panel);
   nav.appendChild(inner);

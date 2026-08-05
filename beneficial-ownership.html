@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beneficial ownership: who really gains from the project</title>
+  <meta name="description" content="The Infrastructure Watch working treatment of beneficial ownership: the natural persons who ultimately own, control or gain from a project party. The assessment tests whether that chain was published, recording the contract name, legal owner, special-purpose vehicle and ultimate owners as separate fields, with every gap carrying its evidence state.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#CC2028;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a,main .wrap a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .rectab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:.9rem;}
+    .rectab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.55rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .rectab td{padding:.5rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .rectab tr:last-child td{border-bottom:0;}
+    .rectab td.fld{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
+    .rectab a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
+    .rules ol{margin:0;padding-left:1.2rem;}
+    .rules li{margin:0 0 .55rem;font-size:.92rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules li b{color:var(--brand-deep);}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never b{color:var(--red);}
+    .never a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Beneficial ownership &middot; a one-page guide</p>
+      <h1>The name on the contract is the start of the question, not the answer</h1>
+      <p>The beneficial owners of a project party are the natural persons who ultimately own it, control it, or gain from it, however many companies stand in between. The assessment never investigates who they are; it tests whether the public record lets an ordinary reader travel from the contract name to those people.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <h2 class="sec">The chain the record must let a reader walk</h2>
+    <p class="sub">Most project parties are layered. Each layer is a separate fact with its own evidence, and the assessment asks how far the published record carries a reader along the chain.</p>
+
+    <div class="flowcard">
+      <svg viewBox="0 0 720 210" width="720" height="210" role="img" aria-labelledby="boTitle boDesc">
+        <title id="boTitle">The ownership chain from contract name to natural persons</title>
+        <desc id="boDesc">Four linked boxes. The name on the contract, often a special-purpose vehicle created for the deal. Its legal owners, the companies holding the shares. Their owners in turn, which may pass through further companies or trusts. Finally the beneficial owners: the natural persons who ultimately own, control or gain. The assessment scores how far the published record carries a reader along this chain, and where it stops.</desc>
+        <defs>
+          <marker id="boa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/>
+          </marker>
+        </defs>
+        <style>
+          .bg{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .bgg{fill:#fff;stroke:#1B7A3D;stroke-width:1.5;}
+          .bt{font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#28496A;}
+          .btg{font:700 12px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1B7A3D;}
+          .bs{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .bl{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+          .note{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .noteb{font:700 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+        </style>
+
+        <rect x="20" y="40" width="158" height="72" rx="10" class="bg"/>
+        <text x="34" y="66" class="bt">Name on the contract</text>
+        <text x="34" y="84" class="bs">often a company created</text>
+        <text x="34" y="98" class="bs">just for this deal</text>
+
+        <path class="bl" d="M178 76 L196 76" marker-end="url(#boa)"/>
+
+        <rect x="200" y="40" width="150" height="72" rx="10" class="bg"/>
+        <text x="214" y="66" class="bt">Legal owners</text>
+        <text x="214" y="84" class="bs">the companies</text>
+        <text x="214" y="98" class="bs">holding the shares</text>
+
+        <path class="bl" d="M350 76 L368 76" marker-end="url(#boa)"/>
+
+        <rect x="372" y="40" width="150" height="72" rx="10" class="bg"/>
+        <text x="386" y="66" class="bt">Their owners</text>
+        <text x="386" y="84" class="bs">more companies,</text>
+        <text x="386" y="98" class="bs">funds or trusts</text>
+
+        <path class="bl" d="M522 76 L540 76" marker-end="url(#boa)"/>
+
+        <rect x="544" y="40" width="156" height="72" rx="10" class="bgg"/>
+        <text x="558" y="66" class="btg">Beneficial owners</text>
+        <text x="558" y="84" class="bs">the natural persons who</text>
+        <text x="558" y="98" class="bs">ultimately own, control, gain</text>
+
+        <rect x="20" y="150" width="680" height="42" rx="10" fill="#fbf7ef" stroke="#C77F00" stroke-opacity=".45" stroke-width="1.5"/>
+        <text x="360" y="170" text-anchor="middle" class="noteb">The assessment scores how far the published record carries a reader along this chain.</text>
+        <text x="360" y="185" text-anchor="middle" class="note">Where it stops is recorded with its evidence state: an unsearched point is never a zero.</text>
+      </svg>
+    </div>
+    <p class="sub" style="font-size:.75rem;margin-top:.5rem;">Illustrative chain; treatment as proposed for partner consultation, August 2026.</p>
+
+    <div class="never"><b>The common trap:</b> treating the contract name as the owner. A special-purpose vehicle is a real company and a real signature, but it tells you almost nothing about who is behind the project or who the public ends up owing if it fails. The mirror trap also fails: an unpublished chain does not mean hidden wrongdoing; it is scored as a disclosure gap, with the reason the search stopped recorded.</div>
+
+    <h2 class="sec">How this assessment reads it</h2>
+    <p class="sub">Beneficial ownership here is a disclosure question, not an investigation.</p>
+    <div class="rules">
+      <ol>
+        <li><b>The question is "who really gains", asked of the record.</b> The assessment tests whether the published record answers it: company registers, beneficial-ownership registers where they exist, and the project's own disclosures. It never establishes the answer by its own investigation, and it never asserts wrongdoing.</li>
+        <li><b>Ownership is layered, so the fields are separate.</b> The contracting public authority, the legal title holder, the special-purpose vehicle and the beneficial owners are recorded as separate fields, the same separation <a href="public-private-partnership.html">the PPP definition</a> fixes for the owner rule. Collapsing them into one "owner" answer is how the question disappears.</li>
+        <li><b>Ownership never decides classification.</b> Who owns an enterprise and what it does in the contract are different questions; classification follows the role, per <a href="state-owned-enterprise.html">the SOE rule</a>. The ownership chain is recorded alongside the role, not instead of it.</li>
+        <li><b>It matters most where the money is equity.</b> A sovereign loan's terms hide the debt; an equity or project-finance structure hides who gains. For equity and PPP cases the record needed is the ownership chain and the offtake or payment arrangement together, because the two jointly answer whether public money is routed to a private interest.</li>
+        <li><b>The private-capital shift raises the stakes.</b> A growing share of foreign-financed infrastructure is carried by private companies financing from their own balance sheets, where no state budget line or loan register will ever surface the interest. The published ownership chain is then the only public route to who gains.</li>
+        <li><b>Every stop is recorded with its evidence state.</b> Chain published to natural persons; published to a company layer and stops; register exists but has no entry; no register and no disclosure. Each is a different finding. An unsearched point is never a zero, and silence in the record is reported as uncovered, never as cleared.</li>
+      </ol>
+    </div>
+
+    <h2 class="sec">What is recorded for each project party</h2>
+    <p class="sub">The minimum fields. They apply to the concessionaire, the contractor and the financier alike; for PPPs they join the PPP question set.</p>
+    <table class="rectab">
+      <tr><th>Field</th><th>What it records</th></tr>
+      <tr><td class="fld">Named party</td><td>The name on the contract, and whether it is a special-purpose vehicle created for the project</td></tr>
+      <tr><td class="fld">Legal owners</td><td>The shareholders of record, with stakes where published</td></tr>
+      <tr><td class="fld">Beneficial owners</td><td>The natural persons ultimately owning or controlling, as published in a register or disclosure, with the source</td></tr>
+      <tr><td class="fld">Control without shares</td><td>Golden shares, board control, veto rights or agreements that confer control beyond shareholding, where disclosed</td></tr>
+      <tr><td class="fld">Source of capital</td><td>Whose money is at risk: equity provider, lender, guarantor, each recorded separately with its origin</td></tr>
+      <tr><td class="fld">Where the chain stops</td><td>The last layer the public record reaches, and the evidence state for the layers beyond it</td></tr>
+    </table>
+
+  </main>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation; the field set is proposed, not yet agreed, and the assessment workbook governs where they differ. Beneficial-ownership structures already sit inside the PPP question set (mapping report; ownership and beneficial-ownership structures among the PPP disclosure questions). Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="public-private-partnership.html">public-private partnership</a> &middot; <a href="state-owned-enterprise.html">state-owned enterprise</a> &middot; <a href="attribution-record.html">attribution record</a> &middot; <a href="foreign-financing.html">foreign financing</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

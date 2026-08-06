@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The transparency assessment: what it is and how it is done</title>
-  <meta name="description" content="The Infrastructure Watch transparency assessment, end to end: what it measures (whether the government published each fact, never whether the project is good), and the seven-step procedure from eligibility and selection through searching, evidence states, 0-to-6 scoring, review, and the project result.">
+  <meta name="description" content="The Infrastructure Watch assessment as one process map: prepare (eligible pool, locked list and buffer), assess each project (classify once, then search, evidence state and 0-to-6 score for every applicable data point), review with a correction loop, then average applicable points into the project result.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -33,16 +33,32 @@
 
     .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
     .answer b{color:#7fa8d6;}
+    .answer ul{margin:.5rem 0 0;padding-left:1.2rem;}
+    .answer li{margin:0 0 .3rem;}
+    .answer li:last-child{margin-bottom:0;}
+    .answer a{color:#7fa8d6;font-weight:600;}
 
-    .steps{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
-    .step{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;border-left:4px solid var(--brand-soft);}
-    .step .n{font-family:var(--mono);font-weight:800;font-size:1.3rem;color:var(--brand-soft);text-align:center;padding-top:.05rem;}
-    .step b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.2rem;}
-    .step p{margin:0;font-size:.9rem;color:var(--mid);}
-    .step a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-top:1rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .outtab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:1rem;}
+    .outtab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .outtab td{padding:.55rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .outtab tr:last-child td{border-bottom:0;}
+    .outtab td:first-child{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
+    .outtab a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
     .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
     .never b{color:var(--red);}
+    .never ul{margin:.5rem 0 0;padding-left:1.2rem;}
+    .never li{margin:0 0 .4rem;}
+    .never li:last-child{margin-bottom:0;}
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
+    .rules ul{margin:0;padding-left:1.1rem;}
+    .rules li{margin:0 0 .4rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -62,23 +78,121 @@
 
   <main class="wrap">
 
-    <div class="answer"><b>The whole method in one sentence.</b> Select eligible projects fairly, then for each of the <a href="forty-data-points.html" style="color:#7fa8d6;font-weight:600;">40 data points</a> on each project: search the government's channels, record what state the evidence is in, score it 0 to 6, keep the source trail, and average the applicable points into the project result.</div>
-
-    <h2 class="sec">The seven steps</h2>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><div><b>Establish which projects can enter</b><p>Apply the <a href="eligibility.html">eligibility test</a>: only projects meeting the common financing, timing and implementation rules enter the pool, with <a href="foreign-financing.html">qualifying foreign financing</a> as the entry question.</p></div></div>
-      <div class="step"><div class="n">2</div><div><b>Select the country list, and document the selection</b><p>Follow the <a href="selection-and-sampling.html">selection and sampling</a> workflow: build the pool, filter it, choose a balanced sample, and record the whole choice before scoring. Never pick a project because its information is easy to find. Pre-commit a <a href="buffer-list.html">buffer list</a> for substitutions.</p></div></div>
-      <div class="step"><div class="n">3</div><div><b>Classify each project</b><p>Record its <a href="financing-forms.html">financing form</a>, its <a href="prc-classification.html">classification</a>, and whether it meets the <a href="public-private-partnership.html">PPP definition</a>. Classification decides which questions apply: every project gets the 40 data points; PPPs additionally get the PPP questions.</p></div></div>
-      <div class="step"><div class="n">4</div><div><b>Search for each fact, properly</b><p>For every data point, run a <a href="sufficient-search.html">sufficient search</a> of the applicable government channels and record where you looked. An unsearched point is never a zero.</p></div></div>
-      <div class="step"><div class="n">5</div><div><b>Record the evidence state, then score 0 to 6</b><p>First settle what state the point is in, using the <a href="evidence-states.html">evidence states</a>: scored, not yet due, not applicable, or searched-and-absent. Then score what was found on the <a href="zero-to-six-scale.html">0 to 6 scale</a>: the turning point is score 3, where official government disclosure begins. Doubts, like <a href="conflicting-figures.html">conflicting figures</a>, become flags beside the score, never score changes.</p></div></div>
-      <div class="step"><div class="n">6</div><div><b>Keep the trail and review it</b><p>Every score enters the <a href="assessment-database.html">assessment database</a> with its source URL, publisher, dates, assessor and reviewer, and the rationale for any exception. A second pair of eyes reviews before anything is reported; hard classification calls are referred to CIPE, never forced to fit.</p></div></div>
-      <div class="step"><div class="n">7</div><div><b>Compute the project result</b><p>The <a href="project-result.html">project result</a> is the equal-weight average over the applicable points only; excluded points never drag it down. One project yields a profile of scores, a result, and a defensible record of how both were reached.</p></div></div>
+    <div class="answer"><b>The method in three sentences.</b>
+      <ul>
+        <li>Select eligible projects fairly, and lock the list before scoring.</li>
+        <li>For each project, search the government's channels for each of the <a href="forty-data-points.html">40 data points</a>, record the evidence state, and score it 0 to 6 with its source trail.</li>
+        <li>Review, then average the applicable points into the project result.</li>
+      </ul>
     </div>
 
-    <div class="never"><b>The two failures that ruin an assessment:</b> selecting projects for their good records (the sample then flatters the system it was meant to test), and scoring zeros without a completed search (the score then measures your effort, not the government's disclosure). Every other mistake can be corrected from the trail; these two poison the data itself.</div>
+    <h2 class="sec">The process map</h2>
+    <p class="sub">Three stages. Preparation finishes before scoring begins; the middle loop repeats for every applicable data point on every selected project; review can send a record back before results are computed.</p>
+    <div class="flowcard">
+      <svg viewBox="0 0 760 850" width="760" height="850" role="img" aria-labelledby="apTitle apDesc">
+        <title id="apTitle">The assessment process map</title>
+        <desc id="apDesc">Stage one, prepare: build the eligible pool, then lock the project list and buffer before scoring. Stage two, assess, repeated for each selected project: classify the project once, then for each applicable data point, up to forty, search the official channels, record the evidence state, and score zero to six keeping the source trail. Stage three, review and results: a reviewer resolves flags; a record needing correction goes back into the data-point loop; accepted records are averaged over applicable points into the project result, producing the country dataset of project profiles, flags and case-study candidates.</desc>
+        <defs>
+          <marker id="apa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/></marker>
+        </defs>
+        <style>
+          .box{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .ph{font:800 10px "SFMono-Regular",Consolas,monospace;fill:#5A6B7B;letter-spacing:.08em;}
+          .bt{font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+          .bs{font:400 11px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .al{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .ln{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+        </style>
+
+        <text x="150" y="22" class="ph">PREPARE &middot; ONCE PER COUNTRY</text>
+        <rect x="150" y="30" width="420" height="54" rx="10" class="box"/>
+        <text x="170" y="52" class="bt">Build the eligible pool</text>
+        <text x="170" y="68" class="bs">eligibility rules, with qualifying foreign financing as the entry test</text>
+        <path class="ln" d="M360 84 L360 108" marker-end="url(#apa)"/>
+        <rect x="150" y="112" width="420" height="54" rx="10" class="box"/>
+        <text x="170" y="134" class="bt">Lock the project list before scoring</text>
+        <text x="170" y="150" class="bs">core list and buffer chosen and documented, disclosure unseen</text>
+
+        <path class="ln" d="M360 166 L360 196" marker-end="url(#apa)"/>
+
+        <text x="150" y="192" class="ph">ASSESS &middot; REPEATED FOR EACH SELECTED PROJECT</text>
+        <rect x="150" y="200" width="420" height="54" rx="10" class="box"/>
+        <text x="170" y="222" class="bt">Classify the project, once</text>
+        <text x="170" y="238" class="bs">financing form, classification, PPP status: decides which points apply</text>
+
+        <path class="ln" d="M360 254 L360 282" marker-end="url(#apa)"/>
+
+        <rect x="120" y="286" width="480" height="264" rx="12" fill="none" stroke="#3d6491" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="140" y="308" class="ph" style="fill:#3d6491;">FOR EACH APPLICABLE DATA POINT (UP TO 40)</text>
+        <rect x="170" y="320" width="380" height="50" rx="10" class="box"/>
+        <text x="188" y="340" class="bt">Search the official channels</text>
+        <text x="188" y="356" class="bs">a sufficient search, recorded</text>
+        <path class="ln" d="M360 370 L360 394" marker-end="url(#apa)"/>
+        <rect x="170" y="398" width="380" height="50" rx="10" class="box"/>
+        <text x="188" y="418" class="bt">Record the evidence state</text>
+        <text x="188" y="434" class="bs">scored, not yet due, not applicable, or searched-and-absent</text>
+        <path class="ln" d="M360 448 L360 472" marker-end="url(#apa)"/>
+        <rect x="170" y="476" width="380" height="50" rx="10" class="box"/>
+        <text x="188" y="496" class="bt">Score 0 to 6, keep the source trail</text>
+        <text x="188" y="512" class="bs">doubts become flags beside the score, never score changes</text>
+
+        <path class="ln" d="M360 550 L360 580" marker-end="url(#apa)"/>
+
+        <text x="150" y="576" class="ph">REVIEW AND RESULTS</text>
+        <rect x="150" y="584" width="420" height="54" rx="10" class="box"/>
+        <text x="170" y="606" class="bt">Review and resolve flags</text>
+        <text x="170" y="622" class="bs">a named reviewer checks; genuine ambiguity is referred to CIPE</text>
+
+        <path class="ln" d="M570 611 L648 611 L648 418 L604 418" marker-end="url(#apa)"/>
+        <text x="580" y="602" class="al">needs correction</text>
+
+        <path class="ln" d="M360 638 L360 666" marker-end="url(#apa)"/>
+        <text x="372" y="658" class="al">accepted</text>
+
+        <rect x="150" y="670" width="420" height="54" rx="10" class="box"/>
+        <text x="170" y="692" class="bt">Average applicable points into the project result</text>
+        <text x="170" y="708" class="bs">equal weight; excluded points never drag it down</text>
+
+        <path class="ln" d="M360 724 L360 752" marker-end="url(#apa)"/>
+
+        <rect x="140" y="756" width="440" height="54" rx="27" fill="#142334"/>
+        <text x="360" y="778" text-anchor="middle" style="font:800 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#fff;">Country dataset</text>
+        <text x="360" y="796" text-anchor="middle" style="font:400 11px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#cdddec;">project profiles, flags, case-study candidates</text>
+      </svg>
+    </div>
+
+    <div class="never"><b>The two ways an assessment becomes systematically misleading:</b>
+      <ul>
+        <li><b>Never choose a project because its disclosure is easy to find.</b> The sample then flatters the system it was meant to test.</li>
+        <li><b>Never score zero without a completed, recorded search.</b> The score then measures your effort, not the government's disclosure.</li>
+      </ul>
+      Every other mistake can be corrected from the trail; these two poison the data itself.</div>
+
+    <h2 class="sec">Each stage, its action and its output</h2>
+    <table class="outtab">
+      <tr><th>Stage</th><th>What you do</th><th>What you produce</th></tr>
+      <tr><td>Pool</td><td>Apply the <a href="eligibility.html">eligibility test</a></td><td>The eligible project universe</td></tr>
+      <tr><td>Select</td><td>Follow the <a href="selection-and-sampling.html">selection workflow</a></td><td>Locked core list, buffer, selection note</td></tr>
+      <tr><td>Classify</td><td>Record <a href="financing-forms.html">financing form</a>, <a href="prc-classification.html">classification</a>, <a href="public-private-partnership.html">PPP status</a></td><td>Project classification, applicable question set</td></tr>
+      <tr><td>Search</td><td>Run a <a href="sufficient-search.html">sufficient search</a> per point</td><td>The search record</td></tr>
+      <tr><td>Record state</td><td>Assign an <a href="evidence-states.html">evidence state</a> per point</td><td>Evidence state per point</td></tr>
+      <tr><td>Score</td><td>Score on the <a href="zero-to-six-scale.html">0 to 6 scale</a>, flag doubts</td><td>Scored points with source trails, in the <a href="assessment-database.html">database</a></td></tr>
+      <tr><td>Review</td><td>Named reviewer checks; ambiguity to CIPE</td><td>Verified scores</td></tr>
+      <tr><td>Result</td><td>Average applicable points</td><td>The <a href="project-result.html">project result</a></td></tr>
+    </table>
+    <p class="sub" style="margin-top:.8rem;">Who and when: every scored point carries a named assessor and, where reviewed, a named reviewer; review happens before anything is reported. Timelines and review cadence are for the methodology guide to set.</p>
 
     <h2 class="sec">What comes out the other end</h2>
-    <p class="sub">Per country: a documented sample of projects, each with 40 scored data points, flags on the doubtful ones, PPP answers where they apply, and a per-project result. The scores compare; the record explains. Selected projects can then be taken deeper as case studies, which is its own <a href="case-study.html">defined process</a>.</p>
+    <div class="rules">
+      <ul>
+        <li>A documented sample of projects</li>
+        <li>40 scored data points per project, plus PPP answers where they apply</li>
+        <li>Flags on doubtful points</li>
+        <li>A per-project result</li>
+        <li>A defensible record of how all of it was reached</li>
+      </ul>
+    </div>
+    <p class="sub" style="margin-top:.8rem;">Selected projects can then be taken deeper as <a href="case-study.html">case studies</a>.</p>
 
   </main>
 

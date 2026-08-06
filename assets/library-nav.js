@@ -29,7 +29,7 @@
     { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve", added: "2026-08-04", group: "Understand the assessment" },
     { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05", group: "Understand the assessment" },
     { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "what each transparency score means; official disclosure starts at 3", added: "2026-08-05", group: "Understand the assessment" },
-    { href: "project-result.html", term: "Project result", note: "the average over applicable points only", added: "2026-08-05", group: "Understand the assessment" },
+    { href: "project-result.html", term: "Project result", note: "add the scores that apply, divide by the number you scored", added: "2026-08-05", group: "Understand the assessment" },
 
     { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?", added: "2026-08-04", group: "Decide which projects enter" },
     { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere", added: "2026-08-04", group: "Decide which projects enter" },

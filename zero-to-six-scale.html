@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The 0 to 6 scale: the score measures the public record, never the project</title>
-  <meta name="description" content="The Infrastructure Watch transparency scale: seven values numbered 0 to 6, scoring how far an ordinary person can travel toward one fact about a project, from nothing found to the official document itself. Sequential ladder, publisher-control rule, and why zero is a verdict rather than a default.">
+  <meta name="description" content="The Infrastructure Watch transparency scale in three zones: not found (0), available but not official (1 to 2), official government disclosure (3 to 6). Score 3 is the turning point where government publication begins. Full seven-value reference and the three scoring mistakes to avoid.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -30,6 +30,18 @@
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
 
+    .zones{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
+    .zonecard{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;display:grid;grid-template-columns:88px 1fr;gap:1rem;align-items:start;}
+    .zonecard .range{font-family:var(--mono);font-weight:800;font-size:1.2rem;text-align:center;line-height:1.2;padding-top:.1rem;}
+    .zonecard.z0{border-left:4px solid var(--mid);} .zonecard.z0 .range{color:var(--mid);}
+    .zonecard.z12{border-left:4px solid var(--amber);} .zonecard.z12 .range{color:var(--amber);}
+    .zonecard.z36{border-left:4px solid var(--green);} .zonecard.z36 .range{color:var(--green);}
+    .zonecard b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.2rem;}
+    .zonecard p{margin:0;font-size:.9rem;color:var(--mid);}
+
+    .turning{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
+    .turning b{color:#7fa8d6;}
+
     .ladder{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;}
     .rung{display:grid;grid-template-columns:64px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
     .rung:last-child{border-bottom:0;}
@@ -43,22 +55,26 @@
     .steps li{margin:0 0 .55rem;font-size:.92rem;}
     .steps li:last-child{margin-bottom:0;}
     .steps li b{color:var(--brand-deep);}
-    .whotab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;}
-    .whotab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
-    .whotab td{padding:.55rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
-    .whotab tr:last-child td{border-bottom:0;}
-    .whotab td.rul{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
 
     .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
     .rules ol{margin:0;padding-left:1.2rem;}
     .rules li{margin:0 0 .6rem;font-size:.92rem;}
     .rules li:last-child{margin-bottom:0;}
     .rules li b{color:var(--brand-deep);}
-    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .rules a:hover{color:var(--brand-deep);}
 
     .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
     .never b{color:var(--red);}
+
+    details.assessor{margin-top:1rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;}
+    details.assessor .inner ul{margin:0;padding-left:1.1rem;}
+    details.assessor .inner li{margin:0 0 .6rem;font-size:.88rem;}
+    details.assessor .inner li:last-child{margin-bottom:0;}
+    details.assessor .inner b{color:var(--brand-deep);}
+    details.assessor a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -72,52 +88,26 @@
     <div class="hero-inner">
       <p class="kicker">The 0 to 6 scale &middot; how every fact is scored</p>
       <h1>The score measures the public record, never the project</h1>
-      <p>For each fact about a project, the scale asks one question: how far can an ordinary person travel toward it? Seven values, numbered 0 to 6, from nothing found to the official document itself. A high score means the government made the fact easy to reach. It says nothing about whether the project is good.</p>
+      <p>For each fact about a project, the scale asks one question: has the government made it public, and how easy is it to reach? Seven values, numbered 0 to 6. A high score means the government made the fact easy to find. It says nothing about whether the project is good.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">Seven rungs, one question: how far can a citizen travel?</h2>
-    <p class="sub">Each rung, quoted from the Infra Watch Transparency Assessment score sheet that partners score in. The ladder is sequential: a fact climbs until it fails, and stays at the last rung it passed.</p>
-
-    <div class="ladder">
-      <div class="zone">Rungs 0 to 2 &middot; not yet official disclosure</div>
-      <div class="rung">
-        <div class="num">0</div>
-        <div><span class="gloss">Nothing found</span><span class="official">Sheet wording: "No information available." Scored only after a reasonable, completed search, not after a quick look.</span></div>
-      </div>
-      <div class="rung">
-        <div class="num">1</div>
-        <div><span class="gloss">Online, somewhere</span><span class="official">Sheet wording: "The information is available online, in an open format, and without the need for request."</span></div>
-      </div>
-      <div class="rung">
-        <div class="num">2</div>
-        <div><span class="gloss">Readable, from anyone</span><span class="official">Sheet wording: "The information is available in publicly available websites and uses English or host-country language." Any publisher counts here: a newspaper, a researcher, a contractor, a funder. A government source published only in a language that is neither English nor a host-country language is an edge case flagged for a ruling.</span></div>
-      </div>
-      <div class="zone off">Rungs 3 to 6 &middot; official disclosure starts here (the sheet's own binary line)</div>
-      <div class="rung">
-        <div class="num">3</div>
-        <div><span class="gloss">The government itself published it</span><span class="official">Sheet wording: "The information is available on the website/s of the host government or project owner." Any government-controlled channel counts: a ministry site, a procurement or budget portal, a debt database, an audit institution.</span></div>
-      </div>
-      <div class="rung">
-        <div class="num">4</div>
-        <div><span class="gloss">And it is clear</span><span class="official">Sheet wording adds: "in a fairly easy to understand format." A citizen gets the answer without mining hundreds of pages or assembling fragments.</span></div>
-      </div>
-      <div class="rung">
-        <div class="num">5</div>
-        <div><span class="gloss">And it is consolidated</span><span class="official">Sheet wording adds: the same official source "contains at least 10 other data points", rewarding governments that gather disclosure in one place instead of scattering it.</span></div>
-      </div>
-      <div class="rung">
-        <div class="num">6</div>
-        <div><span class="gloss">And the document itself is there</span><span class="official">Sheet wording adds: "an official full document related to the data point is provided", meaning the signed contract, the feasibility study, the audit, the evaluation report.</span></div>
-      </div>
+    <h2 class="sec">Has the government made this fact public?</h2>
+    <p class="sub">The seven scores fall into three zones. Grasp the zones and you have the scale.</p>
+    <div class="zones">
+      <div class="zonecard z0"><div class="range">0</div><div><b>Not found</b><p>A completed search of the applicable government channels found nothing, for a fact that was due and applicable.</p></div></div>
+      <div class="zonecard z12"><div class="range">1&ndash;2</div><div><b>Available, but not official</b><p>The fact can be found online, in a readable language, but the government has not published it. The publisher might be a newspaper, a researcher, a contractor or a funder.</p></div></div>
+      <div class="zonecard z36"><div class="range">3&ndash;6</div><div><b>Official government disclosure</b><p>The government itself published the fact. Higher scores add clarity (4), consolidation with other project data (5), and the official document itself (6).</p></div></div>
     </div>
 
-    <div class="never"><b>The common trap:</b> a funder's project page, however accurate and complete, is not government disclosure. It caps the score at 2, because the question is what the host government has made public, not what can be learned about the project somewhere.</div>
+    <div class="turning"><b>Score 3 is the turning point.</b> Below it, the fact may be findable, but the government has not made it public. What counts as "the government published it" is decided by who controls the publication, never by which website hosts it: a government document hosted on a funder's site is still official, and a funder's page quoting government figures is not. The recorded rulings live on the <a href="qualifying-government-publication.html" style="color:#7fa8d6;font-weight:600;">qualifying government publication</a> page.</div>
+
+    <div class="never"><b>Important:</b> a funder's project page does not count as government disclosure. However accurate and complete the World Bank or AfDB page is, it caps the score at 2, because the question is what the host government has made public, not what can be learned about the project somewhere.</div>
 
     <h2 class="sec">One fact, up the ladder</h2>
-    <p class="sub">A generic example: the project budget for an imagined road project, scored at each stage the record could be in.</p>
+    <p class="sub">The budget of an imagined road project, at each stage the record could be in.</p>
     <div class="steps">
       <ol>
         <li><b>Score 2.</b> The budget appears in the funder's project PDF, in English. Nothing on any government channel. Readable, from anyone, but not official, so it stops here.</li>
@@ -125,31 +115,89 @@
         <li><b>Score 4.</b> The portal states the budget plainly on the project page, one figure with its approval date, no mining required.</li>
         <li><b>Score 5.</b> The same portal also carries the project's location, contracts, timeline and a dozen other data points. Consolidated.</li>
         <li><b>Score 6.</b> The approved budget document itself is attached. The reader holds the source, not a summary of it.</li>
-        <li><b>And the other direction:</b> the budget was approved and due, a completed search finds nothing anywhere. Score 0, recorded as 0-D.</li>
+        <li><b>And the other direction:</b> the budget was approved and due, and a completed search finds nothing anywhere. Score 0.</li>
       </ol>
     </div>
 
-    <h2 class="sec">Who controls the publication?</h2>
-    <p class="sub">The boundary cases, a government document hosted on a funder site, a funder page quoting government figures, a newspaper carrying a government-authored article, are settled by one principle: authorship decides, hosting never does. The recorded rulings live on the <a href="qualifying-government-publication.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">qualifying government publication</a> page.</p>
-    <h2 class="sec">Six rules keep the scale honest</h2>
+    <h2 class="sec">When you need to assign the exact score</h2>
+    <p class="sub">The full seven-value reference. The ladder is sequential: a fact climbs until it fails, and stays at the last score it passed.</p>
+
+    <div class="ladder">
+      <div class="zone">Scores 0 to 2 &middot; not yet official disclosure</div>
+      <div class="rung">
+        <div class="num">0</div>
+        <div><span class="gloss">Nothing found</span><span class="official">No information available anywhere, after a reasonable, completed search, not after a quick look.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">1</div>
+        <div><span class="gloss">Online, somewhere</span><span class="official">The information is available online, in an open format, without needing to request it.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">2</div>
+        <div><span class="gloss">Readable, from anyone</span><span class="official">Available on a publicly accessible website, in English or a host-country language. Any publisher counts here: a newspaper, a researcher, a contractor, a funder.</span></div>
+      </div>
+      <div class="zone off">Scores 3 to 6 &middot; official disclosure starts here</div>
+      <div class="rung">
+        <div class="num">3</div>
+        <div><span class="gloss">The government itself published it</span><span class="official">On a website of the host government or project owner. Any government-controlled channel counts: a ministry site, a procurement or budget portal, a debt database, an audit institution.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">4</div>
+        <div><span class="gloss">And it is clear</span><span class="official">In a fairly easy-to-understand format: a citizen gets the answer without mining hundreds of pages or assembling fragments.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">5</div>
+        <div><span class="gloss">And it is consolidated</span><span class="official">The same official source carries at least ten other data points, rewarding governments that gather disclosure in one place instead of scattering it.</span></div>
+      </div>
+      <div class="rung">
+        <div class="num">6</div>
+        <div><span class="gloss">And the document itself is there</span><span class="official">An official full document related to the data point is provided: the signed contract, the feasibility study, the audit, the evaluation report.</span></div>
+      </div>
+    </div>
+
+    <details class="assessor">
+      <summary>Assessment wording, verbatim</summary>
+      <div class="inner">
+        <ul>
+          <li><b>0:</b> "No information available."</li>
+          <li><b>1:</b> "The information is available online, in an open format, and without the need for request."</li>
+          <li><b>2:</b> "The information is available in publicly available websites and uses English or host-country language." A government source published only in a language that is neither English nor a host-country language is an edge case flagged for a ruling.</li>
+          <li><b>3:</b> "The information is available on the website/s of the host government or project owner."</li>
+          <li><b>4</b> adds: "in a fairly easy to understand format."</li>
+          <li><b>5</b> adds: the same official source "contains at least 10 other data points".</li>
+          <li><b>6</b> adds: "an official full document related to the data point is provided".</li>
+        </ul>
+      </div>
+    </details>
+
+    <h2 class="sec">Do not make these scoring mistakes</h2>
     <div class="rules">
       <ol>
-        <li><b>Sequential, no skipping.</b> A fact stops at the first rung it fails; a 6 requires everything beneath it to hold.</li>
-        <li><b>Publisher control decides "official".</b> Classify a source by who controls the publication, not by which website hosts it. National portals and government databases are official disclosure and can earn 3 to 6; a third-party page never becomes official merely by being correct.</li>
-        <li><b>Zero is a verdict, not a default.</b> Score 0 only when the fact is applicable, already due at the project's stage, and a <a href="sufficient-search.html">sufficient search</a> found nothing: a completed, recorded search of the applicable government channels. An unsearched point is never a zero.</li>
-        <li><b>Not applicable is not zero.</b> A fact that is not yet due at this stage is recorded N/A-T; one that does not apply to this kind of project is recorded N/A-M. Both leave the calculation entirely. A genuine zero is recorded 0-D, so a blank cell never has to be guessed at. The full label set lives in <a href="evidence-states.html">evidence states</a>.</li>
-        <li><b>A disclosed "none" is an answer.</b> An official statement that "no households were displaced" is a complete, scoreable disclosure like any other, never a zero.</li>
-        <li><b>Doubts become flags, never score changes.</b> <a href="conflicting-figures.html">Conflicting figures</a>, undated pages, unstable links: these are recorded as flags beside the score, so the scale stays clean and the doubts stay visible.</li>
+        <li><b>A score of 0 requires a completed search.</b> Score 0 only when the fact is applicable, already due at the project's stage, and a <a href="sufficient-search.html">sufficient search</a> of the applicable government channels found nothing. An unsearched point is never a zero.</li>
+        <li><b>A funder page can inform the record but cannot earn official-disclosure scores.</b> Classify a source by who controls the publication, not by which website hosts it. A third-party page never becomes official merely by being correct.</li>
+        <li><b>Not applicable and not yet due are excluded, not scored zero.</b> A fact that does not apply, or is not yet due at this stage, leaves the calculation entirely. Only a due, applicable, searched-and-absent fact is a genuine zero. The full label set lives in <a href="evidence-states.html">evidence states</a>.</li>
       </ol>
     </div>
 
-    <h2 class="sec">Forty facts per project, one profile, one result</h2>
-    <p class="sub">The scale is applied to each of the <a href="forty-data-points.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">40 data points</a> separately, so one project produces a profile of scores and a <a href="project-result.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">project result</a>: the equal-weight average over its applicable points (excluded points never drag it down). Projects that pass the <a href="public-private-partnership.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">PPP definition</a> are additionally assessed on the PPP questions.</p>
+    <details class="assessor">
+      <summary>Further scoring rules</summary>
+      <div class="inner">
+        <ul>
+          <li><b>Sequential, no skipping.</b> A fact stops at the first score it fails; a 6 requires everything beneath it to hold.</li>
+          <li><b>A disclosed "none" is an answer.</b> An official statement that "no households were displaced" is a complete, scoreable disclosure, never a zero.</li>
+          <li><b>Doubts become flags, never score changes.</b> <a href="conflicting-figures.html">Conflicting figures</a>, undated pages, unstable links are recorded as flags beside the score, so the scale stays clean and the doubts stay visible.</li>
+          <li><b>Recording labels.</b> A genuine zero is recorded 0-D; not-yet-due is N/A-T; not applicable to this kind of project is N/A-M. Details in <a href="evidence-states.html">evidence states</a>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <h2 class="sec">From forty scores to one result</h2>
+    <p class="sub">The scale is applied to each of the <a class="inline" href="forty-data-points.html">40 data points</a> separately, and the <a class="inline" href="project-result.html">project result</a> is the equal-weight average over the applicable points; excluded points never drag it down. Projects that meet the <a class="inline" href="public-private-partnership.html">PPP definition</a> are additionally assessed on the PPP questions.</p>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The scale is the CIPE and Verit&eacute; assessment instrument; rung wording quoted from the Infra Watch Transparency Assessment score sheet. This explanation is proposed for CIPE validation, and CIPE holds final scoring authority. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="eligibility.html">project eligibility</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The scale is the CIPE and Verit&eacute; assessment instrument; verbatim wording quoted from the Infra Watch Transparency Assessment score sheet. This explanation is proposed for CIPE validation, and CIPE holds final scoring authority. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="eligibility.html">project eligibility</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

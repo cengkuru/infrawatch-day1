@@ -58,6 +58,7 @@
     { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "referral-and-resolution.html", term: "Referral and resolution", note: "what to do when the rule does not settle it", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "partner-validation.html", term: "Partner validation", note: "confirm or correct each recorded fact, with a source", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06", group: "Carry out and use the work" }
   ];
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What counts as foreign financing: one question, asked the same way everywhere</title>
-  <meta name="description" content="The working definition of foreign financing for Infrastructure Watch. Countries answer the question differently under their own laws, so the programme asks one shared question everywhere: is there material, documented financial support from an identifiable foreign source.">
+  <title>What counts as foreign financing?</title>
+  <meta name="description" content="A project is foreign-financed when a foreign source has made a material, signed and identifiable financial commitment to the asset. What counts and what does not, the three questions to ask, the common traps, and why the programme uses one shared test everywhere.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -29,33 +29,49 @@
     .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
-    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;}
-    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
-
-    .defcard{background:var(--brand-deep);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 1.7rem;}
-    .defcard .dtag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7fa8d6;}
-    .defcard p.def{font-size:1.15rem;line-height:1.5;margin:.5rem 0 0;max-width:58ch;}
-    .defcard p.def b{color:#fff;}
-    .defcard p.defnote{color:#cdddec;font-size:.88rem;margin:.8rem 0 0;max-width:60ch;}
-
-    .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+    .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1rem;}
     .tcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;border-top:5px solid var(--green);}
     .tcol.no{border-top-color:var(--red);}
     .tcol .ttag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--green);}
     .tcol.no .ttag{color:var(--red);}
     .tcol ul{margin:.6rem 0 0;padding-left:1.1rem;}
-    .tcol li{margin:0 0 .5rem;font-size:.9rem;line-height:1.45;}
+    .tcol li{margin:0 0 .45rem;font-size:.92rem;line-height:1.45;}
     .tcol li:last-child{margin-bottom:0;}
-    .tcol li b{color:var(--brand-deep);}
     @media (max-width:700px){ .tgrid{grid-template-columns:1fr;} }
 
-    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;margin-top:.9rem;}
-    .rules ol{margin:0;padding-left:1.2rem;}
-    .rules li{margin:0 0 .5rem;font-size:.92rem;}
-    .rules li:last-child{margin-bottom:0;}
-    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
-    .rules a:hover{color:var(--brand-deep);}
+    .checks{background:var(--brand-deep);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;margin-top:1.2rem;}
+    .checks .dtag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7fa8d6;}
+    .checks ol{margin:.6rem 0 0;padding-left:1.3rem;font-size:1rem;}
+    .checks li{margin:0 0 .4rem;}
+    .checks li:last-child{margin-bottom:0;}
+    .checks p{color:#cdddec;font-size:.9rem;margin:.7rem 0 0;}
+
+    .words{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1rem;}
+    .word{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.9rem 1rem;font-size:.86rem;color:var(--mid);border-top:4px solid var(--brand-soft);}
+    .word b{display:block;color:var(--brand-deep);font-size:.95rem;margin-bottom:.2rem;}
+    @media (max-width:820px){ .words{grid-template-columns:1fr 1fr;} }
+    @media (max-width:480px){ .words{grid-template-columns:1fr;} }
+
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
+    .never ol{margin:.5rem 0 0;padding-left:1.2rem;}
+    .never li{margin:0 0 .45rem;}
+    .never li:last-child{margin-bottom:0;}
+    .never li b{color:var(--brand-deep);}
+
+    details.assessor{margin-top:1rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;font-size:.9rem;}
+    details.assessor .inner ul,details.assessor .inner ol{margin:0;padding-left:1.1rem;}
+    details.assessor .inner li{margin:0 0 .55rem;}
+    details.assessor .inner li:last-child{margin-bottom:0;}
+    details.assessor .inner b{color:var(--brand-deep);}
+    details.assessor a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-top:1rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -68,15 +84,94 @@
   <section class="hero">
     <div class="hero-inner">
       <p class="kicker">Foreign financing &middot; the shared definition</p>
-      <h1>Whether a project is foreign-financed depends on who is asking. Here, everyone asks the same question.</h1>
-      <p>Every country's laws test foreign involvement differently, so the same project can be foreign-financed in one country's records and invisible in another's. A comparison across countries only works if the programme asks one question everywhere.</p>
+      <h1>What counts as foreign financing?</h1>
+      <p>A project is foreign-financed when a foreign source has made a material, signed and identifiable financial commitment to the asset. If that holds, the project enters the foreign-financing universe; the answer decides entry, and the record decides what to ask next.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">One railway, three legal tests, three different answers</h2>
-    <p class="sub">Take one railway: built with a loan from a foreign state bank, no foreign owner, repaid as public debt. Run it through three common legal tests and you get three different answers. None of the tests is wrong. They were written to protect different things.</p>
+    <div class="tgrid">
+      <div class="tcol">
+        <span class="ttag">It counts</span>
+        <ul>
+          <li>A loan</li>
+          <li>An equity or ownership stake</li>
+          <li>A grant that funds the asset itself</li>
+          <li>A signed guarantee, from the moment it is signed, before any money moves</li>
+          <li>Another signed financial instrument</li>
+        </ul>
+      </div>
+      <div class="tcol no">
+        <span class="ttag">It does not count</span>
+        <ul>
+          <li>A construction contract: being paid to build is revenue, not financing</li>
+          <li>Equipment supply</li>
+          <li>Consultancy or design work</li>
+          <li>A feasibility-study or preparatory grant: money around the project, not in the asset</li>
+          <li>An announcement or unsigned intention</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="checks">
+      <span class="dtag">Ask three questions</span>
+      <ol>
+        <li>Is the source foreign to the country where the asset is built?</li>
+        <li>Is its money at risk or owed for the asset itself?</li>
+        <li>Is the commitment signed and identifiable?</li>
+      </ol>
+      <p>If all three are yes, the project enters the foreign-financing universe.</p>
+    </div>
+
+    <h2 class="sec">The four words, one line each</h2>
+    <div class="words">
+      <div class="word"><b>Material</b>It funds the asset itself. Removing it would stall, shrink or materially alter the project.</div>
+      <div class="word"><b>Identifiable</b>The financier can be named from a source and traced through holding companies to its origin.</div>
+      <div class="word"><b>Signed</b>An agreement or guarantee exists, not merely an announcement. It counts whether or not funds have yet moved.</div>
+      <div class="word"><b>Foreign</b>Determined by the origin of the money, not the builder's nationality, the currency or the equipment supplier.</div>
+    </div>
+
+    <details class="assessor">
+      <summary>Full assessment definition</summary>
+      <div class="inner">
+        <p style="margin:0 0 .6rem;">A project is foreign-financed when it receives <b>material financial support</b> from at least one <b>identifiable foreign source</b>, through a loan, an equity or ownership stake, a grant that funds the asset, a guarantee, or another financial instrument, and the support is <b>signed and documented</b>.</p>
+        <ul>
+          <li><b>Material:</b> as a working reading, support whose withdrawal would not stall or shrink the asset is not material; any numeric threshold is for the methodology guide to set.</li>
+          <li><b>Identifiable:</b> a stake held through a third-country vehicle counts by its ultimate owner, not by the vehicle's registration.</li>
+          <li><b>State-owned and private both count:</b> a state bank, a development agency, a company or a fund; what matters is that it is foreign and identifiable.</li>
+          <li><b>Two governments building a shared project</b> each fund their own side; each side is domestic to its own country and foreign to the other's records.</li>
+        </ul>
+      </div>
+    </details>
+
+    <h2 class="sec">The traps</h2>
+    <div class="never">
+      <b>Five mistakes that misclassify projects:</b>
+      <ol>
+        <li><b>A foreign builder is not necessarily a foreign financier.</b> A contractor paid to build risks nothing after payment.</li>
+        <li><b>The funder's origin matters more than the currency.</b> A domestic loan paid in dollars is still domestic; a foreign loan in local currency is still foreign.</li>
+        <li><b>A signed guarantee counts before money moves.</b> Money at risk is support.</li>
+        <li><b>A preparatory grant does not count unless it materially funds the asset.</b> A grant that does fund the asset counts, recorded by name.</li>
+        <li><b>Opaque ownership is a flag, not permission to exclude.</b> Where a named financier's trail cannot be traced further, keep the project and flag it; opacity is itself a finding. Only a project with no identifiable foreign source at all stays out.</li>
+      </ol>
+    </div>
+
+    <h2 class="sec">How the answer is used</h2>
+    <p class="sub">This is question two of the <a href="eligibility.html">eligibility test</a>: a project with no qualifying foreign financing does not enter the dataset. Once a project qualifies, record its <a href="financing-forms.html">financing form</a>, and where several foreign sources qualify, record them all; the form decides which disclosure questions apply and which record to ask for first.</p>
+    <details class="assessor">
+      <summary>Further procedural rules</summary>
+      <div class="inner">
+        <ol>
+          <li><b>Record the country's own legal answer alongside the shared one.</b> Where the two disagree, the gap is itself a finding: an obligation the country's records were never built to see.</li>
+          <li><b>Cross-border projects:</b> the unit is the project as it appears in the assessing country's list, scored against that country's records. A shared project may sit in both countries' lists, each side scored on its own records, and comparing the two is part of the point.</li>
+          <li><b>The <a href="workbench.html">workbench</a></b>, built in an earlier phase, practises the neighbouring step: given the financing, which records to demand. It does not test this definition; eligibility is settled here first.</li>
+        </ol>
+      </div>
+    </details>
+
+    <h2 class="sec">Why Infra Watch uses one shared test</h2>
+    <p class="sub">Every country's laws test foreign involvement differently, so the same project can be foreign-financed in one country's records and invisible in another's. Take one railway: built with a loan from a foreign state bank, no foreign owner, repaid as public debt. Under the shared test above it qualifies. Run it through three common legal tests instead and you get three different answers; none of the tests is wrong, they were written to protect different things. The programme does not replace any country's legal test; it adds one question every partner asks the same way, so twenty projects in one country can be compared with twenty in another.</p>
 
     <div class="flowcard">
       <svg viewBox="0 0 720 330" width="720" height="330" role="img" aria-labelledby="dfTitle dfDesc">
@@ -141,50 +236,6 @@
       </svg>
     </div>
     <p class="sub" style="font-size:.75rem;margin-top:.5rem;">Illustrative case; the shared definition is in the Infra Watch mapping report (Section 4.5), revised 5 August 2026.</p>
-
-    <h2 class="sec">One question, asked the same way everywhere</h2>
-    <p class="sub">The programme does not replace any country's legal test. It adds one question that every partner asks the same way, so twenty projects in one country can be compared with twenty in another.</p>
-
-    <div class="defcard">
-      <span class="dtag">Working definition &middot; draft &middot; one wording for every country</span>
-      <p class="def">A project is foreign-financed when it receives <b>material financial support</b> from at least one <b>identifiable foreign source</b>, through a loan, an equity or ownership stake, a grant that funds the asset, a guarantee, or another financial instrument, and the support is <b>signed and documented</b>.</p>
-      <p class="defnote">Material means the support funds the asset itself, not studies or promotion around it; as a working reading, support whose withdrawal would not stall or shrink the asset is not material, and any numeric threshold is for the methodology guide to set. Identifiable means the financier can be named from a source, and traced through holding companies to its origin. Signed means announced intentions do not count; a signed arrangement counts whether or not funds have yet moved, and a guarantee counts from the moment it is signed, because money at risk is support.</p>
-    </div>
-
-    <h2 class="sec">Material, identifiable, signed: the three words that settle arguments</h2>
-    <p class="sub">Two boundary lines settle most arguments: what makes a source foreign, and what makes support financing.</p>
-
-    <div class="tgrid">
-      <div class="tcol">
-        <span class="ttag">Foreign means the source, traced to its origin</span>
-        <ul>
-          <li><b>Foreign means foreign to the country where the asset is built.</b> The origin of the money decides: not the currency it is paid in, not the nationality of the builder, and not where the equipment comes from.</li>
-          <li><b>Trace through holding companies.</b> A stake held through a third-country vehicle counts by its ultimate owner, not by the vehicle's registration. Where a named financier's trail cannot be traced further, keep the project and flag it; opacity is itself a finding. A project with no identifiable foreign source at all never enters.</li>
-          <li><b>State-owned and private both count.</b> A state bank, a development agency, a company, or a fund: what matters is that it is foreign and identifiable.</li>
-          <li><b>Two governments building a shared project</b> each fund their own side; each side is domestic to its own country and foreign to the other's records.</li>
-        </ul>
-      </div>
-      <div class="tcol no">
-        <span class="ttag">Financing means money at risk or owed, so these do not count</span>
-        <ul>
-          <li><b>Construction contracts.</b> Being paid to build is revenue, not financing. The builder risks nothing after payment.</li>
-          <li><b>Equipment supply, consultancy and design work.</b> Services sold to a project, for the same reason.</li>
-          <li><b>Feasibility studies and preparatory grants.</b> Money around the project, not in the asset. A grant that materially funds the asset itself is different: it counts, recorded by name.</li>
-          <li><b>Announcements, intentions and unsigned agreements.</b> Until signed, there is nothing to document and nothing at risk.</li>
-        </ul>
-      </div>
-    </div>
-
-    <h2 class="sec">The answer decides entry; the record decides what to ask next</h2>
-    <div class="rules">
-      <ol>
-        <li>It is question two of the <a href="eligibility.html">eligibility test</a>. A project with no qualifying foreign financing does not enter the dataset.</li>
-        <li>Once a project qualifies, record the <a href="financing-forms.html">financing form</a>, and where several foreign sources qualify, record them all. The form decides which questions apply and which record to ask for first.</li>
-        <li>Record the country's own legal answer alongside the shared one. Where the two disagree, the gap is itself a finding: an obligation the country's records were never built to see.</li>
-        <li>Cross-border projects: the unit is the project as it appears in the assessing country's list, scored against that country's records. A shared project may sit in both countries' lists, each side scored on its own records, and comparing the two is part of the point.</li>
-        <li>The <a href="workbench.html">workbench</a>, built in an earlier phase, practises the neighbouring step: given the financing, which records to demand. It does not test this definition; eligibility is settled here first.</li>
-      </ol>
-    </div>
 
   </main>
 

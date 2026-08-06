@@ -15,31 +15,50 @@
    the fallback when the counter is unreachable.
    No-JS fallback: the footer companion links on each page. */
 (function () {
+  /* Grouped bank (2026-08-06): five clusters replace the flat A-to-Z list.
+     `group` keys must match the GROUPS order below. Pages render grouped,
+     alphabetical within each group; search still spans everything. */
+  var GROUPS = [
+    "Understand the assessment",
+    "Decide which projects enter",
+    "Classify who does what",
+    "Find and score evidence",
+    "Carry out and use the work"
+  ];
   var pages = [
-    { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?", added: "2026-08-04" },
-    { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere", added: "2026-08-04" },
-    { href: "financing-forms.html", term: "Financing forms", note: "six ways projects are paid for", added: "2026-08-04" },
-    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is a public commitment", added: "2026-08-04" },
-    { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection", added: "2026-08-04" },
-    { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag", added: "2026-08-04" },
-    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve", added: "2026-08-04" },
-    { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "what each transparency score means; official disclosure starts at 3", added: "2026-08-05" },
-    { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05" },
-    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label", added: "2026-08-05" },
-    { href: "selection-and-sampling.html", term: "Selection and sampling", note: "the workflow for choosing projects before seeing their records", added: "2026-08-05" },
-    { href: "evidence-states.html", term: "Evidence states", note: "before you score zero: why is it missing?", added: "2026-08-05" },
-    { href: "sufficient-search.html", term: "Sufficient search", note: "an unsearched point is never a zero", added: "2026-08-05" },
-    { href: "responsible-public-authority.html", term: "Responsible public authority", note: "whose publication record is scored", added: "2026-08-05" },
-    { href: "qualifying-government-publication.html", term: "Qualifying government publication", note: "who gets credit for publishing", added: "2026-08-05" },
-    { href: "conflicting-figures.html", term: "Conflicting figures", note: "keep both numbers, flag the divergence", added: "2026-08-05" },
-    { href: "attribution-record.html", term: "Attribution record", note: "the financing record behind the comparison", added: "2026-08-05" },
-    { href: "project-result.html", term: "Project result", note: "the average over applicable points only", added: "2026-08-05" },
-    { href: "state-owned-enterprise.html", term: "State-owned enterprise (SOE)", note: "classified by role, not ownership", added: "2026-08-05" },
-    { href: "beneficial-ownership.html", term: "Beneficial ownership", note: "who really gains: how far the record carries a reader", added: "2026-08-05" },
-    { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06" },
-    { href: "assessment-process.html", term: "Assessment process", note: "how a transparency assessment is actually done, step by step", added: "2026-08-06" },
-    { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06" },
-    { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06" }
+    { href: "infrastructure-watch.html", term: "Infrastructure Watch, the programme", note: "what it is and aims to achieve", added: "2026-08-04", group: "Understand the assessment" },
+    { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05", group: "Understand the assessment" },
+    { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "what each transparency score means; official disclosure starts at 3", added: "2026-08-05", group: "Understand the assessment" },
+    { href: "project-result.html", term: "Project result", note: "the average over applicable points only", added: "2026-08-05", group: "Understand the assessment" },
+
+    { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?", added: "2026-08-04", group: "Decide which projects enter" },
+    { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere", added: "2026-08-04", group: "Decide which projects enter" },
+    { href: "financing-forms.html", term: "Financing forms", note: "six ways projects are paid for", added: "2026-08-04", group: "Decide which projects enter" },
+    { href: "selection-and-sampling.html", term: "Selection and sampling", note: "the workflow for choosing projects before seeing their records", added: "2026-08-05", group: "Decide which projects enter" },
+    { href: "buffer-list.html", term: "Buffer list", note: "documented substitution, not reopened selection", added: "2026-08-04", group: "Decide which projects enter" },
+    { href: "project-unit.html", term: "Project unit", note: "what counts as one project", added: "2026-08-06", group: "Decide which projects enter" },
+
+    { href: "project-roles.html", term: "Project roles", note: "owner, financier, builder, operator, beneficial owner", added: "2026-08-06", group: "Classify who does what" },
+    { href: "responsible-public-authority.html", term: "Responsible public authority", note: "whose publication record is scored", added: "2026-08-05", group: "Classify who does what" },
+    { href: "state-owned-enterprise.html", term: "State-owned enterprise (SOE)", note: "classified by role, not ownership", added: "2026-08-05", group: "Classify who does what" },
+    { href: "prc-classification.html", term: "PRC and non-PRC projects", note: "the financier's origin decides, not the builder's flag", added: "2026-08-04", group: "Classify who does what" },
+    { href: "beneficial-ownership.html", term: "Beneficial ownership", note: "who really gains: how far the record carries a reader", added: "2026-08-05", group: "Classify who does what" },
+    { href: "attribution-record.html", term: "Financing and ownership record", note: "who put money in, through which entity, and who stands behind it", added: "2026-08-05", group: "Classify who does what" },
+    { href: "public-private-partnership.html", term: "Public-private partnership (PPP)", note: "six tests, defined by risk and time, not the label", added: "2026-08-05", group: "Classify who does what" },
+    { href: "ppp-questions.html", term: "PPP questions", note: "the eight extra disclosure themes a PPP is scored on", added: "2026-08-06", group: "Classify who does what" },
+    { href: "power-purchase-agreement.html", term: "Power purchase agreement", note: "the promise that is a public commitment", added: "2026-08-04", group: "Classify who does what" },
+
+    { href: "qualifying-government-publication.html", term: "Qualifying government publication", note: "who gets credit for publishing", added: "2026-08-05", group: "Find and score evidence" },
+    { href: "sufficient-search.html", term: "Sufficient search", note: "an unsearched point is never a zero", added: "2026-08-05", group: "Find and score evidence" },
+    { href: "evidence-states.html", term: "Evidence states", note: "before you score zero: why is it missing?", added: "2026-08-05", group: "Find and score evidence" },
+    { href: "conflicting-figures.html", term: "Conflicting figures", note: "keep both numbers, flag the divergence", added: "2026-08-05", group: "Find and score evidence" },
+    { href: "lifecycle-and-due.html", term: "Lifecycle and due date", note: "when should this record exist?", added: "2026-08-06", group: "Find and score evidence" },
+
+    { href: "assessment-process.html", term: "Assessment process", note: "how a transparency assessment is actually done, step by step", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "referral-and-resolution.html", term: "Referral and resolution", note: "what to do when the rule does not settle it", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06", group: "Carry out and use the work" }
   ];
 
   pages.forEach(function (p, i) { p.origIdx = i; });
@@ -47,7 +66,10 @@
     return b.added === a.added ? b.origIdx - a.origIdx : (b.added < a.added ? -1 : 1);
   }).slice(0, 3);
 
-  pages.sort(function (a, b) { return a.term.localeCompare(b.term); });
+  pages.sort(function (a, b) {
+    var g = GROUPS.indexOf(a.group) - GROUPS.indexOf(b.group);
+    return g !== 0 ? g : a.term.localeCompare(b.term);
+  });
 
   var COUNTER_BASE = "https://api.counterapi.dev/v1/infrawatch-day1/";
   function slugKey(href) { return "term-" + href.replace(/\.html$/, ""); }
@@ -196,16 +218,20 @@
   recent.forEach(function (p) { recentWrap.appendChild(makeLink(p, true)); });
   panel.appendChild(recentWrap);
 
-  var asect = document.createElement("div");
-  asect.className = "lib-sect";
-  asect.textContent = "All terms, A to Z";
-  panel.appendChild(asect);
-
   var rows = [];
-  pages.forEach(function (p) {
-    var a = makeLink(p, false);
-    panel.appendChild(a);
-    rows.push({ el: a, text: (p.term + " " + p.note).toLowerCase() });
+  var sects = [];
+  GROUPS.forEach(function (g) {
+    var gs = document.createElement("div");
+    gs.className = "lib-sect";
+    gs.textContent = g;
+    panel.appendChild(gs);
+    sects.push({ el: gs, group: g });
+    pages.forEach(function (p) {
+      if (p.group !== g) return;
+      var a = makeLink(p, false);
+      panel.appendChild(a);
+      rows.push({ el: a, text: (p.term + " " + p.note).toLowerCase() });
+    });
   });
 
   var empty = document.createElement("p");
@@ -230,7 +256,7 @@
   function applyFilter() {
     var q = find.value.trim().toLowerCase();
     recentWrap.style.display = q ? "none" : "";
-    asect.style.display = q ? "none" : "";
+    sects.forEach(function (sx) { sx.el.style.display = q ? "none" : ""; });
     var any = false;
     rows.forEach(function (r) {
       var show = !q || r.text.indexOf(q) !== -1;

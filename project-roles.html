@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project roles: owner, financier, builder, operator, beneficial owner</title>
+  <meta name="description" content="The five roles every project's parties are recorded against: responsible public authority, financier, builder, operator and beneficial owner. One entity can hold several roles, and one role is never evidence of another: a foreign builder is not a foreign financier, and an SOE contractor is not the public authority.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#CC2028;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:28ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
+    .whotab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:1rem;}
+    .whotab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .whotab td{padding:.6rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .whotab tr:last-child td{border-bottom:0;}
+    .whotab td:first-child{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
+    .whotab a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
+    .answer b{color:#7fa8d6;}
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Project roles &middot; who is who in a project's record</p>
+      <h1>A project has five roles, and one role is never evidence of another</h1>
+      <p>Every party in a project is recorded against the role it actually plays: who answers to the public, whose money is at risk, who was paid to build, who runs the asset, and who ultimately gains. One entity can hold several roles at once; what it is called, who owns it, and what flag it flies never substitute for what it does.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <div class="never"><b>The trap: reading one role as proof of another.</b> A foreign builder is not a foreign financier. A state-owned contractor is not the public authority. A project company on the contract is not the ultimate owner. Every misclassification in this bank's worked examples comes from collapsing two of these roles into one.</div>
+
+    <h2 class="sec">The five roles</h2>
+    <table class="whotab">
+      <tr><th>Role</th><th>The question it answers</th><th>Where the rules live</th></tr>
+      <tr><td>Responsible public authority</td><td>Who answers to the public for the project and its record? The only entity whose disclosure is scored.</td><td><a href="responsible-public-authority.html">Responsible public authority</a></td></tr>
+      <tr><td>Financier</td><td>Whose money is at risk or owed for the asset? Decides entry and classification.</td><td><a href="foreign-financing.html">Foreign financing</a> &middot; <a href="prc-classification.html">classification</a></td></tr>
+      <tr><td>Builder</td><td>Who was paid to construct it? Recorded, never decisive for entry or classification.</td><td><a href="foreign-financing.html">Foreign financing</a> (what does not count)</td></tr>
+      <tr><td>Operator</td><td>Who runs the asset or service, and carries operating decisions and risk? Central to the <a href="public-private-partnership.html">PPP tests</a> and <a href="state-owned-enterprise.html">SOE role classification</a>.</td><td><a href="public-private-partnership.html">PPP</a> &middot; <a href="state-owned-enterprise.html">SOE</a></td></tr>
+      <tr><td>Beneficial owner</td><td>Who ultimately gains from a company involved, traced through holding structures?</td><td><a href="beneficial-ownership.html">Beneficial ownership</a></td></tr>
+    </table>
+
+    <h2 class="sec">The confusions this map settles</h2>
+    <table class="whotab">
+      <tr><th>Looks like</th><th>Actually</th></tr>
+      <tr><td>Foreign builder, so foreign-financed</td><td>Building is revenue, not money at risk. Only the financier role decides entry.</td></tr>
+      <tr><td>State-owned enterprise, so public authority</td><td>An SOE acting as contractor or concessionaire sits on the private side of the tests; the authority is whoever answers to the public.</td></tr>
+      <tr><td>The SPV signed everything, so it is the owner</td><td>The SPV is a party recorded by role; the contracting authority stays the project owner, and the SPV's ultimate owners are recorded separately.</td></tr>
+      <tr><td>The lender is the PPP private partner</td><td>A passive lender fails the management test; financing alone does not make a partner.</td></tr>
+      <tr><td>Registered in Singapore, so Singaporean</td><td>Registration is a vehicle; the role is attributed to the ultimate owner, traced to origin.</td></tr>
+    </table>
+
+    <h2 class="sec">What recording by role changes</h2>
+    <div class="answer"><b>Each role feeds a different decision.</b> The financier decides <a href="eligibility.html" style="color:#7fa8d6;font-weight:600;">entry</a> and classification; the authority decides whose record is scored; the operator and risk-carrier decide the <a href="public-private-partnership.html" style="color:#7fa8d6;font-weight:600;">PPP outcome</a>; the beneficial owner feeds the PPP disclosure questions; all of them land in the <a href="attribution-record.html" style="color:#7fa8d6;font-weight:600;">attribution record</a>. Record each party against each role it holds, and the hard cases resolve one role at a time.</div>
+
+  </main>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. This page maps rules that are each settled or proposed on their own pages; where they conflict, the individual page wins. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="responsible-public-authority.html">responsible public authority</a> &middot; <a href="attribution-record.html">the attribution record</a> &middot; <a href="state-owned-enterprise.html">state-owned enterprises</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

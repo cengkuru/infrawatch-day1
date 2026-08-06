@@ -77,3 +77,43 @@ A paragraph that answers none of these belongs in an appendix, a definition page
 ## Headings name the subject, never the layout
 
 A section heading tells the reader what the section is about in the page's own vocabulary. It never describes the author's formatting ("four words, one line each"), gestures at a mood ("the traps", "holds up"), or counts abstractions the reader has not met yet ("six gates, three outcomes"). Test: could a reader who sees only the heading say what the section covers? If not, rewrite it with the actual terms, the actual count of concrete things, or the actual question the section answers. Engine-room thinking must not seep into the document (rule added 2026-08-06 after the foreign-financing "four words" heading).
+
+## The visual grammar (codified 2026-08-06)
+
+The governing rule: **a visual must remove a mental step**. If it decorates, repeats the text, or needs its own decoding, delete it. The page states the point in words first; the visual then makes the relationship, choice or sequence easier to retain. If it cannot be drawn on a whiteboard in 30 seconds, it is too complex for a bank page.
+
+### Choosing the form
+
+Use the simplest form that carries the meaning, in this order: one sentence → bulleted list → cards → table → workflow → decision tree → animation. Decision guide: peer ideas to compare in any order → cards or a table; a genuine sequence, decision or hand-off → a workflow; meaning that only movement can carry → a short animation; anything else → prose, a callout, or one annotated image.
+
+### Cards
+
+For independent peer ideas the reader compares in any order: counts / does not count, defining features, outcomes, misconceptions, evidence states. One idea per card: short title, one sentence of meaning, at most one example or consequence; a card that needs more is a section. Max three across on desktop, one per row on mobile. Never cards for a required order, long paragraphs, six-plus rules that must all be read, nesting, or what is really a table.
+
+### Workflows
+
+For "what comes first, what changes next, where is the decision, what if it fails". Must have: a visible start; one reading direction (prefer top to bottom); a diamond only where a real choice exists (rectangles are actions — "choose a balanced sample" hiding a decision is a diamond, not a rectangle); a visible output; an exception route where it changes action; no diagonal, crossing or reversing arrows. One action per node — a node with two verbs is two nodes. Show the artifact each stage produces (in the node caption or a step/output table below). Text under a diagrammed step: two sentences max; the diagram carries structure, the prose carries only the hard points. Size boxes to the words.
+
+### Animation
+
+Almost never. Only where movement itself carries meaning a static image cannot (a fact climbing the ladder past the funder-page trap; quick-look vs completed search). Rules: max one per page, 3 to 5 seconds, loop twice then stop or play on hover, always with a static fallback, never the only explanation, never auto-looping wallpaper. The 0-to-6 ladder, PPP tests, selection and process maps stay static.
+
+### Visual vocabulary (stable across the bank)
+
+Dark navy = core claim or framing · red = warning, guardrail, failure risk only · grey = context, inactive, non-decisive · green (sparingly) = qualifying or complete · amber (sparingly) = unverified, pending, awaiting review · blue line or border = normal process or reference structure. Size and position signal importance before colour does. Icons only for category, above text not beside it, never duplicating an adjacent word. Bold for the key term, never whole paragraphs. Boxes and borders for guardrails, traps and exceptions, not general content. Arrows only for sequence or causation.
+
+### Storytelling in a bank page
+
+Not narrative arcs: progressive disclosure and concrete framing. Three legitimate frames: misconception → correction ("you might think a foreign loan is enough; the test is material, identifiable, signed"); the journey of one fact through the system (workflows only); the hard case at the boundary in one sentence ("a Chinese state-bank loan counts; a Chinese construction contract does not").
+
+### Build standard: five questions before adding any visual
+
+1. What mistaken conclusion does this prevent? 2. Understood in five seconds? 3. Page still works if it does not load? 4. Does it show a relationship prose would grasp slower? 5. Does it end in an action, state or decision (enters / does not enter / flag; PPP / not PPP / unverified / refer; zero / keep searching / not yet due)? A no on 2 or 4 means use prose. One dominant explanatory visual per page plus at most one supporting table, checklist or worked example; one visual system per section. Mobile test: squint at a phone at arm's length — the phases and groups must still separate.
+
+### Per-page prescriptions (current bank)
+
+PPP: checklist of tests feeding outcomes, never a workflow. 0-to-6: static ladder in three zones. Foreign financing: three-question decision test + counts/does-not-count pair. Sufficient search: quick-look vs completed-search contrast. Selection: pool → eligibility → method → reflect pool → lock list + buffer flow. Assessment process: prepare → per-project/per-point loop → review → result map. Database: one worked record, never a workflow. Case study: scored project → question → evidence → verification → named action flow, with the trace-back guardrail.
+
+### Open sweep items (adopted, not yet applied to legacy elements)
+
+Card shadows read as interactive; new bank elements prefer a 1px border or background tint, and the existing `--shadow` cards get reviewed in a dedicated sweep, not ad hoc. Decision points currently drawn as rectangles (selection "choose a method") get diamonds in the same sweep.

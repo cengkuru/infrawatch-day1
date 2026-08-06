@@ -44,3 +44,7 @@ Orient (Learn) then Define (this bank) then Test (workbench) then Prove (finding
 4. What must happen next, by whom?
 
 A paragraph that answers none of these belongs in an appendix, a definition page, or nowhere.
+
+## Headings name the subject, never the layout
+
+A section heading tells the reader what the section is about in the page's own vocabulary. It never describes the author's formatting ("four words, one line each"), gestures at a mood ("the traps", "holds up"), or counts abstractions the reader has not met yet ("six gates, three outcomes"). Test: could a reader who sees only the heading say what the section covers? If not, rewrite it with the actual terms, the actual count of concrete things, or the actual question the section answers. Engine-room thinking must not seep into the document (rule added 2026-08-06 after the foreign-financing "four words" heading).

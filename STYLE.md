@@ -117,3 +117,29 @@ PPP: checklist of tests feeding outcomes, never a workflow. 0-to-6: static ladde
 ### Open sweep items (adopted, not yet applied to legacy elements)
 
 Card shadows read as interactive; new bank elements prefer a 1px border or background tint, and the existing `--shadow` cards get reviewed in a dedicated sweep, not ad hoc. Decision points currently drawn as rectangles (selection "choose a method") get diamonds in the same sweep.
+
+## The design discipline (codified 2026-08-06)
+
+Not "make it look like Apple": make the essential thing feel inevitable, calm and easy to use. The page succeeds when the reader forgets the page and remembers the concept; the container must be quieter than the content.
+
+1. **Subtract first.** Before adding anything, ask what can be removed. If deleting an element (word, border, icon, colour) does not make the definition harder to understand, it was decoration. No scene-setting paragraphs; the scene is the reader's question.
+2. **One page, one intellectual object.** If a page holds two, split them or subordinate one decisively. "What does this page do?" must be answerable in five words.
+3. **A quiet first screen.** The hero is one restrained category label, one strong claim, two or three lines of consequence. No diagram, badge cluster or methodological preamble competing in the hero.
+4. **Purpose before mechanism.** What the rule protects before the detailed test; what the concept means before its rationale; what action follows before the edge cases; what the output is before the fields behind it.
+5. **Typography is the architecture.** Hierarchy through size, weight and spacing, never coloured backgrounds or underlines on headings. The definition is the largest, quietest text: not bold, not italic, generous measure. Body text one size, one face, one colour. Test: strip all colour and boxes; the definition, test and guardrail must still be distinguishable.
+6. **Space is structural.** Negative space says "main claim", "separate decision", "secondary", "the end". Section spacing is mathematically consistent (double the paragraph spacing, not arbitrary). Text never touches its container. Squint test: islands of meaning in calm, not a dense grey block.
+7. **Colour is a signal, never a skin.** Only states get colour (per the palette semantics above); nothing is coloured for brand feel. If two elements compete for colour, neither gets it. Test: print in black and white; if meaning is lost, structure was outsourced to colour.
+8. **Cards are objects, not wallpaper.** A card is a bounded thing the reader inspects: a definition, an outcome, a worked record. Composition budget per page: one dominant visual surface, plus two to four supporting cards OR one table and one worked example. Never card the whole page. Separation by hairline border or whisper of tint (shadow retirement: see the open sweep items).
+9. **Diagrams as orderly as the method.** One direction, no crossed arrows, no unexplained shapes, no decorative colour, no text repeated inside and outside, one visible output. The diagram must survive with every arrow deleted; arrows confirm reading order, never rescue it. Prefer one precise, near-diagrammatic illustration to a collage; no stock imagery, ornamental icons, or abstract "transparency" atmosphere. No icons duplicating an adjacent word.
+10. **Precision is respect.** Everything on a grid; baselines align across columns; identical padding in sibling cards; fixed type-size-to-line-height ratios. Misalignment reads as untrustworthiness: careless margins imply careless definitions.
+11. **Depth is revealed, not displayed.** Shallow first layer (definition, decision test, result); second layer behind restrained disclosures (worked example, edge cases, source language); third layer on linked pages (full methodology, annexes, country notes). Never hide a required action; always hide specialist-only complexity. The reader who needs only the definition must never scroll past an annex reference to reach it.
+12. **Confidence, not anxiety.** No red banner for every caveat, no all-caps label walls, no oversized warnings, no draft-status signals in the reading path (status lives once, small, in the footer, which also satisfies the maintenance rule). Rigour is felt through orderly language, explicit boundaries and clean exceptions, not volume. Motion: instantaneous hover states; movement only where it teaches a state change (see the visual grammar).
+13. **End with an object the reader carries away.** The last thing in the reading path is one usable rule ("below score 3, government disclosure has not begun"; "an unsearched point is never zero"). If the reader cannot repeat it an hour later, the page is still doing too much.
+
+### The pre-publish design checklist
+
+Subtract · Silence (container quieter than content) · Type (hierarchy survives black and white) · Breathe (space is structural) · Signal (every colour means something) · Move (every animation teaches) · Focus (one job, five words) · Align (grid and baselines) · Reveal (complexity one layer down) · Disappear (reader remembers the concept, not the layout).
+
+### Standard page composition
+
+1. Quiet dark hero: one claim and its consequence. 2. One main visual: test, ladder, workflow or comparison. 3. One compact practical layer: counts/does-not-count, outcomes or checklist. 4. One worked example, only where it resolves a real ambiguity. 5. Minimal source rail: status, authority and deeper links, last and small.

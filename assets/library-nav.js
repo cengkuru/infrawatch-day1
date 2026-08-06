@@ -36,7 +36,7 @@
     { href: "project-result.html", term: "Project result", note: "the average over applicable points only", added: "2026-08-05" },
     { href: "state-owned-enterprise.html", term: "State-owned enterprise (SOE)", note: "classified by role, not ownership", added: "2026-08-05" },
     { href: "beneficial-ownership.html", term: "Beneficial ownership", note: "who really gains: how far the record carries a reader", added: "2026-08-05" },
-    { href: "assessment-database.html", term: "Assessment database", note: "ready means the audit trail survives, not that a score comes out", added: "2026-08-06" },
+    { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06" },
     { href: "assessment-process.html", term: "Assessment process", note: "how a transparency assessment is actually done, step by step", added: "2026-08-06" },
     { href: "case-study.html", term: "Case study", note: "where the scores stop comparing and start explaining", added: "2026-08-06" },
     { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06" }

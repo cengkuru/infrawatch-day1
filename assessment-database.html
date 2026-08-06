@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The assessment database: ready means the audit trail survives, not that a score comes out</title>
-  <meta name="description" content="What 'database' means in Infrastructure Watch: the assessment's system of record. It is ready only when it preserves the audit trail behind every score, at minimum classification, lifecycle and evidence state, source and dates, assessor and reviewer, exception rationale, and core-versus-buffer status. A score without that record cannot be defended, corrected, or handed over.">
+  <title>What the assessment database must record</title>
+  <meta name="description" content="The six things an Infrastructure Watch assessment database must retain for every project and data point: project and classification, stage and evidence state, source and dates, assessor and reviewer, exceptions and flags, sample and case-study status. With one worked score record showing what assessment-ready looks like.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -31,9 +31,6 @@
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
     p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
-    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
-    .never b{color:var(--red);}
-
     .fields{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;margin-top:1rem;}
     .field{display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
     .field:last-child{border-bottom:0;}
@@ -42,8 +39,16 @@
     .field .d{display:block;font-size:.85rem;color:var(--mid);margin-top:.15rem;font-weight:400;line-height:1.45;}
     .field a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
+    .rectab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:1rem;box-shadow:var(--shadow);}
+    .rectab td{padding:.55rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .rectab tr:last-child td{border-bottom:0;}
+    .rectab td:first-child{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);white-space:nowrap;padding-top:.7rem;}
+
     .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
     .answer b{color:#7fa8d6;}
+
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
 
     .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
     .rules ul{margin:0;padding-left:1.1rem;}
@@ -62,47 +67,54 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="kicker">The assessment database &middot; what "ready" means</p>
-      <h1>The database is the audit trail, not the score sheet</h1>
-      <p>In this programme, the database is the assessment's system of record: every score together with the evidence that produced it. It is ready for assessment when it can preserve that trail, not merely produce a score. A score without its record will be hard to defend, correct, or hand over.</p>
+      <p class="kicker">The assessment database &middot; minimum requirements</p>
+      <h1>What the assessment database must record</h1>
+      <p>An assessment database is not just a place to store scores. It is a record that lets someone else reconstruct how every score was decided. Whatever the tool, a spreadsheet, a form system or a purpose-built platform, it must retain the six things below; the structure is free, the retention is not.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">Is your database ready?</h2>
-    <div class="answer"><b>One test.</b> Pick any scored data point and ask: could a reviewer who was not in the room see what was scored, from which source, found when, by whom, and why any exception was allowed? If the answer is yes for every point, the database is ready. If the database can only show the score, it is a results sheet, not yet the assessment database.</div>
-
-    <h2 class="sec">The minimum record, per project and per data point</h2>
-    <p class="sub">Whatever the tool, a spreadsheet, a form system or a purpose-built platform, it must retain these six things. The structure is free; the retention is not.</p>
-
+    <h2 class="sec">The six things to retain, per project and per data point</h2>
     <div class="fields">
-      <div class="field"><span class="num">1</span><span class="q">Project and delivery-model classification<span class="d">What the project is and how it is delivered: its <a href="financing-forms.html">financing form</a>, its <a href="prc-classification.html">classification</a>, and whether it met the <a href="public-private-partnership.html">PPP definition</a>. Classification decides which questions apply, so it must be stored, not remembered.</span></span></div>
-      <div class="field"><span class="num">2</span><span class="q">Lifecycle stage, and applicability or evidence state for each point<span class="d">Which stage the project is at, and for every data point whether it was scored, not yet due, not applicable, or a searched-and-absent zero. The <a href="evidence-states.html">evidence states</a> are what keep an empty cell from being a guess.</span></span></div>
-      <div class="field"><span class="num">3</span><span class="q">Source URL, publisher, publication date and access date<span class="d">Where each fact was found, who controls that publication, when it was published and when you saw it. Web pages change and links die; the access date is what lets a score survive its source.</span></span></div>
-      <div class="field"><span class="num">4</span><span class="q">Assessor and reviewer<span class="d">Who scored the point and who checked it. Accountability is per cell, not per country.</span></span></div>
-      <div class="field"><span class="num">5</span><span class="q">Rationale for exceptions<span class="d">Why an aged project was admitted, why a threshold was applied, why funder-only evidence was recorded, and any point flagged for a ruling. An exception with its reason stands in a defensible list; an exception without one is a hole.</span></span></div>
-      <div class="field"><span class="num">6</span><span class="q">Core versus buffer status, and case-study linkage<span class="d">Whether each project is in the core sample or drawn from the <a href="buffer-list.html">buffer list</a>, including what it replaced and why, and which projects feed a case study.</span></span></div>
+      <div class="field"><span class="num">1</span><span class="q">Project and classification<span class="d">The project's <a href="financing-forms.html">financing form</a>, its <a href="prc-classification.html">classification</a>, and whether it met the <a href="public-private-partnership.html">PPP definition</a>.</span></span></div>
+      <div class="field"><span class="num">2</span><span class="q">Stage and evidence state<span class="d">The project's lifecycle stage, and for every data point its <a href="evidence-states.html">evidence state</a>: scored, not yet due, not applicable, or searched-and-absent.</span></span></div>
+      <div class="field"><span class="num">3</span><span class="q">Source and dates<span class="d">For every find: the source URL, the publisher, the publication date, and the date you accessed it.</span></span></div>
+      <div class="field"><span class="num">4</span><span class="q">Assessor and reviewer<span class="d">Every scored point needs a named assessor and, where reviewed, a named reviewer.</span></span></div>
+      <div class="field"><span class="num">5</span><span class="q">Exceptions and flags<span class="d">The reason for every exception: an aged project admitted, a threshold applied, funder-only evidence recorded, or a point flagged for a ruling.</span></span></div>
+      <div class="field"><span class="num">6</span><span class="q">Sample and case-study status<span class="d">Whether the project is core sample or drawn from the <a href="buffer-list.html">buffer list</a> (and what it replaced), and which case study it feeds, if any.</span></span></div>
     </div>
 
-    <div class="never"><b>The trap:</b> building for the output instead of the trail. A tool that computes project results beautifully but stores only the scores fails this definition. Every correction then becomes an argument nobody can settle, every challenge to a score lands on someone's memory, and every handover, to a reviewer, to CIPE, to your own team next year, starts from scratch.</div>
+    <h2 class="sec">One complete record, as an example</h2>
+    <p class="sub">One data point on one project, stored to the standard above.</p>
+    <table class="rectab">
+      <tr><td>Data point</td><td>Project budget</td></tr>
+      <tr><td>Score</td><td>3</td></tr>
+      <tr><td>Evidence</td><td>Finance Ministry investment portal (URL)</td></tr>
+      <tr><td>Published / accessed</td><td>12 March 2025 / 6 August 2026</td></tr>
+      <tr><td>Assessor / reviewer</td><td>Partner researcher / reviewer</td></tr>
+      <tr><td>Evidence state</td><td>Scored</td></tr>
+      <tr><td>Note</td><td>Budget shown; supporting approval document not attached</td></tr>
+    </table>
+    <div class="answer"><b>The readiness test.</b> If the database can retain a record like this for every applicable point, it is assessment-ready. Self-check: pick any scored point and ask whether a reviewer who was not in the room could see what was scored, from which source, found when, by whom, and why any exception was allowed.</div>
 
-    <h2 class="sec">What the record is for: defending, correcting, handing over</h2>
+    <div class="never"><b>Warning: a tool that only stores scores is not enough.</b> A tool that computes project results beautifully but retains none of the trail fails this standard. Every correction then becomes an argument nobody can settle, every challenge to a score lands on someone's memory, and every handover starts from scratch.</div>
+
+    <h2 class="sec">Why this matters</h2>
     <div class="rules">
       <ul>
-        <li><b>Defend:</b> the assessment's claims are only as strong as their sources. When a government or funder disputes a score, the answer is the recorded URL and access date, not a recollection.</li>
-        <li><b>Correct:</b> scores will change, through review, through a <a href="conflicting-figures.html">conflicting-figures</a> ruling, or through a source reappearing. A correction is safe only when the record shows what the score was based on before.</li>
+        <li><b>Defend:</b> when a government or funder disputes a score, the answer is the recorded URL and access date, not a recollection.</li>
+        <li><b>Correct:</b> scores change through review or a source reappearing; a correction is safe only when the record shows what the score was based on before.</li>
         <li><b>Hand over:</b> assessors change, and the <a href="project-result.html">project result</a> must be recomputable by whoever comes next. If the trail lives in one person's browser history, the assessment leaves with them.</li>
       </ul>
     </div>
 
-    <h2 class="sec">Where this connects</h2>
-    <p class="sub">The database records the outputs of the whole method: the <a href="selection-and-sampling.html">selection documentation</a> enters it, every score carries its <a href="sufficient-search.html">search record</a> and <a href="evidence-states.html">evidence state</a>, and the <a href="forty-data-points.html">40 data points</a> define its columns. The scoring rules live on those pages; this page only fixes what must survive in storage.</p>
+    <p class="sub" style="margin-top:1.2rem;">These records are the foundation of every other page in this guide.</p>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The six retention fields restate what the assessment method already requires to be documented; the storage tool is each partner's choice. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="evidence-states.html">evidence states</a> &middot; <a href="selection-and-sampling.html">selection and sampling</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The six retention fields restate what the assessment method already requires to be documented; the storage tool is each partner's choice. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="evidence-states.html">evidence states</a> &middot; <a href="assessment-process.html">the assessment process</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

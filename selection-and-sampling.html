@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Selection and sampling: choose projects before you see their disclosure record</title>
-  <meta name="description" content="The Infrastructure Watch selection workflow: build the candidate pool, apply eligibility rules and record exclusions, choose a stated sampling method, make the sample reflect the eligible pool, lock the core list and buffer before scoring. Random sampling is not required; selecting for data availability is the one bias the assessment cannot survive.">
+  <meta name="description" content="How to build a defensible project list: make a longlist of all projects that could qualify, apply the eligibility rules, decide how many to select (include all if the list is manageable; otherwise select across categories), check the balance across sector, location, agency, financing source and stage, then lock the list and buffer before scoring. Never select a project because its information is easy to find.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -35,22 +35,30 @@
     .outtab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
     .outtab td{padding:.55rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
     .outtab tr:last-child td{border-bottom:0;}
-    .outtab td:first-child{font-weight:700;color:var(--brand-deep);white-space:nowrap;}
+    .outtab td:first-child{font-weight:700;color:var(--brand-deep);}
+    .outtab a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
     .never b{color:var(--red);}
     .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
     .answer b{color:#7fa8d6;}
+    .steps{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin-top:1rem;}
+    .steps ol{margin:0;padding-left:1.2rem;}
+    .steps li{margin:0 0 .55rem;font-size:.92rem;}
+    .steps li:last-child{margin-bottom:0;}
+    .steps li b{color:var(--brand-deep);}
     .ladder{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0;}
     .lstep{flex:1 1 150px;background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.8rem .9rem;font-size:.84rem;color:var(--mid);border-top:4px solid var(--green);}
     .lstep b{display:block;color:var(--brand-deep);font-size:.88rem;margin-bottom:.2rem;}
     .lstep.l2{border-top-color:#5c9c46;} .lstep.l3{border-top-color:var(--amber);} .lstep.l4{border-top-color:var(--red);}
-    .filtab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:.8rem;}
-    .filtab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
-    .filtab td{padding:.6rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
-    .filtab tr:last-child td{border-bottom:0;}
-    .filtab td:first-child{font-weight:700;color:var(--brand-deep);}
-    .risk{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;}
-    .risk.hi{color:var(--red);} .risk.med{color:var(--amber);} .risk.lo{color:var(--green);}
+    .status{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;}
+    .stcol{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;font-size:.88rem;}
+    .stcol.now{border-top:4px solid var(--green);} .stcol.rec{border-top:4px solid var(--brand-soft);} .stcol.open{border-top:4px solid var(--amber);}
+    .stcol .ttag{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+    .stcol.now .ttag{color:var(--green);} .stcol.rec .ttag{color:var(--brand-soft);} .stcol.open .ttag{color:#8A5800;}
+    .stcol ul{margin:.5rem 0 0;padding-left:1.05rem;}
+    .stcol li{margin:0 0 .4rem;}
+    .stcol li:last-child{margin-bottom:0;}
+    @media (max-width:760px){ .status{grid-template-columns:1fr;} }
     .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -64,8 +72,8 @@
     <div class="hero-inner">
       <p class="kicker">Selection and sampling &middot; building the country list</p>
       <h1>Choose projects before you see their disclosure record</h1>
-      <p>Build a list from eligible projects, then assess how transparent they are. Do not select projects because their information is easy to find.</p>
-      <p>There is no single sampling method that works in every country. Your approach may be purposive, stratified or another practical method, but it must be clear, consistently applied and documented before scoring begins.</p>
+      <p>First decide which projects qualify. Only then look at how much information has been published. Never choose or remove a project because its information is easy or difficult to find.</p>
+      <p>There is no single sampling method that works in every country. Your approach must be clear, consistently applied and documented before scoring begins; this page shows you how.</p>
     </div>
   </section>
 
@@ -75,7 +83,7 @@
     <div class="flowcard">
       <svg viewBox="0 0 760 560" width="760" height="560" role="img" aria-labelledby="swTitle swDesc">
         <title id="swTitle">The five-step selection workflow</title>
-        <desc id="swDesc">Build the candidate pool from budgets, plans, registers and pipelines. Apply the eligibility rules: a project that does not qualify has its exclusion recorded and is not scored; a project that qualifies continues. Choose a stated sampling method, purposive, stratified or random. Make the sample reflect the eligible pool, without manufacturing diversity. Lock the core list and the buffer, recording every choice. Then the assessment starts.</desc>
+        <desc id="swDesc">Make a longlist of all projects that could qualify, from official sources. Apply the eligibility rules: a project that does not qualify has its exclusion recorded and is not scored; a project that qualifies continues. Decide how many to select: include all eligible projects where the list is manageable, otherwise select across stated categories or criteria. Check the balance across sector, location, agency, financing source and stage, without manufacturing diversity. Lock the selected list and the buffer, recording every choice. Then the assessment starts.</desc>
         <defs>
           <marker id="swa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/></marker>
         </defs>
@@ -90,8 +98,8 @@
 
         <rect x="110" y="10" width="400" height="62" rx="10" class="box"/>
         <text x="130" y="32" class="bn">STEP 1</text>
-        <text x="130" y="49" class="bt">Build the candidate pool</text>
-        <text x="130" y="64" class="bs">budgets, investment plans, registers, PPP pipelines</text>
+        <text x="130" y="49" class="bt">Make a longlist of all projects that could qualify</text>
+        <text x="130" y="64" class="bs">from budgets, investment plans, portals and registers</text>
 
         <path class="ln" d="M310 72 L310 100" marker-end="url(#swa)"/>
 
@@ -112,21 +120,21 @@
 
         <rect x="110" y="198" width="400" height="62" rx="10" class="box"/>
         <text x="130" y="220" class="bn">STEP 3</text>
-        <text x="130" y="237" class="bt">Choose a method, and state it</text>
-        <text x="130" y="252" class="bs">purposive, stratified or random: your choice, documented</text>
+        <text x="130" y="237" class="bt">Decide how many to select</text>
+        <text x="130" y="252" class="bs">small list: include all &middot; large list: select across stated categories</text>
 
         <path class="ln" d="M310 260 L310 288" marker-end="url(#swa)"/>
 
         <rect x="110" y="292" width="400" height="62" rx="10" class="box"/>
         <text x="130" y="314" class="bn">STEP 4</text>
-        <text x="130" y="331" class="bt">Make the sample reflect the eligible pool</text>
-        <text x="130" y="346" class="bs">follow the pool's real spread; do not manufacture diversity</text>
+        <text x="130" y="331" class="bt">Check the balance</text>
+        <text x="130" y="346" class="bs">sector, location, agency, financing source, stage; record concentration</text>
 
         <path class="ln" d="M310 354 L310 382" marker-end="url(#swa)"/>
 
         <rect x="110" y="386" width="400" height="62" rx="10" class="box"/>
         <text x="130" y="408" class="bn">STEP 5</text>
-        <text x="130" y="425" class="bt">Lock the core list and the buffer</text>
+        <text x="130" y="425" class="bt">Lock the list and the buffer</text>
         <text x="130" y="440" class="bs">record every choice before scoring begins</text>
 
         <path class="ln" d="M310 448 L310 476" marker-end="url(#swa)"/>
@@ -136,19 +144,36 @@
       </svg>
     </div>
 
-    <h2 class="sec">What each step produces</h2>
+    <div class="never"><b>The one rule that protects everything: never select a project because its information is easy to find.</b> The assessment measures how findable the record is; choose projects for their good records and the sample flatters the system it was meant to test. If a data-availability screen is ever unavoidable, list the projects it excluded, so the bias is visible instead of silent.</div>
+
+    <h2 class="sec">Each step, in plain terms</h2>
     <table class="outtab">
-      <tr><th>Step</th><th>What the partner produces</th></tr>
-      <tr><td>Build the pool</td><td>A named candidate universe and its sources</td></tr>
-      <tr><td>Apply eligibility</td><td>An included and excluded list, with reasons</td></tr>
-      <tr><td>Choose a method</td><td>A short statement of the sampling approach</td></tr>
-      <tr><td>Check representation</td><td>A note on the desired and actual spread; concentration recorded as a finding, not a failure</td></tr>
-      <tr><td>Lock the list</td><td>Core sample, pre-committed <a href="buffer-list.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">buffer</a>, and the selection note. If a chosen project later fails scrutiny, the replacement comes from the buffer, never a fresh pick</td></tr>
+      <tr><th>Step</th><th>What you do, and what you produce</th></tr>
+      <tr><td>1. Make the longlist</td><td>Search the main official project sources available in your country: the public investment programme, the budget, the procurement portal, the PPP pipeline, development-partner project lists, sector-agency registers. Record the source of every project. You do not need every project in the country; you need every source a qualifying project could plausibly appear in.</td></tr>
+      <tr><td>2. Apply eligibility</td><td>For every longlisted project, record <b>included</b>, or <b>excluded with the reason</b>, using the <a href="eligibility.html">eligibility test</a>.</td></tr>
+      <tr><td>3. Decide how many</td><td>See the three routes below. State your route and apply it consistently.</td></tr>
+      <tr><td>4. Check the balance</td><td>Check whether your list is heavily concentrated in one sector, region, agency, financing source or project stage. You do not always need to correct the concentration, but you must record it; concentration that reflects the eligible pool is a finding, not a failure. Do not manufacture diversity.</td></tr>
+      <tr><td>5. Lock the list</td><td>Record the selected projects, the <a href="buffer-list.html">buffer projects</a>, the selection method, and known limitations. If a chosen project later fails scrutiny, the replacement comes from the buffer, never a fresh pick. Do this before scoring begins.</td></tr>
     </table>
 
-    <div class="never"><b>The one rule that protects everything: never select a project because its information is easy to find.</b> The assessment measures how findable the record is; choose projects for their good records and the sample flatters the system it was meant to test. A well-documented sample can make a weak disclosure system look stronger than it is. If a data-availability screen is ever unavoidable, list the projects it excluded, so the bias is visible instead of silent.</div>
+    <h2 class="sec">Step 3 in detail: which route fits your list?</h2>
+    <table class="outtab">
+      <tr><th>Your situation</th><th>Use this approach</th></tr>
+      <tr><td>The eligible list is small enough to assess in full</td><td>Include all eligible projects.</td></tr>
+      <tr><td>The eligible list is large and varied</td><td>Select projects across the important categories, preserving the main patterns in the longlist <i>(stratified)</i>.</td></tr>
+      <tr><td>Particular projects matter to the study</td><td>Select them deliberately against stated criteria, and document why <i>(purposive)</i>.</td></tr>
+    </table>
+    <div class="answer"><b>Is random sampling required? No.</b> The aim is a credible, reviewable selection of eligible projects, not a statistically representative national survey. Whatever the route: do not select on disclosure availability, apply your stated rules consistently, and disclose the limits of the sample.</div>
 
-    <div class="answer"><b>Is random sampling required? No.</b> The aim is a credible, reviewable selection of eligible projects, not a statistically random national survey. Random selection may not be practical where eligibility narrows the pool. The safeguards are shared whatever the method: do not select on disclosure availability, apply your stated rules consistently, and disclose the limits of the sample.</div>
+    <h2 class="sec">Worked example: 38 eligible, 20 selected, 5 in the buffer</h2>
+    <div class="steps">
+      <ol>
+        <li><b>Longlist.</b> A partner identifies 38 eligible projects from the national investment plan, the PPP pipeline and two sector registers, recording the source of each.</li>
+        <li><b>Route.</b> The study needs 20 projects, so the partner takes the large-list route: it groups the 38 by sector and financing source.</li>
+        <li><b>Select.</b> It picks 20 while preserving the main patterns of the longlist. Three candidates have very thin public records; they stay in, because difficulty of finding information is never a reason to remove a project.</li>
+        <li><b>Buffer and lock.</b> Five further eligible projects are placed on the buffer list, and the whole set, with method and limitations, is recorded before anyone scores anything.</li>
+      </ol>
+    </div>
 
     <h2 class="sec">Can recent eligible projects fill the sample? <span class="chip">ladder being confirmed with CIPE</span></h2>
     <p class="sub">If yes, stop: use them. If not, widen the age window one step at a time, and record at each step why no more recent substitute existed. The flag on an aged project is not a penalty; it is what lets an older, well-documented project stand in a defensible list.</p>
@@ -159,21 +184,45 @@
       <div class="lstep l4"><b>Outer limit</b>Up to 10 years, flagged. Never beyond.</div>
     </div>
 
-    <h2 class="sec">Optional filters, and the bias each one carries</h2>
-    <p class="sub">Each filter is defensible when it is stated, applied uniformly, and its exclusion is named in the selection note.</p>
-    <table class="filtab">
-      <tr><th>Filter</th><th>Effect on the sample</th><th>Bias risk</th></tr>
-      <tr><td>Recent projects only</td><td>Excludes older disclosure patterns</td><td><span class="risk lo">Low</span></td></tr>
-      <tr><td>Minimum-value threshold</td><td>Excludes smaller projects, which often escape scrutiny precisely because nobody is watching</td><td><span class="risk hi">High</span> &mdash; large projects are better documented, so a size floor quietly readmits the availability bias</td></tr>
-      <tr><td>Completed projects only</td><td>Excludes in-construction transparency; allows full-lifecycle scoring</td><td><span class="risk med">Medium</span></td></tr>
+    <h2 class="sec">Optional filters: what each one costs</h2>
+    <p class="sub">Each filter is defensible when it is stated, applied uniformly, and its exclusion is named in the selection note. How much bias a filter carries depends on your country's systems; record the trade-off rather than assuming it.</p>
+    <table class="outtab">
+      <tr><th>Filter</th><th>Main information lost</th><th>What to watch</th></tr>
+      <tr><td>Recent projects only</td><td>Older disclosure patterns</td><td>Where procurement or publication systems changed recently, recency alone can flatter or damn the system; say which.</td></tr>
+      <tr><td>Minimum-value threshold</td><td>Smaller projects, which often escape scrutiny precisely because nobody is watching</td><td>Large projects are usually better documented, so a size floor quietly readmits the availability bias. Name that consequence.</td></tr>
+      <tr><td>Completed projects only</td><td>In-construction transparency</td><td>Completed-only also tilts the sample older, interacting with the age ladder; allows completion-stage evidence to be scored.</td></tr>
     </table>
 
-    <p class="sub" style="margin-top:1.4rem;">A partner who follows this workflow produces a sample that is credible without pretending every country has the same project universe or the same feasible sampling method.</p>
+    <h2 class="sec">What is settled, recommended, and still open</h2>
+    <div class="status">
+      <div class="stcol now"><span class="ttag">Apply now</span>
+        <ul>
+          <li>Never select on disclosure availability.</li>
+          <li>Apply your stated rules consistently.</li>
+          <li>Document included and excluded projects, with reasons.</li>
+        </ul>
+      </div>
+      <div class="stcol rec"><span class="ttag">Recommended approach</span>
+        <ul>
+          <li>Build the longlist from named official sources.</li>
+          <li>Pre-commit a buffer before scoring.</li>
+          <li>Check concentration across sector, location, agency, financing source and stage.</li>
+        </ul>
+      </div>
+      <div class="stcol open"><span class="ttag">Awaiting CIPE confirmation</span>
+        <ul>
+          <li>The exact project-age ladder.</li>
+          <li>Any cohort-wide minimum or maximum age.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="sub" style="margin-top:1.4rem;">A partner who follows this page can produce a defensible project list without pretending every country has the same project universe or the same feasible sampling method.</p>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The selection safeguards are proposed to CIPE for cohort-wide confirmation; the age ladder is under confirmation and marked accordingly. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="buffer-list.html">the buffer list</a> &middot; <a href="financing-forms.html">financing forms</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The selection safeguards are proposed to CIPE for cohort-wide confirmation; the age ladder is under confirmation and marked accordingly. The longlist is called the candidate universe in the methodology record. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="eligibility.html">project eligibility</a> &middot; <a href="buffer-list.html">the buffer list</a> &middot; <a href="financing-forms.html">financing forms</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

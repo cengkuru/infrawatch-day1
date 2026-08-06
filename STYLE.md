@@ -20,9 +20,38 @@ The operating logic, not the visual style: lead with the decision, make the evid
 14. Treat accessibility and scannability as evidence-quality issues: contrast at WCAG AA, table captions and scope attributes, alt text on every figure, sections clear of the sticky nav.
 15. Design for maintenance: source, owner, refresh point, and version. Kill any element that exists for the author, not the reader (the visit cloud died under this rule).
 
-## The default definition page
+## The definition-bank page standard (codified 2026-08-06, from the eight-page review)
 
-One strong claim (the H1). One short explanation. One visual or decision test. One boundary case. One operational consequence. One source or status note. Technical nuance sits behind a link, never inline. Past roughly 350 body words, a page is either two pages or a page that lost its figure.
+A bank page is a **reference, not a narrative**. The reader arrives with one operational question, "what is this, how do I apply it here, and what do I do next?", and must leave with the answer in the first screenful. Context, philosophy, methodology and provenance never block the answer. A skeleton implementing this standard lives at `_templates/definition-page.html`; copy it for every new page.
+
+### Fixed section order
+
+1. **Plain title.** The name of the thing, not a metaphor about it ("What is a case study?", never "where the scores stop comparing"). A reader scanning link titles must know what the page is about from the title alone. The kicker states what the page helps you decide: "Foreign financing · does this project enter the assessment?"
+2. **The answer, in the hero.** One quotable plain-English sentence saying what the thing IS (never what it is not, does, or why it matters), usually also correcting the most likely misconception (foreign builder ≠ foreign financier; zero ≠ "I did not find it"). Then two or three sentences of operational definition: "In this assessment, [term] means… It is used to decide [entry / score / classification / next action]." If the reader cannot quote the definition after one reading, it is too long.
+3. **The guardrail.** The most common misapplication, one sentence, in a box, BEFORE the first scroll — after the reader has absorbed the wrong habit is too late.
+4. **The minimum usable test.** The checklist, criteria, scale or flow that lets the reader apply the term without a manual: 3–6 checks for a classification; threshold + required evidence for a score; visible start, decision, output and stopping point for a procedure. Checklist for independent checks; top-to-bottom flow only where steps are genuinely sequential; a ladder looks like a ladder. One concept per step — a step with two actions is two steps. No internal codes (T1, 0-D, N/A-T), no raw sheet wording in the main path.
+5. **The boundary.** What counts and what does not, two or three concrete edge cases that settle 80% of arguments, one sentence each, no philosophical framing.
+6. **One worked example** (one, not five): starting facts → rule applied → result → what gets recorded. Country cases and unusual scenarios go behind a disclosure or a linked page.
+7. **The consequence.** What the answer changes: "If yes … / If no … / If unclear, flag for CIPE."
+8. **Deeper guidance, source and status — last.** One or two sentences of links plus the footer's provenance and CIPE-authority note. No "where this connects" link salads, no Annex/section references in the body.
+
+### Three page shapes
+
+| Page type | Main job | Structure |
+|---|---|---|
+| Definition | explain a term | answer → defining features → counts/does not count → example |
+| Decision rule | classify or score | answer → checks → outcomes → uncertainty/referral |
+| Process | guide a sequence | purpose → visible workflow → outputs → exceptions |
+
+### Forbidden
+
+Opening with a story or parable (context goes below the answer or on its own page) · negative definitions as titles · internal language in the main path (sheet wording, Annex B, 0-D, per-awarded-contract ruling) · serving assessors and general readers in the same reading path (assessor detail collapses into a `<details>` disclosure) · ending with a methodology map · broken or phantom numbering (a blank step 1, an unnumbered final step) · a "one sentence" that is a paragraph · text overflowing a diagram box (size the box to the words, or cut the words).
+
+### The pre-publish test
+
+A first-time reader must be able to answer, without scrolling through methodology: what is this? · what misconception should I avoid? · what test or action applies? · what do I record or do next? · where do I go if the evidence does not settle it? If any answer requires "read the next section", the page is still too dense. Acid test: someone who knows nothing about the project reads for 30 seconds and answers "what is X?" in their own words. Quoting jargon, retelling a parable, or "something to do with audit trails" is a fail.
+
+Past roughly 350 main-path body words (disclosures excluded), a page is either two pages or a page that lost its figure.
 
 ## Palette semantics
 

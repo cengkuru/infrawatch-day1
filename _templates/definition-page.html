@@ -1,0 +1,182 @@
+<!doctype html>
+<!-- ============================================================
+  DEFINITION BANK PAGE TEMPLATE  ·  copy, never link (not indexed)
+  Standard: STYLE.md "The definition-bank page standard".
+  Fixed section order:
+    1 plain title  2 answer in hero  3 guardrail  4 minimum usable test
+    5 boundary  6 one worked example  7 consequence  8 links/source/status
+  Replace every [BRACKETED] token. Delete any optional block you do not
+  need, but never reorder the sections. Keep main-path body text under
+  ~350 words; assessor detail goes inside <details class="assessor">.
+  Pre-publish: run the STYLE.md pre-publish test, register the page in
+  assets/library-nav.js with a plain note (no riddles).
+============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 1. PLAIN TITLE: the name of the thing, not a metaphor about it -->
+  <title>[What is a TERM? / What the TERM must do / The TERM: N criteria]</title>
+  <meta name="description" content="[One-sentence definition, then what the page covers: the test, the boundary, the consequence.]">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#CC2028;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:28ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    /* guardrail: red = failure/stop only */
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
+    /* checklist / parts list (independent checks) */
+    .checksheet{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;margin-top:1rem;}
+    .check{display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
+    .check:last-child{border-bottom:0;}
+    .check .num{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.05em;color:var(--brand-soft);text-transform:uppercase;padding-top:.2rem;text-align:right;}
+    .check .q{font-weight:700;font-size:.96rem;color:var(--brand-deep);}
+    .check .d{display:block;font-size:.85rem;color:var(--mid);margin-top:.15rem;font-weight:400;line-height:1.45;}
+    /* counts / does-not-count boundary columns */
+    .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1rem;}
+    .tcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;border-top:5px solid var(--green);}
+    .tcol.no{border-top-color:var(--red);}
+    .tcol .ttag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--green);}
+    .tcol.no .ttag{color:var(--red);}
+    .tcol ul{margin:.6rem 0 0;padding-left:1.1rem;}
+    .tcol li{margin:0 0 .45rem;font-size:.92rem;}
+    .tcol li:last-child{margin-bottom:0;}
+    @media (max-width:700px){ .tgrid{grid-template-columns:1fr;} }
+    /* dark statement card: the consequence, a key answer, a one-test check */
+    .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
+    .answer b{color:#7fa8d6;}
+    /* worked example / steps card */
+    .steps{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin-top:1rem;}
+    .steps ol{margin:0;padding-left:1.2rem;}
+    .steps li{margin:0 0 .55rem;font-size:.92rem;}
+    .steps li:last-child{margin-bottom:0;}
+    .steps li b{color:var(--brand-deep);}
+    /* SVG flow container (sequential processes ONLY) */
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-top:1rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+    /* assessor-only detail: collapsed, off the main path */
+    details.assessor{margin-top:1rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;font-size:.9rem;}
+    /* open-decision chip: amber = caution / awaiting confirmation */
+    .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <!-- 2. THE ANSWER, IN THE HERO ==================================
+       kicker: [Term] · [what this page helps you decide]
+       h1: one quotable sentence saying what the thing IS
+           (or the plain question the page answers)
+       p:  the operational definition, 2-3 sentences:
+           "In this assessment, [term] means… It is used to decide
+           [entry / score / classification / next action]."
+           Usually corrects the most likely misconception.        -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">[Term] &middot; [what this page helps you decide]</p>
+      <h1>[The one-sentence answer]</h1>
+      <p>[The operational definition. What it means in this assessment, and what it is used to decide. Correct the likeliest misconception here.]</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <!-- 3. THE GUARDRAIL: the most common misapplication, one
+         sentence, visible before the first scroll ================ -->
+    <div class="never"><b>[Never do the one thing that most often goes wrong.]</b> [One or two supporting sentences at most.]</div>
+
+    <!-- 4. THE MINIMUM USABLE TEST ================================
+         Pick ONE shape and delete the others:
+         a) .checksheet  — 3-6 independent checks (any order)
+         b) .flowcard    — SVG top-to-bottom flow (genuinely
+            sequential steps only; size boxes to the words)
+         c) plain prose  — threshold + required evidence (scores)
+         One concept per step. No internal codes, no sheet wording. -->
+    <h2 class="sec">[The test: N checks / The workflow, start to finish]</h2>
+    <div class="checksheet">
+      <div class="check"><span class="num">Check 1</span><span class="q">[The question, plainly?]<span class="d">[One sentence of meaning. Edge cases go in the assessor disclosure below.]</span></span></div>
+      <div class="check"><span class="num">Check 2</span><span class="q">[The question, plainly?]<span class="d">[One sentence.]</span></span></div>
+      <div class="check"><span class="num">Check 3</span><span class="q">[The question, plainly?]<span class="d">[One sentence.]</span></span></div>
+    </div>
+
+    <!-- 5. THE BOUNDARY: 2-3 edge cases that settle 80% of
+         arguments, one sentence each ============================= -->
+    <h2 class="sec">[What counts, and what does not]</h2>
+    <div class="tgrid">
+      <div class="tcol">
+        <span class="ttag">It counts</span>
+        <ul>
+          <li>[Concrete thing that qualifies]</li>
+          <li>[Concrete thing that qualifies]</li>
+        </ul>
+      </div>
+      <div class="tcol no">
+        <span class="ttag">It does not count</span>
+        <ul>
+          <li>[Concrete thing that does not, with the two-word reason]</li>
+          <li>[Concrete thing that does not]</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. ONE WORKED EXAMPLE (one, not five): starting facts ->
+         rule applied -> result -> what gets recorded.
+         Country-specific or unusual cases: wrap this block in
+         <details class="assessor"> instead. ====================== -->
+    <h2 class="sec">Worked example: [the concrete case]</h2>
+    <div class="steps">
+      <ol>
+        <li><b>[Starting facts.]</b> [What you have.]</li>
+        <li><b>[Rule applied.]</b> [Which check decides.]</li>
+        <li><b>[Result.]</b> [The classification / score.]</li>
+        <li><b>[Recorded.]</b> [What enters the database.]</li>
+      </ol>
+    </div>
+
+    <!-- 7. THE CONSEQUENCE: what the answer changes =============== -->
+    <h2 class="sec">What happens next</h2>
+    <div class="answer"><b>If yes:</b> [what follows]. <b>If no:</b> [what follows, and what to record]. <b>If the evidence does not settle it:</b> [flag it for a CIPE decision / mark it unverified, never failed].</div>
+
+    <!-- OPTIONAL: assessor-only detail, collapsed off the main path -->
+    <details class="assessor">
+      <summary>[Guidance for unusual cases / Assessor notes]</summary>
+      <div class="inner">
+        <p>[Internal codes, verbatim sheet wording, annex references, country variants: they live here or on a linked page, never in the main path.]</p>
+      </div>
+    </details>
+
+  </main>
+
+  <!-- 8. DEEPER GUIDANCE, SOURCE AND STATUS — LAST ================
+       One or two link sentences max. Provenance (annex, report
+       section), draft status and CIPE authority live here only.  -->
+  <footer>
+    <strong>Status:</strong> draft v0.1, [Month Year], for partner consultation. [Source: where the rule is settled, if anywhere; what remains subject to CIPE confirmation.] Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="[next-page].html">[next page]</a> &middot; <a href="[other-page].html">[other page]</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

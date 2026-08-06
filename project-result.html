@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The project result: an average over the points that apply, nothing else</title>
-  <meta name="description" content="How an Infrastructure Watch project result is calculated: equal-weight average over applicable points only. Due-but-unpublished zeros count; not-yet-due and non-applicable points leave the denominator. The 99 over 33 worked example, and the open multi-contract rule.">
+  <title>Calculate a project result</title>
+  <meta name="description" content="How to calculate an Infrastructure Watch project result: decide which of the 40 points should be scored, add their scores including genuine zeros, divide by the number you scored. Worked example (33 points, total 99, result 3.0 out of 6), what the number does and does not tell you, and the rule for multiple contracts.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -20,10 +20,6 @@
     .brandbar .brand{font-weight:800;}
     .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
 
-    .draftnote{background:#fbf7ef;border-bottom:1px solid rgba(199,127,0,.3);}
-    .draftnote .dn-inner{max-width:1040px;margin:0 auto;padding:.6rem 1.2rem;font-size:.82rem;color:var(--dark);}
-    .draftnote b{color:var(--amber);font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;margin-right:.5rem;}
-
     .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
     .hero-inner{max-width:1040px;margin:0 auto;}
     .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
@@ -35,27 +31,55 @@
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
     p.sub a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
-    .calc{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;}
-    .calc .line{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--light);font-size:.92rem;}
-    .calc .line:last-child{border-bottom:0;}
-    .calc .line .lab{color:var(--dark);}
-    .calc .line .val{font-family:var(--mono);font-weight:800;color:var(--brand-deep);white-space:nowrap;}
-    .calc .line.total .lab{font-weight:800;color:var(--brand-deep);}
-    .calc .line.total .val{color:var(--green);font-size:1.05rem;}
-    .calc .line.excl .lab,.calc .line.excl .val{color:var(--mid);}
-
-    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
-    .rules ol{margin:0;padding-left:1.2rem;}
-    .rules li{margin:0 0 .6rem;font-size:.92rem;}
-    .rules li:last-child{margin-bottom:0;}
-    .rules li b{color:var(--brand-deep);}
-    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
-
-    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
     .never b{color:var(--red);}
     .never a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
-    .open{background:#fff;border:1px solid rgba(199,127,0,.4);border-left:4px solid var(--amber);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.9rem;}
-    .open b{color:var(--amber);}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-top:1rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
+
+    .calc{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;margin-top:1rem;}
+    .calc .step{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--brand-soft);margin:.9rem 0 .3rem;}
+    .calc .step:first-child{margin-top:0;}
+    .calc .line{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px solid var(--light);font-size:.92rem;}
+    .calc .line .val{font-family:var(--mono);font-weight:800;color:var(--brand-deep);white-space:nowrap;}
+    .calc .line.excl span{color:var(--mid);}
+    .calc p.note{font-size:.85rem;color:var(--mid);margin:.4rem 0 0;}
+
+    .result{background:var(--brand-deep);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.6rem;margin-top:1rem;text-align:center;}
+    .result .rl{font-family:var(--mono);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#7fa8d6;}
+    .result .rv{font-size:2.2rem;font-weight:800;margin:.2rem 0;}
+    .result p{color:#cdddec;font-size:.92rem;margin:.3rem auto 0;max-width:52ch;}
+
+    .extab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:1rem;}
+    .extab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .extab td{padding:.6rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .extab tr:last-child td{border-bottom:0;}
+    .extab td.rec{font-family:var(--mono);font-weight:800;white-space:nowrap;}
+    .extab td.in{font-weight:700;}
+
+    .ddgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1rem;}
+    .ddcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;border-top:5px solid var(--green);}
+    .ddcol.no{border-top-color:var(--mid);}
+    .ddcol .ttag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--green);}
+    .ddcol.no .ttag{color:var(--mid);}
+    .ddcol ul{margin:.6rem 0 0;padding-left:1.1rem;}
+    .ddcol li{margin:0 0 .4rem;font-size:.92rem;}
+    .ddcol li:last-child{margin-bottom:0;}
+    .ddcol p{margin:.6rem 0 0;font-size:.92rem;}
+    @media (max-width:700px){ .ddgrid{grid-template-columns:1fr;} }
+
+    .open{background:#fff;border:1px solid rgba(199,127,0,.4);border-left:4px solid var(--amber);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .open b{color:#8A5800;}
+
+    details.assessor{margin-top:1.2rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;font-size:.9rem;}
+    details.assessor .inner ul{margin:0;padding-left:1.1rem;}
+    details.assessor .inner li{margin:0 0 .55rem;}
+    details.assessor .inner li:last-child{margin-bottom:0;}
+    details.assessor .inner b{color:var(--brand-deep);}
+    details.assessor a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -65,48 +89,143 @@
 <body>
   <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
 
-  <div class="draftnote"><div class="dn-inner"><b>Draft</b> The single-project calculation below is settled. How scores from multiple contracts combine into one project result is a Phase 2 decision, marked where it applies.</div></div>
-
   <section class="hero">
     <div class="hero-inner">
-      <p class="kicker">The project result &middot; how one number is built</p>
-      <h1>An average over the points that apply, so an excluded point never drags the score</h1>
-      <p>Each project's finding is the full profile of its scores: forty answers, each on its own merits. The project result is the summary statistic over that profile: add the scores for every applicable point, divide by the number of points that apply. Equal weight, and nothing that should not count is counted.</p>
+      <p class="kicker">The project result &middot; how to calculate one project's score</p>
+      <h1>Add the scores that apply, then divide by the number of points you scored</h1>
+      <p>This page shows how a project's 40-point disclosure checklist becomes a single number. The number answers one question: how easy is it to find the official project information? The hard part is not the division; it is deciding which points belong in the calculation.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">Thirty-three applicable points, sum 99, result 3.0</h2>
-    <p class="sub">A project with the full 40 core points, of which seven should not be scored at its current stage.</p>
+    <div class="never"><b>The rule that decides everything: missing information scores zero only when it should already exist.</b> Information that is not yet due, or does not apply to this project, is left out of the calculation entirely. Scoring a not-yet-due point as zero "to be safe" punishes a government for a record that cannot exist yet.</div>
+
+    <h2 class="sec">Step 1: should this point be scored?</h2>
+    <p class="sub">Ask it for each of the <a href="forty-data-points.html">40 points</a>. This decision, not the arithmetic, is the work.</p>
+    <div class="flowcard">
+      <svg viewBox="0 0 760 320" width="760" height="320" role="img" aria-labelledby="prTitle prDesc">
+        <title id="prTitle">Deciding whether a point is scored</title>
+        <desc id="prDesc">Should this information exist at the project's current stage? If yes, ask whether it was published: published means score it 1 to 6; unpublished means score it 0, a genuine disclosure failure. If no, ask why it does not apply: not yet due, or never applies to this project. Both are left out of the calculation, with the reason and its evidence recorded.</desc>
+        <defs>
+          <marker id="pra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/></marker>
+        </defs>
+        <style>
+          .box{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .bt{font:700 12.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+          .bs{font:400 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .al{font:700 10.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .ln{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+        </style>
+
+        <rect x="200" y="14" width="360" height="46" rx="10" fill="#142334"/>
+        <text x="380" y="42" text-anchor="middle" style="font:700 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#fff;">Should this information exist at the current stage?</text>
+
+        <path class="ln" d="M300 60 L190 100" marker-end="url(#pra)"/>
+        <text x="212" y="82" class="al">yes</text>
+        <path class="ln" d="M460 60 L570 100" marker-end="url(#pra)"/>
+        <text x="532" y="82" class="al">no</text>
+
+        <rect x="60" y="104" width="260" height="42" rx="10" class="box"/>
+        <text x="190" y="130" text-anchor="middle" class="bt">Was it published?</text>
+        <rect x="440" y="104" width="260" height="42" rx="10" class="box"/>
+        <text x="570" y="130" text-anchor="middle" class="bt">Why does it not apply?</text>
+
+        <path class="ln" d="M130 146 L105 192" marker-end="url(#pra)"/>
+        <text x="90" y="172" class="al">yes</text>
+        <path class="ln" d="M250 146 L285 192" marker-end="url(#pra)"/>
+        <text x="278" y="172" class="al">no</text>
+        <path class="ln" d="M510 146 L480 192" marker-end="url(#pra)"/>
+        <text x="420" y="172" class="al">not yet due</text>
+        <path class="ln" d="M630 146 L660 192" marker-end="url(#pra)"/>
+        <text x="646" y="172" class="al">never applies</text>
+
+        <rect x="20" y="196" width="170" height="56" rx="10" fill="#fff" stroke="#1B7A3D" stroke-width="1.5"/>
+        <text x="105" y="220" text-anchor="middle" class="bt" style="fill:#1B7A3D;">Score it 1 to 6</text>
+        <text x="105" y="238" text-anchor="middle" class="bs">on the scale, with its source</text>
+
+        <rect x="210" y="196" width="170" height="56" rx="10" fill="#fff" stroke="#CC2028" stroke-width="1.5"/>
+        <text x="295" y="220" text-anchor="middle" class="bt" style="fill:#CC2028;">Score it 0</text>
+        <text x="295" y="238" text-anchor="middle" class="bs">due but unpublished</text>
+
+        <rect x="400" y="196" width="160" height="56" rx="10" fill="#fff" stroke="#5A6B7B" stroke-width="1.5"/>
+        <text x="480" y="220" text-anchor="middle" class="bt" style="fill:#5A6B7B;">Leave it out</text>
+        <text x="480" y="238" text-anchor="middle" class="bs">returns when due</text>
+
+        <rect x="580" y="196" width="160" height="56" rx="10" fill="#fff" stroke="#5A6B7B" stroke-width="1.5"/>
+        <text x="660" y="220" text-anchor="middle" class="bt" style="fill:#5A6B7B;">Leave it out</text>
+        <text x="660" y="238" text-anchor="middle" class="bs">with the reason recorded</text>
+
+        <text x="570" y="290" text-anchor="middle" class="bs">Left-out points are recorded by their evidence state, with the reason and its evidence.</text>
+      </svg>
+    </div>
+
+    <h2 class="sec">Step 2: count, add, divide</h2>
+    <p class="sub">A road project still in early works: seven of its 40 points should not be scored yet.</p>
     <div class="calc">
-      <div class="line"><span class="lab">Core points</span><span class="val">40</span></div>
-      <div class="line excl"><span class="lab">Verified not yet due: excluded, with expected stage recorded</span><span class="val">&minus;5</span></div>
-      <div class="line excl"><span class="lab">Verified non-applicable: excluded, with reason and evidence</span><span class="val">&minus;2</span></div>
-      <div class="line"><span class="lab">Applicable points, the denominator</span><span class="val">33</span></div>
-      <div class="line"><span class="lab">Sum of the 33 scores, including every due-but-unpublished zero</span><span class="val">99</span></div>
-      <div class="line total"><span class="lab">Project result</span><span class="val">99 &divide; 33 = 3.0</span></div>
+      <div class="step">Count only the points that should be scored</div>
+      <div class="line"><span>Starting points</span><span class="val">40</span></div>
+      <div class="line excl"><span>Not yet due at this stage: left out</span><span class="val">&minus;5</span></div>
+      <div class="line excl"><span>Does not apply to this project: left out</span><span class="val">&minus;2</span></div>
+      <div class="line"><span><b>Points to score</b></span><span class="val">33</span></div>
+      <div class="step">Add their scores</div>
+      <div class="line"><span>Sum of the 33 scores, including every due-but-unpublished zero</span><span class="val">99</span></div>
+      <div class="step">Divide</div>
+      <div class="line"><span>99 total &divide; 33 points scored</span><span class="val">3.0</span></div>
+      <p class="note">The 33 is the number you divide by; in the methodology this is called the denominator. Every point counts equally.</p>
     </div>
 
-    <h2 class="sec">Genuine zeros count; excluded points never do</h2>
-    <div class="rules">
-      <ol>
-        <li><b>The denominator is applicable points only.</b> Verified not-yet-due and non-applicable points leave the calculation entirely; their <a href="evidence-states.html">evidence states</a> are recorded, and they never appear as zeros.</li>
-        <li><b>Genuine zeros count.</b> A due-but-unpublished point scores 0 and stays in the average: that is the disclosure failure the result exists to reflect.</li>
-        <li><b>Equal weight per point.</b> No point matters more than another; the working interpretation is equal weighting unless CIPE specifies otherwise. A phase with more applicable points therefore carries more of the average.</li>
-        <li><b>Phased projects score per awarded contract.</b> One project, three funders, three contract awards: three scores, each on its own merits, because a single blended score hides which phase's disclosure failed. Whole-project documents, the feasibility study or the environmental assessment, count toward every phase.</li>
-        <li><b>The profile stays the finding.</b> The result summarises; it does not replace the forty answers. Two projects can share a 3.0 with entirely different failures underneath, and the analysis reads <a href="forty-data-points.html">the points</a>, not just the mean.</li>
-      </ol>
+    <div class="result">
+      <div class="rl">Project result</div>
+      <div class="rv">3.0 out of 6</div>
+      <p>The public record is moderately findable, with gaps. It says nothing about whether the road is a good road.</p>
     </div>
 
-    <div class="never"><b>The common trap:</b> reading the result as a project grade. A 5.1 does not mean a good project, and a 1.4 does not mean a bad one; the number summarises how findable the official record is, point by point, and nothing else. The second trap is quieter: scoring a not-yet-due point as zero "to be safe". That silently moves the point into the denominator and punishes a government for a record that cannot exist yet.</div>
+    <h2 class="sec">Step 3: check your exclusion decisions</h2>
+    <table class="extab">
+      <tr><th>Situation</th><th>What to record</th><th>In the calculation?</th></tr>
+      <tr><td>The contract has been awarded, but the contract document is missing</td><td class="rec" style="color:var(--red);">0</td><td class="in">Yes</td></tr>
+      <tr><td>The contract has not yet been awarded</td><td class="rec" style="color:var(--mid);">Not yet due</td><td class="in">No</td></tr>
+      <tr><td>The project involves no land acquisition, so resettlement points cannot apply</td><td class="rec" style="color:var(--mid);">Not applicable</td><td class="in">No</td></tr>
+    </table>
 
-    <div class="open"><b>Open for Phase 2:</b> how scores from multiple contracts combine into one project result. The per-awarded-contract rule above and this roll-up rule are the same decision seen from two directions and will be settled together, with partner-specific scenarios. Until then, contract-level results are reported side by side, not blended.</div>
+    <h2 class="sec">What the number does and does not tell you</h2>
+    <div class="ddgrid">
+      <div class="ddcol">
+        <span class="ttag">It tells you</span>
+        <p>How findable and complete the official project information is, across the points that should exist right now.</p>
+      </div>
+      <div class="ddcol no">
+        <span class="ttag">It does not tell you</span>
+        <ul>
+          <li>Whether the project is good or bad</li>
+          <li>Whether it is well managed</li>
+          <li>Whether the spending is value for money</li>
+          <li>Whether one project matters more than another</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:.8rem;">Two projects can share a 3.0 with entirely different failures underneath; the forty answers, not the average, are where the analysis reads. A 5.1 is not a good project and a 1.4 is not a bad one.</p>
+
+    <h2 class="sec">Projects with more than one awarded contract</h2>
+    <div class="open"><b>For now, calculate and report each awarded contract separately. Do not combine the results.</b> Whole-project documents, like the feasibility study, count toward every contract. CIPE will confirm how contract results combine into one project result in Phase 2.</div>
+
+    <details class="assessor">
+      <summary>Method note for reviewers</summary>
+      <div class="inner">
+        <ul>
+          <li><b>Equal weight per point</b> is the working interpretation unless CIPE specifies otherwise; a phase with more applicable points therefore carries more of the average.</li>
+          <li><b>The profile stays the finding.</b> The result is a summary statistic over the project's score profile; it summarises the forty answers and never replaces them.</li>
+          <li><b>Exclusions ride the evidence states.</b> Not-yet-due and not-applicable points leave the calculation via their recorded <a href="evidence-states.html">evidence states</a>; only a due, applicable, sufficiently searched and unpublished point is a genuine zero.</li>
+          <li><b>Per-contract scoring and the future roll-up</b> are the same decision seen from two directions and will be settled together in Phase 2, with partner-specific scenarios; see also the <a href="project-unit.html">project unit</a>.</li>
+        </ul>
+      </div>
+    </details>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The equal-weight average over applicable points, the treatment of each evidence state, and the worked example are the settled rules in the Infra Watch mapping report (Section 5.3); the multi-contract roll-up is Phase 2 and marked above. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; CIPE holds final scoring authority. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="evidence-states.html">evidence states</a> &middot; <a href="zero-to-six-scale.html">the 0 to 6 scale</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The single-contract calculation, the treatment of each evidence state, and the worked example are the settled rules in the Infra Watch mapping report (Section 5.3); the multi-contract roll-up is Phase 2 and marked above. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; CIPE holds final scoring authority. Companion pages: <a href="forty-data-points.html">the 40 data points</a> &middot; <a href="evidence-states.html">evidence states</a> &middot; <a href="zero-to-six-scale.html">the 0 to 6 scale</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

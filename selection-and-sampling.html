@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Selection and sampling: a defensible list is documented, never convenient</title>
-  <meta name="description" content="How Infrastructure Watch country lists are selected: the four proposed selection rules, the availability bias that ruins transparency comparisons, the recency ladder under confirmation, and what thresholds and completed-only filters must document.">
+  <title>Selection and sampling: choose projects before you see their disclosure record</title>
+  <meta name="description" content="How to select projects for an Infrastructure Watch assessment: build the pool, apply the eligibility test, choose a balanced sample, document the choice before scoring. Random sampling is not required; selecting for data availability is the one bias the assessment cannot survive.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -23,22 +23,32 @@
     .hero-inner{max-width:1040px;margin:0 auto;}
     .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
     .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:26ch;}
-    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0 0 .6rem;}
+    .hero p:last-child{margin-bottom:0;}
     .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
-    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin:.8rem 0;}
     .never b{color:var(--red);}
-    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
-    .rules ol,.rules ul{margin:0;padding-left:1.2rem;}
-    .rules li{margin:0 0 .55rem;font-size:.92rem;}
-    .rules li:last-child{margin-bottom:0;}
-    .rules li b{color:var(--brand-deep);}
-    .rules a,.never a,p.sub a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
-    .rules a:hover{color:var(--brand-deep);}
+    .steps{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
+    .step{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;border-left:4px solid var(--brand-soft);}
+    .step .n{font-family:var(--mono);font-weight:800;font-size:1.3rem;color:var(--brand-soft);text-align:center;padding-top:.05rem;}
+    .step b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.2rem;}
+    .step p{margin:0;font-size:.9rem;color:var(--mid);}
+    .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
+    .answer b{color:#7fa8d6;}
+    .ladder{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0;}
+    .lstep{flex:1 1 150px;background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.8rem .9rem;font-size:.84rem;color:var(--mid);border-top:4px solid var(--green);}
+    .lstep b{display:block;color:var(--brand-deep);font-size:.88rem;margin-bottom:.2rem;}
+    .lstep.l2{border-top-color:#5c9c46;} .lstep.l3{border-top-color:var(--amber);} .lstep.l4{border-top-color:var(--red);}
+    .filtab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.88rem;margin-top:.8rem;}
+    .filtab th{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .filtab td{padding:.6rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;}
+    .filtab tr:last-child td{border-bottom:0;}
+    .filtab td:first-child{font-weight:700;color:var(--brand-deep);}
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
+    .rules a,.never a,p.sub a,.step a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
-    .edge{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;font-size:.9rem;margin-top:.8rem;}
-    .edge b{color:var(--brand-deep);}
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
     footer a{color:var(--brand);}
@@ -50,49 +60,53 @@
   <section class="hero">
     <div class="hero-inner">
       <p class="kicker">Selection and sampling &middot; building the country list</p>
-      <h1>A defensible list is documented, never convenient</h1>
-      <p>Twenty projects per country, chosen once, scrutinised forever. The selection cannot be random, because eligibility and comparability constrain it; it must never be convenient, because convenience is the one bias a transparency assessment cannot survive. What makes the difference is documentation.</p>
+      <h1>Choose projects before you see their disclosure record</h1>
+      <p>Build a list from eligible projects, then assess how transparent they are. Do not select projects because their information is easy to find.</p>
+      <p>There is no single sampling method that works in every country. Your approach may be purposive, stratified or another practical method, but it must be clear, consistently applied and documented before scoring begins.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">The bias that ruins transparency comparisons</h2>
-    <p class="sub">One mechanism, worth holding before any rule.</p>
-    <div class="never"><b>Never select a project because its information is easy to find.</b> The assessment measures how findable the record is. Choose projects for their good records and the scores stop measuring disclosure and start measuring your own choosing: the sample flatters the system it was meant to test. The same bias returns in softer clothes as "projects with adequate data available", and it must be named whenever it appears: if a data-availability screen is ever unavoidable, the projects excluded by it are listed, so the bias is visible instead of silent.</div>
-
-    <h2 class="sec">The four selection rules</h2>
-    <p class="sub">Proposed for the whole cohort, so every country's list is defensible the same way.</p>
-    <div class="rules">
-      <ol>
-        <li><b>Seek a reasonable spread of financing countries</b> where the pool of eligible projects allows it.</li>
-        <li><b>A concentrated sample is acceptable where it reflects reality.</b> A list dominated by one financier country is not a sampling failure; it is a finding about how infrastructure in that country is financed. Where spread and reality conflict, reality wins, and the documentation shows it.</li>
-        <li><b>Document the pool, the criteria, and the reason each project was chosen.</b> The documentation is what separates a defensible list from a convenient one, and it is what lets exceptions stand.</li>
-        <li><b>Never select for data availability</b> (the rule above, restated where it belongs in the sequence).</li>
-      </ol>
+    <h2 class="sec">Build the country list in four steps</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><b>Build the pool</b><p>List potentially eligible projects from budgets, investment plans, PPP pipelines, debt and guarantee records, ODA lists, SOE and regulator registers. The pool is the record of what you chose from; keep it.</p></div></div>
+      <div class="step"><div class="n">2</div><div><b>Apply the eligibility test</b><p>Keep only projects that meet the common financing, timing and implementation rules on the <a href="eligibility.html">eligibility page</a>, plus any stated filters (size floor, age window, completion status). Record what each filter excluded.</p></div></div>
+      <div class="step"><div class="n">3</div><div><b>Choose a balanced sample</b><p>Seek a reasonable spread across financier country, sector, geography, project type or size where the country pool allows it. If one financier or sector genuinely dominates the pool, reflect that reality rather than manufacturing diversity: concentration is a finding about how infrastructure is financed, not a sampling failure.</p></div></div>
+      <div class="step"><div class="n">4</div><div><b>Document the choice before scoring</b><p>Record the universe and its sources, the eligibility filter, the time window, the sampling approach, the desired and actual spread, the reason each project was chosen, and the limits on what the sample can represent. Someone else should be able to re-create your list from your notes.</p></div></div>
     </div>
 
-    <h2 class="sec">Age of projects: the working ladder</h2>
-    <p class="sub">The cohort rule is being confirmed with CIPE; until it is, the proposal on the table works like this. <span class="chip">being confirmed with CIPE</span></p>
-    <div class="rules">
-      <ul>
-        <li><b>The more recent, the better.</b> Prefer projects under construction or recently completed.</li>
-        <li><b>Step back gradually, and document each step.</b> Where recent projects cannot fill the list, widen in stages: roughly three years, then five, and never beyond ten years since completion. A project admitted at each step carries the reason no more recent substitute existed.</li>
-        <li><b>Flag every aged exception.</b> The flag is not a penalty; it is what lets an older, well-documented project stand in a defensible list.</li>
-      </ul>
+    <h2 class="sec">The rule that protects the assessment</h2>
+    <div class="never"><b>Never select a project because its information is easy to find.</b> The assessment measures how findable the record is; choose projects for their good records and the scores stop measuring disclosure and start measuring your own choosing. A well-documented sample can make a weak disclosure system look stronger than it is. The same bias returns in softer clothes as "projects with adequate data available": if a data-availability screen is ever unavoidable, list the projects it excluded, so the bias is visible instead of silent.</div>
+
+    <h2 class="sec">Is random sampling required?</h2>
+    <div class="answer"><b>No.</b> The aim is not a statistically random national survey; it is a credible, reviewable selection of eligible projects. Random selection is not required, and may not be practical where eligibility and comparability substantially narrow the available pool. Partners may use purposive or stratified sampling where that better reflects the country's project universe. The safeguards are shared whatever the method: do not select on disclosure availability, apply your stated rules consistently, and disclose the limits of the sample.</div>
+
+    <h2 class="sec">Age of projects: the working ladder <span class="chip">being confirmed with CIPE</span></h2>
+    <p class="sub">Prefer recent projects; where they cannot fill the list, widen in stages and record at each step why no more recent substitute existed. The flag on an aged project is not a penalty; it is what lets an older, well-documented project stand in a defensible list.</p>
+    <div class="ladder">
+      <div class="lstep"><b>Preferred</b>Under construction or recently completed.</div>
+      <div class="lstep l2"><b>Step back</b>Up to 3 years since completion.</div>
+      <div class="lstep l3"><b>Then</b>Up to 5 years, each admission documented.</div>
+      <div class="lstep l4"><b>Outer limit</b>Up to 10 years, flagged. Never beyond.</div>
     </div>
 
-    <h2 class="sec">Two filters that need their own documentation</h2>
-    <div class="edge"><b>Minimum-size thresholds.</b> A floor on project value is a legitimate feasibility filter, and large projects are also usually better documented, which quietly reintroduces the availability bias through the side door. A threshold is acceptable when it is stated, applied uniformly, and its consequence is named: the sample then speaks for large projects, and smaller projects, which often escape scrutiny precisely because nobody is watching, are outside it by design.</div>
-    <div class="edge"><b>Completed-only selection.</b> Choosing only completed projects lets the whole lifecycle be scored, including the completion records where trails most often thin. The cost is that nothing in the sample tests live, in-construction disclosure. Either choice is defensible; the choice itself belongs in the documentation.</div>
+    <h2 class="sec">Choices that change what your sample can represent</h2>
+    <p class="sub">Each filter is defensible when it is stated, applied uniformly, and its exclusion is named in the documentation.</p>
+    <table class="filtab">
+      <tr><th>Choice</th><th>Why use it</th><th>What it excludes</th></tr>
+      <tr><td>Recent or completed projects</td><td>Enables a fuller lifecycle review, including completion records where trails most often thin</td><td>Older projects and live-project disclosure patterns</td></tr>
+      <tr><td>Minimum-value threshold</td><td>Keeps the work feasible</td><td>Smaller projects, which often escape scrutiny precisely because nobody is watching. Large projects are also usually better documented, so a size floor quietly readmits the availability bias; name that consequence</td></tr>
+      <tr><td>Completed-only sample</td><td>Allows completion-stage evidence to be scored</td><td>In-construction transparency</td></tr>
+    </table>
 
     <h2 class="sec">Where this connects</h2>
-    <p class="sub">Selection starts from the <a href="eligibility.html">eligibility test</a> (only passing projects enter the pool), leans on the <a href="buffer-list.html">buffer list</a> when a chosen project later fails scrutiny, and records each project's <a href="financing-forms.html">financing form</a> and <a href="prc-classification.html">classification</a> as it enters the list.</p>
+    <div class="rules">Only projects passing the <a href="eligibility.html">eligibility test</a> enter the pool. If a chosen project later fails scrutiny, its replacement comes from the pre-committed <a href="buffer-list.html">buffer list</a>, never from a fresh convenience pick. As each project enters the list, record its <a href="financing-forms.html">financing form</a> and <a href="prc-classification.html">classification</a>.</div>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The four rules are proposed to CIPE for cohort-wide confirmation; the age ladder is under confirmation and marked accordingly. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The selection safeguards are proposed to CIPE for cohort-wide confirmation; the age ladder is under confirmation and marked accordingly. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

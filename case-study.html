@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Case studies: where the scores stop comparing and start explaining</title>
-  <meta name="description" content="What a case study is in Infrastructure Watch: a deeper, source-verified account of one assessed project that explains why its disclosure record looks the way it does and what could change it. The proposed five-step development process, from selecting a project out of the scored sample to verification against source documents.">
+  <title>What is a case study?</title>
+  <meta name="description" content="A case study in Infrastructure Watch: a deep-dive document built on one scored project, or a deliberately matched pair, that explains why the disclosure record looks the way it does and names what a specific authority could publish to change it. The five parts every case study contains and the proposed development process.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -29,20 +29,28 @@
     .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
-    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    p.sub a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
 
-    .ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 .4rem;}
-    .idea{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;font-size:.92rem;border-top:4px solid var(--brand-soft);}
-    .idea b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.3rem;}
-    @media (max-width:700px){ .ideas{grid-template-columns:1fr;} }
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1rem 1.3rem;font-size:.94rem;margin-top:1rem;}
+    .rules b{color:var(--brand-deep);}
 
-    .steps{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
-    .step{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;border-left:4px solid var(--brand-soft);}
-    .step .n{font-family:var(--mono);font-weight:800;font-size:1.3rem;color:var(--brand-soft);text-align:center;padding-top:.05rem;}
-    .step b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.2rem;}
-    .step p{margin:0;font-size:.9rem;color:var(--mid);}
-    .step a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .ctab{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--light);border-radius:10px;overflow:hidden;font-size:.9rem;margin-top:1rem;box-shadow:var(--shadow);}
+    .ctab th{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:.65rem .9rem;border-bottom:1px solid var(--light);background:var(--surface);}
+    .ctab th:first-child{color:var(--brand-soft);} .ctab th:last-child{color:var(--green);}
+    .ctab td{padding:.6rem .9rem;border-bottom:1px solid var(--light);vertical-align:top;width:50%;}
+    .ctab tr:last-child td{border-bottom:0;}
+
+    .parts{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;margin-top:1rem;}
+    .part{display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
+    .part:last-child{border-bottom:0;}
+    .part .num{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.05em;color:var(--brand-soft);text-transform:uppercase;padding-top:.2rem;text-align:right;}
+    .part .q{font-weight:700;font-size:.96rem;color:var(--brand-deep);}
+    .part .d{display:block;font-size:.85rem;color:var(--mid);margin-top:.15rem;font-weight:400;line-height:1.45;}
+    .part a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .flowcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem;overflow-x:auto;margin-top:1rem;}
+    .flowcard svg{display:block;margin:0 auto;max-width:100%;height:auto;}
 
     .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
     .never b{color:var(--red);}
@@ -58,38 +66,80 @@
   <section class="hero">
     <div class="hero-inner">
       <p class="kicker">Case studies &middot; proposed working definition</p>
-      <h1>A case study explains one project's record; the scores only compare it</h1>
-      <p>The assessment gives every project the same 40 questions so countries can be compared. A case study takes one assessed project deeper: why its disclosure record looks the way it does, who decides what gets published, and what could plausibly change it. It is built on the project's scored record, never instead of it.</p>
+      <h1>A case study turns assessment results into explanation and action</h1>
+      <p>A case study is a document built on one assessed project, or a deliberately matched pair, that explains why the disclosure record looks the way it does and names what a specific authority could publish to change it. The scores tell you what was published; the case study asks why: who controls the information, who gains from keeping it hidden, what law or budget rule stands in the way, and what one change would improve the record.</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">Three things make it a case study</h2>
-    <div class="ideas">
-      <div class="idea"><b>It starts from an assessed project</b>The subject comes out of the scored sample, carrying its full record: scores, evidence states, flags and sources. A story about a project nobody assessed is journalism, not a case study of this assessment.</div>
-      <div class="idea"><b>It explains, not just describes</b>Beyond what was and was not published, it maps who benefits, who decides, and which institutional constraints shape the record: the actors and incentives behind the scores, and the plausible actions that could move them.</div>
-      <div class="idea"><b>It is verified before it travels</b>Claims are checked against source documents, ideally loan-agreement-grade, before the case study is used publicly. Until then it is a teaching sample, and it says so.</div>
+    <div class="rules"><b>A case study begins after scoring.</b> It does not replace the assessment, reopen project selection, or override the recorded evidence. Every claim it makes must trace back to scored points, sources and evidence states.</div>
+
+    <h2 class="sec">How it differs from the assessment</h2>
+    <table class="ctab">
+      <tr><th>The assessment</th><th>The case study</th></tr>
+      <tr><td>Scores every eligible project against the same questions</td><td>Goes deeper into one instructive project, or a matched comparison</td></tr>
+      <tr><td>Asks: what has the government made public?</td><td>Asks: why does this record look like this, and what could improve it?</td></tr>
+      <tr><td>Produces comparable scores</td><td>Produces an evidence-based explanation and one practical next action</td></tr>
+    </table>
+
+    <h2 class="sec">A case study has five parts</h2>
+    <div class="parts">
+      <div class="part"><span class="num">1</span><span class="q">The question<span class="d">What pattern in the scored record needs explaining? An instructive gap, a strong contrast, a pattern other countries will recognise.</span></span></div>
+      <div class="part"><span class="num">2</span><span class="q">The evidence<span class="d">The scores, source gaps, <a href="evidence-states.html">evidence states</a> and flags that establish the pattern, drawn from the <a href="assessment-database.html">assessment database</a>.</span></span></div>
+      <div class="part"><span class="num">3</span><span class="q">The explanation<span class="d">Which authority owns publication, who benefits from opacity or disclosure, and which fiscal, legal or political rules shape the record.</span></span></div>
+      <div class="part"><span class="num">4</span><span class="q">The verification<span class="d">Which claims are proven against primary-source evidence, such as the contract, loan agreement, audit or official gazette, and which remain provisional and are labelled so.</span></span></div>
+      <div class="part"><span class="num">5</span><span class="q">The action<span class="d">What should be published, by which named authority, and which scores it would move. A case study without an owner and an action is unfinished.</span></span></div>
     </div>
 
     <h2 class="sec">The development process <span class="chip">proposed, for CIPE confirmation</span></h2>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><div><b>Select from the scored sample, and say why</b><p>Choose a project whose record raises a question worth answering: an instructive gap, a strong contrast, a pattern other countries will recognise. Record the reason for the choice and link the case study to the project in the <a href="assessment-database.html">assessment database</a>. Never choose a project because its material is easiest to gather; that is the same <a href="selection-and-sampling.html">availability bias</a> the sample rules exclude.</p></div></div>
-      <div class="step"><div class="n">2</div><div><b>Start from the assessment record</b><p>The scored 40 points, the <a href="evidence-states.html">evidence states</a>, the flags and the source trail are the case study's skeleton. What was published, what was searched for and absent, and what was only findable from funders is already established evidence; do not re-litigate it, build on it.</p></div></div>
-      <div class="step"><div class="n">3</div><div><b>Add the explanatory layer</b><p>Map the actors and institutions around the record: which authority owns publication, who benefits from opacity or disclosure, what fiscal, legal or political constraints operate, and what the project's <a href="financing-forms.html">financing form</a> implies for which records should exist. This is where scores become an account of why.</p></div></div>
-      <div class="step"><div class="n">4</div><div><b>Verify against source documents</b><p>Check the narrative's material claims at source: contracts, loan agreements, audit reports, official gazettes. Label every claim that has not reached that grade, keep both figures where sources <a href="conflicting-figures.html">conflict</a>, and never present an unverified teaching sample as an audited finding.</p></div></div>
-      <div class="step"><div class="n">5</div><div><b>End on plausible action</b><p>A case study earns its place by naming what could change: which record, published by which authority, would move which scores. The test of a finished case study is that a reader knows what to ask for next, and from whom.</p></div></div>
+    <div class="flowcard">
+      <svg viewBox="0 0 760 560" width="760" height="560" role="img" aria-labelledby="csTitle csDesc">
+        <title id="csTitle">The case-study development process</title>
+        <desc id="csDesc">Start from a scored project or matched pair. Choose an instructive question and record why. Use scores, sources, gaps and flags to establish the pattern. Explain the institutions, incentives and financing arrangements behind it. Verify material claims against primary sources and label unresolved evidence. Name one practical action: what should be published, and by whom.</desc>
+        <defs>
+          <marker id="csa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5A6B7B"/></marker>
+        </defs>
+        <style>
+          .box{fill:#fff;stroke:#E2E8ED;stroke-width:1.5;}
+          .bt{font:700 13px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#1E2A38;}
+          .bs{font:400 11px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;fill:#5A6B7B;}
+          .ln{stroke:#5A6B7B;stroke-width:1.5;fill:none;}
+        </style>
+        <rect x="170" y="10" width="420" height="50" rx="25" fill="#142334"/>
+        <text x="380" y="40" text-anchor="middle" style="font:800 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#fff;">A scored project, or a matched pair</text>
+        <path class="ln" d="M380 60 L380 84" marker-end="url(#csa)"/>
+        <rect x="170" y="88" width="420" height="54" rx="10" class="box"/>
+        <text x="190" y="110" class="bt">Choose an instructive question, and record why</text>
+        <text x="190" y="126" class="bs">never because the material is easiest to gather</text>
+        <path class="ln" d="M380 142 L380 166" marker-end="url(#csa)"/>
+        <rect x="170" y="170" width="420" height="54" rx="10" class="box"/>
+        <text x="190" y="192" class="bt">Establish the pattern from the scored record</text>
+        <text x="190" y="208" class="bs">scores, sources, gaps and flags: the skeleton, not up for re-litigation</text>
+        <path class="ln" d="M380 224 L380 248" marker-end="url(#csa)"/>
+        <rect x="170" y="252" width="420" height="54" rx="10" class="box"/>
+        <text x="190" y="274" class="bt">Explain what shapes it</text>
+        <text x="190" y="290" class="bs">institutions, incentives and financing arrangements behind the record</text>
+        <path class="ln" d="M380 306 L380 330" marker-end="url(#csa)"/>
+        <rect x="170" y="334" width="420" height="54" rx="10" class="box"/>
+        <text x="190" y="356" class="bt">Verify material claims before public use</text>
+        <text x="190" y="372" class="bs">primary sources: contract, loan agreement, audit, gazette; label the rest</text>
+        <path class="ln" d="M380 388 L380 412" marker-end="url(#csa)"/>
+        <rect x="170" y="416" width="420" height="54" rx="10" class="box"/>
+        <text x="190" y="438" class="bt">Name one practical action</text>
+        <text x="190" y="454" class="bs">what should be published, by which named authority</text>
+        <path class="ln" d="M380 470 L380 494" marker-end="url(#csa)"/>
+        <rect x="230" y="498" width="300" height="46" rx="23" fill="#142334"/>
+        <text x="380" y="526" text-anchor="middle" style="font:800 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#fff;">A finished case study</text>
+      </svg>
     </div>
 
-    <div class="never"><b>The trap:</b> the case study drifting free of the assessment. If its claims cannot be traced back to scored points, sources and evidence states, it stops being evidence and becomes opinion with a project name attached; and if it quietly contradicts the scored record, one of the two is wrong and the database is where that gets settled, not the prose.</div>
-
-    <h2 class="sec">Where this connects</h2>
-    <p class="sub">Case-study linkage is one of the six retention fields in the <a href="assessment-database.html">assessment database</a>. The <a href="findings-ledger.html">findings ledger</a> holds early, unverified material on its way to case-study grade. The full <a href="assessment-process.html">assessment process</a> shows where case studies sit in the method: after scoring, never instead of it.</p>
+    <div class="never"><b>The trap:</b> the case study drifting free of the assessment. If its claims cannot be traced back to scored points, sources and evidence states, it is opinion with a project name attached; and if it contradicts the scored record, one of the two is wrong, and the <a href="assessment-database.html" style="color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);">database</a> is where that gets settled, not the prose. Until a case study is verified, it is a teaching sample, and it says so.</div>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The definition and five-step process on this page are a proposal for CIPE confirmation; the explanatory layer draws on the political-economy framing from the June 2026 Africa workshop. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="assessment-process.html">the assessment process</a> &middot; <a href="assessment-database.html">the assessment database</a> &middot; <a href="selection-and-sampling.html">selection and sampling</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The definition and process on this page are a proposal for CIPE confirmation; the explanatory layer draws on the political-economy framing from the June 2026 Africa workshop. Case-study linkage is one of the six retention fields in the assessment database; early, unverified material sits in the findings ledger on its way to case-study grade. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="assessment-process.html">the assessment process</a> &middot; <a href="assessment-database.html">the assessment database</a> &middot; <a href="findings-ledger.html">the findings ledger</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

@@ -38,7 +38,7 @@
     { href: "beneficial-ownership.html", term: "Beneficial ownership", note: "who really gains: how far the record carries a reader", added: "2026-08-05" },
     { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06" },
     { href: "assessment-process.html", term: "Assessment process", note: "how a transparency assessment is actually done, step by step", added: "2026-08-06" },
-    { href: "case-study.html", term: "Case study", note: "where the scores stop comparing and start explaining", added: "2026-08-06" },
+    { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06" },
     { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06" }
   ];
 

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data collection: gathering the public record so every score can show its source</title>
+  <meta name="description" content="What data collection means in Infrastructure Watch: systematically gathering what governments have published about each sampled project, point by point, with the source trail kept as you go. Guidance on the collection cycle, where to look, and the habits that keep the record defensible. No single national process is prescribed.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --red:#CC2028;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:28ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0 0 .6rem;}
+    .hero p:last-child{margin-bottom:0;}
+
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .steps{display:grid;grid-template-columns:1fr;gap:.7rem;margin:1rem 0;}
+    .step{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:1rem 1.2rem;display:grid;grid-template-columns:52px 1fr;gap:1rem;align-items:start;border-left:4px solid var(--brand-soft);}
+    .step .n{font-family:var(--mono);font-weight:800;font-size:1.3rem;color:var(--brand-soft);text-align:center;padding-top:.05rem;}
+    .step b{display:block;color:var(--brand-deep);font-size:.98rem;margin-bottom:.2rem;}
+    .step p{margin:0;font-size:.9rem;color:var(--mid);}
+    .step a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
+    .rules ul{margin:0;padding-left:1.1rem;}
+    .rules li{margin:0 0 .55rem;}
+    .rules li:last-child{margin-bottom:0;}
+    .rules li b{color:var(--brand-deep);}
+    .rules a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
+
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Data collection &middot; guidance, not law</p>
+      <h1>Collect the public record so every score can show its source</h1>
+      <p>In this programme, data collection means systematically gathering what the government has published about each sampled project, point by point, keeping the source trail as you go. It is the search work that sits between selecting the sample and scoring it.</p>
+      <p>There is no single national process. Portals, registers and habits differ by country, so this page is guidance on a defensible collection cycle, not a prescribed procedure.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <h2 class="sec">A collection cycle that holds up</h2>
+    <p class="sub">Run per project, across its <a href="forty-data-points.html">40 data points</a>. The order matters less than the habit: capture the trail at the moment of finding, not at the end.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div><b>Map the channels before you search</b><p>List the government channels where each kind of record should live in your country: ministry and agency sites, procurement and budget portals, debt databases, audit institutions, gazettes, SOE and regulator registers. This map is what makes a later <a href="sufficient-search.html">sufficient search</a> demonstrable, and it is reusable across all projects in the sample.</p></div></div>
+      <div class="step"><div class="n">2</div><div><b>Search government sources first, point by point</b><p>For each data point, work through the mapped channels before anything else. The scale's turning point is official disclosure, so the government's own record is the primary object of collection, not a fallback.</p></div></div>
+      <div class="step"><div class="n">3</div><div><b>Capture the trail at the moment of finding</b><p>For every find: source URL, publisher, publication date and your access date, straight into the <a href="assessment-database.html">assessment database</a>. Save a copy or screenshot where the page looks unstable. Web pages change and links die; an uncaptured find may be gone by review time.</p></div></div>
+      <div class="step"><div class="n">4</div><div><b>Then widen to non-government sources, labelled as such</b><p>Funder pages, contractors, media and research fill in what exists about the project, but they are recorded as what they are: non-official sources that cap a score at 2. Keep both figures when official and non-official sources <a href="conflicting-figures.html">disagree</a>, and flag the divergence.</p></div></div>
+      <div class="step"><div class="n">5</div><div><b>Close each point with a state, not a blank</b><p>Every data point ends the cycle in a named condition: found (and where), not yet due, not applicable, or searched-and-absent, using the <a href="evidence-states.html">evidence states</a>. A blank cell is unfinished collection, not a zero.</p></div></div>
+    </div>
+
+    <h2 class="sec">Habits that keep the record defensible</h2>
+    <div class="rules">
+      <ul>
+        <li><b>Collection is not scoring.</b> Gather first, score after. Deciding the score while hunting for evidence invites the record to fit the number.</li>
+        <li><b>Date everything, including your own visit.</b> The access date is what lets a score survive its source disappearing.</li>
+        <li><b>Search in the country's languages.</b> English and the host-country languages both count on the scale; a record is not absent because it was only published in one of them.</li>
+        <li><b>An absence is a result.</b> A completed search that finds nothing is a finding worth exactly as much as a find, provided the search itself was recorded.</li>
+        <li><b>Do not let ease steer coverage.</b> Give the hard points the same completed search as the easy ones; a record collected only where collection was pleasant reproduces the <a href="selection-and-sampling.html">availability bias</a> inside the project.</li>
+      </ul>
+    </div>
+
+    <div class="never"><b>The trap:</b> collecting the project instead of the record. The job is not to learn everything about the road; it is to establish, fact by fact, what the government has made public about it. Hours spent perfecting background knowledge that no data point asks for is collection effort the assessment cannot use.</div>
+
+    <h2 class="sec">Where this connects</h2>
+    <p class="sub">Collection runs inside the <a href="assessment-process.html">assessment process</a>, between selection and scoring. Its search standard is defined by <a href="sufficient-search.html">sufficient search</a>, its outputs land in the <a href="assessment-database.html">assessment database</a>, and what it finds is scored on the <a href="zero-to-six-scale.html">0 to 6 scale</a>.</p>
+
+  </main>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The cycle and habits on this page are guidance; the binding rules live on the sufficient-search, evidence-states and scale pages, and CIPE holds final methodology authority. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="sufficient-search.html">sufficient search</a> &middot; <a href="evidence-states.html">evidence states</a> &middot; <a href="assessment-process.html">the assessment process</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

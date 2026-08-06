@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sufficient search: an unsearched point is never a zero</title>
-  <meta name="description" content="The search standard under every Infrastructure Watch zero: a completed search of the government portals and official published records applicable to the data point, with the searches themselves recorded. What to search, what to record, and the trap of stopping at the funder's site.">
+  <meta name="description" content="What a sufficient search is in Infrastructure Watch: a completed search of the government channels where the data point could reasonably be published, with the search itself recorded. The four checks before recording zero, which channels test government disclosure, and what to write down.">
   <style>
     :root{
       --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
@@ -29,38 +29,40 @@
     .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
     h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
-    p.sub a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
-    .defcard{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;}
-    .defcard .def{font-size:1.05rem;line-height:1.55;margin:0 0 .7rem;}
-    .defcard .def b{color:var(--brand-deep);}
-    .defcard .src{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);margin:0;}
+    .checks{background:var(--brand-deep);color:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.5rem;margin-top:1rem;}
+    .checks .dtag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#7fa8d6;}
+    .checks ol{margin:.6rem 0 0;padding-left:1.3rem;font-size:1rem;}
+    .checks li{margin:0 0 .4rem;}
+    .checks li:last-child{margin-bottom:0;}
+    .checks p{color:#cdddec;font-size:.92rem;margin:.7rem 0 0;}
+    .checks p b{color:#fff;}
 
-    .chgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
+    .never b{color:var(--red);}
+    .never a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+
+    .chgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin-top:1rem;}
     .chcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;border-top:5px solid var(--brand);}
-    .chcol h3{font-size:1.05rem;margin:0 0 .6rem;letter-spacing:-.01em;}
+    .chcol h3{font-size:1.02rem;margin:0 0 .6rem;letter-spacing:-.01em;}
     .chcol ul{margin:0;padding-left:1.1rem;}
     .chcol li{font-size:.9rem;margin:0 0 .45rem;}
     .chcol li:last-child{margin-bottom:0;}
     .chcol a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     @media (max-width:760px){ .chgrid{grid-template-columns:1fr;} }
 
-    .steps{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;}
-    .steps ol{margin:0;padding-left:1.2rem;}
-    .steps li{margin:0 0 .55rem;font-size:.92rem;}
-    .steps li:last-child{margin-bottom:0;}
-    .steps li b{color:var(--brand-deep);}
-    .steps a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;}
+    .rules b{color:var(--brand-deep);}
 
-    .rules{background:#f4f7fb;border:1px solid var(--light);border-left:4px solid var(--brand-soft);border-radius:10px;padding:1.1rem 1.3rem;}
-    .rules ol{margin:0;padding-left:1.2rem;}
-    .rules li{margin:0 0 .6rem;font-size:.92rem;}
-    .rules li:last-child{margin-bottom:0;}
-    .rules li b{color:var(--brand-deep);}
-
-    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1rem 1.3rem;margin-top:1rem;font-size:.92rem;}
-    .never b{color:var(--red);}
-    .never a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    details.assessor{margin-top:1rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;font-size:.9rem;}
+    details.assessor .inner ol{margin:0;padding-left:1.2rem;}
+    details.assessor .inner li{margin:0 0 .55rem;}
+    details.assessor .inner li:last-child{margin-bottom:0;}
+    details.assessor .inner b{color:var(--brand-deep);}
+    details.assessor a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
 
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
     footer strong{color:var(--dark);}
@@ -74,71 +76,70 @@
     <div class="hero-inner">
       <p class="kicker">Sufficient search &middot; the floor under every zero</p>
       <h1>An unsearched point is never a zero</h1>
-      <p>A zero says the government failed to publish. That claim is only as strong as the search behind it, so the search itself is part of the evidence: completed across the applicable government channels, and recorded. An evidenced absence is a scoring result; an unsearched point is not.</p>
+      <p>A sufficient search is a completed search of the government channels where this data point could reasonably be published, with the search itself recorded. A zero claims the government failed to publish, and that claim is only as strong as the search behind it: zero is not "I did not find it"; zero is "I searched the right official places, recorded the search, and the due fact was not published."</p>
     </div>
   </section>
 
   <main class="wrap">
 
-    <h2 class="sec">The settled definition: a completed, recorded search</h2>
-    <p class="sub">One of the five controlled terms the mapping report's Annex B fixes for assessors.</p>
-    <div class="defcard">
-      <p class="def">A <b>sufficient search</b> is a completed search of the government portals and official published records applicable to the data point, with the searches themselves recorded. An unsearched point is not a zero.</p>
-      <p class="src">Infra Watch mapping report, Annex B, operational terms</p>
+    <h2 class="sec">Before recording zero, confirm all four</h2>
+    <div class="checks">
+      <span class="dtag">The stopping condition</span>
+      <ol>
+        <li>The data point applies to this project and is already due.</li>
+        <li>You searched every government channel where this fact could reasonably appear.</li>
+        <li>You searched using the project's relevant names and languages.</li>
+        <li>You recorded where, when and what you searched.</li>
+      </ol>
+      <p><b>If any one is missing, the point is unsearched, not zero.</b></p>
     </div>
 
-    <h2 class="sec">What "applicable channels" means</h2>
-    <p class="sub">The report's source inventory (Annex D) lists each partner country's channels. A sufficient search covers the ones this data point could plausibly live in, not every site in the country.</p>
+    <div class="never"><b>The two traps that produce false zeros:</b> stopping when something is found, and the quick look. Finding the budget on the funder's project page answers a different question; the assessment measures what the government made findable, so the search ends only when the government's own channels are covered. And one portal, one language, no record is a glance, not a search. Neither supports a zero; a zero without a search record is <a href="evidence-states.html">an insufficiently searched point, not a finding</a>.</div>
+
+    <h2 class="sec">Which channels count as the government's</h2>
+    <p class="sub">Search the channels where this data point would plausibly live in your country, not every site in the country. Your country's list is in the source inventory.</p>
     <div class="chgrid">
       <div class="chcol">
-        <h3>Channels that decide the score</h3>
+        <h3>Search here to test government disclosure</h3>
         <ul>
           <li>The PPP unit or PPP disclosure portal, where one exists.</li>
           <li>The procurement portal for tender and award points.</li>
           <li>Debt, budget and aid databases for financing points.</li>
-          <li>The responsible ministry's own pages, gazettes and parliamentary records: Ghana's loan ratifications, for example, publish through Hansard and the gazette.</li>
+          <li>The responsible ministry's own pages, gazettes and parliamentary records.</li>
         </ul>
       </div>
       <div class="chcol" style="border-top-color:var(--amber);">
-        <h3>Channels that are evidence, never the government record</h3>
+        <h3>Search here for context, but it is not government disclosure</h3>
         <ul>
           <li>Funder project pages and lender-side databases.</li>
           <li>Third-party trackers and research databases.</li>
           <li>Press coverage quoting official figures.</li>
-          <li>These belong in the search and in the record, but what they find is <a href="qualifying-government-publication.html">not government publication</a> and caps at 2 on <a href="zero-to-six-scale.html">the scale</a>.</li>
+          <li>Keep what these find, labelled; it is <a href="qualifying-government-publication.html">not government publication</a> and caps at 2 on <a href="zero-to-six-scale.html">the scale</a>.</li>
         </ul>
       </div>
     </div>
 
-    <h2 class="sec">What the search record holds</h2>
-    <p class="sub">The record is what lets a reviewer, or a challenged government, reconstruct the search. As working practice, record for each searched point:</p>
-    <div class="rules">
-      <ol>
-        <li><b>Which channels were searched</b>, by name and address, drawn from the country's source inventory.</li>
-        <li><b>When</b> each search was run: addresses and holdings change, so the date is part of the claim.</li>
-        <li><b>What was searched for</b>: the project identifiers and terms used, including host-language terms.</li>
-        <li><b>What was found or not found</b>, with the source, publisher, scope and date of anything found.</li>
-      </ol>
-    </div>
+    <h2 class="sec">What to write down</h2>
+    <div class="rules"><b>Record where you looked, when, what you searched for, and what you found or did not find</b>, so someone else can retrace your steps: channel names and addresses, the date of each search, the identifiers and host-language terms used, and the source, publisher and date of anything found. Addresses and holdings change, so the date is part of the claim.</div>
 
-    <h2 class="sec">One search, worked through</h2>
-    <p class="sub">A budget point for a Cambodian expressway concession, a country the report notes has no consolidated portal, shows what sufficiency looks like where portal infrastructure is thin.</p>
-    <div class="steps">
-      <ol>
-        <li><b>Start from the inventory.</b> Cambodia's listed channels: the MEF General Department of PPP site, and the MEF public debt statistical bulletins. No consolidated tender portal is identified.</li>
-        <li><b>Search each channel</b> for the project by name and by concession, in English and Khmer, and record each search with its date.</li>
-        <li><b>Extend to the responsible authority.</b> The contracting institution's own pages and any gazette or official announcement channel it uses.</li>
-        <li><b>Record the funder's figures separately.</b> The concession is documented mainly by its financiers and the press; that evidence is kept, labelled, and capped at 2. It does not end the search for the government record.</li>
-        <li><b>Close the search.</b> Nothing qualifying found: the point is due, the search is complete and recorded, and only now does the field take a zero, recorded as due but unpublished with the search record as its evidence.</li>
-      </ol>
-    </div>
-
-    <div class="never"><b>The common trap:</b> stopping when something is found. Finding the budget on the funder's project page answers a different question; the assessment measures what the government made findable, so the search is complete only when the government's own channels have been covered and recorded. The second trap is the quick look: one portal, one language, no record. Neither supports a zero, and a zero without a search record is <a href="evidence-states.html">an insufficiently searched point, not a finding</a>.</div>
+    <details class="assessor">
+      <summary>Worked example: where no consolidated portal exists</summary>
+      <div class="inner">
+        <p style="margin:0 0 .6rem;">A budget point for a Cambodian expressway concession, in a country the report notes has no consolidated portal:</p>
+        <ol>
+          <li><b>Start from the inventory.</b> Cambodia's listed channels: the MEF General Department of PPP site, and the MEF public debt statistical bulletins. No consolidated tender portal is identified.</li>
+          <li><b>Search each channel</b> for the project by name and by concession, in English and Khmer, and record each search with its date.</li>
+          <li><b>Extend to the responsible authority.</b> The contracting institution's own pages and any gazette or official announcement channel it uses.</li>
+          <li><b>Record the funder's figures separately.</b> The concession is documented mainly by its financiers and the press; that evidence is kept, labelled, and capped at 2. It does not end the search for the government record.</li>
+          <li><b>Close the search.</b> Nothing qualifying found: the point is due, the search is complete and recorded, and only now does the field take a zero, recorded as due but unpublished with the search record as its evidence.</li>
+        </ol>
+      </div>
+    </details>
 
   </main>
 
   <footer>
-    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The definition is settled as one of the five controlled operational terms in the Infra Watch mapping report (Annex B); the per-country channel lists live in the report's Annex D source inventory, which is maintained with partners because addresses change. The four-item search record above is stated as working practice for partner validation; the methodology guide will carry the worked examples. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; CIPE holds final scoring authority. Companion pages: <a href="evidence-states.html">evidence states</a> &middot; <a href="zero-to-six-scale.html">the 0 to 6 scale</a> &middot; <a href="qualifying-government-publication.html">qualifying government publication</a>.
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The definition is settled as one of the five controlled operational terms in the Infra Watch mapping report (Annex B: "a completed search of the government portals and official published records applicable to the data point, with the searches themselves recorded"); the per-country channel lists live in the report's Annex D source inventory, which is maintained with partners because addresses change. The search record above is stated as working practice for partner validation; the methodology guide will carry the worked examples. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; CIPE holds final scoring authority. Companion pages: <a href="evidence-states.html">evidence states</a> &middot; <a href="zero-to-six-scale.html">the 0 to 6 scale</a> &middot; <a href="qualifying-government-publication.html">qualifying government publication</a>.
   </footer>
   <script src="assets/library-nav.js" defer></script>
 </body>

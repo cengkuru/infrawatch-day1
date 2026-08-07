@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oversight publication: when an audit body or Parliament earns the disclosure credit</title>
+  <meta name="description" content="An oversight body's publication scores only for the data point it holds the mandate to publish. Information surfaced through audit, investigation or scrutiny is recorded as oversight-related availability and excluded from that point's score.">
+  <style>
+    :root{
+      --brand:#28496A; --brand-deep:#142334; --brand-soft:#3d6491;
+      --green:#1B7A3D; --amber:#C77F00; --amber-text:#8A5800; --red:#CC2028;
+      --dark:#1E2A38; --mid:#5A6B7B; --light:#E2E8ED; --surface:#F6F8FA; --white:#fff;
+      --radius:16px; --shadow:0 18px 50px rgba(20,35,52,.16);
+      --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+    body{font-family:var(--sans);color:var(--dark);background:var(--surface);line-height:1.5;-webkit-font-smoothing:antialiased;}
+    h2.sec{scroll-margin-top:76px;}
+    .brandbar{background:var(--brand);color:#fff;border-bottom:5px solid var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.3rem;flex-wrap:wrap;gap:.6rem;}
+    .brandbar .brand{font-weight:800;}
+    .brandbar .ctx{font-family:var(--mono);text-transform:uppercase;font-size:.66rem;letter-spacing:.08em;color:var(--light);}
+    .draftnote{background:#fbf7ef;border-bottom:1px solid rgba(199,127,0,.3);}
+    .draftnote .dn-inner{max-width:1040px;margin:0 auto;padding:.6rem 1.2rem;font-size:.82rem;color:var(--dark);}
+    .draftnote b{color:var(--amber-text);font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;margin-right:.5rem;}
+    .hero{background:var(--brand-deep);color:#fff;padding:2.4rem 1.2rem 2rem;}
+    .hero-inner{max-width:1040px;margin:0 auto;}
+    .hero .kicker{font-family:var(--mono);text-transform:uppercase;font-size:.72rem;letter-spacing:.12em;color:#7fa8d6;margin:0 0 .8rem;}
+    .hero h1{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;line-height:1.14;margin:0 0 .8rem;max-width:28ch;}
+    .hero p{color:#cdddec;font-size:1.04rem;max-width:62ch;margin:0;}
+    .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}
+    h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.8rem 0 .3rem;}
+    p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:64ch;}
+    p.sub a,.wrap a.inline{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .never{background:#fff;border:1px solid rgba(204,32,40,.35);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.3rem;font-size:.92rem;margin-top:1rem;}
+    .never b{color:var(--red);}
+    .checksheet{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:.4rem 0;margin-top:1rem;}
+    .check{display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:.85rem 1.4rem;border-bottom:1px solid var(--light);}
+    .check:last-child{border-bottom:0;}
+    .check .num{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.05em;color:var(--brand-soft);text-transform:uppercase;padding-top:.2rem;text-align:right;}
+    .check .q{font-weight:700;font-size:.96rem;color:var(--brand-deep);}
+    .check .d{display:block;font-size:.85rem;color:var(--mid);margin-top:.15rem;font-weight:400;line-height:1.45;}
+    .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1rem;}
+    .tcol{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.3rem 1.4rem;border-top:5px solid var(--green);}
+    .tcol.no{border-top-color:var(--red);}
+    .tcol .ttag{font-family:var(--mono);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--green);}
+    .tcol.no .ttag{color:var(--red);}
+    .tcol ul{margin:.6rem 0 0;padding-left:1.1rem;}
+    .tcol li{margin:0 0 .45rem;font-size:.92rem;}
+    .tcol li:last-child{margin-bottom:0;}
+    @media (max-width:700px){ .tgrid{grid-template-columns:1fr;} }
+    .answer{background:var(--brand-deep);color:#fff;border-radius:10px;padding:1rem 1.3rem;font-size:.96rem;margin:1rem 0;}
+    .answer b{color:#7fa8d6;}
+    .steps{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.4rem;margin-top:1rem;}
+    .steps ol{margin:0;padding-left:1.2rem;}
+    .steps li{margin:0 0 .55rem;font-size:.92rem;}
+    .steps li:last-child{margin-bottom:0;}
+    .steps li b{color:var(--brand-deep);}
+    details.assessor{margin-top:1rem;background:var(--white);border:1px solid var(--light);border-radius:10px;}
+    details.assessor summary{cursor:pointer;font-weight:700;color:var(--brand-deep);padding:.9rem 1.3rem;font-size:.95rem;}
+    details.assessor .inner{padding:0 1.3rem 1.1rem;font-size:.9rem;}
+    details.assessor .inner a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
+    .chip{display:inline-block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--amber-text);border:1px solid rgba(199,127,0,.45);border-radius:99px;padding:.1rem .5rem;margin-left:.35rem;vertical-align:middle;}
+    footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}
+    footer strong{color:var(--dark);}
+    footer a{color:var(--brand);}
+  </style>
+</head>
+<body>
+  <div class="brandbar"><span class="brand">Infrastructure Watch</span><span class="ctx">Partner guidance &middot; advisory draft</span></div>
+
+  <div class="draftnote"><div class="dn-inner"><b>Draft</b> The mandate rule below is agreed in practice. Excluding scrutiny-surfaced information from the score is a CoST proposal awaiting Verit&eacute; Research and CIPE confirmation.</div></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Oversight publication &middot; does an audit or parliamentary source earn the score?</p>
+      <h1>An oversight body earns the credit for the point it was mandated to publish, and for no other</h1>
+      <p>An audit institution's published audit report is the routine disclosure of the audit point. Parliament publishing the appropriation is the routine disclosure of the budget point. Both score in full. What neither can do is stand in for the delivery system's disclosure of a different point.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <div class="never"><b>Never score a fact because scrutiny dragged it into the open.</b> A contract price that became public only through an audit, investigation, court case or parliamentary inquiry shows that oversight worked, not that disclosure did.</div>
+
+    <h2 class="sec">Two checks decide it</h2>
+    <p class="sub">Applied per data point, never per publisher: the same audit report can pass for one point and fail for the next.</p>
+    <div class="checksheet">
+      <div class="check"><span class="num">Check 1</span><span class="q">Does this body hold the mandate for this data point?<span class="d">An audit institution is mandated to publish audits; Parliament is mandated to publish appropriations. Mandate is read per point, never granted to a body wholesale.</span></span></div>
+      <div class="check"><span class="num">Check 2</span><span class="q">Did the information appear as routine practice, or did scrutiny surface it?<span class="d">Routine publication scores. Anything extracted by audit, investigation, adjudication or inquiry is recorded as oversight-related availability instead.</span></span></div>
+    </div>
+
+    <h2 class="sec">What counts, and what does not</h2>
+    <div class="tgrid">
+      <div class="tcol">
+        <span class="ttag">Scores in full</span>
+        <ul>
+          <li>An audit institution's published audit report, scored against the audit point.</li>
+          <li>Parliament's published appropriation, scored against the budget point.</li>
+          <li>A PPP unit or other mandated publisher issuing the record on the owner's behalf.</li>
+        </ul>
+      </div>
+      <div class="tcol no">
+        <span class="ttag">Recorded, not scored</span>
+        <ul>
+          <li>A contract price visible only inside an audit report. Wrong mandate.</li>
+          <li>Project costs released through a court judgment or inquiry. Scrutiny, not disclosure.</li>
+          <li>Figures a committee obtained by summons. Extracted, not published.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="sec">Worked example: the audit that carries two facts</h2>
+    <div class="steps">
+      <ol>
+        <li><b>Starting facts.</b> An audit institution publishes an audit of a road project, containing the audit findings and a signed contract price that appears nowhere else.</li>
+        <li><b>Rule applied.</b> Check 1 passes for the audit point and fails for the price: the audit body holds no mandate to publish contract prices.</li>
+        <li><b>Result.</b> The audit point scores on the audit report. The contract price scores zero against the responsible authority's record.</li>
+        <li><b>Recorded.</b> The price is kept in the evidence base with its source and date, labelled oversight-related availability, and the divergence is flagged as a finding.</li>
+      </ol>
+    </div>
+
+    <h2 class="sec">What happens next</h2>
+    <div class="answer"><b>Mandate holds:</b> score the point in full, and record which body published it. <b>Mandate does not hold:</b> retain the evidence, label it oversight-related availability, and score that point against the responsible authority's own record. <b>Mandate is unclear:</b> flag it for a ruling rather than deciding it in the field.</div>
+
+    <details class="assessor">
+      <summary>Why the gap is retained rather than discarded</summary>
+      <div class="inner">
+        <p>A point available only through oversight describes a specific kind of government: scrutiny functions, proactive disclosure does not. Discarding the evidence would erase that finding and leave the record indistinguishable from a country where the information does not exist at all. The retention rule follows the same logic as funder evidence on <a href="qualifying-government-publication.html">qualifying government publication</a>: a ceiling on credit is not a reason to leave evidence out.</p>
+        <p>Recorded as ruling 25 in the rulings ledger, raised by Verit&eacute; Research on 22 July 2026. The mandated-publisher half of the rule is ruling 17, agreed in practice.</p>
+      </div>
+    </details>
+
+  </main>
+
+  <footer>
+    <strong>Status:</strong> draft v0.1, August 2026, for partner consultation. The mandated-publisher rule is agreed in practice; excluding scrutiny-surfaced information from the score is a CoST proposal awaiting Verit&eacute; Research and CIPE confirmation. Prepared by Michael Cengkuru, CoST, as advisory input to the CIPE Infrastructure Watch programme; a full methodology guide is in preparation and supersedes this page when published. Companion pages: <a href="qualifying-government-publication.html">qualifying government publication</a> &middot; <a href="responsible-public-authority.html">responsible public authority</a> &middot; <a href="evidence-states.html">evidence states</a>.
+  </footer>
+  <script src="assets/library-nav.js" defer></script>
+</body>
+</html>

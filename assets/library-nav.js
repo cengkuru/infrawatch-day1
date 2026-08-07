@@ -53,6 +53,7 @@
     { href: "evidence-states.html", term: "Evidence states", note: "before you score zero: why is it missing?", added: "2026-08-05", group: "Find and score evidence" },
     { href: "conflicting-figures.html", term: "Conflicting figures", note: "keep both numbers, flag the divergence", added: "2026-08-05", group: "Find and score evidence" },
     { href: "lifecycle-and-due.html", term: "Lifecycle and due date", note: "when should this record exist?", added: "2026-08-06", group: "Find and score evidence" },
+    { href: "oversight-publication.html", term: "Oversight publication", note: "an audit body scores only for the point it was mandated to publish", added: "2026-08-08", group: "Find and score evidence" },
 
     { href: "assessment-process.html", term: "Assessment process", note: "how a transparency assessment is actually done, step by step", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "data-collection.html", term: "Data collection", note: "gather the record so every score can show its source", added: "2026-08-06", group: "Carry out and use the work" },

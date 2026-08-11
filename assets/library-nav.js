@@ -8,11 +8,10 @@
      realistic list sizes
    - narrow screens: collapsed bar under the brand bar; opens to a panel
      with full notes; Escape closes
-   Visit counting rides this file (same counterapi.dev namespace counter.js
-   uses): each bank page load increments its own term counter, fail-silent.
-   On a page carrying #term-cloud, counts are read back (never incremented)
-   and the term list renders sized by visits, with the static markup kept as
-   the fallback when the counter is unreachable.
+   Visit counting: GoatCounter (script tag on every page; dashboard at
+   infraatch.goatcounter.com). The old counterapi.dev v1 per-term counters
+   and the #term-cloud dynamic sizing that depended on them were removed
+   2026-08-11 after the provider retired v1 (HTTP 410).
    No-JS fallback: the footer companion links on each page. */
 (function () {
   /* Grouped bank (2026-08-06): five clusters replace the flat A-to-Z list.
@@ -113,24 +112,11 @@
     return g !== 0 ? g : a.term.localeCompare(b.term);
   });
 
-  var COUNTER_BASE = "https://api.counterapi.dev/v1/infrawatch-day1/";
-  function slugKey(href) { return "term-" + href.replace(/\.html$/, ""); }
-  function fetchTimeout(url, ms) {
-    var c = new AbortController();
-    var t = setTimeout(function () { c.abort(); }, ms);
-    return fetch(url, { signal: c.signal, cache: "no-store" }).finally(function () { clearTimeout(t); });
-  }
-
   var here = (location.pathname.split("/").pop() || "").toLowerCase();
   var currentTerm = "";
   pages.forEach(function (p) {
     if (p.href.toLowerCase() === here) currentTerm = p.term;
   });
-
-  /* count this page load, once, silently */
-  if (currentTerm) {
-    try { fetchTimeout(COUNTER_BASE + slugKey(here) + "/up", 10000).catch(function () {}); } catch (e) {}
-  }
 
   var css =
     /* shared */
@@ -174,12 +160,7 @@
     ".lib-nav a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:.26rem 0 .26rem .7rem;margin:0 0 .22rem;font-size:.84rem;}" +
     ".lib-nav a .lib-note{display:none;}" +
     ".lib-nav .lib-close{display:none;}" +
-    "}" +
-    /* term cloud (only on the page that carries #term-cloud) */
-    "#term-cloud .cloud{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;align-items:baseline;background:var(--white,#fff);border:1px solid var(--light,#E2E8ED);border-radius:16px;box-shadow:0 18px 50px rgba(20,35,52,.16);padding:1.3rem 1.5rem;}" +
-    "#term-cloud .cloud a{color:var(--brand,#28496A);font-weight:700;text-decoration:none;line-height:1.3;}" +
-    "#term-cloud .cloud a:hover{color:var(--brand-deep,#142334);text-decoration:underline;}" +
-    "#term-cloud .cloud-total{font-family:var(--mono,monospace);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mid,#5A6B7B);margin:.7rem 0 0;}";
+    "}";
 
   var style = document.createElement("style");
   style.textContent = css;
@@ -359,37 +340,4 @@
     document.body.insertBefore(nav, document.body.firstChild);
   }
 
-  /* Term cloud: read counts (never increment) and size the terms by use.
-     If the counter is unreachable or everything is zero, the static
-     fallback markup inside #term-cloud stays untouched. */
-  var cloudHost = document.getElementById("term-cloud");
-  if (cloudHost) {
-    Promise.all(pages.map(function (p) {
-      return fetchTimeout(COUNTER_BASE + slugKey(p.href) + "/", 8000)
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (d) { return { p: p, c: d && typeof d.count === "number" ? d.count : 0 }; })
-        .catch(function () { return { p: p, c: 0 }; });
-    })).then(function (items) {
-      var max = 0, total = 0;
-      items.forEach(function (i) { if (i.c > max) max = i.c; total += i.c; });
-      if (!max) return; /* nothing measured: keep the static fallback */
-      var cloud = document.createElement("div");
-      cloud.className = "cloud";
-      items.forEach(function (i) {
-        var a = document.createElement("a");
-        a.href = i.p.href;
-        a.textContent = i.p.term;
-        a.title = i.p.note + " (" + i.c + " " + (i.c === 1 ? "visit" : "visits") + ")";
-        var size = 0.95 + 1.25 * Math.sqrt(i.c / max);
-        a.style.fontSize = size.toFixed(2) + "rem";
-        cloud.appendChild(a);
-      });
-      var totalLine = document.createElement("p");
-      totalLine.className = "cloud-total";
-      totalLine.textContent = total.toLocaleString("en-US") + " page visits across the bank (page loads, not unique readers)";
-      cloudHost.innerHTML = "";
-      cloudHost.appendChild(cloud);
-      cloudHost.appendChild(totalLine);
-    });
-  }
 })();

@@ -60,8 +60,48 @@
     { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "referral-and-resolution.html", term: "Referral and resolution", note: "what to do when the rule does not settle it", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "partner-validation.html", term: "Partner validation", note: "confirm or correct each recorded fact, with a source", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "validation-sheet.html", term: "Validation sheet", note: "the form a country team returns to confirm or correct the recorded facts", added: "2026-08-11", group: "Carry out and use the work" },
     { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06", group: "Carry out and use the work" }
   ];
+
+  /* Meaning-aware search expansion (generated 2026-08-11 via Gemini flash-lite
+     at build time; regenerate with tools/build-search-syn.md when terms change).
+     Plain-language phrasings, synonyms and related concepts per page, searched
+     alongside term + note. No runtime AI calls, nothing leaves the browser. */
+  var SYN = {
+    "infrastructure-watch.html": "cost cipe transparency initiative government project monitoring goals mission objectives tracking foreign investment accountability portal",
+    "forty-data-points.html": "40 facts metrics indicators checklist requirements criteria scoring items information fields disclosure checklist",
+    "zero-to-six-scale.html": "scoring system rating levels transparency grades ranking methodology disclosure threshold meaning of numbers",
+    "project-result.html": "final score calculation average grade total points outcome assessment math formula",
+    "eligibility.html": "inclusion criteria project selection rules entry requirements qualification check scope filter",
+    "foreign-financing.html": "international funding external capital overseas money cross-border investment donor support",
+    "financing-forms.html": "payment methods funding types budget models investment structures capital sources",
+    "selection-and-sampling.html": "choosing projects methodology sampling strategy workflow picking cases research design",
+    "buffer-list.html": "backup projects replacement list substitution protocol alternative cases standby selection",
+    "project-unit.html": "defining a project scope boundaries what constitutes one project individual contract grouping",
+    "project-roles.html": "stakeholders participants key players responsibilities entities involved contractor developer investor",
+    "responsible-public-authority.html": "government agency department ministry accountable body reporting entity publisher",
+    "state-owned-enterprise.html": "soe government business public company state entity classification criteria",
+    "prc-classification.html": "china funded projects origin of money financier nationality foreign investment source",
+    "beneficial-ownership.html": "ultimate owner real beneficiary who profits hidden interests control structure",
+    "attribution-record.html": "funding trail ownership history money flow capital origin documentation",
+    "public-private-partnership.html": "ppp definition risk sharing long term contracts private sector involvement joint venture",
+    "ppp-questions.html": "extra criteria specific ppp metrics additional disclosure requirements specialized scoring",
+    "power-purchase-agreement.html": "ppa energy contract utility commitment electricity supply deal",
+    "qualifying-government-publication.html": "official source valid document authorized release credible information channel",
+    "sufficient-search.html": "thorough investigation due diligence look everywhere exhaustive check missing data verification",
+    "evidence-states.html": "missing info status reason for absence documentation gap proof availability",
+    "conflicting-figures.html": "discrepancies inconsistent data mismatching numbers contradictory reports variance",
+    "lifecycle-and-due.html": "project timeline reporting deadlines expected publication dates schedule phases",
+    "oversight-publication.html": "audit body report regulatory disclosure mandate monitoring agency accountability",
+    "assessment-process.html": "how to evaluate transparency step by step guide methodology procedure review",
+    "data-collection.html": "gathering records sourcing information evidence retrieval documentation phase",
+    "assessment-database.html": "tracking system record keeping software platform data fields storage requirements",
+    "referral-and-resolution.html": "dispute settlement rule clarification help desk guidance ambiguity handling",
+    "partner-validation.html": "country team review verification process confirm facts accuracy check",
+    "validation-sheet.html": "feedback form correction template review document response file questionnaire survey checklist deadline return submit unreturned silence partner sections",
+    "case-study.html": "deep dive analysis project example detailed report investigation narrative"
+  };
 
   pages.forEach(function (p, i) { p.origIdx = i; });
   var recent = pages.slice().sort(function (a, b) {
@@ -232,7 +272,7 @@
       if (p.group !== g) return;
       var a = makeLink(p, false);
       panel.appendChild(a);
-      rows.push({ el: a, text: (p.term + " " + p.note).toLowerCase() });
+      rows.push({ el: a, term: p.term.toLowerCase(), note: p.note.toLowerCase(), syn: (SYN[p.href] || "").toLowerCase() });
     });
   });
 
@@ -255,13 +295,39 @@
   inner.appendChild(panel);
   nav.appendChild(inner);
 
+  /* Search understands meaning, not just spelling: every query token must
+     match the term, the note, or the generated expansion words (SYN), by
+     substring or by one-letter tolerance for longer words. */
+  function fuzzyHit(hay, tok) {
+    if (hay.indexOf(tok) !== -1) return true;
+    if (tok.length < 5) return false;
+    var words = hay.split(/[^a-z0-9]+/);
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (Math.abs(w.length - tok.length) > 1) continue;
+      /* allow one edit (typo, missing or extra letter) */
+      var a = w, b = tok, ia = 0, ib = 0, edits = 0, ok = true;
+      while (ia < a.length && ib < b.length) {
+        if (a[ia] === b[ib]) { ia++; ib++; continue; }
+        if (++edits > 1) { ok = false; break; }
+        if (a.length > b.length) ia++;
+        else if (b.length > a.length) ib++;
+        else { ia++; ib++; }
+      }
+      if (ok && edits + (a.length - ia) + (b.length - ib) <= 1) return true;
+    }
+    return false;
+  }
   function applyFilter() {
     var q = find.value.trim().toLowerCase();
+    var toks = q ? q.split(/\s+/) : [];
     recentWrap.style.display = q ? "none" : "";
     sects.forEach(function (sx) { sx.el.style.display = q ? "none" : ""; });
     var any = false;
     rows.forEach(function (r) {
-      var show = !q || r.text.indexOf(q) !== -1;
+      var show = !q || toks.every(function (t) {
+        return fuzzyHit(r.term, t) || fuzzyHit(r.note, t) || fuzzyHit(r.syn, t);
+      });
       r.el.style.display = show ? "" : "none";
       if (show) any = true;
     });

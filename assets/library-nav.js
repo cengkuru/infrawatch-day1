@@ -29,6 +29,7 @@
     { href: "forty-data-points.html", term: "40 data points", note: "the forty facts every project is scored on", added: "2026-08-05", group: "Understand the assessment" },
     { href: "zero-to-six-scale.html", term: "0 to 6 scale", note: "what each transparency score means; official disclosure starts at 3", added: "2026-08-05", group: "Understand the assessment" },
     { href: "project-result.html", term: "Project result", note: "add the scores that apply, divide by the number you scored", added: "2026-08-05", group: "Understand the assessment" },
+    { href: "scoring-guides.html", term: "Scoring guides", note: "every standing ruling, one line each, with status and the page that carries it", added: "2026-08-12", group: "Understand the assessment" },
 
     { href: "eligibility.html", term: "Eligibility test", note: "does a project enter the dataset?", added: "2026-08-04", group: "Decide which projects enter" },
     { href: "foreign-financing.html", term: "Foreign financing", note: "one shared definition, asked everywhere", added: "2026-08-04", group: "Decide which projects enter" },
@@ -72,6 +73,7 @@
     "forty-data-points.html": "40 facts metrics indicators checklist requirements criteria scoring items information fields disclosure checklist",
     "zero-to-six-scale.html": "scoring system rating levels transparency grades ranking methodology disclosure threshold meaning of numbers",
     "project-result.html": "final score calculation average grade total points outcome assessment math formula",
+    "scoring-guides.html": "rulings decision register summary cheat sheet quick reference all rules index digest standing decisions status pending agreed working guidance",
     "eligibility.html": "inclusion criteria project selection rules entry requirements qualification check scope filter",
     "foreign-financing.html": "international funding external capital overseas money cross-border investment donor support",
     "financing-forms.html": "payment methods funding types budget models investment structures capital sources",

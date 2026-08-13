@@ -29,19 +29,23 @@
     .wrap{max-width:1040px;margin:0 auto;padding:1.6rem 1.2rem;}h2.sec{font-size:1.35rem;font-weight:800;letter-spacing:-.01em;margin:1.9rem 0 .3rem;scroll-margin-top:76px;}
     p.sub{color:var(--mid);margin:0 0 1.1rem;max-width:66ch;}.wrap a,footer a{color:var(--brand);font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-soft);}
     .signal{background:var(--white);border:1px solid rgba(27,122,61,.35);border-left:5px solid var(--green);border-radius:10px;padding:1.05rem 1.25rem;font-size:.94rem;}
-    .signal b{color:var(--green);}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:1rem 0;}
-    .step{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.85rem .8rem;min-height:92px;}
-    .step .n{display:block;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--brand-soft);margin-bottom:.35rem;}
-    .step b{font-size:.88rem;color:var(--brand-deep);}.step span:last-child{display:block;font-size:.76rem;color:var(--mid);margin-top:.2rem;}
+    .signal b{color:var(--green);}.snapshot{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0 1.4rem;}
+    .metric{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.85rem 1rem;}.metric strong{display:block;font-size:1.45rem;line-height:1;color:var(--brand-deep);}.metric span{display:block;font-size:.75rem;color:var(--mid);margin-top:.35rem;}
+    .quicklinks{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap;margin:-.7rem 0 1.5rem;}.quicklinks a{display:inline-flex;align-items:center;gap:.35rem;background:var(--brand);color:var(--white);border:1px solid var(--brand);border-radius:99px;padding:.42rem .72rem;font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;}.quicklinks a.secondary{background:var(--white);color:var(--brand);border-color:var(--light);}
+    .country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0;}.country{background:var(--white);border:1px solid var(--light);border-radius:10px;padding:.85rem;display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center;}.country.priority{border-color:rgba(27,122,61,.4);}.flag{font-size:1.75rem;line-height:1;}.country strong{display:block;color:var(--brand-deep);font-size:.9rem;}.country small{display:block;color:var(--mid);font-size:.72rem;margin-top:.15rem;}.country .pill{margin-top:.35rem;}
+    .flow{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;margin:1rem 0;}.flow span{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);background:var(--white);border:1px solid var(--light);border-radius:99px;padding:.3rem .58rem;}.flow i{font-style:normal;color:var(--brand-soft);font-size:.72rem;}
     .cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}.card{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;}
     .card h3{font-size:1.05rem;margin:.35rem 0 .45rem;color:var(--brand-deep);}.card p{font-size:.88rem;color:var(--mid);margin:.25rem 0 .7rem;}.card ul{margin:.5rem 0 0;padding-left:1.05rem;font-size:.86rem;}.card li{margin-bottom:.35rem;}
     .eyebrow{font-family:var(--mono);font-size:.61rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}.pill{display:inline-block;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:99px;padding:.18rem .52rem;margin-right:.28rem;}
     .pill.assessed{color:var(--brand);background:#eef3f8;border:1px solid #bfd0df;}.pill.open{color:var(--amber-text);background:var(--amber-bg);border:1px solid rgba(199,127,0,.4);}.pill.working{color:var(--green);background:var(--green-bg);border:1px solid rgba(27,122,61,.35);}
     .decision{background:var(--white);border:1px solid var(--light);border-radius:10px;margin-top:.75rem;overflow:hidden;}.decision summary{cursor:pointer;list-style:none;padding:.92rem 1.1rem;font-weight:750;color:var(--brand-deep);display:flex;align-items:center;justify-content:space-between;gap:1rem;}.decision summary::-webkit-details-marker{display:none;}.decision summary::after{content:"+";font-family:var(--mono);color:var(--brand-soft);}.decision[open] summary::after{content:"−";}.decision .body{padding:0 1.1rem 1rem;font-size:.88rem;color:var(--mid);border-top:1px solid var(--light);}.decision .body p{margin:.75rem 0 0;}.decision .body b{color:var(--dark);}
+    .decision .flags{flex:0 0 auto;font-size:1rem;letter-spacing:.1em;min-width:2.9rem;}.decision .t{flex:1;}
+    .doccard{background:var(--white);border:1px solid var(--light);border-left:5px solid var(--brand);border-radius:10px;padding:1rem 1.2rem;margin-top:1.1rem;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .doccard b{color:var(--brand-deep);}.doccard .btn{background:var(--brand);color:#fff;border-radius:8px;padding:.55rem .95rem;font-weight:700;font-size:.85rem;border-bottom:none;white-space:nowrap;}
     .boundary{background:var(--amber-bg);border:1px solid rgba(199,127,0,.35);border-left:5px solid var(--amber);border-radius:10px;padding:1rem 1.2rem;margin-top:1rem;font-size:.9rem;}.boundary b{color:var(--amber-text);}
     footer{max-width:1040px;margin:1.6rem auto 3rem;padding:1.2rem 1.2rem 0;border-top:1px solid var(--light);font-size:.78rem;color:var(--mid);}footer strong{color:var(--dark);}
-    @media(max-width:760px){.steps{grid-template-columns:1fr 1fr;}.cards{grid-template-columns:1fr;}}
-    @media(max-width:460px){.steps{grid-template-columns:1fr;}.decision summary{align-items:flex-start;}}
+    @media(max-width:760px){.country-grid{grid-template-columns:1fr 1fr;}.cards{grid-template-columns:1fr;}}
+    @media(max-width:460px){.metric{padding:.7rem .55rem;}.metric strong{font-size:1.25rem;}.metric span{font-size:.66rem;}.country-grid{grid-template-columns:1fr;}.decision summary{align-items:flex-start;}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
   </style>
 </head>
@@ -58,19 +62,33 @@
   </section>
 
   <main class="wrap">
-    <div class="signal"><b>Current consequence:</b> keep the fair-zero and applicability architecture; add a route for samples with no PPP; clarify how scores 1 and 2 work for non-government sources; keep unresolved Ethiopia project classifications visibly open.</div>
+    <div class="signal"><b>Current consequence:</b> keep the core method. Clarify two field rules and leave one evidence gap open.</div>
 
-    <h2 class="sec">How feedback moves into the report</h2>
-    <p class="sub">The states are deliberately separate. A comment can be visible here without being accepted, incorporated, confirmed or published.</p>
-    <div class="steps" aria-label="Feedback progress states">
-      <div class="step"><span class="n">01</span><b>Received</b><span>The response is on record.</span></div>
-      <div class="step"><span class="n">02</span><b>Assessed</b><span>Compared with the method and evidence.</span></div>
-      <div class="step"><span class="n">03</span><b>Working draft</b><span>The controlled draft or tool reflects it.</span></div>
-      <div class="step"><span class="n">04</span><b>CIPE confirmed</b><span>A cohort-wide decision is evidenced.</span></div>
-      <div class="step"><span class="n">05</span><b>Published</b><span>It appears in a dated released version.</span></div>
+    <div class="snapshot" aria-label="Current feedback snapshot">
+      <div class="metric"><strong>6</strong><span>response files visible in Drive</span></div>
+      <div class="metric"><strong>2</strong><span>countries analysed on this page</span></div>
+      <div class="metric"><strong>3</strong><span>method actions now visible</span></div>
+    </div>
+    <nav class="quicklinks" aria-label="Working files and country resources">
+      <a href="https://drive.google.com/drive/folders/157Beg6WflBB9XuRvLODZOuDPf0vHCs-0">Open response files <span aria-hidden="true">↗</span></a>
+      <a class="secondary" href="https://drive.google.com/drive/folders/12Lv_uEL1VLeB9cOV5r3Q_PyaxvUJM_up">Asia resources <span aria-hidden="true">↗</span></a>
+      <a class="secondary" href="https://drive.google.com/drive/folders/1HWxzlGb5vOKmv533mj58N5v31cVN_HQ0">Africa resources <span aria-hidden="true">↗</span></a>
+    </nav>
+
+    <h2 class="sec">Country scan</h2>
+    <p class="sub">Flags locate the country. Status shows only what is evidenced in this live tracker, not the quality of a partner's work.</p>
+    <div class="country-grid">
+      <div class="country priority"><span class="flag" role="img" aria-label="Sri Lanka flag">🇱🇰</span><div><strong>Sri Lanka</strong><small>Verit&eacute; Research</small><span class="pill working">Received + assessed</span></div></div>
+      <div class="country priority"><span class="flag" role="img" aria-label="Ethiopia flag">🇪🇹</span><div><strong>Ethiopia</strong><small>Stalwart</small><span class="pill assessed">Received + assessed</span></div></div>
+      <div class="country"><span class="flag" role="img" aria-label="Malaysia flag">🇲🇾</span><div><strong>Malaysia</strong><small>Response file visible</small><span class="pill open">Assessment not shown</span></div></div>
+      <div class="country"><span class="flag" role="img" aria-label="Democratic Republic of the Congo flag">🇨🇩</span><div><strong>DRC</strong><small>Response file visible</small><span class="pill open">Assessment not shown</span></div></div>
+      <div class="country"><span class="flag" role="img" aria-label="Ghana flag">🇬🇭</span><div><strong>Ghana</strong><small>Response file visible</small><span class="pill open">Assessment not shown</span></div></div>
+      <div class="country"><span class="flag" role="img" aria-label="Philippines flag">🇵🇭</span><div><strong>Philippines</strong><small>Response file visible</small><span class="pill open">Assessment not shown</span></div></div>
     </div>
 
-    <h2 class="sec">What the two responses tell us</h2>
+    <div class="flow" aria-label="Feedback progress states"><span>Received</span><i aria-hidden="true">→</i><span>Assessed</span><i aria-hidden="true">→</i><span>Working draft</span><i aria-hidden="true">→</i><span>CIPE confirmed</span><i aria-hidden="true">→</i><span>Published</span></div>
+
+    <h2 class="sec">What the assessed responses change</h2>
     <div class="cards">
       <article class="card">
         <span class="eyebrow">Sri Lanka &middot; Verit&eacute; Research</span>
@@ -100,27 +118,27 @@
     <p class="sub">Open each item to see the consequence, evidence boundary and next decision. These are not partner rankings.</p>
 
     <details class="decision" open>
-      <summary><span>Keep the fair-zero architecture</span><span class="pill assessed">Assessed</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇱🇰 🇪🇹</span><span class="t">Keep the fair-zero architecture</span><span class="pill assessed">Assessed</span></summary>
       <div class="body"><p><b>Feedback:</b> both pilot responses support distinguishing a true disclosure failure from information that is not yet due, does not apply or has not been sufficiently searched.</p><p><b>Treatment:</b> retain the architecture and shorten the field explanation with a decision path and worked example. The report's headline diagnostic figures do not change.</p></div>
     </details>
     <details class="decision">
-      <summary><span>Add a no-selected-PPP route</span><span class="pill assessed">Assessed</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇱🇰 🇪🇹</span><span class="t">Add a no-selected-PPP route</span><span class="pill assessed">Assessed</span></summary>
       <div class="body"><p><b>Feedback:</b> neither Sri Lanka nor Ethiopia has a PPP in the selected sample.</p><p><b>Treatment:</b> propose a form route that records this finding and bypasses the PPP-only collection trial. This remains a CoST working recommendation until CIPE confirms the cohort-wide form change.</p></div>
     </details>
     <details class="decision">
-      <summary><span>Define scores 1 and 2 for non-government evidence</span><span class="pill open">CIPE decision pending</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇪🇹</span><span class="t">Define scores 1 and 2 for non-government evidence</span><span class="pill open">CIPE decision pending</span></summary>
       <div class="body"><p><b>Feedback:</b> Ethiopia asked why a detailed funder report and a single-line media mention could both sit under the same ceiling of 2.</p><p><b>Treatment:</b> draft one sentence using accessibility and completeness to distinguish scores 1 and 2, while recording provenance and reliability separately. The exact rule is not yet CIPE-confirmed.</p></div>
     </details>
     <details class="decision">
-      <summary><span>Use contract-level profiles within one project</span><span class="pill assessed">Strengthened</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇱🇰 🇪🇹</span><span class="t">Use contract-level profiles within one project</span><span class="pill assessed">Strengthened</span></summary>
       <div class="body"><p><b>Feedback:</b> Sri Lanka supplied programme and contracting-process cases; Ethiopia named Modjo-Hawassa Expressway lots 1 to 4.</p><p><b>Treatment:</b> keep the project as the primary monitoring unit and record awarded contracts separately. A blended project figure still requires a defensible aggregation rule.</p></div>
     </details>
     <details class="decision">
-      <summary><span>Keep Ethiopia project classifications open</span><span class="pill open">Open evidence gap</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇪🇹</span><span class="t">Keep Ethiopia project classifications open</span><span class="pill open">Open evidence gap</span></summary>
       <div class="body"><p><b>Observed boundary:</b> Ethiopia's project-correction table was blank and the no-corrections box was not marked. The PPP collection trial was not completed beyond an <em>n/a</em> entry.</p><p><b>Treatment:</b> do not call the Ethiopian project register partner-validated. Direct project evidence or an explicit partner confirmation is still needed.</p></div>
     </details>
     <details class="decision">
-      <summary><span>Hold thresholds and selection targets for comparison</span><span class="pill open">CIPE decision pending</span></summary>
+      <summary><span class="flags" aria-hidden="true">🇱🇰</span><span class="t">Hold thresholds and selection targets for comparison</span><span class="pill open">CIPE decision pending</span></summary>
       <div class="body"><p><b>Feedback:</b> Verit&eacute; proposed a presumptive 10 percent foreign-financing screen and a two-projects-per-funder target where the eligible universe permits.</p><p><b>Treatment:</b> keep both as candidates. Compare them with additional country responses before any cohort-wide decision.</p></div>
     </details>
 

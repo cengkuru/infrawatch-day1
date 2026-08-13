@@ -60,6 +60,7 @@
     { href: "assessment-database.html", term: "Assessment database", note: "the six things it must record for every score", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "referral-and-resolution.html", term: "Referral and resolution", note: "what to do when the rule does not settle it", added: "2026-08-06", group: "Carry out and use the work" },
     { href: "partner-validation.html", term: "Partner validation", note: "confirm or correct each recorded fact, with a source", added: "2026-08-06", group: "Carry out and use the work" },
+    { href: "validation-progress.html", term: "Validation progress", note: "how partner feedback is affecting the working method and report", added: "2026-08-13", group: "Carry out and use the work" },
     { href: "validation-sheet.html", term: "Validation sheet", note: "the form a country team returns to confirm or correct the recorded facts", added: "2026-08-11", group: "Carry out and use the work" },
     { href: "case-study.html", term: "Case study", note: "a deep dive into one scored project: why the record looks like this", added: "2026-08-06", group: "Carry out and use the work" }
   ];
@@ -100,6 +101,7 @@
     "assessment-database.html": "tracking system record keeping software platform data fields storage requirements",
     "referral-and-resolution.html": "dispute settlement rule clarification help desk guidance ambiguity handling",
     "partner-validation.html": "country team review verification process confirm facts accuracy check",
+    "validation-progress.html": "live feedback tracker progress changes incorporated open decisions partner response report draft sri lanka ethiopia verite stalwart",
     "validation-sheet.html": "feedback form correction template review document response file questionnaire survey checklist deadline return submit unreturned silence partner sections",
     "case-study.html": "deep dive analysis project example detailed report investigation narrative"
   };

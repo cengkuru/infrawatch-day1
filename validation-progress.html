@@ -60,7 +60,10 @@
     table.ctable td.pt,table.ctable td.dt{color:var(--mid);}
     table.ctable td.dt{white-space:nowrap;font-variant-numeric:tabular-nums;}
     .flag{font-size:1.75rem;line-height:1;}
-    .flow{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;margin:1rem 0;}.flow span{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);background:var(--white);border:1px solid var(--light);border-radius:99px;padding:.3rem .58rem;}.flow i{font-style:normal;color:var(--brand-soft);font-size:.72rem;}
+    .flowrow{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:.45rem 0;}
+    .flowlab{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);min-width:7.4rem;}
+    .flow{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;margin:1rem 0;}
+    .flowrow .flow{margin:0;}.flow span{font-family:var(--mono);font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);background:var(--white);border:1px solid var(--light);border-radius:99px;padding:.3rem .58rem;}.flow i{font-style:normal;color:var(--brand-soft);font-size:.72rem;}
     .cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}.card{background:var(--white);border:1px solid var(--light);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.2rem 1.3rem;}
     .card h3{font-size:1.05rem;margin:.35rem 0 .45rem;color:var(--brand-deep);}.card p{font-size:.88rem;color:var(--mid);margin:.25rem 0 .7rem;}.card ul{margin:.5rem 0 0;padding-left:1.05rem;font-size:.86rem;}.card li{margin-bottom:.35rem;}
     .eyebrow{font-family:var(--mono);font-size:.61rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--brand-soft);}.pill{display:inline-block;font-family:var(--mono);font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:99px;padding:.18rem .52rem;margin-right:.28rem;}
@@ -107,7 +110,7 @@
     <div class="hero-inner">
       <p class="kicker">Partner feedback &middot; what it confirms, changes and leaves open</p>
       <h1>Partner feedback is strengthening the method without changing its central finding</h1>
-      <p>Nine of eleven completed validation sheets are now filed. Three wording decisions need CIPE confirmation by Friday 21 August; everything else proceeds on the nine received responses.</p>
+      <p>Nine of eleven completed validation sheets are filed, and four have been assessed against the rules so far. Three wording decisions need CIPE confirmation by Friday 21 August; everything else proceeds.</p>
     </div>
   </section>
 
@@ -126,14 +129,11 @@
         <li><a href="#d-publicfn">What is the public-function test for GLC and strategic assets?</a>
           <span class="q">Working recommendation: public asset or public service with material foreign finance qualifies; purely private commercial does not. Raised by Malaysia.</span></li>
       </ol>
-      <p class="askfoot"><b>Everything else proceeds.</b> Nine of eleven sheets are filed, the core method holds, and a later Cambodia or Nigeria sheet enters as a versioned delta rather than a reopening.</p>
+      <p class="askfoot"><b>If Friday passes with no confirmation</b>, each working recommendation above applies provisionally, is marked unconfirmed on this page, and is re-opened at the next CIPE review rather than treated as settled. Named CIPE confirmer and channel: <b>to be filled in by CoST before this page is circulated.</b></p>
+      <p class="askfoot" style="border-top:none;padding-top:0;margin-top:.35rem;"><b>Everything else proceeds</b> on the nine filed sheets, assessed against the four rule-scanned so far. The core method holds, and a later Cambodia or Nigeria sheet enters as a versioned delta rather than a reopening.</p>
     </section>
 
-    <nav class="quicklinks" aria-label="Working files and country resources">
-      <a href="https://drive.google.com/drive/folders/157Beg6WflBB9XuRvLODZOuDPf0vHCs-0">Open response files <span aria-hidden="true">↗</span></a>
-      <a class="secondary" href="https://drive.google.com/drive/folders/12Lv_uEL1VLeB9cOV5r3Q_PyaxvUJM_up">Asia resources <span aria-hidden="true">↗</span></a>
-      <a class="secondary" href="https://drive.google.com/drive/folders/1HWxzlGb5vOKmv533mj58N5v31cVN_HQ0">Africa resources <span aria-hidden="true">↗</span></a>
-    </nav>
+    <p class="sub" style="margin-top:-.5rem;"><b>Working files are not linked from this public page.</b> Partner response files, and the full feedback register, sit in the CoST Drive folders and are shared with named colleagues on request.</p>
 
     <h2 class="sec">Country scan: nine responses in, two to come</h2>
     <p class="sub">Grouped by how far each response has travelled, not by region. Stage shows only what is evidenced in this live tracker, never the quality of a partner's work. Dates are the response file dates in the shared Drive folder. Cambodia and Nigeria remain open and are being followed up by CIPE; the working package does not wait for them.</p>
@@ -168,16 +168,18 @@
         </tbody>
       </table>
     </div>
-    <div class="legend" aria-label="Status colour key">
-      <span><i class="s1"></i>Blue: stage reached</span>
-      <span><i class="s2"></i>Amber: someone owes a decision or a file</span>
-      <span><i class="s3"></i>Green: settled, no action</span>
+    <div class="legend" aria-label="Status key">
+      <span><i class="s1"></i><b>Rule-scanned</b> &mdash; stage reached, nothing owed</span>
+      <span><i class="s2"></i><b>Pending / Due / Outstanding</b> &mdash; someone owes a decision or a file</span>
+      <span><i class="s3"></i><b>Settled</b> &mdash; confirmed, no action</span>
     </div>
+    <p class="sub" style="font-size:.78rem;margin-top:-.75rem;">Each status is written out on every row, so the words carry the meaning and colour only reinforces it.</p>
 
-    <div class="flow" aria-label="Feedback progress states, with counts"><span>Sheets received &middot; 9 of 11</span><i aria-hidden="true">→</i><span>Rule-scanned &middot; 4</span><i aria-hidden="true">→</i><span>Items in working draft &middot; 12</span><i aria-hidden="true">→</i><span>CIPE confirmed &middot; 0</span><i aria-hidden="true">→</i><span>Published &middot; 0</span></div>
-    <p class="sub" style="font-size:.78rem;margin-top:-.35rem;">Counts are not one series: the first two count country sheets, the last three count method items on this page. Nothing has yet reached CIPE confirmation.</p>
+    <div class="flowrow"><span class="flowlab">Country sheets</span><div class="flow" aria-label="Country sheet progress"><span>Received &middot; 9 of 11</span><i aria-hidden="true">→</i><span>Rule-scanned &middot; 4</span></div></div>
+    <div class="flowrow"><span class="flowlab">Method items</span><div class="flow" aria-label="Method item progress"><span>In working draft &middot; 12</span><i aria-hidden="true">→</i><span>CIPE confirmed &middot; 0 to date, 3 due Friday</span><i aria-hidden="true">→</i><span>Published &middot; 0</span></div></div>
 
     <h2 class="sec">What the assessed responses change</h2>
+    <p class="sub">These four are the rule-scanned responses. <b>R</b> and <b>O</b> numbers are the rule identifiers used in the mapping report, which is where their full text lives; on this page <b>R1</b> is the rule on foreign financing and <b>O3</b> is the rule on recency. <em>Fair-zero</em> separates a real disclosure failure from information that is not due, not applicable or not yet sufficiently searched. <em>GLC</em> is a government-linked company. Related: <a href="scoring-guides.html">scoring guides</a> &middot; <a href="evidence-states.html">evidence states</a>.</p>
     <div class="cards">
       <article class="card">
         <span class="eyebrow">Sri Lanka &middot; Verit&eacute; Research</span>
@@ -264,8 +266,8 @@
       <div class="body"><p><b>Feedback:</b> the summary refers to three functional tests that Section 6 never names; it actually describes a single threshold (does the contract show the required PPP characteristics) plus a four-family Tier 1 review. Verit&eacute; separately confirmed the reading that ordinary projects carry 40 indicators and confirmed PPPs carry 40 plus 4, and asked how the funding-sources family fits with core indicator 12, which already captures funding sources for every project.</p><p><b>Treatment:</b> name and define the threshold and the four families explicitly, confirm the 40 plus 4 structure, and state what the Tier 1 funding-sources questions add beyond indicator 12 so nothing is double-counted.</p></div>
     </details>
     <details class="decision">
-      <summary><span class="flags" aria-hidden="true">🇪🇹</span><span class="t">Keep Ethiopia project classifications open</span><span class="pill open">Evidence gap</span></summary>
-      <div class="body"><p><b>Observed boundary:</b> Ethiopia's project-correction table was blank and the no-corrections box was not marked. The PPP collection trial was not completed beyond an <em>n/a</em> entry.</p><p><b>Treatment:</b> do not call the Ethiopian project register partner-validated. Direct project evidence or an explicit partner confirmation is still needed. A newer Ethiopia sheet dated 13 August is in the shared folder and has not yet been assessed; it may close this gap.</p></div>
+      <summary><span class="flags" aria-hidden="true">🇪🇹</span><span class="t">Keep Ethiopia project classifications open</span><span class="pill open">Evidence gap &middot; CoST action</span></summary>
+      <div class="body"><p><b>Observed boundary:</b> Ethiopia's project-correction table was blank and the no-corrections box was not marked. The PPP collection trial was not completed beyond an <em>n/a</em> entry.</p><p><b>Treatment:</b> do not call the Ethiopian project register partner-validated. Direct project evidence or an explicit partner confirmation is still needed.</p><p><b>Owned next step:</b> a newer Ethiopia sheet dated 13 August is filed and unassessed. Assessing it is a CoST task, not a CIPE decision, and it may close this gap outright. Owner and date: <b>to be assigned by CoST.</b> This is the only evidence gap on the page; the other open items are wording decisions.</p></div>
     </details>
 
     <h3 class="dgroup">Settled, no action <span class="n">&middot; 3 &middot; confirmed by the assessed responses</span></h3>
@@ -282,7 +284,7 @@
       <div class="body"><p><b>Feedback:</b> neither Sri Lanka nor Ethiopia has a PPP in the selected sample.</p><p><b>Treatment:</b> propose a form route that records this finding and bypasses the PPP-only collection trial. This remains a CoST working recommendation until CIPE confirms the cohort-wide form change.</p></div>
     </details>
 
-    <div class="doccard"><span><b>Full written record.</b> The complete feedback register, decision detail and change log live in the shared working document, filed under Partner comments on mapping report in the CoST Drive folder.</span><a class="btn" href="https://docs.google.com/document/d/1gwJz1xCMf2nC4powuhMfJ1WYtrJBm4yd9VEIIv7B6kY/edit" target="_blank" rel="noopener">Open the Google Doc</a></div>
+    <div class="doccard"><span><b>Full written record.</b> The complete feedback register, decision detail and change log live in the shared working document, filed under Partner comments on mapping report in the CoST Drive folder. That document is a working file and is not linked publicly; where it and this page disagree, this page is the more recent.</span></div>
 
     <h2 class="sec">Who decides what</h2>
     <div class="boundary"><b>Partners verify country and project facts. CoST recommends and drafts the method. CIPE confirms programme-wide decisions.</b> No item moves to “working draft,” “CIPE confirmed” or “published” without evidence of that exact state.</div>

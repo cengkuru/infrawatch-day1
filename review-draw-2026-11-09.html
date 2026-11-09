@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Infra Watch review draw, 9 Nov 2026</title>
-<meta name="description" content="The one-in-five random draw of Infra Watch projects for the CoST data quality review, run on Jolo's final list of 194 scored projects in 10 countries. The seed IW-DQA-2026-11-09 replays it exactly, and the shortlist and full list download for the draw on screen.">
+<meta name="description" content="The one-in-five random draw of Infra Watch projects for the CoST data quality review, run on Jolo’s final list of 194 scored projects in 10 countries. The seed IW-DQA-2026-11-09 replays it exactly, and the shortlist and full list download for the draw on screen.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -140,8 +140,8 @@ function labelCoins(){for(const d of res){const sec=host.querySelector(`[data-co
 function stamp(){$('h').innerHTML=`<b>${tot} projects</b> go to review.`;
   $('sub').textContent=`One in five from each of ${live.length} partners' project lists (${N} projects), ${totP} of them PPP. Every draw has a seed, so its link replays exactly the same ${tot}. Press Draw again for a fresh one; the seed CIPE accepts becomes the record. Hover or tap a coin to see its project.`;
   $('seedv').textContent=SEED;$('seedtag').textContent=SEED===PROPOSED?'· proposed':'· drawn here';
-  $('meta').textContent=`list fingerprint ${fp} · Jolo's final list, 9 Nov 2026 · Michael Cengkuru, CoST, for the CIPE Infrastructure Watch programme`;}
-$('how').textContent=`The list is Jolo's final list of country files: 194 scored projects in 10 countries, as it stood on 9 November 2026. For each country, one in five is drawn, rounded up; PPP projects form their own stratum and are drawn in proportion. The seed and the country name feed a fixed random generator (FNV-1a into mulberry32), each stratum is shuffled once in list order, and the first projects are taken. Countries are drawn independently, so a correction to one country's list changes only that country's draw. Pressing Draw again makes a fresh seed from the browser's random source and writes it into the link, so any draw can be replayed by its link. The tumbling red coins are the animation; the result comes from the seed alone. The 2 November draw on the earlier list stays on its own page. Partners score; CoST flags; CIPE decides the method.`;
+  $('meta').textContent=`list fingerprint ${fp} · Jolo’s final list, 9 Nov 2026 · Michael Cengkuru, CoST, for the CIPE Infrastructure Watch programme`;}
+$('how').textContent=`The list is Jolo’s final list of country files: 194 scored projects in 10 countries, as it stood on 9 November 2026. For each country, one in five is drawn, rounded up; PPP projects form their own stratum and are drawn in proportion. The seed and the country name feed a fixed random generator (FNV-1a into mulberry32), each stratum is shuffled once in list order, and the first projects are taken. Countries are drawn independently, so a correction to one country's list changes only that country's draw. Pressing Draw again makes a fresh seed from the browser's random source and writes it into the link, so any draw can be replayed by its link. The tumbling red coins are the animation; the result comes from the seed alone. The 2 November draw on the earlier list stays on its own page. Partners score; CoST flags; CIPE decides the method.`;
 /* tooltip: hover or focus a coin, tap on touch */
 const tip=$('tip');let onCoin=null;
 function showTip(c){onCoin&&onCoin.classList.remove('on');onCoin=c;c.classList.add('on');tip.innerHTML=`<span class="no">#${c.dataset.no}</span>${c.dataset.name}${c.dataset.ppp?'<span class="ppp"> · PPP</span>':''}${c.dataset.in?' · drawn':''}`;tip.setAttribute('aria-hidden','false');tip.classList.add('show');const r=c.getBoundingClientRect();tip.style.left='0px';tip.style.top='0px';const w=tip.offsetWidth,h=tip.offsetHeight;let x=r.left+r.width/2-w/2,y=r.top-h-10;if(y<8)y=r.bottom+10;x=Math.max(8,Math.min(x,innerWidth-w-8));tip.style.left=x+'px';tip.style.top=y+'px';}
@@ -180,7 +180,7 @@ async function play(){
 $('draw').addEventListener('click',()=>{if(running)return;SEED=newSeed();compute(SEED);history.replaceState(null,'','#'+SEED);$('draw').classList.add('go');play();});
 addEventListener('hashchange',()=>{const s=seedFromHash();if(s&&s!==SEED&&!running){SEED=s;compute(SEED);play();}});
 /* record and downloads, always for the draw on screen */
-function log(){const L=['INFRA WATCH DATA QUALITY REVIEW · ONE IN FIVE DRAW','Seed: '+SEED+(SEED===PROPOSED?' (proposed)':''),'Link: '+location.origin+location.pathname+'#'+SEED,'Frame: Jolo's final list, 9 Nov 2026, 194 scored projects in 10 countries; '+FRAME.length+' projects; fingerprint fnv1a '+fp,'Rule: per partner ceil(n/5); PPP stratum in proportion, rounded to nearest; fnv1a(seed|partner) -> mulberry32 -> Fisher-Yates per stratum in list order'];
+function log(){const L=['INFRA WATCH DATA QUALITY REVIEW · ONE IN FIVE DRAW','Seed: '+SEED+(SEED===PROPOSED?' (proposed)':''),'Link: '+location.origin+location.pathname+'#'+SEED,'Frame: Jolo’s final list, 9 Nov 2026, 194 scored projects in 10 countries; '+FRAME.length+' projects; fingerprint fnv1a '+fp,'Rule: per partner ceil(n/5); PPP stratum in proportion, rounded to nearest; fnv1a(seed|partner) -> mulberry32 -> Fisher-Yates per stratum in list order'];
   for(const d of res){L.push('',d.country.toUpperCase()+' · listed '+d.n+' · PPP '+d.p+(d.held?' · HELD: '+HELD[d.country]:' · drawn '+d.k+' ('+d.kp+' PPP)'));if(d.held)continue;
     for(const r of d.picks)L.push('  #'+r.no+'  '+r.project+(r.ppp?'  | PPP':''));
     L.push('  shuffle order PPP: '+(d.orderPpp.join(',')||'none')+' · other: '+d.orderOther.join(','));}
@@ -190,7 +190,7 @@ function toast(m){const t=$('toast');t.textContent=m;setTimeout(()=>t.textConten
 async function copy(text,ok){try{await navigator.clipboard.writeText(text);toast(ok);}catch(e){toast('Clipboard blocked here.');}}
 $('copy').addEventListener('click',()=>copy(log(),'Copied.'));
 $('link').addEventListener('click',()=>copy(location.origin+location.pathname+'#'+SEED,'Link copied.'));
-const PROV=()=>`Infra Watch data quality review. One-in-five draw, seed ${SEED}${SEED===PROPOSED?' (proposed)':''}. Frame: Jolo's final list, 9 Nov 2026, 194 scored projects in 10 countries. Partners score; CoST flags; CIPE decides the method.`;
+const PROV=()=>`Infra Watch data quality review. One-in-five draw, seed ${SEED}${SEED===PROPOSED?' (proposed)':''}. Frame: Jolo’s final list, 9 Nov 2026, 194 scored projects in 10 countries. Partners score; CoST flags; CIPE decides the method.`;
 function tables(){const drawn=new Map(res.map(d=>[d.country,new Set(d.picks.map(r=>r.no))]));
   const full=[['Country','No','Project','Sector','PPP','Drawn']],short=[['Country','No','Project','PPP']];
   for(const r of FRAME.slice().sort((a,b)=>a.country.localeCompare(b.country)||a.no-b.no)){const held=!!HELD[r.country],isD=!held&&drawn.get(r.country).has(r.no);

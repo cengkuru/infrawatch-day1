@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Infra Watch review draw, 9 Nov 2026</title>
+<meta name="description" content="The one-in-five random draw of Infra Watch projects for the CoST data quality review, run on Jolo's final list of 194 scored projects in 10 countries. The seed IW-DQA-2026-11-09 replays it exactly, and the shortlist and full list download for the draw on screen.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--bg:#FBFBF9;--ink:#2C4143;--slate:#58707B;--line:#E3E3DA;--red:#D60000;--coin:#D8D8CD;--tip-bg:#2C4143;--tip-ink:#F7F7F7;--btn-ink:#FBFBF9;color-scheme:light;
+ --serif:"Newsreader",Georgia,serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+:root[data-theme="dark"]{--bg:#1B2628;--ink:#EDEDE6;--slate:#A7B6BB;--line:#36474A;--red:#FF4A4A;--coin:#3A4A4C;--tip-bg:#EDEDE6;--tip-ink:#1B2628;--btn-ink:#1B2628;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding-block:40px 72px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+.theme{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--slate);background:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
+.theme:hover{color:var(--ink);border-color:var(--slate)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6.5vw,58px);line-height:1.06;margin:0 0 12px;text-wrap:balance;letter-spacing:-.01em}
+h1 b{color:var(--red);font-weight:500}
+.sub{color:var(--slate);margin:0 0 24px;max-width:54ch}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-bottom:40px}
+.draw{font:inherit;font-weight:500;font-size:15px;color:var(--btn-ink);background:var(--ink);border:0;border-radius:999px;padding:12px 22px 12px 14px;display:inline-flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s,opacity .2s;perspective:200px}
+.draw:hover{transform:translateY(-1px)}
+.draw:active{transform:translateY(0) scale(.98)}
+.draw[disabled]{opacity:.55;cursor:default;transform:none}
+.draw .coin{width:22px;height:22px;border-radius:50%;background:var(--red);display:inline-block;transform-style:preserve-3d;box-shadow:inset 0 0 0 2px rgba(255,255,255,.22)}
+.draw.go .coin{animation:flip 1.1s cubic-bezier(.2,.7,.2,1)}
+@keyframes flip{0%{transform:rotateY(0)}100%{transform:rotateY(1800deg)}}
+.seed{font-family:var(--mono);font-size:11.5px;color:var(--slate);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.seed code{font:inherit;color:var(--ink)}
+.seed button{font:inherit;color:var(--ink);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.seed button:hover{color:var(--red)}
+.p{display:grid;grid-template-columns:140px 1fr;gap:6px 18px;padding:16px 0;border-top:1px solid var(--line);align-items:start}
+.p:last-of-type{border-bottom:1px solid var(--line)}
+.p>div:first-child{grid-row:1/3}
+.p h2{font-family:var(--serif);font-weight:400;font-size:21px;margin:0;line-height:1.2}
+.p .k{font-family:var(--mono);font-size:11.5px;color:var(--slate);display:block;margin-top:2px;white-space:nowrap}
+.coins{display:flex;flex-wrap:wrap;gap:6px;padding-top:6px}
+.c{width:16px;height:16px;border-radius:50%;background:var(--coin);border:0;padding:0;margin:0;cursor:default;transition:background .12s,box-shadow .15s}
+.c.lit{background:var(--red);opacity:.45}
+.c.in{background:var(--red)}
+.c.pop{animation:pop .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{0%{transform:scale(.5)}55%{transform:scale(1.45)}100%{transform:scale(1)}}
+.c:hover,.c.on{box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--ink)}
+.picks{grid-column:2;margin:4px 0 0;padding:0;list-style:none;font-size:14.5px;line-height:1.45;min-height:1.4em}
+.picks li{opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+.picks li.show{opacity:1;transform:none}
+.picks .no{font-family:var(--mono);font-size:11.5px;color:var(--slate);margin-right:6px}
+.ppp{font-family:var(--mono);font-size:10.5px;color:var(--red);margin-left:6px;letter-spacing:.04em}
+.p.held h2,.p.held .k{color:var(--slate)}
+.p.held .c{opacity:.45}
+#tip{position:fixed;z-index:9;max-width:min(360px,calc(100vw - 32px));background:var(--tip-bg);color:var(--tip-ink);font-size:13px;line-height:1.35;padding:7px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 6px 24px rgba(0,0,0,.14)}
+#tip.show{opacity:1}
+#tip .no{font-family:var(--mono);font-size:11px;opacity:.75;margin-right:6px}
+#tip .ppp{color:inherit;opacity:.85}
+.foot{margin-top:44px;font-family:var(--mono);font-size:11.5px;color:var(--slate);display:grid;gap:12px}
+.foot .row{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
+.foot a,.foot button{font:inherit;color:var(--ink);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.foot a:hover,.foot button:hover{color:var(--red)}
+.foot .lbl{min-width:84px}
+details{margin-top:20px;font-size:13px;color:var(--slate);max-width:62ch}
+summary{font-family:var(--mono);font-size:11.5px;cursor:pointer;color:var(--slate)}
+details p{margin:8px 0 0}
+@media (max-width:560px){.p{grid-template-columns:1fr}.p>div:first-child{grid-row:auto}.picks{grid-column:1}.foot .lbl{min-width:0;flex-basis:100%}}
+@media (prefers-reduced-motion: reduce){.c,.picks li,#tip,.draw{transition:none}.draw.go .coin,.c.pop{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="eyebrow">Infrastructure Watch · data quality review · CoST and CIPE</div><button class="theme" id="theme" type="button" aria-pressed="false">Dark</button></div>
+  <h1 id="h"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="bar">
+    <button class="draw" id="draw" type="button"><span class="coin" aria-hidden="true"></span>Draw again</button>
+    <div class="seed">seed <code id="seedv"></code><span id="seedtag"></span><button id="link" type="button">Copy link to this draw</button></div>
+  </div>
+  <div id="rows"></div>
+  <div class="foot">
+    <div class="row"><span class="lbl">Shortlist</span><a href="#" id="dl-short-csv">CSV</a><a href="#" id="dl-short-xlsx">Excel</a></div>
+    <div class="row"><span class="lbl">Full list</span><a href="#" id="dl-full-csv">CSV</a><a href="#" id="dl-full-xlsx">Excel</a></div>
+    <div class="row"><span class="lbl">Record</span><button id="copy" type="button">Copy the full log</button><span id="toast"></span></div>
+    <div class="row"><span id="meta"></span></div>
+  </div>
+  <details><summary>How the draw works</summary><p id="how"></p></details>
+</div>
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+<script>
+const PROPOSED='IW-DQA-2026-11-09';
+const FRAME=[{"country":"Cambodia","no":1,"project":"Livable Cities Investment Project (ADB 53199-001, LN 4143-CAM)","ppp":false},{"country":"Cambodia","no":2,"project":"Grid Reinforcement Project (ADB 53324-001, LN 3967-CAM)","ppp":false},{"country":"Cambodia","no":3,"project":"Road Network Improvement Project, Phase 2 (ADB 53372-001, LN 4119-CAM)","ppp":false},{"country":"Cambodia","no":4,"project":"Phnom Penh Ring Road No.3 (NR.4–NR.1) – Design and Construction","ppp":false},{"country":"Cambodia","no":5,"project":"National Road No.3 Construction (Chom Chao – Bek Kus – Kampot)","ppp":false},{"country":"Cambodia","no":6,"project":"Sihanoukville Port New Container Terminal Expansion Project (I) (CP-P27)","ppp":false},{"country":"Cambodia","no":7,"project":"Rural Road Connectivity Improvement Project (CP-P30)","ppp":false},{"country":"Cambodia","no":8,"project":"Sihanoukville Port New Container Terminal Development Project","ppp":false},{"country":"Cambodia","no":9,"project":"National Road No.5 Improvement Project (I) (Thlea Ma'am – Battambang; Sri Sophorn – Poipet)","ppp":false},{"country":"Cambodia","no":10,"project":"Southeast Asia Disaster Risk Management Project 2","ppp":false},{"country":"Cambodia","no":11,"project":"Water Supply and Sanitation Acceleration Project","ppp":false},{"country":"Cambodia","no":12,"project":"Cambodia Road Connectivity Improvement Project","ppp":false},{"country":"Cambodia","no":13,"project":"Road Asset Management Project II – Additional Financing","ppp":false},{"country":"Cambodia","no":14,"project":"Rural Road Improvement Project III","ppp":false},{"country":"Cambodia","no":15,"project":"Phnom Penh–Sihanoukville Expressway Construction Project","ppp":true},{"country":"Cambodia","no":16,"project":"Design and Construction of National Road No.71 C Project","ppp":false},{"country":"Cambodia","no":17,"project":"Upgrading of National Road No.48 Project","ppp":false},{"country":"Cambodia","no":18,"project":"Irrigation Development and Flood Mitigation Project in Banteay Meanchey (EDCF)","ppp":false},{"country":"Cambodia","no":19,"project":"Sewerage System Development in Ta Khmau Town – Kandal Province (EDCF)","ppp":false},{"country":"Cambodia","no":20,"project":"Establishing the University of Health Science Teaching Hospital Project (EDCF)","ppp":false},{"country":"Ethiopia","no":1,"project":"Addis Ababa–Djibouti Railway – Sebeta–Adama–Mieso section, Lots 1&2","ppp":false},{"country":"Ethiopia","no":2,"project":"Addis Ababa Light Rail Transit – Phase I EPC/Turnkey","ppp":false},{"country":"Ethiopia","no":3,"project":"Addis Ababa–Adama Expressway – Phase 2 (Lebu–Akaki–IT Park Outer Ring Road)","ppp":false},{"country":"Ethiopia","no":4,"project":"Dire Dawa–Dewalle Toll Road (≈220 km road works)","ppp":false},{"country":"Ethiopia","no":5,"project":"Ethiopia–Djibouti Transport Corridor Project, Phase I (Adama–Km 60 Expressway)","ppp":false},{"country":"Ethiopia","no":6,"project":"Bole International Airport Expansion – Phase 2 (Terminal 1, VIP Terminal)","ppp":false},{"country":"Ethiopia","no":7,"project":"GERD Transmission – GERD–Dedessa–Holeta–Addis 500/400 kV EPC package","ppp":false},{"country":"Ethiopia","no":8,"project":"Adama II Wind Power Project (153 MW)","ppp":false},{"country":"Ethiopia","no":9,"project":"Gilgel Gibe III Hydroelectric – EM/HSS works contract","ppp":false},{"country":"Ethiopia","no":10,"project":"Genale Dawa III Hydropower – Main EPC works","ppp":false},{"country":"Ethiopia","no":11,"project":"Bahir Dar II–Debre Markos 400 kV Transmission – Lot 2","ppp":false},{"country":"Ethiopia","no":12,"project":"Genale Dawa III–Yirgalem II–Wolayita Sodo II Transmission (GDYW-2)","ppp":false},{"country":"Ethiopia","no":13,"project":"Addis Ababa Transmission & Distribution Rehabilitation and Upgrading (AATDRUP) – Lot 1","ppp":false},{"country":"Ethiopia","no":14,"project":"Replacement of Awash Bridge on A1 Trunk Road","ppp":false},{"country":"Ethiopia","no":15,"project":"Ethiopia–Kenya / Eastern Electricity Highway – Ethiopian 500 kV HVDC section","ppp":false},{"country":"Ethiopia","no":16,"project":"Mekelle (Gereb-Giba) Water Supply Development Project – main CGGC EPC","ppp":false},{"country":"Ethiopia","no":17,"project":"Modjo–Hawassa Highway Phase I – Lot 1 (Modjo–Meki)","ppp":false},{"country":"Ethiopia","no":18,"project":"Modjo–Hawassa Highway Phase I – Lot 2 (Meki–Zeway)","ppp":false},{"country":"Ethiopia","no":19,"project":"Modjo–Hawassa Highway – Lot 3 (Batu–Arsi Negele)","ppp":false},{"country":"Ethiopia","no":20,"project":"Modjo–Hawassa Highway – Lot 4 (Arsi Negele–Hawassa)","ppp":false},{"country":"Ethiopia","no":21,"project":"ACFSMM 230 kV Transmission Project under ENREP-AF","ppp":false},{"country":"Ghana","no":1,"project":"Box culverts at Effia and Bankyease and 150m storm drain","ppp":false},{"country":"Ghana","no":2,"project":"Eastern Corridor Road Development Programme Phase 1 (Sections 3 and 4)","ppp":false},{"country":"Ghana","no":3,"project":"Elmina Fishing Harbour Rehabilitation and Expansion","ppp":false},{"country":"Ghana","no":4,"project":"Greater Accra Resilient and Integrated Development (GARID) – dredging package","ppp":false},{"country":"Ghana","no":5,"project":"Ghana–Côte d'Ivoire Electricity Interconnection, Phase 1 (Ghana section, GRIDCo)","ppp":false},{"country":"Ghana","no":6,"project":"Ghana Market Access and Connectivity Project (GMACP)","ppp":false},{"country":"Ghana","no":7,"project":"Hohoe–Jasikan–Dodo Pepesu Road","ppp":false},{"country":"Ghana","no":8,"project":"KATH Maternity and Children's Block","ppp":false},{"country":"Ghana","no":9,"project":"Kotoka International Airport Terminal 3","ppp":false},{"country":"Ghana","no":10,"project":"Kumasi Central Market Redevelopment, Phase I (Kejetia)","ppp":false},{"country":"Ghana","no":11,"project":"New Abirem–Ofoasekuma–Akim Oda Road, Lot 9","ppp":false},{"country":"Ghana","no":12,"project":"Obetsebi Lamptey Interchange, Phase 1","ppp":false},{"country":"Ghana","no":13,"project":"PTC Interchange, Takoradi","ppp":false},{"country":"Ghana","no":14,"project":"Pokuase Interchange (Accra Urban Transport Project)","ppp":false},{"country":"Ghana","no":15,"project":"Sankofa Gas Project (OCTP Phase 2)","ppp":false},{"country":"Ghana","no":16,"project":"Sunyani Inner City Roads, Lot 6","ppp":false},{"country":"Ghana","no":17,"project":"Tamale International Airport, Phase II","ppp":false},{"country":"Ghana","no":18,"project":"Tamale Interchange","ppp":false},{"country":"Ghana","no":19,"project":"Tema Port Expansion, Phase I (MPS Terminal 3)","ppp":true},{"country":"Ghana","no":20,"project":"University of Ghana Medical Centre (UGMC) Phase II","ppp":false},{"country":"Indonesia","no":1,"project":"Jakarta–Bandung High-Speed Railway (Whoosh)","ppp":false},{"country":"Indonesia","no":2,"project":"PLTU Mulut Tambang Sumsel-8 (2 × 660 MW)","ppp":false},{"country":"Indonesia","no":3,"project":"PLTA Batang Toru 510 MW","ppp":false},{"country":"Indonesia","no":4,"project":"PLTP Sorik Marapi (Units I–V)","ppp":false},{"country":"Indonesia","no":5,"project":"Jalan Tol Cileunyi–Sumedang–Dawuan (Cisumdawu)","ppp":true},{"country":"Indonesia","no":6,"project":"PLTA Jatigede 2 × 55 MW","ppp":false},{"country":"Indonesia","no":7,"project":"Bendungan Jenelata, Gowa","ppp":false},{"country":"Indonesia","no":8,"project":"PLTU Nagan Raya Units 3 & 4","ppp":false},{"country":"Indonesia","no":9,"project":"PLTGU Jawa-1 (1,760 MW gas + FSRU)","ppp":false},{"country":"Indonesia","no":10,"project":"PLTU Cirebon 2 (1 × 1,000 MW)","ppp":false},{"country":"Indonesia","no":11,"project":"PLTP Muara Laboh Unit 2 (80 MW)","ppp":false},{"country":"Indonesia","no":12,"project":"MRT Jakarta Phase 1 (Lebak Bulus – Bundaran HI)","ppp":false},{"country":"Indonesia","no":13,"project":"Patimban Port Development Project (II) – Paket 6","ppp":false},{"country":"Indonesia","no":14,"project":"Jakarta Sewerage Development Project (JSDP) Zone 1 – Pluit WWTP","ppp":false},{"country":"Indonesia","no":15,"project":"KPBU Hang Nadim International Airport, Batam","ppp":true},{"country":"Indonesia","no":16,"project":"PLTU Jawa 9 & 10 (2 × 1,000 MW)","ppp":false},{"country":"Indonesia","no":17,"project":"Bendungan Karian, Lebak","ppp":false},{"country":"Indonesia","no":18,"project":"Karian Dam–Serpong Conveyance System","ppp":false},{"country":"Indonesia","no":19,"project":"PLTS IKN 50 MW + 14.2 MWh BESS","ppp":false},{"country":"Indonesia","no":20,"project":"PLTB Tolo-1 72 MW","ppp":false},{"country":"Kenya","no":1,"project":"Mombasa–Nairobi SGR (Phase 1)","ppp":false},{"country":"Kenya","no":2,"project":"Nairobi–Naivasha SGR (Phase 2A)","ppp":false},{"country":"Kenya","no":3,"project":"Nairobi–Nakuru–Mau Summit (Concession 1)","ppp":true},{"country":"Kenya","no":4,"project":"Thwake Dam (Phase I)","ppp":false},{"country":"Kenya","no":5,"project":"Kenya Urban Support Programme (KUSP I)","ppp":false},{"country":"Kenya","no":6,"project":"JKIA modernisation (design and build)","ppp":false},{"country":"Kenya","no":7,"project":"Ngong Rd–Naivasha Rd flyover","ppp":false},{"country":"Kenya","no":8,"project":"Mwache Multi-Purpose Dam","ppp":false},{"country":"Kenya","no":9,"project":"Isiolo–Mandera corridor (Elwak–Rhamu)","ppp":false},{"country":"Kenya","no":10,"project":"Kenol–Sagana–Marua Highway","ppp":false},{"country":"Kenya","no":11,"project":"Mombasa Gate Bridge (design verification)","ppp":false},{"country":"Kenya","no":12,"project":"Bomas International Convention Complex","ppp":true},{"country":"Kenya","no":13,"project":"Thiba Dam (Mwea irrigation, Package 1)","ppp":false},{"country":"Kenya","no":14,"project":"Nairobi Expressway","ppp":true},{"country":"Kenya","no":15,"project":"Last Mile Connectivity (Phase 1)","ppp":false},{"country":"Kenya","no":16,"project":"Lesseru–Kitale (B14) road, Lot 1","ppp":false},{"country":"Kenya","no":17,"project":"Itare Dam","ppp":false},{"country":"Kenya","no":18,"project":"Dongo Kundu Bypass","ppp":false},{"country":"Kenya","no":19,"project":"OrPower 22, Menengai geothermal","ppp":true},{"country":"Kenya","no":20,"project":"Sabor–Iten water supply","ppp":false},{"country":"Kenya","no":21,"project":"Loiyangalani–Suswa transmission line","ppp":false},{"country":"Malaysia","no":1,"project":"Kedah Solar Park – PPA TNB/1MDB Solar (Edra)","ppp":false},{"country":"Malaysia","no":2,"project":"Hanwha LSS3 Pekan – LSS PV PPA","ppp":true},{"country":"Malaysia","no":3,"project":"Kuantan Port Phase I – Privatisation Agreement","ppp":true},{"country":"Malaysia","no":4,"project":"Pahang–Selangor Water Tunnel – Lot 1-1","ppp":false},{"country":"Malaysia","no":5,"project":"ECRL – EPCC Agreement MRL–CCCC","ppp":false},{"country":"Malaysia","no":6,"project":"JB–Singapore RTS Link – Concession Agreement","ppp":false},{"country":"Malaysia","no":7,"project":"Jimah East Power (3B) – PPA","ppp":false},{"country":"Malaysia","no":8,"project":"Pulau Indah CCPP – PPA","ppp":true},{"country":"Malaysia","no":9,"project":"Coara Solar Park – PPA","ppp":false},{"country":"Malaysia","no":10,"project":"Second Penang Bridge – Package 1","ppp":false},{"country":"Malaysia","no":11,"project":"Quantum Solar Park – PPA, Gurun 50 MW plant","ppp":false},{"country":"Malaysia","no":12,"project":"Port of Tanjung Pelepas – Privatisation Agreement (1995)","ppp":true},{"country":"Nepal","no":1,"project":"Arun-3 Hydroelectric Project (900 MW) – Civil Package C-1","ppp":false},{"country":"Nepal","no":2,"project":"East-West Highway: Butwal–Gorusinghe–Chanauta (ACCESS Phase 1) – Lot-1","ppp":false},{"country":"Nepal","no":3,"project":"Hetauda–Dhalkebar–Inaruwa 400 kV Transmission Line (NIETTP) – Section 1","ppp":false},{"country":"Nepal","no":4,"project":"Kamala–Dhalkebar–Pathlaiya Road (SRCTIP) – Lot-3, ICB IV","ppp":false},{"country":"Nepal","no":5,"project":"Kanchanpur–Kamala Road Upgradation (SASEC Highway Improvement, ADB 52097-001)","ppp":false},{"country":"Nepal","no":6,"project":"Koshi Corridor 220 kV Transmission Line – Package KC-3","ppp":false},{"country":"Nepal","no":7,"project":"Manang Marsyangdi Hydro-electric Project (135 MW)","ppp":false},{"country":"Nepal","no":8,"project":"SASEC Mugling–Pokhara Highway Improvement – Package 2","ppp":false},{"country":"Nepal","no":9,"project":"Nagdhunga–Naubise–Mugling Road (SRCTIP) – ICB-2","ppp":false},{"country":"Nepal","no":10,"project":"Nagdhunga Tunnel Construction Project","ppp":false},{"country":"Nepal","no":11,"project":"Pokhara Regional International Airport","ppp":false},{"country":"Nepal","no":12,"project":"Rahughat Hydroelectric Project (40 MW) – Lot 1","ppp":false},{"country":"Nepal","no":13,"project":"Solu Corridor 132 kV Transmission Line","ppp":false},{"country":"Nepal","no":14,"project":"Sundarijal Water Treatment Plant (255 MLD) – KVWSIP Phase 2","ppp":false},{"country":"Nepal","no":15,"project":"Syaphrubesi–Rasuwagadhi Road Repair and Improvement (Section 3)","ppp":false},{"country":"Nepal","no":16,"project":"SASEC Airport Capacity Enhancement – TIA parallel taxiway (OCB-01)","ppp":false},{"country":"Nepal","no":17,"project":"Tanahu Hydropower (140 MW) – Phase 1 headworks","ppp":false},{"country":"Nepal","no":18,"project":"Rasuwa Dry Port, Timure (Frontier Inspection Station)","ppp":false},{"country":"Nepal","no":19,"project":"Improvement of Water Supply in Biratnagar – main package","ppp":false},{"country":"Nepal","no":20,"project":"Project for Improvement of Water Supply in Pokhara","ppp":false},{"country":"Nigeria","no":1,"project":"Zungeru 700 MW HPP – EPC contract","ppp":false},{"country":"Nigeria","no":2,"project":"Four Airport Terminals (Abuja, Kano, Lagos, Port Harcourt) – CCECC 2013 contract","ppp":false},{"country":"Nigeria","no":3,"project":"Lagos–Ibadan SGR (Segment 2) – CCECC","ppp":false},{"country":"Nigeria","no":4,"project":"Abuja (Idu)–Kaduna SGR – CCECC contract","ppp":false},{"country":"Nigeria","no":5,"project":"Kaduna–Kano SGR (Segment 3) – CCECC","ppp":false},{"country":"Nigeria","no":6,"project":"Abuja Light Rail Phase 1 (Lots 1 and 3) – CCECC EPC","ppp":false},{"country":"Nigeria","no":7,"project":"Greater Abuja Water Supply (Loops 1, 2, 5, 6)","ppp":false},{"country":"Nigeria","no":8,"project":"NICTIB Phase II – Huawei contract","ppp":false},{"country":"Nigeria","no":9,"project":"Lekki Deep Sea Port – BOOT concession","ppp":true},{"country":"Nigeria","no":10,"project":"Dadin Kowa 39–40 MW Hydropower – BOT concession (Mabon)","ppp":true},{"country":"Nigeria","no":11,"project":"Azura-Edo 459 MW IPP – PPA","ppp":true},{"country":"Nigeria","no":12,"project":"APM Terminals Apapa container terminal – 25-year concession","ppp":true},{"country":"Nigeria","no":13,"project":"West Africa Container Terminal (WACT), Onne – concession","ppp":true},{"country":"Nigeria","no":14,"project":"PTML Tin Can Island RoRo Terminal – BOT concession","ppp":true},{"country":"Nigeria","no":15,"project":"NETP contract NTP-TR4 Lot 1 – power transformer supply","ppp":false},{"country":"Nigeria","no":16,"project":"Zaria Water Supply Expansion and Sanitation – AfDF component","ppp":false},{"country":"Nigeria","no":17,"project":"Abia State Integrated Infrastructure Development Project (ABSIIDP) – 2021 design consultancy","ppp":false},{"country":"Nigeria","no":18,"project":"Abuja Feeding Scheme – three 132/33 kV substations (Sieyuan Electric)","ppp":false},{"country":"Nigeria","no":19,"project":"Abuja Feeding Scheme – New Apo & Lugbe West 330 kV substations (Grid Solutions)","ppp":false},{"country":"Nigeria","no":20,"project":"Apapa Road 132/33 kV substation – JICA grant (Takaoka)","ppp":false},{"country":"Philippines","no":1,"project":"SIDC – contract 20Z00008","ppp":false},{"country":"Philippines","no":2,"project":"Kaliwa Dam – EPC NCWS-KDP 001-2018","ppp":false},{"country":"Philippines","no":3,"project":"MMSP Phase I – CP102","ppp":false},{"country":"Philippines","no":4,"project":"Priority Bridges CP1 – North & South Harbor Bridge","ppp":false},{"country":"Philippines","no":5,"project":"Priority Bridges CP2 – Palanca-Villegas & Eastbank-Westbank 2","ppp":false},{"country":"Philippines","no":6,"project":"MRT-3 Rehabilitation – Sumitomo/MHI/TESP","ppp":false},{"country":"Philippines","no":7,"project":"Cebu BRT – Civil Works Package I","ppp":false},{"country":"Philippines","no":8,"project":"Jalaur River Stage II – Contract C-1","ppp":false},{"country":"Philippines","no":9,"project":"Samar Pacific Coastal Road Phase 1 – 17Z00002","ppp":false},{"country":"Philippines","no":10,"project":"Binondo–Intramuros Bridge – CRBC civil works","ppp":false},{"country":"Philippines","no":11,"project":"Chico River Pump Irrigation – EPC CRPIP-ICB-C-1","ppp":false},{"country":"Philippines","no":12,"project":"MM Priority Bridges Seismic – 22Z00019","ppp":false},{"country":"Philippines","no":13,"project":"NSCR PNR Clark Phase 1 – CP04 (E&M/track)","ppp":false},{"country":"Philippines","no":14,"project":"Malolos–Clark Railway – CP N-01","ppp":false},{"country":"Philippines","no":15,"project":"Davao DPTMP – Civil Works Contract 01","ppp":false},{"country":"Philippines","no":16,"project":"MMFMP Phase 1 – Balut pumping station 18Z00030","ppp":false},{"country":"Philippines","no":17,"project":"PDIP – National Fiber Backbone Ph 4–5 package","ppp":false},{"country":"Philippines","no":18,"project":"Panguil Bay Bridge – 18Z00026","ppp":false},{"country":"Philippines","no":19,"project":"China Aid Bridge and Road Project in Marawi","ppp":false},{"country":"Philippines","no":20,"project":"LRT-1 Cavite Extension – PPP Concession (2014)","ppp":true},{"country":"Sri Lanka","no":1,"project":"Climate Smart Irrigated Agriculture Project (CSIAP)","ppp":false},{"country":"Sri Lanka","no":2,"project":"Mahaweli Water Security Investment Program (MWSIP), Tranche I & II, Stage I","ppp":false},{"country":"Sri Lanka","no":3,"project":"Passenger Terminal Building & Associated Works, BIA Project","ppp":false},{"country":"Sri Lanka","no":4,"project":"National Transmission & Distribution Network Development Project","ppp":false},{"country":"Sri Lanka","no":5,"project":"Central Expressway Project, Section 1","ppp":false},{"country":"Sri Lanka","no":6,"project":"Port Access Elevated Highway","ppp":false},{"country":"Sri Lanka","no":7,"project":"Integrated Road Investment Program (i Road) - I","ppp":false},{"country":"Sri Lanka","no":8,"project":"Second Integrated Road Investment Program (i Road) - II","ppp":false},{"country":"Sri Lanka","no":9,"project":"Inclusive Connectivity and Development Project","ppp":false},{"country":"Sri Lanka","no":10,"project":"Kandy Multimodal Transport Terminal Development Project","ppp":false},{"country":"Sri Lanka","no":11,"project":"Railway Development Project (Improvement of Maho to Omanthai Railway Line)","ppp":false},{"country":"Sri Lanka","no":12,"project":"Construction of 2,000 Housing Units under the Chinese Aid Programme for Low-Income People","ppp":false},{"country":"Sri Lanka","no":13,"project":"Gampaha, Attanagalla & Minuwangoda Integrated Water Supply Scheme","ppp":false},{"country":"Sri Lanka","no":14,"project":"Polgahawela, Pothuhera & Alawwa Integrated Water Supply Project","ppp":false},{"country":"Sri Lanka","no":15,"project":"Aluthgama Mathugama Agalawatta Integrated Water Supply Project","ppp":false},{"country":"Sri Lanka","no":16,"project":"Kandy City Wastewater Management Project (Package 2)","ppp":false},{"country":"Sri Lanka","no":17,"project":"Water Supply and Sanitation Improvement Project, Phase I","ppp":false},{"country":"Sri Lanka","no":18,"project":"Kandy North Pathadumbara Integrated Water Supply Scheme","ppp":false},{"country":"Sri Lanka","no":19,"project":"Anuradhapura North Water Supply Project Phase II","ppp":false},{"country":"Sri Lanka","no":20,"project":"Indian Funded 10,000 Housing Programme","ppp":false}];
+const HELD={};
+const ABSENT=[];
+// Infra Watch DQA 20 percent draw. Deterministic from (seed, country).
+function fnv1a(str){let h=0x811c9dc5;const b=new TextEncoder().encode(str);for(const c of b){h^=c;h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
+function mulberry32(a){return function(){a|=0;a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return ((t^(t>>>14))>>>0)/4294967296;};}
+function shuffle(items,rand){const a=items.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function drawCountry(country,rows,seed,minppp){
+  const n=rows.length,k=Math.ceil(n/5);
+  const ppp=rows.filter(r=>r.ppp).sort((a,b)=>a.no-b.no),oth=rows.filter(r=>!r.ppp).sort((a,b)=>a.no-b.no);
+  let kp=Math.min(ppp.length,Math.floor(k*ppp.length/n+0.5));if(minppp&&ppp.length&&kp===0)kp=1;let ko=k-kp;
+  const rand=mulberry32(fnv1a(seed+'|'+country));
+  const sp=shuffle(ppp,rand),so=shuffle(oth,rand);
+  return {country,n,p:ppp.length,k,kp,ko,orderPpp:sp.map(r=>r.no),orderOther:so.map(r=>r.no),picks:sp.slice(0,kp).concat(so.slice(0,ko)).sort((a,b)=>a.no-b.no)};
+}
+
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const reduce=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* theme: light by default, dark on request, remembered per browser */
+const root=document.documentElement, tb=$('theme');
+function setTheme(t){if(t==='dark'){root.dataset.theme='dark';tb.textContent='Light';tb.setAttribute('aria-pressed','true');}else{delete root.dataset.theme;tb.textContent='Dark';tb.setAttribute('aria-pressed','false');}try{localStorage.setItem('iw-draw-theme',t);}catch(e){}}
+try{setTheme(localStorage.getItem('iw-draw-theme')==='dark'?'dark':'light');}catch(e){}
+tb.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
+/* seeds: the proposed one by default, the one in the link if there is one, a fresh one on every press */
+function seedFromHash(){const h=decodeURIComponent(location.hash.slice(1));return /^IW-[A-Z0-9-]{3,40}$/.test(h)?h:null;}
+function newSeed(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',b=new Uint8Array(4);crypto.getRandomValues(b);const d=new Date();return 'IW-'+d.getUTCFullYear()+String(d.getUTCMonth()+1).padStart(2,'0')+String(d.getUTCDate()).padStart(2,'0')+'-'+[...b].map(x=>A[x%32]).join('');}
+let SEED=seedFromHash()||PROPOSED, res=[], live=[], tot=0, totP=0, N=0;
+const fp=fnv1a(JSON.stringify(FRAME)).toString(16).padStart(8,'0');
+const countries=[...new Set(FRAME.map(f=>f.country))].sort();
+function compute(seed){
+  res=countries.map(c=>{const rows=FRAME.filter(f=>f.country===c);const d=drawCountry(c,rows,seed);d.rows=rows.slice().sort((a,b)=>a.no-b.no);d.held=!!HELD[c];return d;});
+  live=res.filter(d=>!d.held);tot=live.reduce((a,d)=>a+d.k,0);totP=live.reduce((a,d)=>a+d.kp,0);N=live.reduce((a,d)=>a+d.n,0);
+}
+compute(SEED);
+const host=$('rows');
+for(const d of res){
+  const sec=document.createElement('section');sec.className='p'+(d.held?' held':'');sec.dataset.country=d.country;
+  sec.innerHTML=`<div><h2>${d.country}</h2><span class="k">${d.n} listed${d.p?' · '+d.p+' PPP':''}</span></div>
+  <div class="coins">${d.rows.map(r=>`<button class="c" type="button" data-no="${r.no}" data-name="${esc(r.project)}" data-ppp="${r.ppp?1:''}"></button>`).join('')}</div>
+  ${d.held?`<p class="picks" style="opacity:1"><em>${esc(HELD[d.country])}</em></p>`:`<ol class="picks"></ol>`}`;
+  host.appendChild(sec);
+}
+for(const [c,why] of ABSENT){const sec=document.createElement('section');sec.className='p held';sec.innerHTML=`<div><h2>${c}</h2><span class="k">${why}</span></div><div class="coins"></div>`;host.appendChild(sec);}
+function labelCoins(){for(const d of res){const sec=host.querySelector(`[data-country="${d.country}"]`);const set=new Set(d.picks.map(r=>r.no));sec.querySelectorAll('.c').forEach(c=>{const drawn=!d.held&&set.has(+c.dataset.no);c.dataset.in=drawn?'1':'';c.setAttribute('aria-label',`#${c.dataset.no} ${c.dataset.name}${c.dataset.ppp?', PPP':''}${drawn?', drawn':''}`);});
+  if(!d.held)sec.querySelector('.picks').innerHTML=d.picks.map(r=>`<li><span class="no">#${r.no}</span>${esc(r.project)}${r.ppp?'<span class="ppp">PPP</span>':''}</li>`).join('');}}
+function stamp(){$('h').innerHTML=`<b>${tot} projects</b> go to review.`;
+  $('sub').textContent=`One in five from each of ${live.length} partners' project lists (${N} projects), ${totP} of them PPP. Every draw has a seed, so its link replays exactly the same ${tot}. Press Draw again for a fresh one; the seed CIPE accepts becomes the record. Hover or tap a coin to see its project.`;
+  $('seedv').textContent=SEED;$('seedtag').textContent=SEED===PROPOSED?'· proposed':'· drawn here';
+  $('meta').textContent=`list fingerprint ${fp} · Jolo's final list, 9 Nov 2026 · Michael Cengkuru, CoST, for the CIPE Infrastructure Watch programme`;}
+$('how').textContent=`The list is Jolo's final list of country files: 194 scored projects in 10 countries, as it stood on 9 November 2026. For each country, one in five is drawn, rounded up; PPP projects form their own stratum and are drawn in proportion. The seed and the country name feed a fixed random generator (FNV-1a into mulberry32), each stratum is shuffled once in list order, and the first projects are taken. Countries are drawn independently, so a correction to one country's list changes only that country's draw. Pressing Draw again makes a fresh seed from the browser's random source and writes it into the link, so any draw can be replayed by its link. The tumbling red coins are the animation; the result comes from the seed alone. The 2 November draw on the earlier list stays on its own page. Partners score; CoST flags; CIPE decides the method.`;
+/* tooltip: hover or focus a coin, tap on touch */
+const tip=$('tip');let onCoin=null;
+function showTip(c){onCoin&&onCoin.classList.remove('on');onCoin=c;c.classList.add('on');tip.innerHTML=`<span class="no">#${c.dataset.no}</span>${c.dataset.name}${c.dataset.ppp?'<span class="ppp"> · PPP</span>':''}${c.dataset.in?' · drawn':''}`;tip.setAttribute('aria-hidden','false');tip.classList.add('show');const r=c.getBoundingClientRect();tip.style.left='0px';tip.style.top='0px';const w=tip.offsetWidth,h=tip.offsetHeight;let x=r.left+r.width/2-w/2,y=r.top-h-10;if(y<8)y=r.bottom+10;x=Math.max(8,Math.min(x,innerWidth-w-8));tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.classList.remove('show');tip.setAttribute('aria-hidden','true');onCoin&&onCoin.classList.remove('on');onCoin=null;}
+host.addEventListener('pointerover',e=>{const c=e.target.closest('.c');if(c)showTip(c);});
+host.addEventListener('pointerout',e=>{if(e.target.closest('.c')&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.c')))hideTip();});
+host.addEventListener('focusin',e=>{const c=e.target.closest('.c');if(c)showTip(c);});
+host.addEventListener('focusout',e=>{if(e.target.closest('.c'))hideTip();});
+host.addEventListener('click',e=>{const c=e.target.closest('.c');if(!c)return;if(onCoin===c&&tip.classList.contains('show'))hideTip();else showTip(c);});
+addEventListener('scroll',()=>{if(onCoin)showTip(onCoin);},{passive:true});
+/* the tumble: red flickers across each partner's coins, slowing until the seed's picks land */
+let running=false;
+function tumble(sec,picks,delay){return new Promise(done=>{
+  const coins=[...sec.querySelectorAll('.c')],k=Math.min(picks.size,coins.length),D=1900;
+  coins.forEach(c=>c.classList.remove('in','pop','lit'));
+  const settle=()=>{coins.forEach(c=>{c.classList.remove('lit');if(picks.has(+c.dataset.no))c.classList.add('in','pop');});done();};
+  if(reduce()){settle();return;}
+  const start=performance.now()+delay;let next=start;
+  (function frame(now){
+    if(now<start){requestAnimationFrame(frame);return;}
+    const p=Math.min(1,(now-start)/D);
+    if(now>=next){coins.forEach(c=>c.classList.remove('lit'));const idx=new Set();while(idx.size<k)idx.add(Math.floor(Math.random()*coins.length));idx.forEach(i=>coins[i].classList.add('lit'));next=now+28+520*p*p*p;}
+    if(p<1)requestAnimationFrame(frame);else settle();
+  })(performance.now());
+});}
+async function play(){
+  if(running)return;running=true;$('draw').disabled=true;hideTip();
+  labelCoins();stamp();
+  host.querySelectorAll('.picks li').forEach(l=>l.classList.remove('show'));
+  const jobs=[];let i=0;
+  for(const d of live){const sec=host.querySelector(`[data-country="${d.country}"]`);const set=new Set(d.picks.map(r=>r.no));
+    jobs.push(tumble(sec,set,reduce()?0:200+i*170).then(()=>{const li=[...sec.querySelectorAll('.picks li')];li.forEach((l,j)=>setTimeout(()=>l.classList.add('show'),reduce()?0:120+j*90));}));i++;}
+  await Promise.all(jobs);
+  running=false;$('draw').disabled=false;$('draw').classList.remove('go');
+}
+$('draw').addEventListener('click',()=>{if(running)return;SEED=newSeed();compute(SEED);history.replaceState(null,'','#'+SEED);$('draw').classList.add('go');play();});
+addEventListener('hashchange',()=>{const s=seedFromHash();if(s&&s!==SEED&&!running){SEED=s;compute(SEED);play();}});
+/* record and downloads, always for the draw on screen */
+function log(){const L=['INFRA WATCH DATA QUALITY REVIEW · ONE IN FIVE DRAW','Seed: '+SEED+(SEED===PROPOSED?' (proposed)':''),'Link: '+location.origin+location.pathname+'#'+SEED,'Frame: Jolo's final list, 9 Nov 2026, 194 scored projects in 10 countries; '+FRAME.length+' projects; fingerprint fnv1a '+fp,'Rule: per partner ceil(n/5); PPP stratum in proportion, rounded to nearest; fnv1a(seed|partner) -> mulberry32 -> Fisher-Yates per stratum in list order'];
+  for(const d of res){L.push('',d.country.toUpperCase()+' · listed '+d.n+' · PPP '+d.p+(d.held?' · HELD: '+HELD[d.country]:' · drawn '+d.k+' ('+d.kp+' PPP)'));if(d.held)continue;
+    for(const r of d.picks)L.push('  #'+r.no+'  '+r.project+(r.ppp?'  | PPP':''));
+    L.push('  shuffle order PPP: '+(d.orderPpp.join(',')||'none')+' · other: '+d.orderOther.join(','));}
+  for(const [c,why] of ABSENT)L.push('',c.toUpperCase()+' · '+why);
+  L.push('','TOTAL drawn '+tot+' of '+N+' listed across '+live.length+' partners; PPP drawn '+totP);return L.join('\n');}
+function toast(m){const t=$('toast');t.textContent=m;setTimeout(()=>t.textContent='',3000);}
+async function copy(text,ok){try{await navigator.clipboard.writeText(text);toast(ok);}catch(e){toast('Clipboard blocked here.');}}
+$('copy').addEventListener('click',()=>copy(log(),'Copied.'));
+$('link').addEventListener('click',()=>copy(location.origin+location.pathname+'#'+SEED,'Link copied.'));
+const PROV=()=>`Infra Watch data quality review. One-in-five draw, seed ${SEED}${SEED===PROPOSED?' (proposed)':''}. Frame: Jolo's final list, 9 Nov 2026, 194 scored projects in 10 countries. Partners score; CoST flags; CIPE decides the method.`;
+function tables(){const drawn=new Map(res.map(d=>[d.country,new Set(d.picks.map(r=>r.no))]));
+  const full=[['Country','No','Project','Sector','PPP','Drawn']],short=[['Country','No','Project','PPP']];
+  for(const r of FRAME.slice().sort((a,b)=>a.country.localeCompare(b.country)||a.no-b.no)){const held=!!HELD[r.country],isD=!held&&drawn.get(r.country).has(r.no);
+    full.push([r.country,r.no,r.project,r.sector||'',r.ppp?'Yes':'No',held?'Held':isD?'Yes':'No']);if(isD)short.push([r.country,r.no,r.project,r.ppp?'Yes':'No']);}
+  return {full,short};}
+function csv(rows){return rows.map(r=>r.map(v=>{v=String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}).join(',')).join('\n')+'\n';}
+function save(name,blob){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);}
+function dl(kind,fmt){const t=tables()[kind],name=`infra-watch-${kind==='short'?'shortlist':'full-list'}-${SEED}`;
+  if(fmt==='csv'){save(name+'.csv',new Blob(['﻿'+csv(t)+'\n'+PROV()+'\n'],{type:'text/csv;charset=utf-8'}));return;}
+  if(typeof XLSX==='undefined'){toast('Excel library did not load; use CSV.');return;}
+  const ws=XLSX.utils.aoa_to_sheet([...t,[],[PROV()]]);ws['!cols']=kind==='short'?[{wch:14},{wch:6},{wch:70},{wch:7}]:[{wch:14},{wch:6},{wch:70},{wch:22},{wch:7},{wch:8}];
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,kind==='short'?'Shortlist':'Full list');XLSX.writeFile(wb,name+'.xlsx');}
+for(const [id,kind,fmt] of [['dl-short-csv','short','csv'],['dl-short-xlsx','short','xlsx'],['dl-full-csv','full','csv'],['dl-full-xlsx','full','xlsx']])$(id).addEventListener('click',e=>{e.preventDefault();dl(kind,fmt);});
+play();
+</script>
+</body>
+</html>
